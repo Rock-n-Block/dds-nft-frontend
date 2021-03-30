@@ -1,0 +1,40 @@
+.swiper {
+  &-navigation {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    cursor: pointer;
+
+    background: #fafafa;
+    border-radius: 30px;
+    box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+
+    transform: translateY(-50%);
+
+    &-next {
+      right: -21px;
+    }
+
+    &-prev {
+      left: -21px;
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &-button {
+    &-disabled {
+      display: none;
+    }
+  }
+}
