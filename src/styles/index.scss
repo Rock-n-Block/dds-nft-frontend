@@ -1,0 +1,43 @@
+@import './reset';
+@import './fonts';
+@import './vars';
+@import './typography';
+@import '~antd/dist/antd.css';
+@import './components/index.scss';
+
+html,
+body {
+  margin: 0;
+
+  height: max-content;
+
+  font-family: MR;
+
+  color: #000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  height: max-content;
+}
+
+.emperor {
+  display: flex;
+  flex-direction: column;
+
+  height: max-content;
+}
+
+main {
+  flex-grow: 2;
+}
+
+.row {
+  margin: 0 auto;
+  padding: 0 10px;
+
+  max-width: 1340px;
+}
