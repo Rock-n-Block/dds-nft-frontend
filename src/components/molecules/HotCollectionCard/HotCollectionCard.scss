@@ -1,0 +1,37 @@
+.hot-col-card {
+  padding: 10px;
+
+  max-width: 320px;
+
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+
+  &__box {
+    display: grid;
+    justify-content: space-between;
+
+    width: 100%;
+    grid-template-columns: repeat(3, 97px);
+    grid-template-rows: repeat(2, 97px);
+    grid-row-gap: 10px;
+    margin-bottom: 15px;
+
+    &-img {
+      overflow: hidden;
+
+      height: 100%;
+
+      border-radius: 12px;
+
+      img {
+        height: 100%;
+      }
+
+      &-empty {
+        background: #f0f0f0;
+        border-radius: 12px;
+      }
+    }
+  }
+}

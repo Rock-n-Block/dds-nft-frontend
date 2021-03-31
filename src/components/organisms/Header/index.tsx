@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import LogoImg from '../../assets/img/icons/logo.svg';
-import Button from '../Button/index';
+import LogoImg from '../../../assets/img/icons/logo.svg';
+import { Button } from '../../atoms';
 
 import './Header.scss';
 

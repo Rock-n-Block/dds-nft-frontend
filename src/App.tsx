@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Header } from './components';
+import { Header } from './components/organisms';
 import { HomePage } from './pages';
 
 import './styles/index.scss';

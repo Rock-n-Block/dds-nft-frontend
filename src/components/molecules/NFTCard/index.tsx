@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
-import UserMini from '../UserMini';
+import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
+import { UserMini } from '../../atoms';
 
 import './NFTCard.scss';
 
-interface INFTCard {
+export interface INFTCard {
   img: string;
   name: string;
   auction?: {

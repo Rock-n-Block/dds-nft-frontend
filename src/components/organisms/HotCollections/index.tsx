@@ -2,22 +2,25 @@ import React from 'react';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import ArrowImg from '../../assets/img/icons/swiper-arrow.svg';
-import HotImg from '../../assets/img/mock/hot.jpg';
-import NFTCard from '../NFTCard';
+import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
+import HotCollectionCard, { IHotCollectionCard } from '../../molecules/HotCollectionCard';
 
-import './HotBids.scss';
+import './HotCollections.scss';
 
 SwiperCore.use([Navigation]);
 
-const HotBids: React.FC = () => {
+interface IHotCollections {
+  items: IHotCollectionCard[];
+}
+
+const HotCollections: React.FC<IHotCollections> = ({ items }) => {
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
   return (
-    <div className="h-bids">
+    <div className="h-collections">
       <div className="row">
-        <h2 className="h-bids__title h1-md text-bold">Hot bids 🚀</h2>
-        <div className="h-bids__box">
+        <div className="h-collections__title text-bold h1-md">Hot collections</div>
+        <div className="h-collections__slider">
           <div ref={prevRef} className="swiper-navigation swiper-navigation-prev">
             <img src={ArrowImg} alt="arrow" />
           </div>
@@ -26,7 +29,8 @@ const HotBids: React.FC = () => {
           </div>
           <Swiper
             spaceBetween={20}
-            slidesPerView="auto"
+            slidesPerView={4}
+            slidesPerGroup={4}
             navigation={{
               prevEl: prevRef.current!, // Assert non-null
               nextEl: nextRef.current!, // Assert non-null
@@ -42,25 +46,10 @@ const HotBids: React.FC = () => {
               swiper.params.navigation.nextEl = nextRef.current;
               swiper.navigation.update();
             }}
-            className="h-bids__slider"
           >
-            {new Array(10).fill(0).map(() => (
-              <SwiperSlide className="h-bids__slide">
-                <NFTCard
-                  img={HotImg}
-                  name="SuperPunks #21 Gamora"
-                  auction={{
-                    count: 200,
-                    sold: 1,
-                    bid: 3.33,
-                  }}
-                  artist={{
-                    name: 'DicraKiller',
-                  }}
-                  owner={{
-                    name: 'DicraKiller',
-                  }}
-                />
+            {items.map((item) => (
+              <SwiperSlide className="h-collections__slide">
+                <HotCollectionCard tokens={item.tokens} user={item.user} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -70,4 +59,4 @@ const HotBids: React.FC = () => {
   );
 };
 
-export default HotBids;
+export default HotCollections;

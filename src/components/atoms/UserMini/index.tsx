@@ -3,22 +3,35 @@ import classNames from 'classnames';
 
 import './UserMini.scss';
 
-interface IUserMini {
+export interface IUserMini {
   img: string;
-  topText: React.ReactElement;
-  bottomText: React.ReactElement;
+  topText: React.ReactElement | string;
+  bottomText: React.ReactElement | string;
   className?: string;
   shadow?: boolean;
+  id?: number;
+  imgSize?: 'lg';
 }
 
-const UserMini: React.FC<IUserMini> = ({ img, topText, bottomText, className, shadow }) => {
+const UserMini: React.FC<IUserMini> = ({
+  img,
+  topText,
+  bottomText,
+  className,
+  shadow,
+  imgSize,
+}) => {
   return (
     <div
       className={classNames('u-mini', className, {
         'u-mini__no-shadow': !shadow,
       })}
     >
-      <div className="u-mini__box-img">
+      <div
+        className={classNames('u-mini__box-img', {
+          'u-mini__box-img-lg': imgSize === 'lg',
+        })}
+      >
         <img src={img} alt="owner name" className="u-mini__img" />
       </div>
 

@@ -1,10 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
 
-// import UserMini from '../UserMini';
+import UserMini, { IUserMini } from '../../atoms/UserMini';
+
 import './TopUsers.scss';
 
-const TopUsers: React.FC = () => {
+interface ITopUsers {
+  users: IUserMini[];
+}
+
+const TopUsers: React.FC<ITopUsers> = ({ users }) => {
   const [activeType, setActiveType] = React.useState<string>('sellers');
   const [activeDay, setActiveDay] = React.useState<number>(1);
   const first = ['sellers', 'buyers'];
@@ -56,6 +61,20 @@ const TopUsers: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div className="t-users__content">
+          {users.map((user, index) => (
+            <div className="t-users__user">
+              <div className="t-users__user-index">{index + 1}.</div>
+              <UserMini
+                key={user.id}
+                img={user.img}
+                topText={<span className="text-bold t-users__user-name">{user.topText}</span>}
+                bottomText={<span className="text-gray text-sm">{user.bottomText}</span>}
+                imgSize="lg"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

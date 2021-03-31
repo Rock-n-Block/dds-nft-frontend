@@ -1,5 +1,6 @@
 .u-mini {
   padding-right: 10px;
+  width: fit-content;
 
   display: flex;
   align-items: center;
@@ -14,9 +15,9 @@
   }
 
   &__box {
-    margin-left: 5px;
-
     &-img {
+      margin-right: 5px;
+
       display: block;
       overflow: hidden;
 
@@ -24,6 +25,13 @@
       height: 32px;
 
       border-radius: 50%;
+
+      &-lg {
+        margin-right: 8px;
+
+        width: 51px;
+        height: 51px;
+      }
 
       img {
         width: 100%;
