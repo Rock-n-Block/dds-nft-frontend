@@ -5,7 +5,7 @@ import PreviewImg from '../../assets/img/mock/home-preview.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
-import { HotBids, HotCollections, TopUsers } from '../../components/organisms';
+import { Explore, HotBids, HotCollections, TopUsers } from '../../components/organisms';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -229,6 +229,9 @@ const Home: React.FC = () => {
       </div>
       <div className="home__collections">
         <HotCollections items={hotCollections} />
+      </div>
+      <div className="home__explore">
+        <Explore />
       </div>
     </main>
   );

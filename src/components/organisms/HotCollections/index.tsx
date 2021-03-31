@@ -19,7 +19,7 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
   return (
     <div className="h-collections">
       <div className="row">
-        <div className="h-collections__title text-bold h1-md">Hot collections</div>
+        <h2 className="h-collections__title text-bold h1-md">Hot collections</h2>
         <div className="h-collections__slider">
           <div ref={prevRef} className="swiper-navigation swiper-navigation-prev">
             <img src={ArrowImg} alt="arrow" />

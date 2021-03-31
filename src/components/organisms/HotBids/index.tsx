@@ -49,7 +49,7 @@ const HotBids: React.FC<IHotBids> = ({ cards }) => {
             className="h-bids__slider"
           >
             {cards.map((card) => (
-              <SwiperSlide className="h-bids__slide">
+              <SwiperSlide key={card.name + Math.random} className="h-bids__slide">
                 <NFTCard {...card} />
               </SwiperSlide>
             ))}

@@ -8,7 +8,7 @@ import './Header.scss';
 
 const Header: React.FC = () => {
   return (
-    <header className="header">
+    <header className="header box-shadow">
       <div className="row">
         <div className="header__content">
           <div className="header__box">

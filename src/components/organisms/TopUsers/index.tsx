@@ -69,6 +69,7 @@ const TopUsers: React.FC<ITopUsers> = ({ users }) => {
               <UserMini
                 key={user.id}
                 img={user.img}
+                isCheck
                 topText={<span className="text-bold t-users__user-name">{user.topText}</span>}
                 bottomText={<span className="text-gray text-sm">{user.bottomText}</span>}
                 imgSize="lg"

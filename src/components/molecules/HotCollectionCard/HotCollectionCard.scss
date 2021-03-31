@@ -8,6 +8,8 @@
   border-radius: 12px;
 
   &__box {
+    margin-bottom: 15px;
+
     display: grid;
     justify-content: space-between;
 
@@ -15,7 +17,6 @@
     grid-template-columns: repeat(3, 97px);
     grid-template-rows: repeat(2, 97px);
     grid-row-gap: 10px;
-    margin-bottom: 15px;
 
     &-img {
       overflow: hidden;
