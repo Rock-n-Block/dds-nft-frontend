@@ -12,10 +12,10 @@ const Explore: React.FC = () => {
     {
       img: HotImg,
       name: 'SuperPunks #21 Gamora',
-      auction: {
+      bid: {
         count: 100,
         sold: 1,
-        bid: 3.33,
+        price: 3.33,
       },
       artist: {
         name: 'DicraKiller',
@@ -537,6 +537,8 @@ const Explore: React.FC = () => {
   ];
   const filters = ['Photography', 'Games', 'Metaverse', 'Music', 'Domains', 'DeFi', 'Memes'];
 
+  const sortItems = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low'];
+
   const [test, setTest] = React.useState(hotBids);
   const [activeFilter, setActiveFilter] = React.useState(filters[0]);
 
@@ -546,13 +548,22 @@ const Explore: React.FC = () => {
   const handleFilterChange = (value: string[]): void => {
     console.log(value);
     setActiveFilter(value[0]);
-    setTest(test.filter((item) => item.auction.count === 100));
+    setTest(test.filter((item) => item.auction?.count === 100));
+  };
+  const handleSortChage = (value: string): void => {
+    console.log(value);
   };
   return (
     <div className="explore">
       <div className="row">
         <h2 className="explore__title h1-md text-bold">Explore</h2>
-        <Filter isAllFilterItem filters={filters} onChange={handleFilterChange} />
+        <Filter
+          isAllFilterItem
+          filters={filters}
+          onChange={handleFilterChange}
+          onChangeSort={handleSortChage}
+          sortItems={sortItems}
+        />
         <div className="explore__content">
           <Masonry
             key={activeFilter}

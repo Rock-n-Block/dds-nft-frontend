@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
-import { UserMini } from '../../atoms';
+import { Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
 
@@ -14,15 +14,27 @@ export interface INFTCard {
     sold: number | string;
     bid: number | string;
   };
+  bid?: {
+    price: number | string;
+    sold: number | string;
+    count: number | string;
+  };
   artist: {
     name: string;
   };
   owner?: {
     name: string;
   };
+  like?: boolean;
 }
 
-const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner }) => {
+const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner, bid, like }) => {
+  const [isLike, setLike] = React.useState(like);
+
+  const handleLike = (): void => {
+    console.log(1);
+    setLike(!isLike);
+  };
   return (
     <div className="nft-card">
       <Link to="/" className="nft-card__box-img">
@@ -38,7 +50,7 @@ const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner }) => {
               <div className="nft-card__auction">
                 <div className="nft-card__auction-text text-purple-l text-bold">Auction</div>
                 <div className="nft-card__auction-text text-gray text-bold">
-                  {auction?.count} of {auction?.sold}
+                  {auction?.sold} of {auction?.count}
                 </div>
               </div>
               <div className="nft-card__auction nft-card__auction-bid">
@@ -51,8 +63,30 @@ const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner }) => {
           ) : (
             ''
           )}
+          {bid ? (
+            <>
+              <div className="nft-card__auction">
+                <div className="nft-card__auction-bid-box box-shadow">
+                  <span className="text-grad text-bold">{bid?.price} ETH</span>
+                </div>
+                <div className="nft-card__auction-text text-gray text-bold">
+                  {bid?.sold} of {bid?.count}
+                </div>
+              </div>
+              <div className="nft-card__auction">
+                <Link to="/" className="text-bold text-purple-l">
+                  Place a bid
+                </Link>
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </div>
         <div className="nft-card__box nft-card__box-users">
+          <div className="nft-card__like">
+            <Like onClick={handleLike} like={isLike} />
+          </div>
           <UserMini
             className="nft-card__user"
             img={PreviewOwnerImg}

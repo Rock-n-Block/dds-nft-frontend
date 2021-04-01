@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import { Sort } from '../../molecules';
+
 import './Filter.scss';
 
 interface IFilter {
@@ -8,6 +10,8 @@ interface IFilter {
   isAllFilterItem?: boolean;
   isMultipleValues?: boolean;
   onChange: (activeFilters: string[]) => void;
+  sortItems: string[];
+  onChangeSort: (sort: string) => void;
 }
 
 const Filter: React.FC<IFilter> = ({
@@ -15,6 +19,8 @@ const Filter: React.FC<IFilter> = ({
   isAllFilterItem = false,
   isMultipleValues = false,
   onChange,
+  sortItems,
+  onChangeSort,
 }) => {
   const [activeFilter, setActiveFilter] = React.useState<string[]>([filters[0]]);
 
@@ -72,6 +78,7 @@ const Filter: React.FC<IFilter> = ({
           </div>
         ))}
       </div>
+      <Sort items={sortItems} onChange={onChangeSort} />
     </div>
   );
 };

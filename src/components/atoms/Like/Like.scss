@@ -1,0 +1,12 @@
+.like {
+  cursor: pointer;
+
+  &.active {
+    svg {
+      path {
+        fill: url(#gradient);
+        stroke: url(#gradient);
+      }
+    }
+  }
+}
