@@ -11,4 +11,15 @@ input {
       margin-top: 20px;
     }
   }
+
+  &__search {
+    padding: 20px 20px 20px 0;
+
+    background: transparent !important;
+    border: none;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
 }

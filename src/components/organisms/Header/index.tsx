@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
 import { Button } from '../../atoms';
@@ -12,7 +12,9 @@ const Header: React.FC = () => {
       <div className="row">
         <div className="header__content">
           <div className="header__box">
-            <img src={LogoImg} alt="dds" className="header__logo" />
+            <Link to="/">
+              <img src={LogoImg} alt="dds" className="header__logo" />
+            </Link>
             <div className="header__nav">
               <NavLink exact to="/" className="header__nav-item text-bold">
                 Explore

@@ -5,7 +5,7 @@ import PreviewImg from '../../assets/img/mock/home-preview.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
-import { Explore, HotBids, HotCollections, TopUsers } from '../../components/organisms';
+import { Explore, HotBids, HotCollections, Search, TopUsers } from '../../components/organisms';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -208,6 +208,9 @@ const Home: React.FC = () => {
             topText={<span className="text-gray text-mm text-upper">Owner</span>}
             bottomText={<span className="text-purple-l">DicraKiller</span>}
           />
+        </div>
+        <div className="home__preview-search">
+          <Search />
         </div>
         <div className="row">
           <h1 className="home__preview-title h1 text-white text-center text-bold">

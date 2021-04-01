@@ -19,6 +19,16 @@
       right: 20px;
       bottom: 50px;
     }
+
+    &-search {
+      position: absolute;
+      left: 50%;
+      bottom: -30px;
+
+      width: 69.444vw;
+
+      transform: translateX(-50%);
+    }
   }
 
   &__hot {

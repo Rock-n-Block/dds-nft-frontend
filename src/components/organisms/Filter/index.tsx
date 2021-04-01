@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { Sort } from '../../molecules';
+import Sort from '../Sort';
 
 import './Filter.scss';
 

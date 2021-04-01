@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  background: #fff;
+  border-radius: 30px;
+
+  &__img {
+    padding: 20px 15px;
+
+    width: max-content;
+    height: 100%;
+
+    cursor: pointer;
+
+    img {
+      width: 17px;
+    }
+  }
+}

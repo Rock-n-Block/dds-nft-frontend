@@ -5,11 +5,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import ScollToTop from './utils/ScollToTop';
 import App from './App';
 
 ReactDOM.render(
   <Router>
-    <App />
+    <ScollToTop>
+      <App />
+    </ScollToTop>
   </Router>,
   document.getElementById('root'),
 );

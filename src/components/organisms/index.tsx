@@ -5,3 +5,5 @@ export { default as HotBids } from './HotBids';
 export { default as HotCollections } from './HotCollections';
 export { default as Explore } from './Explore';
 export { default as Filter } from './Filter';
+export { default as Sort } from './Sort';
+export { default as Search } from './Search';
