@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -48,7 +49,7 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
             }}
           >
             {items.map((item) => (
-              <SwiperSlide className="h-collections__slide">
+              <SwiperSlide className="h-collections__slide" key={nextId()}>
                 <HotCollectionCard tokens={item.tokens} user={item.user} />
               </SwiperSlide>
             ))}

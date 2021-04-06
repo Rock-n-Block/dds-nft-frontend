@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 
 import { UserMini } from '../../atoms';
@@ -17,15 +18,15 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({ tokens, user }) => {
   return (
     <div className="hot-col-card">
       <Link to="/" className="hot-col-card__box">
-        {new Array(6).fill(Math.random).map((item, index) => {
+        {new Array(6).fill(0).map((item, index) => {
           if (tokens[index]) {
             return (
-              <div key={item} className="hot-col-card__box-img">
+              <div key={nextId()} className="hot-col-card__box-img">
                 <img src={tokens[index]} alt="token" />
               </div>
             );
           }
-          return <div key={item} className="hot-col-card__box-img-empty" />;
+          return <div key={nextId()} className="hot-col-card__box-img-empty" />;
         })}
       </Link>
       <UserMini

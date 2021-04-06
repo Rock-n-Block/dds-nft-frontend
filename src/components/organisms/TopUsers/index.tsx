@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 import classNames from 'classnames';
 
 import UserMini, { IUserMini } from '../../atoms/UserMini';
@@ -64,7 +65,7 @@ const TopUsers: React.FC<ITopUsers> = ({ users }) => {
         </div>
         <div className="t-users__content">
           {users.map((user, index) => (
-            <div className="t-users__user">
+            <div className="t-users__user" key={nextId()}>
               <div className="t-users__user-index">{index + 1}.</div>
               <UserMini
                 key={user.id}

@@ -1,12 +1,27 @@
 .like {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
 
-  &.active {
-    svg {
-      path {
-        fill: url(#gradient);
-        stroke: url(#gradient);
+  &__item {
+    height: 17px;
+
+    cursor: pointer;
+
+    &.active {
+      svg {
+        path {
+          fill: url(#gradient);
+          stroke: url(#gradient);
+        }
       }
     }
+
+    &-big {
+      height: 21px;
+    }
+  }
+
+  &__count {
+    margin-left: 10px;
   }
 }

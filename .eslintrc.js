@@ -69,6 +69,7 @@ module.exports = {
         ],
         'sort-imports': 'off',
         'import/order': 'off',
+        "no-debugger": "off",
         'import/first': 'error',
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',

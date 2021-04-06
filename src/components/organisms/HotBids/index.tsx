@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -49,7 +50,7 @@ const HotBids: React.FC<IHotBids> = ({ cards }) => {
             className="h-bids__slider"
           >
             {cards.map((card) => (
-              <SwiperSlide key={card.name + Math.random} className="h-bids__slide">
+              <SwiperSlide key={nextId()} className="h-bids__slide">
                 <NFTCard {...card} />
               </SwiperSlide>
             ))}

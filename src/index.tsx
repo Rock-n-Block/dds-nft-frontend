@@ -5,13 +5,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import Connector from './services/walletConnect';
 import ScollToTop from './utils/ScollToTop';
 import App from './App';
 
 ReactDOM.render(
   <Router>
     <ScollToTop>
-      <App />
+      <Connector>
+        <App />
+      </Connector>
     </ScollToTop>
   </Router>,
   document.getElementById('root'),

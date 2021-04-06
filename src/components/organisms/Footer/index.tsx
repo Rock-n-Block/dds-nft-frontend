@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div className="footer__wrapper">
-            <NavHashLink to="/#top" smooth>
+            <NavHashLink to="#top" smooth>
               <div className="footer__top">
                 <img src={ArrowImg} alt="" />
               </div>

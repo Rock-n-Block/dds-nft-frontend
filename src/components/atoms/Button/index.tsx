@@ -4,14 +4,15 @@ import { Button as BtnAntd } from 'antd';
 import classNames from 'classnames';
 
 interface ButtonProps {
-  size?: 'sm' | 'lg';
-  colorScheme?: 'purple' | 'outline' | 'white';
+  size?: 'sm' | 'lg' | 'md';
+  colorScheme?: 'purple' | 'outline' | 'white' | 'gradient';
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
   loading?: boolean;
   link?: string;
   linkClassName?: string;
+  shadow?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -24,12 +25,15 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   link,
   linkClassName,
+  shadow,
 }) => {
   const Btn = (
     <BtnAntd
       onClick={onClick}
       disabled={disabled || loading}
-      className={classNames(className, 'text text-bold btn', `btn-${size}`, `btn-${colorScheme}`)}
+      className={classNames(className, 'text text-bold btn', `btn-${size}`, `btn-${colorScheme}`, {
+        'box-shadow': shadow,
+      })}
     >
       {/* {loading ? <img className="btn__spinner" src={SpinnerImg} /> : ''} */}
       {children}

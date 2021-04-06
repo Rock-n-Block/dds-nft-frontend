@@ -2,11 +2,14 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { Button } from '../../atoms';
 
 import './Header.scss';
 
 const Header: React.FC = () => {
+  const walletConnector = useWalletConnectorContext();
+  // walletConnector.connector.killSession();
   return (
     <header className="header box-shadow">
       <div className="row">
@@ -37,7 +40,11 @@ const Header: React.FC = () => {
             <Button link="/create" linkClassName="header__btn">
               Create
             </Button>
-            <Button colorScheme="outline" link="/connect" linkClassName="header__btn">
+            <Button
+              colorScheme="outline"
+              onClick={walletConnector.web3Provider && walletConnector.web3Provider.connect}
+              className="header__btn"
+            >
               Connect wallet
             </Button>
           </div>
