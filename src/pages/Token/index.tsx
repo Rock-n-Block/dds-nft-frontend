@@ -84,6 +84,15 @@ const Token: React.FC = () => {
               <div className="token__btns-text text-gray">{`${data.price_fee_eth}ETH`}</div>
               <div className="token__btns-text text-gray">{`$${data.price_fee_dol}`}</div>
             </div>
+            <div className="token__info">
+              <div className="token__info-text text-md">{data.collection}</div>
+              <div className="token__info-text text-md">{`Name: ${data.name}`}</div>
+              <div className="token__info-text text-md">{`Series: ${data.series}`}</div>
+              <div className="token__info-text text-md">{`Number: ${data.number}`}</div>
+            </div>
+            <Button colorScheme="white" shadow className="token__info-btn">
+              <span className="text-grad">Read more</span>
+            </Button>
           </div>
         </div>
       </div>

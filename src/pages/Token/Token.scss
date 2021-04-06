@@ -1,7 +1,7 @@
 @import '../../styles/vars';
 
 .token {
-  padding-top: 20px;
+  padding: 20px 0;
 
   &__preview {
     &-img {
@@ -38,6 +38,17 @@
       & + & {
         margin-left: 15px;
       }
+    }
+  }
+  &__info {
+    &-text {
+      margin-bottom: 20px;
+      & + & {
+        margin-bottom: 0;
+      }
+    }
+    &-btn {
+      margin-top: 20px;
     }
   }
 
