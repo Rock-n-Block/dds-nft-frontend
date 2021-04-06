@@ -49,7 +49,7 @@ module.exports = {
     ],
     rules: {
         '@typescript-eslint/no-unused-vars': 'error',
-        'prettier/prettier': ['error', prettierConfig],
+        'prettier/prettier': ['warn', prettierConfig],
         'quote-props': ['error', 'consistent-as-needed'],
         'react/prop-types': 'off',
         'react/destructuring-assignment': 'off',
