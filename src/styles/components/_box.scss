@@ -1,0 +1,13 @@
+.box {
+  &-shadow {
+    background: #fafafa;
+    box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+  }
+
+  &-shadow-border {
+    background: #fff;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}

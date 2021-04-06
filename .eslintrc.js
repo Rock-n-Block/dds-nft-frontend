@@ -53,7 +53,7 @@ module.exports = {
         'quote-props': ['error', 'consistent-as-needed'],
         'react/prop-types': 'off',
         'react/destructuring-assignment': 'off',
-        'react/jsx-filename-extension': ['error', {extensions: ['.jsx', '.tsx']}],
+        'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
         'react/jsx-props-no-spreading': 'off',
         'react/jsx-wrap-multilines': [
             'error',
@@ -69,6 +69,7 @@ module.exports = {
         ],
         'sort-imports': 'off',
         'import/order': 'off',
+        "no-debugger": "off",
         'import/first': 'error',
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',
@@ -84,8 +85,8 @@ module.exports = {
                 tsx: 'never',
             },
         ],
-        'no-confusing-arrow': ['error', {allowParens: false}],
-        'no-underscore-dangle': ['error', {allow: ['__typename']}],
+        'no-confusing-arrow': ['error', { allowParens: false }],
+        'no-underscore-dangle': ['error', { allow: ['__typename'] }],
         'simple-import-sort/sort': [
             'error',
             {

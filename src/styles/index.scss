@@ -21,14 +21,17 @@ body {
 }
 
 #root {
-  height: max-content;
+  height: 100%;
 }
 
-.emperor {
+.dds {
   display: flex;
   flex-direction: column;
 
-  height: max-content;
+  height: 100%;
+
+  font-size: 14px;
+  line-height: 17px;
 }
 
 main {
@@ -39,5 +42,11 @@ main {
   margin: 0 auto;
   padding: 0 10px;
 
-  max-width: 1340px;
+  max-width: 1360px;
+}
+
+a {
+  &:hover {
+    color: $purple-hover;
+  }
 }

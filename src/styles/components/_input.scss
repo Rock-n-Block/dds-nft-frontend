@@ -1,4 +1,25 @@
 .input,
 input {
-  bottom: none;
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &__field {
+    margin-bottom: 0;
+
+    & + & {
+      margin-top: 20px;
+    }
+  }
+
+  &__search {
+    padding: 20px 20px 20px 0;
+
+    background: transparent !important;
+    border: none;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
 }

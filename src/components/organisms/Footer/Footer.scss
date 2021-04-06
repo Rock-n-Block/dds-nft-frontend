@@ -1,0 +1,98 @@
+@import '../../../styles/vars';
+
+.footer {
+  padding: 65px 0 45px;
+
+  background: #fafafa;
+
+  &__sub {
+    &-title {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50px;
+    height: 50px;
+
+    cursor: pointer;
+
+    background: $purple;
+    border-radius: 50%;
+
+    img {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__nav {
+    display: flex;
+
+    &-item {
+      margin-top: 20px;
+
+      display: block;
+    }
+
+    &-box {
+      & + & {
+        margin-left: 9.028vw;
+      }
+    }
+  }
+
+  &__box {
+    display: flex;
+    justify-content: space-between;
+
+    & + & {
+      margin-top: 90px;
+    }
+
+    &-bottom {
+      align-items: flex-end;
+    }
+  }
+
+  &__copyright {
+    margin-top: 28px;
+
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #000;
+
+    opacity: 0.3;
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      height: fit-content;
+
+      & + & {
+        margin-left: 30px;
+      }
+
+      svg {
+        path {
+          transition: 0.3s;
+        }
+      }
+
+      &:hover {
+        svg {
+          path {
+            fill: $purple;
+          }
+        }
+      }
+    }
+  }
+}

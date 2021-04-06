@@ -1,0 +1,47 @@
+@import '../../styles/vars';
+
+.form {
+  &__sub {
+    &-wrapper {
+      display: flex;
+      overflow: hidden;
+      justify-content: space-between;
+      align-items: center;
+
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+    }
+
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 50px;
+      height: 50px;
+
+      cursor: pointer;
+
+      background: $purple;
+      border-radius: 50%;
+    }
+
+    &-item {
+      .ant-form-item-explain-error {
+        padding: 0 16px;
+      }
+    }
+
+    &-input {
+      padding: 16px;
+
+      width: max-content;
+
+      font-size: 15px;
+      line-height: 18px;
+
+      border: none;
+    }
+  }
+}

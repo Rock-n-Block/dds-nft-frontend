@@ -1,11 +1,9 @@
-import { useContext, createContext } from 'react';
-import { types, Instance, onSnapshot } from 'mobx-state-tree';
+import { createContext, useContext } from 'react';
+import { Instance, onSnapshot, types } from 'mobx-state-tree';
 
-const RootModel = types.model({
-});
+const RootModel = types.model({});
 
-export let Store = RootModel.create({
-});
+export const Store = RootModel.create({});
 
 export const rootStore = Store;
 
@@ -16,7 +14,7 @@ onSnapshot(rootStore, (snapshot) => {
 export type RootInstance = Instance<typeof RootModel>;
 const RootStoreContext = createContext<null | RootInstance>(null);
 
-export const Provider = RootStoreContext.Provider;
+export const { Provider } = RootStoreContext;
 
 export function useMst() {
   const store = useContext(RootStoreContext);

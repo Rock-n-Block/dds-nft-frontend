@@ -1,3 +1,49 @@
 .btn {
+  padding: 10px 30px 10px;
+
   display: block;
+
+  height: auto;
+
+  color: #fff;
+  background: $purple;
+  border: 1px solid $purple;
+  border-radius: 16px;
+
+  &-link {
+    display: block;
+
+    width: fit-content;
+  }
+
+  &-outline {
+    color: $purple;
+    background: transparent;
+  }
+
+  &-white {
+    color: $purple;
+    background: #fff;
+    border-color: #fff;
+  }
+
+  &-lg {
+    padding: 15px 45px;
+
+    font-size: 18px;
+    line-height: 22px;
+
+    border-radius: 30px;
+  }
+  &-md {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 20px 40px;
+    border-radius: 30px;
+  }
+
+  &-gradient {
+    background: linear-gradient(41.78deg, #1a237e 18.98%, #673ab7 54.7%, #e91e63 84.39%) !important;
+    border: none;
+  }
 }
