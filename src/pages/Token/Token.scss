@@ -21,20 +21,26 @@
   &__share {
     margin-left: 35px;
   }
+
   &__btns {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin: 20px 0;
     padding: 20px 0 30px;
+
     display: flex;
     align-items: center;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
     &-item {
       & + & {
         margin-left: 20px;
       }
     }
+
     &-text {
       margin-left: 40px;
+
       & + & {
         margin-left: 15px;
       }
