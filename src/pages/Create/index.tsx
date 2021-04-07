@@ -1,38 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import MultiImg from '../../assets/img/icons/create-multi.svg';
-import SingleImg from '../../assets/img/icons/create-single.svg';
+import ArrowImg from '../../assets/img/icons/arrow-full.svg';
+import { CreateForm } from '../../forms';
 
 import './Create.scss';
 
-const CreatePage: React.FC = () => {
+interface ICreate {
+  isSingle?: boolean;
+}
+
+const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) => {
+  console.log(isSingle);
   return (
     <div className="create">
       <div className="row">
         <div className="create__content">
-          <h1 className="h1-xl create__title text-bold">Create collectible</h1>
-          <div className="create__subtitle text-smd text-bold text-center">
-            Choose “Single” if you want your collectible to be one of a kind or “Multiple” if you
-            want to sell one collectible multiple times
+          <div
+            className="create__back"
+            onClick={history.goBack}
+            role="button"
+            tabIndex={0}
+            onKeyDown={history.goBack}
+          >
+            <img src={ArrowImg} alt="" />
+            <span className="text-gray-l text-smd text-bold">Go back</span>
           </div>
-          <div className="create__wrapper">
-            <Link to="create/single" className="create__item box-shadow">
-              <img src={SingleImg} alt="" className="create__item-img" />
-              <div className="text-grad create__item-text text-lg text-bold">Single</div>
-            </Link>
-            <Link to="create/multi" className="create__item box-shadow">
-              <img src={MultiImg} alt="" className="create__item-img" />
-              <div className="text-grad create__item-text text-lg text-bold">Multiple</div>
-            </Link>
-          </div>
-          <div className="create__text text-smd text-bold text-center text-gray">
-            We do not own your private keys and cannot access your funds without your confirmation
-          </div>
+          <h1 className="create__title text-xl text-bold">
+            <span>Create </span>
+            <span className="text-grad">multiple</span>
+            <span> collectible</span>
+          </h1>
+          <CreateForm isSingle={isSingle} />
         </div>
       </div>
     </div>
   );
 };
 
-export default CreatePage;
+export default withRouter(Create);

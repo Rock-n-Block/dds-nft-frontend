@@ -1,0 +1,45 @@
+@import '../../../styles/vars';
+.ch-coll {
+  text-align: center;
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+  &__nav {
+    &-prev {
+      transform: rotate(180deg);
+      margin: 0 19px -1px 15px;
+    }
+  }
+  &__content {
+    margin-top: 20px;
+  }
+  &__item {
+    border-radius: 30px;
+    padding: 40px 0 30px;
+    max-width: 195px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    &.active {
+      border-color: $purple;
+    }
+    &-title {
+      margin: 25px 0 6px;
+    }
+    &-img {
+      width: 51px;
+      margin: 0 auto;
+      height: 51px;
+      img {
+        height: 100%;
+      }
+    }
+  }
+  .swiper-wrapper {
+    padding-bottom: 20px;
+  }
+  .swiper-button-disabled {
+    opacity: 0.3 !important;
+    display: block;
+  }
+}

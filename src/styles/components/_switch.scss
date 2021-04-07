@@ -1,0 +1,67 @@
+.ant-switch {
+  min-width: 37px;
+
+  border-radius: 30px;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: -2px;
+    left: -2px;
+
+    display: block;
+
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    border-radius: 30px;
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+
+    transition: 0.3s;
+  }
+
+  &-handle {
+    top: 4px;
+    left: 4px;
+
+    width: 14px;
+    height: 14px;
+  }
+
+  &-checked {
+    position: relative;
+
+    &::before {
+      background: $purple-grad;
+    }
+
+    &::after {
+      background-color: white;
+    }
+
+    .ant-switch-handle {
+      z-index: 1;
+      left: calc(100% - 15px - 2px);
+
+      &::before {
+        background: $purple-grad;
+      }
+    }
+  }
+}

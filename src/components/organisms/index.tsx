@@ -7,3 +7,5 @@ export { default as Explore } from './Explore';
 export { default as Filter } from './Filter';
 export { default as Sort } from './Sort';
 export { default as Search } from './Search';
+export { default as Uploader } from './Uploader';
+export { default as ChooseCollection } from './ChooseCollection';

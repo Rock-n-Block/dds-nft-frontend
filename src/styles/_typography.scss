@@ -6,6 +6,7 @@
     font-size: 40px;
     line-height: 49px;
   }
+
   &-xl {
     font-size: 55px;
     line-height: 67px;
@@ -60,6 +61,10 @@
 
   &-gray {
     color: $gray;
+
+    &-l {
+      color: rgba(0, 0, 0, 0.3);
+    }
   }
 
   &-purple {
