@@ -88,7 +88,7 @@ module.exports = {
         'no-confusing-arrow': ['error', { allowParens: false }],
         'no-underscore-dangle': ['error', { allow: ['__typename'] }],
         'simple-import-sort/sort': [
-            'error',
+            'warn',
             {
                 // https://github.com/lydell/eslint-plugin-simple-import-sort/blob/master/examples/.eslintrc.js#L71
                 groups: [

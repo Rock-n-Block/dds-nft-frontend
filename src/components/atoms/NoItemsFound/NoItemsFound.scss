@@ -1,0 +1,23 @@
+.no-items-found {
+  margin-top: 100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Montserrat;
+  font-weight: bold;
+  font-style: normal;
+
+  &__description {
+    margin-top: 21px;
+
+    font-size: 14px;
+    line-height: 17px;
+
+    text-align: center;
+
+    color: #959595;
+  }
+}
