@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Footer, Header } from './components/organisms';
-import {ConnectPage, CreatePage, HomePage, TokenPage, UserPage} from './pages';
+import { ConnectPage, CreatePage, HomePage, TokenPage, UserPage } from './pages';
 
 import './styles/index.scss';
 

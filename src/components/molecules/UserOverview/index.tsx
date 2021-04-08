@@ -4,7 +4,7 @@ import { Avatar } from 'antd';
 
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
 import { Button, SocialNetwork, UserWallet } from '../../atoms';
-import { SocialNetworkProps } from '../../atoms/SocialNetwork';
+import { ISocialNetwork } from '../../atoms/SocialNetwork';
 
 import './UserOverview.scss';
 
@@ -13,7 +13,7 @@ export interface UserOverviewProps {
   name: string;
   wallet: string;
   description?: string;
-  socialNetworks?: Array<SocialNetworkProps>;
+  socialNetworks?: Array<ISocialNetwork>;
 }
 
 const UserOverview: React.FC<UserOverviewProps> = ({
@@ -37,19 +37,17 @@ const UserOverview: React.FC<UserOverviewProps> = ({
       )}
       <div className="user-overview__content">
         <h3 className="user-overview__content__name">{name}</h3>
-        <div>
+        <div className="user-overview__content_container">
           <UserWallet address={wallet} className="user-overview__content__wallet" />
-          {socialNetworks ? (
-            socialNetworks.map((network) => (
-              <SocialNetwork
-                name={network.name}
-                networkType={network.networkType}
-                link={network.link}
-              />
-            ))
-          ) : (
-            <></>
-          )}
+          <div className="user-overview__content__social-networks social-networks">
+            {socialNetworks ? (
+              socialNetworks.map((network) => (
+                <SocialNetwork socialNetwork={network} className="social-networks__network" />
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
         <p className="user-overview__content__description">{description}</p>
         <div className="user-overview__content__buttons">

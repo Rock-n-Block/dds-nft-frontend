@@ -27,8 +27,36 @@
       line-height: 30px;
     }
 
-    &__wallet {
+    &_container {
       margin-top: 10px;
+
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__wallet {
+      margin-top: 0;
+    }
+
+    &__social-networks {
+      margin-left: 57px;
+
+      display: flex;
+
+      .social-networks {
+        &__network {
+          margin-right: 28px;
+
+          display: flex;
+          align-items: center;
+
+          color: #673bb7;
+
+          svg {
+            margin-right: 9px;
+          }
+        }
+      }
     }
 
     &__description {
