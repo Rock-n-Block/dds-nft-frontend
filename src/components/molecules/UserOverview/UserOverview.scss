@@ -1,0 +1,68 @@
+.user-overview {
+  position: relative;
+
+  padding-bottom: 70px;
+
+  min-height: 220px;
+
+  &__avatar {
+    position: absolute !important;
+    top: -84px;
+    left: 45px;
+
+    border: #fff 5px solid;
+    border-radius: 50%;
+  }
+
+  &__content {
+    margin-left: 220px;
+
+    &__name {
+      margin-top: 24px;
+
+      font-family: MB;
+      font-size: 25px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 30px;
+    }
+
+    &__wallet {
+      margin-top: 10px;
+    }
+
+    &__description {
+      margin-top: 21px;
+
+      width: 100%;
+      max-width: 526px;
+
+      font-family: Montserrat, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 17px;
+
+      opacity: 0.5;
+    }
+
+    &__buttons {
+      margin-top: 40px;
+
+      display: flex;
+      flex-direction: row;
+
+      .btn {
+        &:nth-last-child(-n + 2) {
+          margin-left: 20px;
+        }
+
+        &:nth-child(2) {
+          span {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}

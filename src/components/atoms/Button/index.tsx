@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 interface ButtonProps {
   size?: 'sm' | 'lg' | 'md';
-  colorScheme?: 'purple' | 'outline' | 'white' | 'gradient';
+  colorScheme?: 'purple' | 'outline' | 'white' | 'gradient' | 'clear';
   onClick?: () => void;
   className?: string;
   disabled?: boolean;

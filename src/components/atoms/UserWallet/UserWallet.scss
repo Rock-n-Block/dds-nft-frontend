@@ -1,0 +1,18 @@
+.user-wallet {
+  margin-top: 10px;
+
+  width: 100%;
+  max-width: 177px;
+
+  &__address {
+    margin-right: 10px;
+
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 18px;
+
+    color: #673bb7;
+  }
+}
