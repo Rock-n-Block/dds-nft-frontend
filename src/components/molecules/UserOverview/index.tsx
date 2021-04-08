@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
+import { Avatar, Popover } from 'antd';
 
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
 import { Button, SocialNetwork, UserWallet } from '../../atoms';
 import { ISocialNetwork } from '../../atoms/SocialNetwork';
+import PopoverUserLinks, { PopoverUserLinksProps } from '../PopoverUserLinks';
 
 import './UserOverview.scss';
 
@@ -15,7 +16,9 @@ export interface UserOverviewProps {
   description?: string;
   socialNetworks?: Array<ISocialNetwork>;
 }
-
+const content = (props: PopoverUserLinksProps) => {
+  return <PopoverUserLinks {...props} />;
+};
 const UserOverview: React.FC<UserOverviewProps> = ({
   avatarSrc,
   name,
@@ -23,6 +26,11 @@ const UserOverview: React.FC<UserOverviewProps> = ({
   description,
   socialNetworks,
 }) => {
+  const [popoverShow, setPopoverShow] = useState(false);
+  const handleVisibleChange = () => {
+    setPopoverShow(!popoverShow);
+  };
+
   return (
     <div className="User__user-overview user-overview">
       {avatarSrc ? (
@@ -52,10 +60,22 @@ const UserOverview: React.FC<UserOverviewProps> = ({
         <p className="user-overview__content__description">{description}</p>
         <div className="user-overview__content__buttons">
           <Button size="sm">Follow </Button>
-          <Button size="sm" colorScheme="white" className="user-overview__content__buttons_share">
-            <ShareLinkSvg />
-            Share link
-          </Button>
+          <Popover
+            visible={popoverShow}
+            content={content({ name, socialNetworks })}
+            trigger="hover"
+            placement="bottomLeft"
+          >
+            <Button
+              size="sm"
+              colorScheme="white"
+              className="user-overview__content__buttons_share"
+              onClick={handleVisibleChange}
+            >
+              <ShareLinkSvg />
+              Share link
+            </Button>
+          </Popover>
           <Button size="sm" colorScheme="white">
             Report User{' '}
           </Button>

@@ -42,10 +42,12 @@
       margin-left: 57px;
 
       display: flex;
+      flex-wrap: wrap;
 
       .social-networks {
         &__network {
           margin-right: 28px;
+          margin-bottom: 24px;
 
           display: flex;
           align-items: center;
@@ -60,8 +62,6 @@
     }
 
     &__description {
-      margin-top: 21px;
-
       width: 100%;
       max-width: 526px;
 
