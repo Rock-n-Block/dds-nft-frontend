@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Footer, Header } from './components/organisms';
+import { Footer, Header, TermsModal } from './components/organisms';
 import { ConnectPage, CreateChoosePage, CreatePage, HomePage, TokenPage } from './pages';
 
 import './styles/index.scss';
@@ -19,6 +19,7 @@ const App: React.FC = () => {
         <Route exact path="/create/multi" component={CreatePage} />
       </Switch>
       <Footer />
+      <TermsModal />
     </div>
   );
 };

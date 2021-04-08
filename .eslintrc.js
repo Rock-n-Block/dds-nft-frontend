@@ -68,6 +68,9 @@ module.exports = {
             },
         ],
         'sort-imports': 'off',
+        "no-param-reassign": [2, {
+            "props": false
+        }],
         'import/order': 'off',
         "no-debugger": "off",
         'import/first': 'error',

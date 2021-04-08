@@ -1,9 +1,19 @@
 import { createContext, useContext } from 'react';
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
 
-const RootModel = types.model({});
+import { Modals } from './Modals';
 
-export const Store = RootModel.create({});
+const RootModel = types.model({
+  modals: Modals,
+});
+
+export const Store = RootModel.create({
+  modals: {
+    terms: {
+      isOpen: false,
+    },
+  },
+});
 
 export const rootStore = Store;
 

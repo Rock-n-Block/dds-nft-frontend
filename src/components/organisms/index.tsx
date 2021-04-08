@@ -9,3 +9,4 @@ export { default as Sort } from './Sort';
 export { default as Search } from './Search';
 export { default as Uploader } from './Uploader';
 export { default as ChooseCollection } from './ChooseCollection';
+export { default as TermsModal } from './TermsModal';
