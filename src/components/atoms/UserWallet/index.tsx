@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import { ReactComponent as CopySvg } from '../../../assets/img/icons/copy.svg';
@@ -12,18 +12,9 @@ export interface UserWalletProps {
 }
 
 const UserWallet: React.FC<UserWalletProps> = ({ address, className }) => {
-  const [displayAddress, setDisplayAddress] = useState(address);
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText(address);
   };
-  const sliceString = (text: string) => {
-    return text.slice(0, 19).concat('...');
-  };
-
-  useEffect(() => {
-    setDisplayAddress(sliceString(address));
-  }, [address]);
 
   return (
     <Button
@@ -32,7 +23,7 @@ const UserWallet: React.FC<UserWalletProps> = ({ address, className }) => {
       className={classNames(className, 'user-wallet')}
       onClick={() => copyToClipboard()}
     >
-      <span className="user-wallet__address">{displayAddress}</span>
+      <span className="user-wallet__address">{address}</span>
       <CopySvg />
     </Button>
   );

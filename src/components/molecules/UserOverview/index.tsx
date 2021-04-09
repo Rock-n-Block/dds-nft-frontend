@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import nextId from 'react-id-generator';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Popover } from 'antd';
 
@@ -51,7 +52,11 @@ const UserOverview: React.FC<UserOverviewProps> = ({
           <div className="user-overview__content__social-networks social-networks">
             {socialNetworks ? (
               socialNetworks.map((network) => (
-                <SocialNetwork socialNetwork={network} className="social-networks__network" />
+                <SocialNetwork
+                  socialNetwork={network}
+                  className="social-networks__network"
+                  key={nextId()}
+                />
               ))
             ) : (
               <></>

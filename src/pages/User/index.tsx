@@ -8,6 +8,7 @@ import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { ISocialNetwork } from '../../components/atoms/SocialNetwork';
 import { UserOverview } from '../../components/molecules';
 import { IActivityCard } from '../../components/molecules/ActivityCard';
+import { IFollowCard } from '../../components/molecules/FollowCard';
 import {
   Sort,
   UserActivity,
@@ -18,7 +19,6 @@ import {
   UserLiked,
   UserOnSale,
 } from '../../components/organisms';
-import { IFollowing } from '../../components/organisms/UserFollowing';
 
 import './User.scss';
 
@@ -28,8 +28,8 @@ interface IUser {
   wallet: string;
   description?: string;
   socialNetworks?: Array<ISocialNetwork>;
-  activityCards: Array<IActivityCard>;
-  followingUsers: { filters: Array<string>; following: Array<IFollowing> };
+  activityCards: { filters: Array<string>; activities: Array<IActivityCard> };
+  followingUsers: Array<IFollowCard>;
 }
 
 const mockUser: IUser = {
@@ -46,49 +46,7 @@ const mockUser: IUser = {
     { networkType: 'Discord', link: 'https://www.instagram.com/thejuze/', name: 'theJuze' },
     { networkType: 'Youtube', link: 'https://www.youtube.com/', name: 'zeJuze' },
   ],
-  activityCards: [
-    {
-      img: firstCard,
-      title: 'The son of a LEGO(man)',
-      firstUser: {
-        img: userAvatar,
-        name: 'Herold Art',
-      },
-      activityType: 'Listing',
-      time: 9,
-    },
-    {
-      img: firstCard,
-      title: 'The son of a LEGO(man)',
-      firstUser: {
-        img: userAvatar,
-        name: '0x869ce...5422',
-      },
-      secondUser: {
-        img: userAvatar,
-        name: '0x73640...d624',
-      },
-      activityType: 'Purchases',
-      time: 9,
-      cost: 0.08,
-    },
-    {
-      img: firstCard,
-      title: 'The son of a LEGO(man)',
-      firstUser: {
-        img: userAvatar,
-        name: '0x869ce...5422',
-      },
-      secondUser: {
-        img: userAvatar,
-        name: '0x73640...d624',
-      },
-      activityType: 'Sales',
-      time: 9,
-      cost: 0.08,
-    },
-  ],
-  followingUsers: {
+  activityCards: {
     filters: [
       'All',
       'Listing',
@@ -100,17 +58,117 @@ const mockUser: IUser = {
       'Likes',
       'Followings',
     ],
-    following: [
+    activities: [
       {
-        img: followingUserAvatar,
-        followers: 10,
-        name: 'MT_004am',
-        tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+        img: firstCard,
+        title: 'The son of a LEGO(man)',
+        firstUser: {
+          img: userAvatar,
+          name: 'Herold Art',
+        },
+        activityType: 'Listing',
+        time: 9,
+      },
+      {
+        img: firstCard,
+        title: 'The son of a LEGO(man)',
+        firstUser: {
+          img: userAvatar,
+          name: '0x869ce...5422',
+        },
+        secondUser: {
+          img: userAvatar,
+          name: '0x73640...d624',
+        },
+        activityType: 'Purchases',
+        time: 9,
+        cost: 0.08,
+      },
+      {
+        img: firstCard,
+        title: 'The son of a LEGO(man)',
+        firstUser: {
+          img: userAvatar,
+          name: '0x869ce...5422',
+        },
+        secondUser: {
+          img: userAvatar,
+          name: '0x73640...d624',
+        },
+        activityType: 'Sales',
+        time: 9,
+        cost: 0.08,
       },
     ],
   },
+  followingUsers: [
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+        firstCard,
+      ],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+    {
+      img: followingUserAvatar,
+      followers: 10,
+      name: 'MT_004am',
+      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+    },
+  ],
 };
-
 const { TabPane } = Tabs;
 const sortTypes = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low', 'text'];
 const sort = <Sort items={sortTypes} onChange={() => {}} />;
@@ -143,12 +201,12 @@ const User: React.FC = () => {
         </TabPane>
         <TabPane tab="Activity" key={nextId()}>
           <UserActivity
-            filters={mockUser.followingUsers.filters}
-            activityCards={mockUser.activityCards}
+            filters={mockUser.activityCards.filters}
+            activityCards={mockUser.activityCards.activities}
           />
         </TabPane>
-        <TabPane tab={`Following ${mockUser.followingUsers.following.length}`} key={nextId()}>
-          <UserFollowing followingUsers={mockUser.followingUsers.following} />
+        <TabPane tab={`Following ${mockUser.followingUsers.length}`} key={nextId()}>
+          <UserFollowing followingUsers={mockUser.followingUsers} />
         </TabPane>
         <TabPane tab="Follower" key={nextId()}>
           <UserFollower />

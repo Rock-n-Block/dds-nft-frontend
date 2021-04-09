@@ -23,6 +23,12 @@
   &__header {
     display: flex;
 
+    &-left {
+      width: 100%;
+      max-width: 92px;
+      height: 100%;
+    }
+
     &-right {
       margin-left: 18px;
 

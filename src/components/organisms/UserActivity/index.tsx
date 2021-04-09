@@ -28,7 +28,6 @@ const UserActivity: React.FC<UserActivityProps> = ({ filters, activityCards }) =
     } */
 
   const handleFilterChange = (value: string[]): void => {
-    console.log(value);
     setActiveFilter(value[0]);
   };
   useEffect(() => {
@@ -39,16 +38,13 @@ const UserActivity: React.FC<UserActivityProps> = ({ filters, activityCards }) =
     );
   }, [activityCards, activeFilter]);
 
-  if (activityCards?.length === 0) {
+  if (activityCards === undefined || activityCards?.length === 0) {
     return <NoItemsFound />;
   }
   return (
     <div className="activity">
       <div className="row">
         <div className="activity-badges">
-          {/* {filters.map((filter)=>
-            (<div className="activity-badge">{filter}</div>)
-          )} */}
           <Filter filters={filters} onChange={handleFilterChange} />
         </div>
         <div className="activity-cards">

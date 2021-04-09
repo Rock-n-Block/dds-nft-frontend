@@ -1,18 +1,32 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
-export interface IFollowing {
-  name: string;
-  followers: number;
-  img: string;
-  tokens: Array<string>;
-}
+import { NoItemsFound } from '../../atoms';
+import FollowCard, { IFollowCard } from '../../molecules/FollowCard';
+
+import './UserFollowing.scss';
 
 interface UserFollowingProps {
-  followingUsers: Array<IFollowing>;
+  followingUsers: Array<IFollowCard>;
 }
 
 const UserFollowing: React.FC<UserFollowingProps> = ({ followingUsers }) => {
-  return <div>{followingUsers[0]?.name}</div>;
+  if (followingUsers === undefined || followingUsers?.length === 0) {
+    return <NoItemsFound />;
+  }
+  return (
+    <div className="user-following row">
+      {followingUsers.map((user) => (
+        <FollowCard
+          tokens={user.tokens}
+          followers={user.followers}
+          name={user.name}
+          img={user.img}
+          key={nextId()}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default UserFollowing;
