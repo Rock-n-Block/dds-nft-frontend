@@ -56,7 +56,7 @@ module.exports = {
         'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
         'react/jsx-props-no-spreading': 'off',
         'react/jsx-wrap-multilines': [
-            'error',
+            'warn',
             {
                 declaration: 'parens-new-line',
                 assignment: 'parens-new-line',
@@ -64,10 +64,13 @@ module.exports = {
                 arrow: 'parens-new-line',
                 condition: 'parens-new-line',
                 logical: 'parens-new-line',
-                prop: 'parens-new-line',
+                prop: 'ignore',
             },
         ],
         'sort-imports': 'off',
+        "no-param-reassign": [2, {
+            "props": false
+        }],
         'import/order': 'off',
         "no-debugger": "off",
         'import/first': 'error',
@@ -126,7 +129,7 @@ module.exports = {
     settings: {
         'import/resolver': {
             alias: {
-                map: [['@', './src/']],
+                map: [['@', './src/', './node_modules/']],
                 extensions: ['.ts', '.tsx', '.json', 'js', 'jsx'],
             },
         },

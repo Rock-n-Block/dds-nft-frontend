@@ -17,14 +17,17 @@
       position: relative;
 
       display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
     &-img {
       margin: 0 auto;
 
-      display: block;
+      display: flex;
       overflow: hidden;
+      justify-content: center;
+      align-items: center;
 
       width: fit-content;
       max-width: 100%;
@@ -33,7 +36,8 @@
       border-radius: 12px;
 
       img {
-        height: 100%;
+        max-width: 102%;
+        max-height: 102%;
       }
     }
   }

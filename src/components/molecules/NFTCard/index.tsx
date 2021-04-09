@@ -13,12 +13,12 @@ export interface INFTCard {
     count: number | string;
     sold: number | string;
     bid: number | string;
-  };
+  } | null;
   bid?: {
     price: number | string;
     sold: number | string;
     count: number | string;
-  };
+  } | null;
   artist: {
     name: string;
   };
@@ -26,9 +26,19 @@ export interface INFTCard {
     name: string;
   };
   like?: boolean;
+  disableLinks?: boolean;
 }
 
-const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner, bid, like }) => {
+const NFTCard: React.FC<INFTCard> = ({
+  img,
+  name,
+  auction,
+  artist,
+  owner,
+  bid,
+  like,
+  disableLinks,
+}) => {
   const [isLike, setLike] = React.useState(like);
 
   const handleLike = (): void => {
@@ -37,14 +47,22 @@ const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner, bid, l
   };
   return (
     <div className="nft-card">
-      <Link to="/" className="nft-card__box-img">
-        <img src={img} alt="hot" />
-      </Link>
+      {disableLinks ? (
+        <div className="nft-card__box-img">{img ? <img src={img} alt="hot" /> : ''}</div>
+      ) : (
+        <Link to="/" className="nft-card__box-img">
+          {img ? <img src={img} alt="hot" /> : ''}
+        </Link>
+      )}
       <div className="nft-card__content">
         <div className="nft-card__box">
-          <Link to="/" className="nft-card__name text-bold text-black">
-            {name}
-          </Link>
+          {disableLinks ? (
+            <div className="nft-card__name text-bold text-black">{name}</div>
+          ) : (
+            <Link to="/" className="nft-card__name text-bold text-black">
+              {name}
+            </Link>
+          )}
           {auction ? (
             <>
               <div className="nft-card__auction">
@@ -74,9 +92,13 @@ const NFTCard: React.FC<INFTCard> = ({ img, name, auction, artist, owner, bid, l
                 </div>
               </div>
               <div className="nft-card__auction">
-                <Link to="/" className="text-bold text-purple-l">
-                  Place a bid
-                </Link>
+                {disableLinks ? (
+                  <div className="text-bold text-purple-l">Place a bid</div>
+                ) : (
+                  <Link to="/" className="text-bold text-purple-l">
+                    Place a bid
+                  </Link>
+                )}
               </div>
             </>
           ) : (

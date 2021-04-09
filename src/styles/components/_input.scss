@@ -1,5 +1,8 @@
 .input,
-input {
+input,
+textarea {
+  resize: none !important;
+
   background: white !important;
   outline: none !important;
   box-shadow: none !important;
@@ -9,6 +12,17 @@ input {
 
     & + & {
       margin-top: 20px;
+    }
+
+    &-create {
+      padding: 13px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: #fafafa;
+      border-radius: 30px;
     }
   }
 
@@ -22,4 +36,24 @@ input {
       color: rgba(0, 0, 0, 0.6);
     }
   }
+
+  &__create {
+    background: transparent !important;
+    border: none;
+
+    &:hover {
+      border: none;
+    }
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }

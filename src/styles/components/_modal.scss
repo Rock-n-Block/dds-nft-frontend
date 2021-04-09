@@ -1,0 +1,17 @@
+.modal {
+  padding-bottom: 0;
+
+  width: fit-content !important;
+}
+
+.ant-modal {
+  &-content {
+    background: #fafafa;
+    border-radius: 30px;
+    box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+  }
+
+  &-body {
+    padding: 0;
+  }
+}

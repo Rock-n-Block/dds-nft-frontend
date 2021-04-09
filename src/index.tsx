@@ -6,16 +6,19 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Connector from './services/walletConnect';
+import { Provider, rootStore } from './store/store';
 import ScollToTop from './utils/ScollToTop';
 import App from './App';
 
 ReactDOM.render(
-  <Router>
-    <ScollToTop>
-      <Connector>
-        <App />
-      </Connector>
-    </ScollToTop>
-  </Router>,
+  <Provider value={rootStore}>
+    <Router>
+      <ScollToTop>
+        <Connector>
+          <App />
+        </Connector>
+      </ScollToTop>
+    </Router>
+  </Provider>,
   document.getElementById('root'),
 );

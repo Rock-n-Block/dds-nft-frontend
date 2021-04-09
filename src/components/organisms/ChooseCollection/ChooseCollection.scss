@@ -1,0 +1,62 @@
+@import '../../../styles/vars';
+
+.ch-coll {
+  text-align: center;
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav {
+    &-prev {
+      margin: 0 19px -1px 15px;
+
+      transform: rotate(180deg);
+    }
+  }
+
+  &__content {
+    margin-top: 20px;
+  }
+
+  &__item {
+    padding: 40px 0 30px;
+
+    max-width: 195px;
+
+    cursor: pointer;
+
+    border: 2px solid transparent;
+    border-radius: 30px;
+
+    &.active {
+      border-color: $purple;
+    }
+
+    &-title {
+      margin: 25px 0 6px;
+    }
+
+    &-img {
+      margin: 0 auto;
+
+      width: 51px;
+      height: 51px;
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  .swiper-wrapper {
+    padding-bottom: 20px;
+  }
+
+  .swiper-button-disabled {
+    display: block;
+
+    opacity: 0.3 !important;
+  }
+}
