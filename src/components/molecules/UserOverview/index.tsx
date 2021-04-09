@@ -16,6 +16,7 @@ export interface UserOverviewProps {
   description?: string;
   socialNetworks?: Array<ISocialNetwork>;
 }
+
 const content = (props: PopoverUserLinksProps) => {
   return <PopoverUserLinks {...props} />;
 };
@@ -77,7 +78,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
             </Button>
           </Popover>
           <Button size="sm" colorScheme="white">
-            Report User{' '}
+            Report User
           </Button>
         </div>
       </div>

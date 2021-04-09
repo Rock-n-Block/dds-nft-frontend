@@ -2,9 +2,12 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import { Tabs } from 'antd';
 
+import followingUserAvatar from '../../assets/img/mock/following-user.png';
+import firstCard from '../../assets/img/mock/user-activity-card.png';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
+import { ISocialNetwork } from '../../components/atoms/SocialNetwork';
 import { UserOverview } from '../../components/molecules';
-import { UserOverviewProps } from '../../components/molecules/UserOverview';
+import { IActivityCard } from '../../components/molecules/ActivityCard';
 import {
   Sort,
   UserActivity,
@@ -15,10 +18,21 @@ import {
   UserLiked,
   UserOnSale,
 } from '../../components/organisms';
+import { IFollowing } from '../../components/organisms/UserFollowing';
 
 import './User.scss';
 
-const mockUser: UserOverviewProps = {
+interface IUser {
+  avatarSrc?: string;
+  name: string;
+  wallet: string;
+  description?: string;
+  socialNetworks?: Array<ISocialNetwork>;
+  activityCards: Array<IActivityCard>;
+  followingUsers: { filters: Array<string>; following: Array<IFollowing> };
+}
+
+const mockUser: IUser = {
   avatarSrc: userAvatar,
   name: "Satoshi's Mom",
   wallet: '0x3d6a89c8751a462363563723776193',
@@ -32,6 +46,69 @@ const mockUser: UserOverviewProps = {
     { networkType: 'Discord', link: 'https://www.instagram.com/thejuze/', name: 'theJuze' },
     { networkType: 'Youtube', link: 'https://www.youtube.com/', name: 'zeJuze' },
   ],
+  activityCards: [
+    {
+      img: firstCard,
+      title: 'The son of a LEGO(man)',
+      firstUser: {
+        img: userAvatar,
+        name: 'Herold Art',
+      },
+      activityType: 'Listing',
+      time: 9,
+    },
+    {
+      img: firstCard,
+      title: 'The son of a LEGO(man)',
+      firstUser: {
+        img: userAvatar,
+        name: '0x869ce...5422',
+      },
+      secondUser: {
+        img: userAvatar,
+        name: '0x73640...d624',
+      },
+      activityType: 'Purchases',
+      time: 9,
+      cost: 0.08,
+    },
+    {
+      img: firstCard,
+      title: 'The son of a LEGO(man)',
+      firstUser: {
+        img: userAvatar,
+        name: '0x869ce...5422',
+      },
+      secondUser: {
+        img: userAvatar,
+        name: '0x73640...d624',
+      },
+      activityType: 'Sales',
+      time: 9,
+      cost: 0.08,
+    },
+  ],
+  followingUsers: {
+    filters: [
+      'All',
+      'Listing',
+      'Purchases',
+      'Sales',
+      'Transfers',
+      'Burns',
+      'Bids',
+      'Likes',
+      'Followings',
+    ],
+    following: [
+      {
+        img: followingUserAvatar,
+        followers: 10,
+        name: 'MT_004am',
+        tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+      },
+    ],
+  },
 };
 
 const { TabPane } = Tabs;
@@ -65,10 +142,13 @@ const User: React.FC = () => {
           <UserLiked />
         </TabPane>
         <TabPane tab="Activity" key={nextId()}>
-          <UserActivity />
+          <UserActivity
+            filters={mockUser.followingUsers.filters}
+            activityCards={mockUser.activityCards}
+          />
         </TabPane>
-        <TabPane tab="Following" key={nextId()}>
-          <UserFollowing />
+        <TabPane tab={`Following ${mockUser.followingUsers.following.length}`} key={nextId()}>
+          <UserFollowing followingUsers={mockUser.followingUsers.following} />
         </TabPane>
         <TabPane tab="Follower" key={nextId()}>
           <UserFollower />

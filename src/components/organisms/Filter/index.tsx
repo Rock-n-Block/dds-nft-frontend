@@ -10,8 +10,8 @@ interface IFilter {
   isAllFilterItem?: boolean;
   isMultipleValues?: boolean;
   onChange: (activeFilters: string[]) => void;
-  sortItems: string[];
-  onChangeSort: (sort: string) => void;
+  sortItems?: string[];
+  onChangeSort?: (sort: string) => void;
 }
 
 const Filter: React.FC<IFilter> = ({
@@ -78,7 +78,7 @@ const Filter: React.FC<IFilter> = ({
           </div>
         ))}
       </div>
-      <Sort items={sortItems} onChange={onChangeSort} />
+      {sortItems && onChangeSort ? <Sort items={sortItems} onChange={onChangeSort} /> : <></>}
     </div>
   );
 };
