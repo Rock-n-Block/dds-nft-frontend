@@ -1,33 +1,30 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { Checkbox } from 'antd';
+import { observer } from 'mobx-react-lite';
 
-import { Modal } from '../../molecules';
-import { Button } from '../../atoms';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
+import { Button } from '../../atoms';
+import { Modal } from '../../molecules';
 
 import './TermsModal.scss';
 
 const TermsModal: React.FC = observer(() => {
   const { modals } = useMst();
-
-  const onOk = (): void => {
-    modals.terms.close();
-  };
+  const walletConnector = useWalletConnectorContext();
 
   const [oldCheck, setOldCheck] = React.useState<boolean>(false);
   const [termsCheck, setTermsCheck] = React.useState<boolean>(false);
-  console.log(oldCheck, termsCheck);
 
   const handleOkTerms = (): void => {
     modals.terms.close();
     localStorage.ddsTerms = true;
+    walletConnector.connect();
   };
 
   return (
     <Modal
       isVisible={modals.terms.isOpen}
-      handleOk={onOk}
       handleCancel={() => modals.terms.close()}
       className="m-terms"
     >

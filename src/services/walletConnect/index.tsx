@@ -1,30 +1,82 @@
 import React, { createContext, useContext } from 'react';
+import { observer } from 'mobx-react';
 
-import Web3Provider from '../web3';
+import { rootStore } from '../../store/store';
+import MetamaskService from '../web3';
+import { userApi } from '../api';
 
 const walletConnectorContext = createContext<any>({
-  web3Provider: {},
+  MetamaskService: {},
+  connect: (): void => {},
 });
 
-const Connector: React.FC = ({ children }) => {
-  const [provider, setProvider] = React.useState<any>(null);
+@observer
+class Connector extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
 
-  React.useEffect(() => {
-    const web3 = new Web3Provider();
-    setProvider(web3);
-    web3.accountsChangedObs.subscribe({
-      next(x: any) {
-        console.log(x, 'change');
-      },
-    });
-  }, []);
+    this.state = {
+      provider: new MetamaskService({
+        testnet: 'kovan',
+      }),
+    };
 
-  return (
-    <walletConnectorContext.Provider value={{ web3Provider: provider }}>
-      {children}
-    </walletConnectorContext.Provider>
-  );
-};
+    this.connect = this.connect.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.state.provider, 'provider');
+
+    if (localStorage.dds_metamask) {
+      this.connect();
+    }
+  }
+
+  connect = (): void => {
+    this.state.provider
+      .connect()
+      .then((res: any) => {
+        rootStore.user.setAddress(res.address);
+        localStorage.dds_metamask = true;
+
+        userApi
+          .getMsg()
+          .then(({ data }) => {
+            this.state.provider
+              .signMsg(data)
+              .then((signedMsg: any) => {
+                userApi
+                  .login({
+                    address: rootStore.user.address,
+                    msg: data,
+                    signedMsg,
+                  })
+                  .then((result) => {
+                    localStorage.dds_token = result.data.key;
+                  })
+                  .catch((err) => {
+                    console.log(err, 'login');
+                  });
+              })
+              .catch((err: any) => console.log(err));
+          })
+          .catch((err) => console.log(err, 'msg'));
+      })
+      .catch((err: any) => {
+        console.log(err, 'err');
+      });
+  };
+
+  render() {
+    return (
+      <walletConnectorContext.Provider
+        value={{ metamaskService: this.state.provider, connect: this.connect }}
+      >
+        {this.props.children}
+      </walletConnectorContext.Provider>
+    );
+  }
+}
 
 export default Connector;
 

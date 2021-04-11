@@ -1,12 +1,12 @@
 import React from 'react';
 import nextId from 'react-id-generator';
+import classNames from 'classnames';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import classNames from 'classnames';
 
-import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
-import PlusImg from '../../../assets/img/icons/plus.svg';
 import LogoImg from '../../../assets/img/icons/logo-mini.svg';
+import PlusImg from '../../../assets/img/icons/plus.svg';
+import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 
 import './ChooseCollection.scss';
 

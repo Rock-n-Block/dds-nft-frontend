@@ -12,7 +12,7 @@ const Uploader: React.FC = () => {
   const getBase64 = (img: any, callback: any) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      formik.setFieldValue('img', reader.result);
+      formik.setFieldValue('preview', reader.result);
       callback(reader.result);
     });
     reader.readAsDataURL(img);
@@ -37,6 +37,7 @@ const Uploader: React.FC = () => {
     if (!isLt2M) {
       return;
     }
+    formik.setFieldValue('img', file.originFileObj);
     getBase64(file.originFileObj, (url: any) => setImageUrl(url));
   };
   const handleClear = () => {

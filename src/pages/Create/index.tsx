@@ -3,6 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ArrowImg from '../../assets/img/icons/arrow-full.svg';
 import { CreateForm } from '../../forms';
+import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import './Create.scss';
 
@@ -11,7 +12,7 @@ interface ICreate {
 }
 
 const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) => {
-  console.log(isSingle);
+  const walletConnector = useWalletConnectorContext();
   return (
     <div className="create">
       <div className="row">
@@ -31,7 +32,7 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
             <span className="text-grad">multiple</span>
             <span> collectible</span>
           </h1>
-          <CreateForm isSingle={isSingle} />
+          <CreateForm isSingle={isSingle} walletConnector={walletConnector} />
         </div>
       </div>
     </div>
