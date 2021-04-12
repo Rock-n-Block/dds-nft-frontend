@@ -4,3 +4,8 @@ export { default as Like } from './Like';
 export { default as NoItemsFound } from './NoItemsFound';
 export { default as UserWallet } from './UserWallet';
 export { default as SocialNetwork } from './SocialNetwork';
+export { default as TokenBids } from './TokenBids';
+export { default as TokenDetails } from './TokenDetails';
+export { default as TokenHistory } from './TokenHistory';
+export { default as TokenInfo } from './TokenInfo';
+export { default as TokenOwners } from './TokenOwners';

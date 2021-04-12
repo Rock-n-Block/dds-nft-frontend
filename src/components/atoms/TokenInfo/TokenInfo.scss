@@ -1,0 +1,18 @@
+.token-info {
+  &__warning {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 9px 12px;
+
+    background: #f4effb;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 12px;
+  }
+
+  & > .u-mini {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+}

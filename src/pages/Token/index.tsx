@@ -4,12 +4,19 @@ import { Link, useParams } from 'react-router-dom';
 
 import ShareImg from '../../assets/img/icons/share.svg';
 import TokenImg from '../../assets/img/mock/token.jpg';
+import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
+import { TokenTabs } from '../../components/molecules';
 
 import './Token.scss';
 
 interface IToken {
   token: string;
+}
+
+export interface IUser {
+  img: string;
+  name: string;
 }
 
 const Token: React.FC = () => {
@@ -30,6 +37,92 @@ const Token: React.FC = () => {
     fee: 2.5,
     price_fee_eth: 348.5,
     price_fee_dol: 621721.7,
+    owner: { name: 'MT_004am...', img: userAvatar },
+    artist: { name: 'DicraKiller', img: userAvatar },
+    tabCollection: {
+      img: userAvatar,
+      topText: 'Collection (ERC1155)',
+      bottomText: 'Quan Selection',
+    },
+    owners: [
+      {
+        img: userAvatar,
+        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 ETH'),
+        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
+      },
+      {
+        img: userAvatar,
+        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 ETH'),
+        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
+      },
+      {
+        img: userAvatar,
+        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 ETH'),
+        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
+      },
+    ],
+    history: [
+      {
+        img: userAvatar,
+        topText: <span className="text text-gray text-sm text-upper">Minted 1 hours ago</span>,
+        bottomText: (
+          <span className="text text-gray text-sm ">
+            BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
+          </span>
+        ),
+      },
+      {
+        img: userAvatar,
+        topText: (
+          <span className="text text-gray text-sm text-upper">
+            Put on sale for <b className="text-bold text-black"> 2 ETH </b> 6 hours ago
+          </span>
+        ),
+        bottomText: (
+          <span className="text text-gray text-sm ">
+            BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
+          </span>
+        ),
+      },
+    ],
+    details: [
+      {
+        topText: 'StyleGAN II',
+        bottomText: 'Image Synthesis',
+      },
+      {
+        topText: 'Resolution',
+        bottomText: '1024px x 1024px',
+      },
+      {
+        topText: 'Machine Learning',
+        bottomText: 'Generative Adversarial Network',
+      },
+    ],
+    bids: [
+      {
+        img: userAvatar,
+        topText: <span className="text-sm text-bold text-black">1.1 WETH</span>,
+        bottomText: (
+          <span className="text-sm text-gray">
+            BY <b className="text-bold text-purple-l text-smd">Lance</b>
+          </span>
+        ),
+      },
+      {
+        img: userAvatar,
+        topText: (
+          <span className="text-sm text-bold text-gray">
+            <span className="text-line-through">1.0 WETH</span> Expired
+          </span>
+        ),
+        bottomText: (
+          <span className="text-sm text-gray ">
+            BY <b className="text-bold text-purple-l text-smd">Lance</b>
+          </span>
+        ),
+      },
+    ],
   };
   console.log(token);
   return (
@@ -80,7 +173,7 @@ const Token: React.FC = () => {
               <Button colorScheme="white" shadow size="md" className="token__btns-item">
                 <span className="text-grad text-bold">Bid</span>
               </Button>
-              <div className="token__btns-text text-gray">{`Service fee ${data.fee}%.`}</div>
+              <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
               <div className="token__btns-text text-gray">{`${data.price_fee_eth}ETH`}</div>
               <div className="token__btns-text text-gray">{`$${data.price_fee_dol}`}</div>
             </div>
@@ -93,6 +186,17 @@ const Token: React.FC = () => {
             <Button colorScheme="white" shadow className="token__info-btn">
               <span className="text-grad">Read more</span>
             </Button>
+          </div>
+          <div className="token__content-right">
+            <TokenTabs
+              artist={data.artist}
+              owner={data.owner}
+              collection={data.tabCollection}
+              owners={data.owners}
+              history={data.history}
+              details={data.details}
+              bids={data.bids}
+            />
           </div>
         </div>
       </div>
