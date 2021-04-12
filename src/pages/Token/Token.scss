@@ -97,9 +97,16 @@
     margin-top: 20px;
 
     display: flex;
+    justify-content: space-between;
 
     &-left {
-      width: 59.722vw;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    &-right {
+      width: 100%;
+      max-width: 420px;
     }
   }
 

@@ -72,6 +72,7 @@ module.exports = {
             "props": false
         }],
         'import/order': 'off',
+        'import/no-cycle':'warn',
         "no-debugger": "off",
         'import/first': 'error',
         'import/newline-after-import': 'error',

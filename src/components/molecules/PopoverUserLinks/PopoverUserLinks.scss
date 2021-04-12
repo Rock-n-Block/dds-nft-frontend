@@ -1,0 +1,43 @@
+.popover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 20px;
+  }
+
+  &__social-links {
+    margin-top: 20px;
+
+    display: flex;
+
+    &__social {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &:not(:first-child) {
+        margin-left: 27px;
+      }
+
+      &-name {
+        margin-top: 20px;
+
+        font-family: Montserrat;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        line-height: 0;
+
+        text-align: center;
+
+        color: #959595;
+      }
+    }
+  }
+}

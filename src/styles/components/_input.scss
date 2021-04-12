@@ -1,10 +1,11 @@
 .input,
 input,
 textarea {
+  resize: none !important;
+
   background: white !important;
   outline: none !important;
   box-shadow: none !important;
-  resize: none !important;
 
   &__field {
     margin-bottom: 0;

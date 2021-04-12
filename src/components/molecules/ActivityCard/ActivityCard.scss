@@ -1,0 +1,87 @@
+.activity-card {
+  position: relative;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 320px;
+  min-height: 300px;
+
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+
+  &__badge {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+  }
+
+  &__header {
+    display: flex;
+
+    &-left {
+      width: 100%;
+      max-width: 92px;
+      height: 100%;
+    }
+
+    &-right {
+      margin-left: 18px;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title {
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      line-height: 17px;
+
+      color: #000;
+    }
+
+    &__cost {
+      margin-top: 25px;
+      padding: 8px 12px;
+
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      line-height: 17px;
+
+      background: #fafafa;
+      border-radius: 30px;
+      box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+    }
+  }
+
+  &__body {
+    margin-top: 13px;
+
+    .text {
+      max-width: 100px;
+    }
+  }
+
+  &__footer {
+    position: relative;
+
+    margin-top: auto;
+    padding-top: 15px;
+
+    border-top: 1px dashed rgb(230, 230, 230);
+  }
+
+  &__share {
+    position: absolute;
+    right: 0;
+    bottom: -6px;
+  }
+}
