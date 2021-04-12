@@ -13,4 +13,7 @@ import axios from '../../core/axios';
 
 export default {
   createToken: (data: any) => axios.post('store/create_token/', data),
+  saveToken: (data: any) => axios.post('store/save_token/', data),
+  getExplore: (page: number) => axios.get(`store/hot/${page}/`),
+  getCollections: () => axios.get('store/hot_collections/'),
 };

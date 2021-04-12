@@ -22,7 +22,7 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({ tokens, user }) => {
           if (tokens[index]) {
             return (
               <div key={nextId()} className="hot-col-card__box-img">
-                <img src={tokens[index]} alt="token" />
+                <img src={`https://${tokens[index]}`} alt="token" />
               </div>
             );
           }

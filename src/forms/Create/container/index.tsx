@@ -61,7 +61,7 @@ export default ({ isSingle, walletConnector }: any) => {
       formData.append('currency', 'ETH');
       formData.append('creator', localStorage.dds_token);
 
-      if (values.tokenProperties) {
+      if (values.tokenProperties[0].size) {
         const details: any = {};
         values.tokenProperties.forEach((item) => {
           if (item.size) {
@@ -74,26 +74,23 @@ export default ({ isSingle, walletConnector }: any) => {
       storeApi
         .createToken(formData)
         .then(({ data }) => {
-          walletConnector.web3Provider
+          walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
-              debugger;
               formData.append('internal_id', data.internal_id);
               formData.append('tx_hash', res.transactionHash);
+              formData.append('media', values.img);
 
               storeApi
-                .createToken(formData)
+                .saveToken(formData)
                 .then((result) => {
-                  debugger;
-                  console.log(result);
+                  console.log(result, 'create');
                 })
                 .catch((err: any) => {
-                  debugger;
                   console.log(err, 'err');
                 });
             })
             .catch((err: any) => {
-              debugger;
               console.log(err, 'err');
             });
         })

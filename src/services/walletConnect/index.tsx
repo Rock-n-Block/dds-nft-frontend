@@ -39,28 +39,30 @@ class Connector extends React.Component<any, any> {
         rootStore.user.setAddress(res.address);
         localStorage.dds_metamask = true;
 
-        userApi
-          .getMsg()
-          .then(({ data }) => {
-            this.state.provider
-              .signMsg(data)
-              .then((signedMsg: any) => {
-                userApi
-                  .login({
-                    address: rootStore.user.address,
-                    msg: data,
-                    signedMsg,
-                  })
-                  .then((result) => {
-                    localStorage.dds_token = result.data.key;
-                  })
-                  .catch((err) => {
-                    console.log(err, 'login');
-                  });
-              })
-              .catch((err: any) => console.log(err));
-          })
-          .catch((err) => console.log(err, 'msg'));
+        if (!localStorage.dds_token) {
+          userApi
+            .getMsg()
+            .then(({ data }) => {
+              this.state.provider
+                .signMsg(data)
+                .then((signedMsg: any) => {
+                  userApi
+                    .login({
+                      address: rootStore.user.address,
+                      msg: data,
+                      signedMsg,
+                    })
+                    .then((result) => {
+                      localStorage.dds_token = result.data.key;
+                    })
+                    .catch((err) => {
+                      console.log(err, 'login');
+                    });
+                })
+                .catch((err: any) => console.log(err));
+            })
+            .catch((err) => console.log(err, 'msg'));
+        }
       })
       .catch((err: any) => {
         console.log(err, 'err');

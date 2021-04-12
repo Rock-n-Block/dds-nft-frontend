@@ -207,9 +207,9 @@ export default class MetamaskService {
   }
 
   sendTransaction(transactionConfig: any) {
-    return this.wallet.request({
-      method: 'eth_sendTransaction',
-      params: [transactionConfig],
+    return this.web3Provider.eth.sendTransaction({
+      ...transactionConfig,
+      from: this.walletAddress,
     });
   }
 }

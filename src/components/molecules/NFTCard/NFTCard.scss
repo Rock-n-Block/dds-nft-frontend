@@ -42,12 +42,6 @@
     }
   }
 
-  &__user {
-    & + & {
-      margin-left: 20px;
-    }
-  }
-
   &__like {
     position: absolute;
     right: 0;
@@ -60,7 +54,7 @@
 
   &__auction {
     margin-top: 20px;
-
+    flex-wrap: wrap;
     display: flex;
     align-items: center;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 import CheckImg from '../../../assets/img/icons/user-check.svg';
 
@@ -11,7 +12,7 @@ export interface IUserMini {
   bottomText: React.ReactElement | string;
   className?: string;
   shadow?: boolean;
-  id?: number;
+  id?: number | string;
   imgSize?: 'lg';
   isCheck?: boolean;
 }
@@ -21,15 +22,17 @@ const UserMini: React.FC<IUserMini> = ({
   topText,
   bottomText,
   className,
+  id,
   shadow,
   imgSize,
   isCheck,
 }) => {
   return (
-    <div
+    <Link
       className={classNames('u-mini', className, {
         'u-mini__no-shadow': !shadow,
       })}
+      to={`/user/${id}`}
     >
       <div
         className={classNames('u-mini__wrapper', {
@@ -50,7 +53,7 @@ const UserMini: React.FC<IUserMini> = ({
         <div className="u-mini__text">{topText}</div>
         <div className="u-mini__text">{bottomText}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 

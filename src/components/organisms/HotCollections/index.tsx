@@ -4,14 +4,15 @@ import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
-import HotCollectionCard, { IHotCollectionCard } from '../../molecules/HotCollectionCard';
+import HotCollectionCard from '../../molecules/HotCollectionCard';
+import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
 
 import './HotCollections.scss';
 
 SwiperCore.use([Navigation]);
 
 interface IHotCollections {
-  items: IHotCollectionCard[];
+  items: any;
 }
 
 const HotCollections: React.FC<IHotCollections> = ({ items }) => {
@@ -48,9 +49,15 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
               swiper.navigation.update();
             }}
           >
-            {items.map((item) => (
+            {items.map((item: any) => (
               <SwiperSlide className="h-collections__slide" key={nextId()}>
-                <HotCollectionCard tokens={item.tokens} user={item.user} />
+                <HotCollectionCard
+                  tokens={item.tokens}
+                  user={{
+                    img: PreviewOwnerImg,
+                    name: item.creator,
+                  }}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
