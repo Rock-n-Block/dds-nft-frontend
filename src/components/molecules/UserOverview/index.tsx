@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import nextId from 'react-id-generator';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Popover } from 'antd';
@@ -28,11 +28,6 @@ const UserOverview: React.FC<UserOverviewProps> = ({
   description,
   socialNetworks,
 }) => {
-  const [popoverShow, setPopoverShow] = useState(false);
-  const handleVisibleChange = () => {
-    setPopoverShow(!popoverShow);
-  };
-
   return (
     <div className="User__user-overview user-overview">
       {avatarSrc ? (
@@ -67,17 +62,11 @@ const UserOverview: React.FC<UserOverviewProps> = ({
         <div className="user-overview__content__buttons">
           <Button size="sm">Follow </Button>
           <Popover
-            visible={popoverShow}
             content={content({ name, socialNetworks })}
-            trigger="hover"
+            trigger="click"
             placement="bottomLeft"
           >
-            <Button
-              size="sm"
-              colorScheme="white"
-              className="user-overview__content__buttons_share"
-              onClick={handleVisibleChange}
-            >
+            <Button size="sm" colorScheme="white" className="user-overview__content__buttons_share">
               <ShareLinkSvg />
               Share link
             </Button>
