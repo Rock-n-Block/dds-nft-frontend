@@ -54,7 +54,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
               socialNetworks.map((network) => (
                 <SocialNetwork
                   socialNetwork={network}
-                  className="social-networks__network"
+                  className="social-networks__network text-bold"
                   key={nextId()}
                 />
               ))

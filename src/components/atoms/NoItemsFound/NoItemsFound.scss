@@ -7,18 +7,14 @@
   justify-content: center;
   align-items: center;
 
-  font-family: Montserrat;
-  font-weight: bold;
-  font-style: normal;
+  &__title {
+    font-size: 20px;
+    line-height: 24px;
+  }
 
   &__description {
     margin-top: 21px;
 
-    font-size: 14px;
-    line-height: 17px;
-
     text-align: center;
-
-    color: #959595;
   }
 }

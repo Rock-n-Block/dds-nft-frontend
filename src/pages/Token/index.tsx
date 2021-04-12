@@ -6,17 +6,12 @@ import ShareImg from '../../assets/img/icons/share.svg';
 import TokenImg from '../../assets/img/mock/token.jpg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
-import { TokenTabs } from '../../components/molecules';
+import { TokenTabs } from '../../components/organisms';
 
 import './Token.scss';
 
 interface IToken {
   token: string;
-}
-
-export interface IUser {
-  img: string;
-  name: string;
 }
 
 const Token: React.FC = () => {
@@ -37,8 +32,16 @@ const Token: React.FC = () => {
     fee: 2.5,
     price_fee_eth: 348.5,
     price_fee_dol: 621721.7,
-    owner: { name: 'MT_004am...', img: userAvatar },
-    artist: { name: 'DicraKiller', img: userAvatar },
+    owner: {
+      img: userAvatar,
+      topText: <span className="text text-gray text-sm text-upper">owner</span>,
+      bottomText: <span className="text text-purple-l text-smd text-bold">MT_004am...</span>,
+    },
+    artist: {
+      img: userAvatar,
+      topText: <span className="text text-gray text-sm text-upper">artist</span>,
+      bottomText: <span className="text text-purple-l text-smd text-bold">DicraKiller</span>,
+    },
     tabCollection: {
       img: userAvatar,
       topText: 'Collection (ERC1155)',

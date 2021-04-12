@@ -3,16 +3,21 @@
 
   &__event {
     position: relative;
+
     margin-top: 20px;
+
     width: 100%;
 
     &::after {
+      content: '';
+
       position: absolute;
       top: 66px;
       left: 0;
-      content: '';
+
       width: 100%;
       height: 1px;
+
       background: rgb(230, 230, 230);
     }
   }

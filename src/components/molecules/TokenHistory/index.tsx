@@ -1,8 +1,8 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 
-import { UserMini } from '../index';
-import { IUserMini } from '../UserMini';
+import { UserMini } from '../../atoms';
+import { IUserMini } from '../../atoms/UserMini';
 
 import './TokenHistory.scss';
 

@@ -2,18 +2,17 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import { Tabs } from 'antd';
 
-import { IUser } from '../../../pages/Token';
-import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../atoms';
-import { IDetail } from '../../atoms/TokenDetails';
 import { IUserMini } from '../../atoms/UserMini';
+import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
+import { IDetail } from '../../molecules/TokenDetails';
 
 import './TokenTabs.scss';
 
 const { TabPane } = Tabs;
 
 interface TokenTabsProps {
-  owner: IUser;
-  artist: IUser;
+  owner: IUserMini;
+  artist: IUserMini;
   collection: IUserMini;
   cost?: number;
   history: Array<IUserMini>;

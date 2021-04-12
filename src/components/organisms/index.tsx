@@ -17,3 +17,4 @@ export { default as UserCreated } from './UserCreated';
 export { default as UserFollower } from './UserFollower';
 export { default as UserFollowing } from './UserFollowing';
 export { default as UserLiked } from './UserLiked';
+export { default as TokenTabs } from './TokenTabs';

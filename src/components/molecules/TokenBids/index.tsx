@@ -1,8 +1,7 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 
-import { UserMini } from '../index';
-import { IUserMini } from '../UserMini';
+import UserMini, { IUserMini } from '../../atoms/UserMini';
 
 interface TokenBidsProps {
   bids: Array<IUserMini>;

@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { IUser } from '../../../pages/Token';
-import { UserMini } from '../index';
-import { IUserMini } from '../UserMini';
+import { UserMini } from '../../atoms';
+import { IUserMini } from '../../atoms/UserMini';
 
 import './TokenInfo.scss';
 
 interface TokenInfoProps {
-  owner: IUser;
-  artist: IUser;
+  owner: IUserMini;
+  artist: IUserMini;
   collection: IUserMini;
 }
 
@@ -18,14 +17,14 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
       <UserMini
         img={owner.img}
         imgSize="lg"
-        topText={<span className="text text-gray text-sm text-upper">owner</span>}
-        bottomText={<span className="text text-purple-l text-smd text-bold">{owner.name}</span>}
+        topText={owner.topText}
+        bottomText={owner.bottomText}
       />
       <UserMini
         img={artist.img}
         imgSize="lg"
-        topText={<span className="text text-gray text-sm text-upper">artist</span>}
-        bottomText={<span className="text text-purple-l text-smd text-bold">{artist.name}</span>}
+        topText={owner.topText}
+        bottomText={owner.bottomText}
       />
       <div className="token-info__warning text text-purple-d text-bold ">
         15% of sales will go to creator
