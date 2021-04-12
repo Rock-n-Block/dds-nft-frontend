@@ -1,15 +1,26 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
+import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
 
 import './Header.scss';
 
-const Header: React.FC = () => {
+const Header: React.FC = observer(() => {
+  const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
-  // walletConnector.connector.killSession();
+
+  const connectWallet = (): void => {
+    if (!localStorage.ddsTerms) {
+      modals.terms.open();
+    } else {
+      walletConnector.connect();
+    }
+  };
+
   return (
     <header className="header box-shadow">
       <div className="row">
@@ -37,21 +48,25 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="header__box">
-            <Button link="/create" linkClassName="header__btn">
-              Create
-            </Button>
-            <Button
-              colorScheme="outline"
-              onClick={walletConnector.web3Provider && walletConnector.web3Provider.connect}
-              className="header__btn"
-            >
-              Connect wallet
-            </Button>
+            {user.address ? (
+              <Button link="/create" linkClassName="header__btn">
+                Create
+              </Button>
+            ) : (
+              ''
+            )}
+            {user.address ? (
+              ''
+            ) : (
+              <Button colorScheme="outline" onClick={connectWallet} className="header__btn">
+                Connect wallet
+              </Button>
+            )}
           </div>
         </div>
       </div>
     </header>
   );
-};
+});
 
 export default Header;

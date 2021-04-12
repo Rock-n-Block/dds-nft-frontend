@@ -22,7 +22,9 @@ const Filter: React.FC<IFilter> = ({
   sortItems,
   onChangeSort,
 }) => {
-  const [activeFilter, setActiveFilter] = React.useState<string[]>([filters[0]]);
+  const [activeFilter, setActiveFilter] = React.useState<string[]>(
+    isAllFilterItem ? ['all'] : [filters[0]],
+  );
 
   const handleFilterItemClick = (filter: string) => {
     let newFilters = [...activeFilter];

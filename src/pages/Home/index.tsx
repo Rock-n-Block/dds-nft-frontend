@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
 import PreviewImg from '../../assets/img/mock/home-preview.jpg';
@@ -6,12 +6,14 @@ import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
 import { Explore, HotBids, HotCollections, Search, TopUsers } from '../../components/organisms';
+import { storeApi } from '../../services/api';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import './Home.scss';
 
 const Home: React.FC = () => {
+  const [collections, setCollections] = useState<any>([]);
   const hotBids = [
     {
       img: HotImg,
@@ -145,57 +147,19 @@ const Home: React.FC = () => {
       bottomText: '355 EHT',
     },
   ];
-  const hotCollections = [
-    {
-      tokens: [HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-    {
-      tokens: [HotImg, HotImg, HotImg, HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-    {
-      tokens: [HotImg, HotImg, HotImg, HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-    {
-      tokens: [HotImg, HotImg, HotImg, HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-    {
-      tokens: [HotImg, HotImg, HotImg, HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-    {
-      tokens: [HotImg, HotImg, HotImg, HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-    {
-      tokens: [HotImg, HotImg, HotImg, HotImg, HotImg, HotImg],
-      user: {
-        img: PreviewOwnerImg,
-        name: 'DicraKiller',
-      },
-    },
-  ];
+  const loadCollections = () => {
+    storeApi
+      .getCollections()
+      .then(({ data }) => {
+        setCollections((prevCollections: any) => [...prevCollections, ...data]);
+      })
+      .catch((err) => {
+        console.log(err, 'get collections');
+      });
+  };
+  React.useEffect(() => {
+    loadCollections();
+  }, []);
   return (
     <main className="home">
       <div
@@ -230,9 +194,13 @@ const Home: React.FC = () => {
       <div className="home__top">
         <TopUsers users={topUsers} />
       </div>
-      <div className="home__collections">
-        <HotCollections items={hotCollections} />
-      </div>
+      {collections.length ? (
+        <div className="home__collections">
+          <HotCollections items={collections} />
+        </div>
+      ) : (
+        ''
+      )}
       <div className="home__explore">
         <Explore />
       </div>

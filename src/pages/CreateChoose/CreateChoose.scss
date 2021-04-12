@@ -41,6 +41,9 @@
 
     background: #fafafa;
     border-radius: 30px;
+    &-text {
+      margin-top: 20px;
+    }
 
     & + & {
       margin-left: 50px;

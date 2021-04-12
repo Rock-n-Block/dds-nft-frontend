@@ -4,19 +4,17 @@ import classNames from 'classnames';
 
 interface IModal {
   isVisible: boolean;
-  handleOk: () => void;
   handleCancel?: () => void;
-  className: string;
+  className?: string;
 }
 
-const Modal: React.FC<IModal> = ({ children, isVisible, handleOk, handleCancel, className }) => {
+const Modal: React.FC<IModal> = ({ children, isVisible, handleCancel, className }) => {
   return (
     <ModalAntd
       title={false}
       visible={isVisible}
       footer={false}
       closable={false}
-      onOk={handleOk}
       onCancel={handleCancel}
       centered
       className={classNames('modal', className)}

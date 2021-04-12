@@ -14,7 +14,8 @@ interface IProperti {
 }
 
 export interface ICreateForm {
-  img: string;
+  img: any;
+  preview: string;
   putOnSale: boolean;
   instantSalePrice: boolean;
   unlockOncePurchased: boolean;
@@ -244,6 +245,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
                 id="tokenRoyalties"
                 className="form-create__input input__create text-bold text-smd"
                 size="large"
+                type="number"
                 placeholder="10"
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -316,7 +318,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
                 <Form.Item
                   name={`tokenProperties[${index}].amount`}
                   className="form-create__field input__field"
-                  validateStatus={validateField(`properties${index}`, touched, errors)}
+                  validateStatus={validateField(`tokenProperties`, touched, errors)}
                   help={(() => {
                     return errors.tokenProperties &&
                       errors.tokenProperties[index] &&
@@ -355,7 +357,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
         <div className="form-create__upload-title text-bold text-lg">Preview</div>
         <NFTCard
           disableLinks
-          img={values.img}
+          img={values.preview}
           name={values.tokenName}
           artist={{ name: 'Gleb' }}
           owner={{ name: 'Gleb' }}

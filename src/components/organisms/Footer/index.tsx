@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
                 Support
               </Link>
             </div>
-            <div className="footer__nav-box">
+            {/* <div className="footer__nav-box">
               <div className="text-smd text-bold text-purple">Community</div>
               <Link to="/" className="text-smd text-bold text-black footer__nav-item">
                 DDS Token
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
               <Link to="/" className="text-smd text-bold text-black footer__nav-item">
                 Suggest feature
               </Link>
-            </div>
+            </div> */}
           </div>
           <div className="footer__wrapper">
             <NavHashLink to="#top" smooth>

@@ -18,7 +18,6 @@
       "esnext",
       "ES2015"
     ],
-    "experimentalDecorators": false,
     "emitDecoratorMetadata": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
@@ -32,6 +31,7 @@
     "sourceMap": true,
     "noImplicitThis": false,
     "baseUrl": "./",
+    "experimentalDecorators": true,
     "moduleResolution": "node",
     "target": "es5",
     "allowJs": true,

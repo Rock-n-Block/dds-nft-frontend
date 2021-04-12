@@ -2,9 +2,11 @@ import { createContext, useContext } from 'react';
 import { Instance, onSnapshot, types } from 'mobx-state-tree';
 
 import { Modals } from './Modals';
+import { User } from './User';
 
 const RootModel = types.model({
   modals: Modals,
+  user: User,
 });
 
 export const Store = RootModel.create({
@@ -12,6 +14,10 @@ export const Store = RootModel.create({
     terms: {
       isOpen: false,
     },
+    metamask: {},
+  },
+  user: {
+    address: '',
   },
 });
 

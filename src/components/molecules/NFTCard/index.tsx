@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BigNumber from 'bignumber.js/bignumber';
 
 import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
 import { Like, UserMini } from '../../atoms';
@@ -21,9 +22,11 @@ export interface INFTCard {
   } | null;
   artist: {
     name: string;
+    id?: number | string;
   };
   owner?: {
     name: string;
+    id?: number | string;
   };
   like?: boolean;
   disableLinks?: boolean;
@@ -42,7 +45,6 @@ const NFTCard: React.FC<INFTCard> = ({
   const [isLike, setLike] = React.useState(like);
 
   const handleLike = (): void => {
-    console.log(1);
     setLike(!isLike);
   };
   return (
@@ -74,7 +76,9 @@ const NFTCard: React.FC<INFTCard> = ({
               <div className="nft-card__auction nft-card__auction-bid">
                 <div className="nft-card__auction-text text-gray text-bold">Highest bid</div>
                 <div className="nft-card__auction-bid-box box-shadow">
-                  <span className="text-grad text-bold">{auction?.bid} ETH</span>
+                  <span className="text-grad text-bold">
+                    {new BigNumber(auction?.bid).toFixed()} ETH
+                  </span>
                 </div>
               </div>
             </>
@@ -85,7 +89,9 @@ const NFTCard: React.FC<INFTCard> = ({
             <>
               <div className="nft-card__auction">
                 <div className="nft-card__auction-bid-box box-shadow">
-                  <span className="text-grad text-bold">{bid?.price} ETH</span>
+                  <span className="text-grad text-bold">
+                    {new BigNumber(bid?.price).toFixed()} ETH
+                  </span>
                 </div>
                 <div className="nft-card__auction-text text-gray text-bold">
                   {bid?.sold} of {bid?.count}
@@ -115,6 +121,7 @@ const NFTCard: React.FC<INFTCard> = ({
             topText={<span className="text-gray text-upper text-sm">Artist</span>}
             bottomText={<span className="text-purple-l">{artist.name}</span>}
             shadow={false}
+            id={artist.id}
           />
           {owner ? (
             <UserMini
@@ -123,6 +130,7 @@ const NFTCard: React.FC<INFTCard> = ({
               topText={<span className="text-gray text-upper text-sm">Owner</span>}
               bottomText={<span className="text-purple-l">{owner?.name}</span>}
               shadow={false}
+              id={owner?.id}
             />
           ) : (
             ''
