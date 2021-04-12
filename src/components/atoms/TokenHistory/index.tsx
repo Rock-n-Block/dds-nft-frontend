@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
 import { UserMini } from '../index';
 import { IUserMini } from '../UserMini';
@@ -16,6 +17,7 @@ const TokenHistory: React.FC<TokenHistoryProps> = ({ history }) => {
         history.map((event) => (
           <UserMini
             className="token-history__event"
+            key={nextId()}
             img={event.img}
             imgSize="lg"
             topText={event.topText}

@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
 import './TokenDetails.scss';
 
@@ -15,7 +16,7 @@ const TokenDetails: React.FC<TokenDetailsProps> = ({ details }) => {
     <div className="token-details">
       {details ? (
         details.map((detail) => (
-          <div className="token-details__detail">
+          <div className="token-details__detail" key={nextId()}>
             <h3 className="text-black text-upper text-sm">{detail.topText}</h3>
             <p className="text-smd text-bold text-pink-l">{detail.bottomText}</p>
           </div>

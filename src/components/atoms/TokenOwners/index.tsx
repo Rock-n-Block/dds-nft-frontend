@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
 import { UserMini } from '../index';
 import { IUserMini } from '../UserMini';
@@ -16,6 +17,7 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
         owners.map((owner) => (
           <UserMini
             className="token-owners__owner"
+            key={nextId()}
             img={owner.img}
             imgSize="lg"
             topText={

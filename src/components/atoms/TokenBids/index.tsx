@@ -1,4 +1,5 @@
 import React from 'react';
+import nextId from 'react-id-generator';
 
 import { UserMini } from '../index';
 import { IUserMini } from '../UserMini';
@@ -12,7 +13,13 @@ const TokenBids: React.FC<TokenBidsProps> = ({ bids }) => {
     <div className="token-tab token-info">
       {bids ? (
         bids.map((bid) => (
-          <UserMini img={bid.img} imgSize="lg" topText={bid.topText} bottomText={bid.bottomText} />
+          <UserMini
+            img={bid.img}
+            key={nextId()}
+            imgSize="lg"
+            topText={bid.topText}
+            bottomText={bid.bottomText}
+          />
         ))
       ) : (
         <></>
