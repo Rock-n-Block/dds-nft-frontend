@@ -29,7 +29,7 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
           </div>
           <h1 className="create__title text-xl text-bold">
             <span>Create </span>
-            <span className="text-grad">multiple</span>
+            <span className="text-grad">{isSingle ? 'single' : 'multiple'}</span>
             <span> collectible</span>
           </h1>
           <CreateForm isSingle={isSingle} walletConnector={walletConnector} />
