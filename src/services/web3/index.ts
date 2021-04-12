@@ -77,7 +77,7 @@ export default class MetamaskService {
 
     return new Promise((resolve, reject) => {
       if (!this.wallet) {
-        reject(new Error(`${this.usedNetwork} wallet is not injected`));
+        reject(new Error(`metamask wallet is not injected`));
       }
 
       if (!currentChain || currentChain === null) {
