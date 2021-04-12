@@ -75,6 +75,14 @@
     color: $purple-l;
   }
 
+  &-purple-d {
+    color: $purple-d;
+  }
+
+  &-pink-l {
+    color: $pink-l;
+  }
+
   &-upper {
     text-transform: uppercase;
   }
@@ -85,6 +93,10 @@
 
   &-center {
     text-align: center;
+  }
+
+  &-line-through {
+    text-decoration: line-through;
   }
 
   &-grad {

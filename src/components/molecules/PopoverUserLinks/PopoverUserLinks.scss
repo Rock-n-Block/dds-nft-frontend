@@ -1,4 +1,8 @@
 .popover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &__title {
     font-family: Montserrat;
     font-size: 16px;
