@@ -14,6 +14,7 @@ export const Store = RootModel.create({
     terms: {
       isOpen: false,
     },
+    metamask: {},
   },
   user: {
     address: '',

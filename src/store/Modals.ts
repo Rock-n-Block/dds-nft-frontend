@@ -1,6 +1,5 @@
 import { types } from 'mobx-state-tree';
 
-// /* eslint-disable no-param-reassign */
 const TermsModal = types
   .model({
     isOpen: types.boolean,
@@ -14,6 +13,17 @@ const TermsModal = types
     },
   }));
 
+const MetamaskModal = types
+  .model({
+    errMsg: types.optional(types.string, ''),
+  })
+  .actions((self) => ({
+    setErr(err: string) {
+      self.errMsg = err;
+    },
+  }));
+
 export const Modals = types.model({
   terms: TermsModal,
+  metamask: MetamaskModal,
 });

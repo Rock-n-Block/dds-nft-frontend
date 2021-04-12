@@ -30,6 +30,12 @@ class Connector extends React.Component<any, any> {
     if (localStorage.dds_metamask) {
       this.connect();
     }
+
+    this.state.provider.chainChangedObs.subscribe({
+      next(err: string) {
+        rootStore.modals.metamask.setErr(err);
+      },
+    });
   }
 
   connect = (): void => {
@@ -65,7 +71,7 @@ class Connector extends React.Component<any, any> {
         }
       })
       .catch((err: any) => {
-        console.log(err, 'err');
+        rootStore.modals.metamask.setErr(err.message);
       });
   };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { Footer, Header, TermsModal } from './components/organisms';
+import { Footer, Header, TermsModal, MetamaskErrModal } from './components/organisms';
 import { ConnectPage, CreateChoosePage, CreatePage, HomePage, TokenPage } from './pages';
 
 import './styles/index.scss';
@@ -38,6 +38,7 @@ const App: React.FC = () => {
       </Switch>
       <Footer />
       <TermsModal />
+      <MetamaskErrModal />
     </div>
   );
 };

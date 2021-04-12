@@ -5,7 +5,7 @@ import classNames from 'classnames';
 interface IModal {
   isVisible: boolean;
   handleCancel?: () => void;
-  className: string;
+  className?: string;
 }
 
 const Modal: React.FC<IModal> = ({ children, isVisible, handleCancel, className }) => {
