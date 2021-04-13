@@ -18,7 +18,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   children,
   className,
-  size = 'sm',
+  size = '',
   colorScheme = 'purple',
   onClick,
   disabled = false,

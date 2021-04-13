@@ -34,12 +34,12 @@ const Token: React.FC = () => {
     price_fee_dol: 621721.7,
     owner: {
       img: userAvatar,
-      topText: <span className="text text-gray text-sm text-upper">owner</span>,
+      topText: <span className="text text-gray text-sm text-upper text-regular">owner</span>,
       bottomText: <span className="text text-purple-l text-smd text-bold">MT_004am...</span>,
     },
     artist: {
       img: userAvatar,
-      topText: <span className="text text-gray text-sm text-upper">artist</span>,
+      topText: <span className="text text-gray text-sm text-upper text-regular">artist</span>,
       bottomText: <span className="text text-purple-l text-smd text-bold">DicraKiller</span>,
     },
     tabCollection: {
@@ -67,9 +67,11 @@ const Token: React.FC = () => {
     history: [
       {
         img: userAvatar,
-        topText: <span className="text text-gray text-sm text-upper">Minted 1 hours ago</span>,
+        topText: (
+          <span className="text text-gray text-sm text-upper text-regular">Minted 1 hours ago</span>
+        ),
         bottomText: (
-          <span className="text text-gray text-sm ">
+          <span className="text text-gray text-sm text-regular">
             BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
           </span>
         ),
@@ -107,7 +109,7 @@ const Token: React.FC = () => {
         img: userAvatar,
         topText: <span className="text-sm text-bold text-black">1.1 WETH</span>,
         bottomText: (
-          <span className="text-sm text-gray">
+          <span className="text-sm text-gray text-regular">
             BY <b className="text-bold text-purple-l text-smd">Lance</b>
           </span>
         ),
@@ -187,7 +189,7 @@ const Token: React.FC = () => {
               <div className="token__info-text text-md">{`Number: ${data.number}`}</div>
             </div>
             <Button colorScheme="white" shadow className="token__info-btn">
-              <span className="text-grad">Read more</span>
+              <span className="text-grad text-smd">Read more</span>
             </Button>
           </div>
           <div className="token__content-right">

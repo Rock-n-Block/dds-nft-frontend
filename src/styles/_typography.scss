@@ -47,8 +47,20 @@
     line-height: 30px;
   }
 
+  &-xxl {
+    font-size: 40px;
+    line-height: 49px;
+  }
+  &-regular {
+    font-weight: 500;
+  }
+
   &-bold {
-    font-family: MB;
+    font-weight: 700;
+  }
+
+  &-bolder {
+    font-weight: 800;
   }
 
   &-black {
@@ -103,6 +115,14 @@
     width: fit-content;
 
     background: $purple-grad;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &-blue-grad {
+    width: fit-content;
+
+    background: $blue-grad;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

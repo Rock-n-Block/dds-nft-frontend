@@ -2,9 +2,11 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import classNames from 'classnames';
 import SwiperCore, { Navigation } from 'swiper';
+import { observer } from 'mobx-react-lite';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import LogoImg from '../../../assets/img/icons/logo-mini.svg';
+import { useMst } from '../../../store/store';
 import PlusImg from '../../../assets/img/icons/plus.svg';
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 
@@ -22,10 +24,15 @@ interface IChooseCollection {
   ];
 }
 
-const ChooseCollection: React.FC<IChooseCollection> = ({ items }) => {
+const ChooseCollection: React.FC<IChooseCollection> = observer(({ items }) => {
+  const { modals } = useMst();
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
   const [activeCollection, setActiveCollection] = React.useState('dds');
+
+  const handleOpenModal = (): void => {
+    modals.createCollection.open();
+  };
   return (
     <div className="ch-coll">
       <div className="ch-coll__title text-grad text-lg text-bold">
@@ -69,7 +76,13 @@ const ChooseCollection: React.FC<IChooseCollection> = ({ items }) => {
           }}
         >
           <SwiperSlide className="ch-coll__slide" key={nextId()}>
-            <div className="ch-coll__item box-shadow">
+            <div
+              className="ch-coll__item box-shadow"
+              onClick={handleOpenModal}
+              onKeyDown={handleOpenModal}
+              role="button"
+              tabIndex={0}
+            >
               <div className="ch-coll__item-img">
                 <img src={PlusImg} alt="new" />
               </div>
@@ -118,6 +131,6 @@ const ChooseCollection: React.FC<IChooseCollection> = ({ items }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ChooseCollection;

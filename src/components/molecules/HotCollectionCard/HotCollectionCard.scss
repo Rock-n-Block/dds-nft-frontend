@@ -14,9 +14,9 @@
     justify-content: space-between;
 
     width: 100%;
+    grid-row-gap: 10px;
     grid-template-columns: repeat(3, 97px);
     grid-template-rows: repeat(2, 97px);
-    grid-row-gap: 10px;
 
     &-img {
       overflow: hidden;

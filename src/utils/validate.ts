@@ -62,6 +62,11 @@ export const validateForm = ({ values, notRequired }: any) => {
         errCopy.tokenRoyalties = '"Royalties" must be a number';
       }
     },
+    symbol: (value: string): void => {
+      if (!value) {
+        errCopy.symbol = '"Symbol" is not allowed to be empty';
+      }
+    },
     tokenName: (value: string): void => {
       if (!value) {
         errCopy.tokenName = '"Name" is not allowed to be empty';

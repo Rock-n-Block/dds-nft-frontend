@@ -41,7 +41,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
         />
       )}
       <div className="user-overview__content">
-        <h3 className="user-overview__content__name">{name}</h3>
+        <h3 className="user-overview__content__name text-bold text-xl">{name}</h3>
         <div className="user-overview__content_container">
           <UserWallet address={wallet} className="user-overview__content__wallet" />
           <div className="user-overview__content__social-networks social-networks">
@@ -49,7 +49,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
               socialNetworks.map((network) => (
                 <SocialNetwork
                   socialNetwork={network}
-                  className="social-networks__network text-bold"
+                  className="social-networks__network text text-purple text-bold"
                   key={nextId()}
                 />
               ))
@@ -58,7 +58,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
             )}
           </div>
         </div>
-        <p className="user-overview__content__description">{description}</p>
+        <p className="user-overview__content__description text text-regular">{description}</p>
         <div className="user-overview__content__buttons">
           <Button size="sm">Follow </Button>
           <Popover

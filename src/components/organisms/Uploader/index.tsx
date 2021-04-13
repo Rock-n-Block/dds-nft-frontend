@@ -3,10 +3,15 @@ import { message, Upload } from 'antd';
 import { useFormikContext } from 'formik';
 
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
+import { Button } from '../../atoms';
 
 const { Dragger } = Upload;
 
-const Uploader: React.FC = () => {
+interface IUploader {
+  type?: 'area' | 'button';
+}
+
+const Uploader: React.FC<IUploader> = ({ type = 'area' }) => {
   const formik = useFormikContext();
   const [imageUrl, setImageUrl] = React.useState('');
   const getBase64 = (img: any, callback: any) => {
@@ -46,30 +51,50 @@ const Uploader: React.FC = () => {
   };
   return (
     <div className="uploader">
-      <Dragger
-        beforeUpload={beforeUpload}
-        onChange={handleChange}
-        multiple={false}
-        showUploadList={false}
-      >
-        {imageUrl ? (
-          <img src={imageUrl} alt="" className="uploader__img" />
-        ) : (
-          <span className="text-gray-l text-smd text-bold">
-            PNG, GIF, WEBP, MP4 or MP3. Max 30mb.
-          </span>
-        )}
-      </Dragger>
-      {imageUrl ? (
-        <div
-          className="uploader__clear"
-          onClick={handleClear}
-          onKeyDown={handleClear}
-          role="button"
-          tabIndex={0}
+      {type === 'area' ? (
+        <>
+          <Dragger
+            beforeUpload={beforeUpload}
+            onChange={handleChange}
+            multiple={false}
+            showUploadList={false}
+          >
+            {imageUrl ? (
+              <img src={imageUrl} alt="" className="uploader__img" />
+            ) : (
+              <span className="text-gray-l text-smd text-bold">
+                PNG, GIF, WEBP, MP4 or MP3. Max 30mb.
+              </span>
+            )}
+          </Dragger>
+          {imageUrl ? (
+            <div
+              className="uploader__clear"
+              onClick={handleClear}
+              onKeyDown={handleClear}
+              role="button"
+              tabIndex={0}
+            >
+              <img src={ClearImg} alt="" />
+            </div>
+          ) : (
+            ''
+          )}
+        </>
+      ) : (
+        ''
+      )}
+      {type === 'button' ? (
+        <Upload
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          multiple={false}
+          showUploadList={false}
         >
-          <img src={ClearImg} alt="" />
-        </div>
+          <Button colorScheme="outline" size="sm">
+            Choose file
+          </Button>
+        </Upload>
       ) : (
         ''
       )}
