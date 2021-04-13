@@ -13,7 +13,7 @@ export interface PopoverUserLinksProps {
 const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name, socialNetworks }) => {
   return (
     <div className="popover">
-      <h3 className="popover__title text-grad">Share {name}</h3>
+      <h3 className="popover__title text-smd text-bold text-grad">Share {name}</h3>
       {socialNetworks ? (
         <div className="popover__social-links">
           {socialNetworks.map((network) => (
@@ -21,9 +21,11 @@ const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name, socialNetwork
               <SocialNetwork
                 socialNetwork={network}
                 withTitle={false}
-                className="popover__social-links__social-link"
+                className="popover__social-links__social-link "
               />
-              <p className="popover__social-links__social-name">{network.networkType}</p>
+              <p className="popover__social-links__social-name text-bold text-sm text-gray">
+                {network.networkType}
+              </p>
             </div>
           ))}
         </div>

@@ -34,7 +34,7 @@ const Search: React.FC = () => {
       <Input
         ref={inputRef}
         type="text"
-        className="input__search text-smd"
+        className="input__search text-smd text-regular"
         placeholder="Search items, collections, and accounts"
         onKeyDown={handleKeyDown}
       />

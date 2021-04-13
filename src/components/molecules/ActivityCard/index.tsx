@@ -40,12 +40,18 @@ const ActivityCard: React.FC<IActivityCard> = ({
 }) => {
   return (
     <div className="activity-card">
-      <div className="activity-card__badge activity-badge">{activityType}</div>
+      <div className="activity-card__badge activity-badge text text-purple text-bold">
+        {activityType}
+      </div>
       <div className="activity-card__header">
         <img src={img} alt="token" className="activity-card__header-left" />
         <div className="activity-card__header-right">
-          <h3 className="activity-card__header__title">{title}</h3>
-          {cost ? <span className="activity-card__header__cost text-grad">{cost} ETH</span> : <></>}
+          <h3 className="activity-card__header__title text-bold text">{title}</h3>
+          {cost ? (
+            <span className="activity-card__header__cost text text-grad text-bold">{cost} ETH</span>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="activity-card__body">
@@ -53,25 +59,27 @@ const ActivityCard: React.FC<IActivityCard> = ({
           <>
             <UserMini
               img={firstUser?.img}
-              topText={<span className="text-gray text">purchased by</span>}
+              topText={<span className="text-gray text text-bold">purchased by</span>}
               bottomText={<span className="text-black text-bold">{firstUser?.name}</span>}
             />
             <UserMini
               img={secondUser?.img}
-              topText={<span className="text-gray text">from</span>}
+              topText={<span className="text-gray text text-bold">from</span>}
               bottomText={<span className="text-black text-bold">{secondUser?.name}</span>}
             />
           </>
         ) : (
           <UserMini
             img={firstUser?.img}
-            topText={<span className="text-gray text">minted by</span>}
-            bottomText={<span className="text-black text-bold">{firstUser?.name}</span>}
+            topText={<span className="text-gray text text-bold">minted by</span>}
+            bottomText={<span className="text-black text-bold text-bold">{firstUser?.name}</span>}
           />
         )}
       </div>
       <div className="activity-card__footer">
-        <p className="activity-card__time text text-gray text-sm">{time} minutes ago</p>
+        <p className="activity-card__time text text-gray text-sm text-regular text-upper">
+          {time} minutes ago
+        </p>
         <a href="/" aria-label="Share" className="activity-card__share">
           <ShareLinkSvg />
         </a>
