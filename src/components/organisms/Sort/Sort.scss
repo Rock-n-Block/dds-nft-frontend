@@ -13,7 +13,7 @@
   }
 
   &__current {
-    margin-left:8px;
+    margin-left: 8px;
   }
 
   &.open {
@@ -57,9 +57,11 @@
 
   &__item {
     padding: 5px 10px;
-    font-family: MB;
+
     display: flex;
     align-items: center;
+
+    font-family: MB;
 
     cursor: pointer;
 
@@ -72,7 +74,8 @@
     }
 
     &.check {
-      color:#8834a2;
+      color: #8834a2;
+
       img {
         visibility: visible;
 

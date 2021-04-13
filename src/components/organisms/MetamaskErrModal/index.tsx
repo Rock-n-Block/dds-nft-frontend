@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal } from '../../molecules';
 import MetamaskImg from '../../../assets/img/icons/metamask.svg';
 import { useMst } from '../../../store/store';
+import { Modal } from '../../molecules';
 
 import './MetamaskErrModal.scss';
 

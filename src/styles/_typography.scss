@@ -47,6 +47,11 @@
     line-height: 30px;
   }
 
+  &-xxl {
+    font-size: 40px;
+    line-height: 49px;
+  }
+
   &-bold {
     font-family: MB;
   }
@@ -103,6 +108,14 @@
     width: fit-content;
 
     background: $purple-grad;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &-blue-grad {
+    width: fit-content;
+
+    background: $blue-grad;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
