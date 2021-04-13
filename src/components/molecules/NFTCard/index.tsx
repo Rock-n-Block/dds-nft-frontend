@@ -118,7 +118,7 @@ const NFTCard: React.FC<INFTCard> = ({
           <UserMini
             className="nft-card__user"
             img={PreviewOwnerImg}
-            topText={<span className="text-gray text-upper text-sm">Artist</span>}
+            topText={<span className="text-gray text-upper text-sm text-regular">Artist</span>}
             bottomText={<span className="text-purple-l">{artist.name}</span>}
             shadow={false}
             id={artist.id}
@@ -127,7 +127,7 @@ const NFTCard: React.FC<INFTCard> = ({
             <UserMini
               className="nft-card__user"
               img={PreviewOwnerImg}
-              topText={<span className="text-gray text-upper text-sm">Owner</span>}
+              topText={<span className="text-gray text-upper text-sm text-regular">Owner</span>}
               bottomText={<span className="text-purple-l">{owner?.name}</span>}
               shadow={false}
               id={owner?.id}

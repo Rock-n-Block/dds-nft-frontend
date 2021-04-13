@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Footer, Header, TermsModal, MetamaskErrModal } from './components/organisms';
+import { Footer, Header, MetamaskErrModal, TermsModal } from './components/organisms';
 import { ConnectPage, CreateChoosePage, CreatePage, HomePage, TokenPage, UserPage } from './pages';
 
 import './styles/index.scss';

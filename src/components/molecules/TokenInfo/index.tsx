@@ -33,7 +33,11 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
         img={collection.img}
         imgSize="lg"
         isCheck
-        topText={<span className="text text-gray text-sm text-upper">{collection.topText}</span>}
+        topText={
+          <span className="text text-gray text-sm text-upper text-regular">
+            {collection.topText}
+          </span>
+        }
         bottomText={
           <span className="text text-purple-l text-smd text-bold">{collection.bottomText}</span>
         }

@@ -23,7 +23,7 @@ const UserWallet: React.FC<UserWalletProps> = ({ address, className }) => {
       className={classNames(className, 'user-wallet')}
       onClick={() => copyToClipboard()}
     >
-      <span className="user-wallet__address">{address}</span>
+      <span className="user-wallet__address text-purple text-regular">{address}</span>
       <CopySvg />
     </Button>
   );

@@ -177,7 +177,7 @@ const Home: React.FC = () => {
           <Search />
         </div>
         <div className="row">
-          <h1 className="home__preview-title h1 text-white text-center text-bold">
+          <h1 className="home__preview-title h1 text-white text-center text-bolder">
             NFT marketplace
           </h1>
           <p className="home__preview-text text-xl text-white text-center">

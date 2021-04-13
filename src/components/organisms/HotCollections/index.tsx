@@ -4,8 +4,8 @@ import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
-import HotCollectionCard from '../../molecules/HotCollectionCard';
 import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
+import HotCollectionCard from '../../molecules/HotCollectionCard';
 
 import './HotCollections.scss';
 

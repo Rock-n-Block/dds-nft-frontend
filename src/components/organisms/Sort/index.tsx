@@ -12,7 +12,7 @@ interface ISort {
   onChange: (sort: string) => void;
 }
 
-const Sort: React.FC<ISort> = ({items, isSortShown = false, onChange}) => {
+const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
   const [isOpen, setOpen] = React.useState(false);
   const [activeSort, setActiveSort] = React.useState<string>(items[0]);
   const [isPosTop, setPosTop] = React.useState<boolean>(false);
@@ -61,8 +61,12 @@ const Sort: React.FC<ISort> = ({items, isSortShown = false, onChange}) => {
         onKeyDown={handleToggleOpen}
       >
         <span className="text-bold text-black text">Sort</span>
-        {isSortShown ? (<span className="sort__current text text-gray text-bold">{activeSort}</span>) : (<></>)}
-        <img src={ArrowImg} alt="arrow"/>
+        {isSortShown ? (
+          <span className="sort__current text text-gray text-bold">{activeSort}</span>
+        ) : (
+          <></>
+        )}
+        <img src={ArrowImg} alt="arrow" />
       </div>
       <div
         className={classNames('sort__content', {
@@ -73,7 +77,7 @@ const Sort: React.FC<ISort> = ({items, isSortShown = false, onChange}) => {
         {items.map((item) => (
           <div
             key={item}
-            className={classNames('sort__item', {
+            className={classNames('sort__item', 'text-bold', {
               check: activeSort === item,
             })}
             role="button"
@@ -82,7 +86,7 @@ const Sort: React.FC<ISort> = ({items, isSortShown = false, onChange}) => {
             onKeyDown={() => handleChangeSort(item)}
           >
             <span>{item}</span>
-            <img src={CheckImg} alt="check"/>
+            <img src={CheckImg} alt="check" />
           </div>
         ))}
       </div>
