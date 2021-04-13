@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Footer, Header, MetamaskErrModal, TermsModal } from './components/organisms';
+
 import {
   ConnectPage,
   CreateChoosePage,

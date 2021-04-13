@@ -51,9 +51,16 @@
     font-size: 40px;
     line-height: 49px;
   }
+  &-regular {
+    font-weight: 500;
+  }
 
   &-bold {
-    font-family: MB;
+    font-weight: 700;
+  }
+
+  &-bolder {
+    font-weight: 800;
   }
 
   &-black {
@@ -108,7 +115,7 @@
     width: fit-content;
 
     background: $purple-grad;
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 

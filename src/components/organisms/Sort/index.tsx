@@ -77,7 +77,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
         {items.map((item) => (
           <div
             key={item}
-            className={classNames('sort__item', {
+            className={classNames('sort__item', 'text-bold', {
               check: activeSort === item,
             })}
             role="button"

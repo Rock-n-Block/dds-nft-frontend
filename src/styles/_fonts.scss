@@ -1,18 +1,6 @@
-@font-face {
-  font-family: 'MB';
-  src: url('../assets/fonts/Montserrat-Bold.woff') format('woff');
-}
-@font-face {
-  font-family: 'ML';
-  src: url('../assets/fonts/Montserrat-Light.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'MR';
-  src: url('../assets/fonts/Montserrat-Regular.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'MM';
-  src: url('../assets/fonts/Montserrat-Medium.woff') format('woff');
-}
+@import './mixins/main';
+//Montserrat
+@include font-face('Montserrat', '../assets/fonts/Montserrat/Montserrat-Regular', normal);
+@include font-face('Montserrat', '../assets/fonts/Montserrat/Montserrat-Medium', 500);
+@include font-face('Montserrat', '../assets/fonts/Montserrat/Montserrat-Bold', 700);
+@include font-face('Montserrat', '../assets/fonts/Montserrat/Montserrat-ExtraBold', 800);

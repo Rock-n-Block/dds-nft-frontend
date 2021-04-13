@@ -56,20 +56,6 @@ const UserActivity: React.FC<UserActivityProps> = ({ filters, activityCards }) =
             render={renderCard}
             key={nextId()}
           />
-          {/* {activityCards ? (
-            activityCards.map((card) => (
-              <ActivityCard
-                img={card.img}
-                activityType={card.activityType}
-                title={card.title}
-                firstUser={card.firstUser}
-                time={card.time}
-                key={nextId()}
-              />
-            ))
-          ) : (
-            <NoItemsFound/>
-          )} */}
         </div>
       </div>
     </div>

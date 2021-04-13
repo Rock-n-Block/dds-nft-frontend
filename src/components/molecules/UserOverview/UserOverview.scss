@@ -19,12 +19,6 @@
 
     &__name {
       margin-top: 24px;
-
-      font-family: MB;
-      font-size: 25px;
-      font-weight: 700;
-      font-style: normal;
-      line-height: 30px;
     }
 
     &_container {
@@ -52,8 +46,6 @@
           display: flex;
           align-items: center;
 
-          color: #673bb7;
-
           svg {
             margin-right: 9px;
           }
@@ -63,13 +55,7 @@
 
     &__description {
       width: 100%;
-      max-width: 526px;
-
-      font-family: Montserrat, sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      font-style: normal;
-      line-height: 17px;
+      max-width: 530px;
 
       opacity: 0.5;
     }

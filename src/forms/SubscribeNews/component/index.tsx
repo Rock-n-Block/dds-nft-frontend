@@ -30,7 +30,7 @@ const SubscribeNews: React.FC<FormikProps<ISubscribeNews>> = ({
         <div className="form__sub-wrapper">
           <Input
             id="email"
-            className="form__sub-input input"
+            className="form__sub-input input text-regular"
             size="large"
             type="email"
             placeholder="Email address"
