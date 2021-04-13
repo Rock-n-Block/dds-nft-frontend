@@ -36,8 +36,19 @@ const MetamaskModal = types
     },
   }));
 
+const SuccessModal = types
+  .model({
+    successMsg: types.optional(types.string, ''),
+  })
+  .actions((self) => ({
+    setSuccessMsg(msg: string) {
+      self.successMsg = msg;
+    },
+  }));
+
 export const Modals = types.model({
   terms: TermsModal,
   metamask: MetamaskModal,
   createCollection: CreateCollectionModal,
+  success: SuccessModal,
 });

@@ -33,10 +33,10 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       className={classNames(className, 'text text-bold btn', `btn-${size}`, `btn-${colorScheme}`, {
         'box-shadow': shadow,
+        'btn-loading': loading,
       })}
     >
-      {/* {loading ? <img className="btn__spinner" src={SpinnerImg} /> : ''} */}
-      {children}
+      {loading ? 'In progress...' : children}
     </BtnAntd>
   );
   if (link) {

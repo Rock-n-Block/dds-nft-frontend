@@ -27,6 +27,7 @@ export interface ICreateForm {
   numberOfCopies: number | string;
   tokenProperties: IProperti[];
   isSingle?: boolean;
+  isLoading: boolean;
 }
 
 const { TextArea } = Input;
@@ -349,7 +350,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
             ));
           }}
         />
-        <Button colorScheme="gradient" size="lg" onClick={onSubmit}>
+        <Button colorScheme="gradient" size="lg" onClick={onSubmit} loading={values.isLoading}>
           Create item
         </Button>
       </div>
