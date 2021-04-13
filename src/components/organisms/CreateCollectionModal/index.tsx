@@ -1,11 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal } from '../../molecules';
-import { useMst } from '../../../store/store';
-import { CreateCollectionForm } from '../../../forms';
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
+import { CreateCollectionForm } from '../../../forms';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
+import { useMst } from '../../../store/store';
+import { Modal } from '../../molecules';
 
 import './CreateCollectionModal.scss';
 

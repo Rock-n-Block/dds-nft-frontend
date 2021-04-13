@@ -1,14 +1,14 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 import classNames from 'classnames';
-import SwiperCore, { Navigation } from 'swiper';
 import { observer } from 'mobx-react-lite';
+import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import LogoImg from '../../../assets/img/icons/logo-mini.svg';
-import { useMst } from '../../../store/store';
 import PlusImg from '../../../assets/img/icons/plus.svg';
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
+import { useMst } from '../../../store/store';
 
 import './ChooseCollection.scss';
 
