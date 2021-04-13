@@ -4,9 +4,9 @@
 import React from 'react';
 import { withFormik } from 'formik';
 
+import { storeApi } from '../../../services/api';
 import { validateForm } from '../../../utils/validate';
 import CreateCollection, { ICreateCollection } from '../component';
-import { storeApi } from '../../../services/api';
 
 export default ({ walletConnector, isSingle }: any) => {
   const FormWithFormik = withFormik<any, ICreateCollection>({

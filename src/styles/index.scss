@@ -4,6 +4,7 @@
 @import './typography';
 @import '~antd/dist/antd.css';
 @import './components/index.scss';
+@import 'mixins/media';
 
 html,
 body {
@@ -44,6 +45,9 @@ main {
   padding: 0 10px;
 
   max-width: 1360px;
+  @include b('mobile') {
+    overflow: hidden;
+  }
 }
 
 a {

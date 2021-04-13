@@ -156,7 +156,7 @@ const Token: React.FC = () => {
             </div>
             <div className="token__wrapper">
               <div className="token__price">
-                <div className="text-bold text-purple-l text-xl">${data.price_eth} ETH</div>
+                <div className="text-bold text-purple-l text-xl">{data.price_eth} ETH</div>
                 <div className="token__price-gray text-gray text-md">
                   <span>${data.price}</span>
                 </div>
@@ -172,15 +172,19 @@ const Token: React.FC = () => {
               </div>
             </div>
             <div className="token__btns">
-              <Button colorScheme="gradient" shadow size="md" className="token__btns-item">
-                <span className="text-bold">Buy now</span>
-              </Button>
-              <Button colorScheme="white" shadow size="md" className="token__btns-item">
-                <span className="text-grad text-bold">Bid</span>
-              </Button>
-              <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
-              <div className="token__btns-text text-gray">{`${data.price_fee_eth}ETH`}</div>
-              <div className="token__btns-text text-gray">{`$${data.price_fee_dol}`}</div>
+              <div className="token__btns-container">
+                <Button colorScheme="gradient" shadow size="md" className="token__btns-item">
+                  <span className="text-bold">Buy now</span>
+                </Button>
+                <Button colorScheme="white" shadow size="md" className="token__btns-item">
+                  <span className="text-grad text-bold">Bid</span>
+                </Button>
+              </div>
+              <div className="token__btns-container">
+                <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
+                <div className="token__btns-text text-gray">{`${data.price_fee_eth}ETH`}</div>
+                <div className="token__btns-text text-gray">{`$${data.price_fee_dol}`}</div>
+              </div>
             </div>
             <div className="token__info">
               <div className="token__info-text text-md">{data.collection}</div>
