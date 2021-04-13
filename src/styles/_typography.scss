@@ -47,6 +47,10 @@
     line-height: 30px;
   }
 
+  &-xxl {
+    font-size: 40px;
+    line-height: 49px;
+  }
   &-regular {
     font-weight: 500;
   }
@@ -112,6 +116,14 @@
 
     background: $purple-grad;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  &-blue-grad {
+    width: fit-content;
+
+    background: $blue-grad;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
