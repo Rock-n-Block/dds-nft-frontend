@@ -49,7 +49,6 @@ export default ({ walletConnector, isSingle }: any) => {
           walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
-              formData.append('internal_id', data.internal_id);
               formData.append('tx_hash', res.transactionHash);
               formData.append('avatar', values.img);
 
