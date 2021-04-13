@@ -21,11 +21,13 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
             img={owner.img}
             imgSize="lg"
             topText={
-              <span className="text text-gray text-sm text-upper">
+              <span className="text text-gray text-sm text-upper text-regular">
                 is selling for {owner.topText}
               </span>
             }
-            bottomText={<span className="text text-gray text-smd">BY {owner.bottomText}</span>}
+            bottomText={
+              <span className="text text-gray text-smd text-regular">BY {owner.bottomText}</span>
+            }
           />
         ))
       ) : (

@@ -72,7 +72,9 @@ const TopUsers: React.FC<ITopUsers> = ({ users }) => {
                 img={user.img}
                 isCheck
                 topText={<span className="text-bold t-users__user-name">{user.topText}</span>}
-                bottomText={<span className="text-gray text-sm">{user.bottomText}</span>}
+                bottomText={
+                  <span className="text-gray text-sm text-regular">{user.bottomText}</span>
+                }
                 imgSize="lg"
               />
             </div>

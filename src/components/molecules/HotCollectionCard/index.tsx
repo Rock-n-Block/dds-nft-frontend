@@ -31,7 +31,7 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({ tokens, user }) => {
       </Link>
       <UserMini
         img={user.img}
-        topText={<span className="text-upper text-gray text-sm">By</span>}
+        topText={<span className="text-upper text-gray text-sm text-regular">By</span>}
         bottomText={<span className="text-purple-l">{user.name}</span>}
       />
     </div>
