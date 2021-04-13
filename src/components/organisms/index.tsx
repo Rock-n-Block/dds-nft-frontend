@@ -19,3 +19,4 @@ export { default as UserFollowing } from './UserFollowing';
 export { default as UserLiked } from './UserLiked';
 export { default as MetamaskErrModal } from './MetamaskErrModal';
 export { default as TokenTabs } from './TokenTabs';
+export { default as CreateCollectionModal } from './CreateCollectionModal';

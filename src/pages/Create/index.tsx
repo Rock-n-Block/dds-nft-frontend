@@ -3,6 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import ArrowImg from '../../assets/img/icons/arrow-full.svg';
 import { CreateForm } from '../../forms';
+import { CreateCollectionModal } from '../../components/organisms';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import './Create.scss';
@@ -35,6 +36,7 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
           <CreateForm isSingle={isSingle} walletConnector={walletConnector} />
         </div>
       </div>
+      <CreateCollectionModal isSingle={isSingle} />
     </div>
   );
 };

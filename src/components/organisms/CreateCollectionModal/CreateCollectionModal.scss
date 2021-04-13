@@ -1,0 +1,16 @@
+.m-create-coll {
+  &__content {
+    padding: 40px 20px 20px;
+    background: white;
+    position: relative;
+  }
+  &__title {
+    margin-bottom: 20px;
+  }
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+}
