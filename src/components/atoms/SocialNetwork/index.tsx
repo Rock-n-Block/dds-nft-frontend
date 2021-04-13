@@ -5,13 +5,13 @@ import React from 'react';
 import { ReactComponent as EmailFilled } from '../../../assets/img/icons/social/user/email-filled.svg';
 // import { ReactComponent as Email } from '../../../assets/img/icons/social/user/email.svg';
 import { ReactComponent as FacebookFilled } from '../../../assets/img/icons/social/user/facebook-filled.svg';
-import { ReactComponent as Facebook } from '../../../assets/img/icons/social/user/facebook.svg';
+// import { ReactComponent as Facebook } from '../../../assets/img/icons/social/user/facebook.svg';
 // import { ReactComponent as InstagramFilled } from '../../../assets/img/icons/social/user/instagram-filled.svg';
 import { ReactComponent as Instagram } from '../../../assets/img/icons/social/user/instagram.svg';
 import { ReactComponent as TelegramFilled } from '../../../assets/img/icons/social/user/telegram-filled.svg';
-// import { ReactComponent as Telegram } from '../../../assets/img/icons/social/user/telegram.svg';
-// import { ReactComponent as Twitter } from '../../../assets/img/icons/social/user/twitter';
 import { ReactComponent as TwitterFilled } from '../../../assets/img/icons/social/user/twitter-filled.svg';
+// import { ReactComponent as Telegram } from '../../../assets/img/icons/social/user/telegram.svg';
+import { ReactComponent as Twitter } from '../../../assets/img/icons/social/user/twitter.svg';
 // import { ReactComponent as YoutubeFilled } from '../../../assets/img/icons/social/user/youtube-filled.svg';
 // import { ReactComponent as Youtube } from '../../../assets/img/icons/social/user/youtube.svg';
 
@@ -29,7 +29,7 @@ interface SocialNetworkProps {
 
 const SocialNetwork: React.FC<SocialNetworkProps> = ({
   socialNetwork,
-  withTitle = true,
+  withTitle = false,
   className,
 }) => {
   // TODO: uncomment all when icons rdy
@@ -39,8 +39,8 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
         <a href={socialNetwork.link} target="_blank" rel="noreferrer" className={className}>
           {withTitle ? (
             <>
-              {/* <Twitter /> */}
-              socialNetwork.name
+              <Twitter />
+              {socialNetwork.name}
             </>
           ) : (
             <>
@@ -54,8 +54,8 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
         <a href={socialNetwork.link} target="_blank" rel="noreferrer" className={className}>
           {withTitle ? (
             <>
-              <Facebook />
-              socialNetwork.name
+              {/* <Facebook /> */}
+              {socialNetwork.name}
             </>
           ) : (
             <>
@@ -70,7 +70,7 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
           {withTitle ? (
             <>
               {/* <Telegram /> */}
-              socialNetwork.name
+              {socialNetwork.name}
             </>
           ) : (
             <>
@@ -85,7 +85,7 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
           {withTitle ? (
             <>
               {/* <Email /> */}
-              socialNetwork.name
+              {socialNetwork.name}
             </>
           ) : (
             <>
@@ -100,7 +100,7 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
           {withTitle ? (
             <>
               <Instagram />
-              socialNetwork.name
+              {socialNetwork.name}
             </>
           ) : (
             <>{/* <InstagramFilled /> */}</>
@@ -113,7 +113,7 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
           {withTitle ? (
             <>
               {/* <Discord /> */}
-              socialNetwork.name
+              {socialNetwork.name}
             </>
           ) : (
             <>{/* <DiscordFilled /> */}</>
@@ -126,7 +126,7 @@ const SocialNetwork: React.FC<SocialNetworkProps> = ({
           {withTitle ? (
             <>
               {/* <Youtube /> */}
-              socialNetwork.name
+              {socialNetwork.name}
             </>
           ) : (
             <>{/* <YoutubeFilled /> */}</>
