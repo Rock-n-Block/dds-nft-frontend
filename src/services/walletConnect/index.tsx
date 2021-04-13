@@ -2,8 +2,8 @@ import React, { createContext, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../store/store';
-import MetamaskService from '../web3';
 import { userApi } from '../api';
+import MetamaskService from '../web3';
 
 const walletConnectorContext = createContext<any>({
   MetamaskService: {},

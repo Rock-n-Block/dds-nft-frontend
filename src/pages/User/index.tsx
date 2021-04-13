@@ -47,17 +47,7 @@ const mockUser: IUser = {
     { networkType: 'Youtube', link: 'https://www.youtube.com/', name: 'zeJuze' },
   ],
   activityCards: {
-    filters: [
-      'All',
-      'Listing',
-      'Purchases',
-      'Sales',
-      'Transfers',
-      'Burns',
-      'Bids',
-      'Likes',
-      'Followings',
-    ],
+    filters: ['Listing', 'Purchases', 'Sales', 'Transfers', 'Burns', 'Bids', 'Likes', 'Followings'],
     activities: [
       {
         img: firstCard,
@@ -203,6 +193,8 @@ const User: React.FC = () => {
           <UserActivity
             filters={mockUser.activityCards.filters}
             activityCards={mockUser.activityCards.activities}
+            isAllFilterItem
+            isMultipleFilterValues
           />
         </TabPane>
         <TabPane tab={`Following ${mockUser.followingUsers.length}`} key={nextId()}>

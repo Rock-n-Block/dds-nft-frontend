@@ -2,9 +2,9 @@ import React from 'react';
 import { Masonry, useInfiniteLoader } from 'masonic';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
+import { storeApi } from '../../../services/api';
 import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
-import { storeApi } from '../../../services/api';
 
 import './Explore.scss';
 

@@ -10,6 +10,7 @@ interface IFilter {
   isAllFilterItem?: boolean;
   isMultipleValues?: boolean;
   onChange: (activeFilters: string[]) => void;
+  showPickedSort?: boolean;
   sortItems?: string[];
   onChangeSort?: (sort: string) => void;
 }
@@ -19,6 +20,7 @@ const Filter: React.FC<IFilter> = ({
   isAllFilterItem = false,
   isMultipleValues = false,
   onChange,
+  showPickedSort = false,
   sortItems,
   onChangeSort,
 }) => {
@@ -39,7 +41,13 @@ const Filter: React.FC<IFilter> = ({
         }
       } else {
         newFilters.push(filter);
-        setActiveFilter([...newFilters, filter]);
+        if (newFilters.length > 1 && newFilters.includes('all') && filter !== 'all') {
+          newFilters = newFilters.filter((filterString) => filterString !== 'all');
+          setActiveFilter([...newFilters]);
+        } else if (filter === 'all') {
+          newFilters = ['all'];
+          setActiveFilter(['all']);
+        } else setActiveFilter([...newFilters]);
       }
     } else {
       newFilters = [filter];
@@ -80,7 +88,11 @@ const Filter: React.FC<IFilter> = ({
           </div>
         ))}
       </div>
-      {sortItems && onChangeSort ? <Sort items={sortItems} onChange={onChangeSort} /> : <></>}
+      {sortItems && onChangeSort ? (
+        <Sort items={sortItems} onChange={onChangeSort} isSortShown={showPickedSort} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

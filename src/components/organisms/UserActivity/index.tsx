@@ -11,32 +11,42 @@ import './UserActivity.scss';
 
 // import nextId from "react-id-generator";
 
-interface UserActivityProps {
+export interface UserActivityProps {
   filters: string[];
+  showPickedSort?: boolean;
+  withSort?: boolean;
+  isAllFilterItem?: boolean;
+  isMultipleFilterValues?: boolean;
   activityCards: Array<IActivityCard>;
 }
 
 const renderCard = ({ data }: any) => {
   return <ActivityCard {...data} />;
 };
-const UserActivity: React.FC<UserActivityProps> = ({ filters, activityCards }) => {
-  const [activeFilter, setActiveFilter] = useState(filters[0]);
+const UserActivity: React.FC<UserActivityProps> = ({
+  filters,
+  showPickedSort = false,
+  withSort = false,
+  isAllFilterItem = false,
+  isMultipleFilterValues = false,
+  activityCards,
+}) => {
+  const [activeFilters, setActiveFilters] = useState<string[]>(
+    isAllFilterItem ? ['all'] : [filters[0]],
+  );
   const [filteredCards, setFilteredCards] = useState(activityCards);
-
-  /*  const setActiveCards = (filter: string) => {
-      setFilteredCards(activityCards.filter((card) => card.activityType === filter))
-    } */
+  const sortTypes = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low', 'text'];
 
   const handleFilterChange = (value: string[]): void => {
-    setActiveFilter(value[0]);
+    setActiveFilters(isMultipleFilterValues ? [...value] : [value[0]]);
   };
   useEffect(() => {
     setFilteredCards(
-      activeFilter === 'All'
+      activeFilters.includes('all')
         ? activityCards
-        : activityCards.filter((card) => card.activityType === activeFilter),
+        : activityCards.filter((card) => activeFilters.includes(card.activityType)),
     );
-  }, [activityCards, activeFilter]);
+  }, [activityCards, activeFilters]);
 
   if (activityCards === undefined || activityCards?.length === 0) {
     return <NoItemsFound />;
@@ -45,31 +55,34 @@ const UserActivity: React.FC<UserActivityProps> = ({ filters, activityCards }) =
     <div className="activity">
       <div className="row">
         <div className="activity-badges">
-          <Filter filters={filters} onChange={handleFilterChange} />
+          {withSort ? (
+            <Filter
+              filters={filters}
+              onChange={handleFilterChange}
+              sortItems={sortTypes}
+              onChangeSort={() => {}}
+              showPickedSort={showPickedSort}
+              isMultipleValues={isMultipleFilterValues}
+              isAllFilterItem={isAllFilterItem}
+            />
+          ) : (
+            <Filter
+              isAllFilterItem={isAllFilterItem}
+              isMultipleValues={isMultipleFilterValues}
+              filters={filters}
+              onChange={handleFilterChange}
+            />
+          )}
         </div>
         <div className="activity-cards">
           <Masonry
             items={filteredCards}
             columnGutter={20}
-            columnWidth={320}
-            overscanBy={5}
+            columnWidth={300}
+            overscanBy={3}
             render={renderCard}
             key={nextId()}
           />
-          {/* {activityCards ? (
-            activityCards.map((card) => (
-              <ActivityCard
-                img={card.img}
-                activityType={card.activityType}
-                title={card.title}
-                firstUser={card.firstUser}
-                time={card.time}
-                key={nextId()}
-              />
-            ))
-          ) : (
-            <NoItemsFound/>
-          )} */}
         </div>
       </div>
     </div>
