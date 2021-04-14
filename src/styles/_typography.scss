@@ -66,6 +66,10 @@
   &-xl {
     font-size: 25px;
     line-height: 30px;
+    @include b('mobile') {
+      font-size: 20px;
+      line-height: 24px;
+    }
   }
 
   &-xxl {
