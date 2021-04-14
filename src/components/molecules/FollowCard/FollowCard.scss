@@ -1,3 +1,5 @@
+@import 'src/styles/mixins/media';
+
 .follow-card {
   padding: 23px 0;
 
@@ -9,13 +11,18 @@
     width: 100%;
     max-width: 92px;
     height: 100%;
+    @include b('mobile') {
+      max-width: 48px;
+    }
   }
 
   &__info {
     margin-left: 27px;
 
-    display: flex;
-    flex-direction: column;
+    &-text {
+      display: flex;
+      flex-direction: column;
+    }
 
     &-name {
       margin-top: 5px;
@@ -23,7 +30,25 @@
 
     &__follow-btn {
       margin-top: 10px;
+      margin-right: 0;
       padding: 8px 20px !important;
+
+      width: 100%;
+      max-width: 90px;
+      @include b('mobile') {
+        margin-left: auto;
+      }
+    }
+
+    @include b('mobile') {
+      margin-left: 8px;
+      padding: 20px 10px 15px 0;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      width: 100%;
     }
   }
 
@@ -45,5 +70,14 @@
         margin-right: 10px;
       }
     }
+    @include b('mobile') {
+      display: none;
+    }
+  }
+
+  @include b('mobile') {
+    padding: 20px 10px 15px 0;
+
+    align-items: center;
   }
 }

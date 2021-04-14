@@ -133,9 +133,7 @@ const Token: React.FC = () => {
   return (
     <div className="token">
       <div className="token__preview">
-        <div className="row">
-          <img src={TokenImg} alt="" className="token__preview-img" />
-        </div>
+        <img src={TokenImg} alt="" className="token__preview-img" />
       </div>
       <div className="row">
         <div className="token__content">
