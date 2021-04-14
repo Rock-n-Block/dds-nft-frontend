@@ -1,4 +1,5 @@
 export { default as Header } from './Header';
+export { default as BurgerMenu } from './BurgerMenu';
 export { default as Footer } from './Footer';
 export { default as TopUsers } from './TopUsers';
 export { default as HotBids } from './HotBids';

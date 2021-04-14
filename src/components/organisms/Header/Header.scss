@@ -19,7 +19,9 @@
     justify-content: space-between;
     align-items: center;
   }
-
+  &-mobile__content {
+    display: none;
+  }
   &__box {
     display: flex;
     align-items: center;
@@ -46,6 +48,12 @@
   }
 
   @include b('mobile') {
-    overflow: hidden;
+    padding: 13px 0;
+  }
+}
+
+@include b('mobile') {
+  .header__content {
+    display: none;
   }
 }

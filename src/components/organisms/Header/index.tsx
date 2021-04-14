@@ -8,6 +8,7 @@ import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
 
 import './Header.scss';
+import { BurgerMenu } from '../index';
 
 const Header: React.FC = observer(() => {
   const { modals, user } = useMst();
@@ -65,6 +66,8 @@ const Header: React.FC = observer(() => {
           </div>
         </div>
       </div>
+
+      <BurgerMenu className="header-mobile__content" />
     </header>
   );
 });
