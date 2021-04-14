@@ -23,6 +23,10 @@
   &-xl {
     font-size: 55px;
     line-height: 67px;
+    @include b('mobile') {
+      font-size: 25px;
+      line-height: 30px;
+    }
   }
 }
 
@@ -43,6 +47,10 @@
   &-smd {
     font-size: 16px;
     line-height: 20px;
+    @include b('mobile') {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
 
   &-md {
