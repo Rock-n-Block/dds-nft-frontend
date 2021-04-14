@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Footer, Header, MetamaskErrModal, TermsModal } from './components/organisms';
+import { Footer, Header, MetamaskErrModal, TermsModal, SuccessModal } from './components/organisms';
 import {
   ActivityPage,
   ConnectPage,
@@ -51,6 +51,7 @@ const App: React.FC = () => {
       <Footer />
       <TermsModal />
       <MetamaskErrModal />
+      <SuccessModal />
     </div>
   );
 };

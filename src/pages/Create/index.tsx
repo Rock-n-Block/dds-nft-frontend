@@ -5,6 +5,7 @@ import ArrowImg from '../../assets/img/icons/arrow-full.svg';
 import { CreateCollectionModal } from '../../components/organisms';
 import { CreateForm } from '../../forms';
 import { useWalletConnectorContext } from '../../services/walletConnect';
+import { userApi } from '../../services/api';
 
 import './Create.scss';
 
@@ -14,6 +15,15 @@ interface ICreate {
 
 const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) => {
   const walletConnector = useWalletConnectorContext();
+
+  React.useEffect(() => {
+    userApi
+      .getSingleCollections()
+      .then(({ data }) => {
+        console.log(data, 'single coll');
+      })
+      .catch((err) => console.log(err, 'get single'));
+  }, []);
   return (
     <div className="create">
       <div className="row">

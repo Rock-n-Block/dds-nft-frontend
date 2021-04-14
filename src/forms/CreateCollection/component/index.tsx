@@ -13,6 +13,7 @@ export interface ICreateCollection {
   descr?: string;
   shortUrl: string;
   preview?: string;
+  isLoading: boolean;
 }
 
 const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
@@ -115,7 +116,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
           />
         </div>
       </Form.Item>
-      <Button colorScheme="gradient" size="md" onClick={onSubmit}>
+      <Button loading={values.isLoading} colorScheme="gradient" size="md" onClick={onSubmit}>
         Create collection
       </Button>
     </Form>

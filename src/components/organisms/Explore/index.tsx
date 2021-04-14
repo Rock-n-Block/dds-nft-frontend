@@ -59,7 +59,7 @@ const Explore: React.FC = () => {
   let prevPage = 1;
   const maybeLoadMore = useInfiniteLoader(
     async () => {
-      const page = (explore.tokens.length + 5) / 5;
+      const page = (explore.tokens.length + 50) / 50;
       if (prevPage !== page) {
         prevPage = page;
         await loadExplore(page);

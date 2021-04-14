@@ -3,12 +3,15 @@
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
 import { withFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
 import { validateForm } from '../../../utils/validate';
 import CreateForm, { ICreateForm } from '../component';
+import { useMst } from '../../../store/store';
 
-export default ({ isSingle, walletConnector }: any) => {
+export default observer(({ isSingle, walletConnector }: any) => {
+  const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
     mapPropsToValues: () => ({
@@ -29,6 +32,7 @@ export default ({ isSingle, walletConnector }: any) => {
           amount: '',
         },
       ],
+      isLoading: false,
     }),
     validate: (values) => {
       const notRequired: string[] = ['tokenDescr', 'preview'];
@@ -46,8 +50,9 @@ export default ({ isSingle, walletConnector }: any) => {
       return errors;
     },
 
-    handleSubmit: (values) => {
+    handleSubmit: (values, { setFieldValue }) => {
       console.log(values);
+      setFieldValue('isLoading', true);
 
       const formData = new FormData();
       formData.append('media', values.img);
@@ -85,19 +90,26 @@ export default ({ isSingle, walletConnector }: any) => {
                 .saveToken(formData)
                 .then((result) => {
                   console.log(result, 'create');
+                  setFieldValue('isLoading', false);
+                  modals.success.setSuccessMsg('Congrats you create your own NFT!');
                 })
                 .catch((err: any) => {
+                  setFieldValue('isLoading', false);
                   console.log(err, 'err');
                 });
             })
             .catch((err: any) => {
+              setFieldValue('isLoading', false);
               console.log(err, 'err');
             });
         })
-        .catch((err) => console.log(err, 'err'));
+        .catch((err) => {
+          setFieldValue('isLoading', false);
+          console.log(err, 'err');
+        });
     },
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
   return <FormWithFormik isSingle={isSingle} />;
-};
+});

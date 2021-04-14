@@ -20,3 +20,6 @@ export { default as UserLiked } from './UserLiked';
 export { default as MetamaskErrModal } from './MetamaskErrModal';
 export { default as TokenTabs } from './TokenTabs';
 export { default as CreateCollectionModal } from './CreateCollectionModal';
+export { default as SuccessModal } from './SuccessModal';
+export { default as UserPreview } from './UserPreview';
+export { default as UserPopover } from './UserPopover';
