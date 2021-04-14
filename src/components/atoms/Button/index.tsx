@@ -4,7 +4,7 @@ import { Button as BtnAntd } from 'antd';
 import classNames from 'classnames';
 
 interface ButtonProps {
-  size?: 'sm' | 'lg' | 'md';
+  size?: 'sm' | 'lg' | 'md' | 'smd';
   colorScheme?: 'purple' | 'outline' | 'white' | 'gradient' | 'clear';
   onClick?: () => void;
   className?: string;

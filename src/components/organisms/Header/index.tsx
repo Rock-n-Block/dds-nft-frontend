@@ -6,6 +6,7 @@ import LogoImg from '../../../assets/img/icons/logo.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
+import { UserPreview } from '..';
 
 import './Header.scss';
 
@@ -49,14 +50,12 @@ const Header: React.FC = observer(() => {
           </div>
           <div className="header__box">
             {user.address ? (
-              <Button link="/create" linkClassName="header__btn">
-                Create
-              </Button>
-            ) : (
-              ''
-            )}
-            {user.address ? (
-              ''
+              <>
+                <Button link="/create" linkClassName="header__btn">
+                  Create
+                </Button>
+                <UserPreview />
+              </>
             ) : (
               <Button colorScheme="outline" onClick={connectWallet} className="header__btn">
                 Connect wallet
