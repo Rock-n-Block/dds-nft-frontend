@@ -164,6 +164,12 @@
       .input__field + .input__field {
         margin-top: 0;
         margin-left: 40px;
+        @include b('mobile') {
+          margin-left: 0;
+        }
+      }
+      @include b('mobile') {
+        flex-direction: column;
       }
     }
 
@@ -177,6 +183,12 @@
       height: fit-content;
       @include b('mobile') {
         display: none;
+      }
+    }
+
+    &__submit-btn {
+      @include b('mobile') {
+        margin: 0 auto;
       }
     }
   }

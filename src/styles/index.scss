@@ -45,6 +45,9 @@ main {
   padding: 0 10px;
 
   max-width: 1360px;
+  @include b('mobile') {
+    padding: 0 20px;
+  }
 }
 
 a {

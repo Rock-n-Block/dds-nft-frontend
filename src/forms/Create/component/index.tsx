@@ -289,6 +289,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
                   name={`tokenProperties[${index}].size`}
                   className="form-create__field input__field"
                   validateStatus={validateField(`tokenProperties`, touched, errors)}
+                  label={<span className="input__label text-bold">Properties</span>}
                   help={(() => {
                     return errors.tokenProperties &&
                       errors.tokenProperties[index] &&
@@ -319,6 +320,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
                   name={`tokenProperties[${index}].amount`}
                   className="form-create__field input__field"
                   validateStatus={validateField(`tokenProperties`, touched, errors)}
+                  label={<span className="input__label text-bold" />}
                   help={(() => {
                     return errors.tokenProperties &&
                       errors.tokenProperties[index] &&
@@ -349,7 +351,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
             ));
           }}
         />
-        <Button colorScheme="gradient" size="lg" onClick={onSubmit}>
+        <Button
+          className="form-create__submit-btn"
+          colorScheme="gradient"
+          size="lg"
+          onClick={onSubmit}
+        >
           Create item
         </Button>
       </div>

@@ -1,4 +1,5 @@
 @import '../../styles/vars';
+@import '../../styles/mixins/media';
 
 .create {
   padding: 60px 0;
@@ -31,9 +32,16 @@
 
       transition: 0.3s;
     }
+
+    @include b('mobile') {
+      margin-left: 0;
+    }
   }
 
   &__title {
     margin-bottom: 75px;
+    @include b('mobile') {
+      margin-left: 28px;
+    }
   }
 }
