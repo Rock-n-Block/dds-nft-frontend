@@ -62,7 +62,7 @@ const UserPopover: React.FC = observer(() => {
         <Link to="/" className="u-popover__nav-item text-bold text-black">
           Explore
         </Link>
-        <Link to="/" className="u-popover__nav-item text-bold text-black">
+        <Link to="/profile" className="u-popover__nav-item text-bold text-black">
           Edit profile
         </Link>
         <div className="u-popover__nav-item text-bold text-black">

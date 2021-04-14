@@ -224,7 +224,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
           <div className="input__field-create box-shadow">
             <TextArea
               id="tokenDescr"
-              rows={1}
+              rows={2}
               className="form-create__input input__create text-bold text-smd"
               size="large"
               placeholder='e. g. "After purchasing you’ll be able to get the real T-Shirt"'

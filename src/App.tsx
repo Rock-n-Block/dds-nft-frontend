@@ -11,6 +11,7 @@ import {
   OverviewPage,
   TokenPage,
   UserPage,
+  ProfilePage,
 } from './pages';
 
 import './styles/index.scss';
@@ -45,6 +46,13 @@ const App: React.FC = () => {
           path="/create/multi"
           render={() => {
             return localStorage.dds_token ? <CreatePage /> : <Redirect to="/" />;
+          }}
+        />
+        <Route
+          exact
+          path="/profile"
+          render={() => {
+            return localStorage.dds_token ? <ProfilePage /> : <Redirect to="/" />;
           }}
         />
       </Switch>

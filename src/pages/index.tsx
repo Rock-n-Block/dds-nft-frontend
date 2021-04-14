@@ -6,3 +6,4 @@ export { default as CreatePage } from './Create';
 export { default as UserPage } from './User';
 export { default as OverviewPage } from './Overview';
 export { default as ActivityPage } from './Activity';
+export { default as ProfilePage } from './Profile';

@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button as BtnAntd } from 'antd';
 import classNames from 'classnames';
 
-interface ButtonProps {
-  size?: 'sm' | 'lg' | 'md' | 'smd';
+export interface IColorScheme {
   colorScheme?: 'purple' | 'outline' | 'white' | 'gradient' | 'clear';
+}
+
+export interface ISize {
+  size?: 'sm' | 'lg' | 'md' | 'smd';
+}
+
+export interface ButtonProps extends IColorScheme, ISize {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;

@@ -176,6 +176,57 @@
       height: fit-content;
     }
   }
+  &-profile {
+    display: flex;
+    label {
+      flex-direction: column !important;
+      align-items: flex-start;
+    }
+    &__content {
+      max-width: 600px;
+      margin-right: 130px;
+    }
+    &__item {
+      & + & {
+        margin-top: 40px;
+      }
+    }
+    &__verify {
+      margin-top: 40px;
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 50px;
+      &-subtitle {
+        max-width: 430px;
+        margin-top: 5px;
+      }
+      &-box {
+        margin-right: 45px;
+      }
+    }
+    &__upload {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      &-img {
+        background: linear-gradient(180deg, #de216b 0%, #673bb7 100%), #e2e2e2;
+        border-radius: 50%;
+        overflow: hidden;
+        height: 120px;
+        width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          max-width: 100%;
+        }
+      }
+      &-text {
+        max-width: 250px;
+        margin: 16px 0 30px;
+      }
+    }
+  }
 }
 
 .ant-form-item-control {

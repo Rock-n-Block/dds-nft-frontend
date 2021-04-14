@@ -42,9 +42,6 @@ class Connector extends React.Component<any, any> {
     this.state.provider
       .connect()
       .then((res: any) => {
-        rootStore.user.setAddress(res.address);
-        localStorage.dds_metamask = true;
-
         if (!localStorage.dds_token) {
           userApi
             .getMsg()
@@ -54,20 +51,32 @@ class Connector extends React.Component<any, any> {
                 .then((signedMsg: any) => {
                   userApi
                     .login({
-                      address: rootStore.user.address,
+                      address: res.address,
                       msg: data,
                       signedMsg,
                     })
                     .then((result) => {
                       localStorage.dds_token = result.data.key;
+                      rootStore.user.setAddress(res.address);
+                      localStorage.dds_metamask = true;
                     })
                     .catch((err) => {
                       console.log(err, 'login');
+                      rootStore.user.disconnect();
                     });
                 })
-                .catch((err: any) => console.log(err));
+                .catch((err: any) => {
+                  console.log(err, 'sign');
+                  rootStore.user.disconnect();
+                });
             })
-            .catch((err) => console.log(err, 'msg'));
+            .catch((err) => {
+              console.log(err, 'msg');
+              rootStore.user.disconnect();
+            });
+        } else {
+          rootStore.user.setAddress(res.address);
+          localStorage.dds_metamask = true;
         }
       })
       .catch((err: any) => {
