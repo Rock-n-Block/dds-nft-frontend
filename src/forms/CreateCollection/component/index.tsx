@@ -2,9 +2,9 @@ import React from 'react';
 import { Form, Input } from 'antd';
 import { FormikProps } from 'formik';
 
-import { validateField } from '../../../utils/validate';
 import { Button } from '../../../components/atoms';
 import { Uploader } from '../../../components/organisms';
+import { validateField } from '../../../utils/validate';
 
 export interface ICreateCollection {
   img: any;

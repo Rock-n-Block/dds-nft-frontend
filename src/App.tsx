@@ -2,8 +2,8 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { Footer, Header, MetamaskErrModal, TermsModal, SuccessModal } from './components/organisms';
-
 import {
+  ActivityPage,
   ConnectPage,
   CreateChoosePage,
   CreatePage,
@@ -24,7 +24,8 @@ const App: React.FC = () => {
         <Route exact path="/connect" component={ConnectPage} />
         <Route exact path="/overview" component={OverviewPage} />
         <Route exact path="/token/:token" component={TokenPage} />
-        <Route exact path="/user/:userId" component={UserPage} />
+        <Route exact path="/user" component={UserPage} />
+        <Route exact path="/activity" component={ActivityPage} />
         <Route
           exact
           path="/create"

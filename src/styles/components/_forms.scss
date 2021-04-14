@@ -47,37 +47,49 @@
 
   &-create-coll {
     min-width: 340px;
+
     &__item {
       & + & {
         margin-top: 35px;
       }
+
       &-name {
         margin-bottom: 60px;
       }
+
       &-short {
         margin-bottom: 60px;
       }
     }
+
     &__upload {
-      display: flex;
       margin-bottom: 25px;
+
+      display: flex;
+
       &-img {
-        background: #e2e2e2;
+        margin-right: 15px;
+
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+
         width: 105px;
         height: 105px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+        background: #e2e2e2;
         border-radius: 50%;
-        margin-right: 15px;
+
         img {
           max-width: 100%;
         }
       }
+
       p {
-        max-width: 220px;
         margin-bottom: 10px;
+
+        max-width: 220px;
       }
     }
   }
@@ -172,6 +184,7 @@
   .ant-form-item-explain {
     position: absolute;
     top: calc(100% + 10px);
+
     & * {
       font-family: MB;
     }

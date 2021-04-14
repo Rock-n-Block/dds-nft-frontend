@@ -5,6 +5,7 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
+import { storeApi } from '../../../services/api';
 import { validateForm } from '../../../utils/validate';
 import CreateCollection, { ICreateCollection } from '../component';
 import { storeApi } from '../../../services/api';
