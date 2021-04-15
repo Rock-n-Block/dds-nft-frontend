@@ -87,4 +87,4 @@ export default observer(({ walletConnector, isSingle }: any) => {
     displayName: 'ChangePasswordForm',
   })(CreateCollection);
   return <FormWithFormik />;
-};
+});
