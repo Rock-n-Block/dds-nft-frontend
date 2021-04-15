@@ -38,41 +38,35 @@ class Connector extends React.Component<any, any> {
     });
   }
 
-  connect = (): void => {
-    this.state.provider
-      .connect()
-      .then((res: any) => {
-        rootStore.user.setAddress(res.address);
-        localStorage.dds_metamask = true;
+  connect = async () => {
+    try {
+      const { address } = await this.state.provider.connect();
 
-        if (!localStorage.dds_token) {
-          userApi
-            .getMsg()
-            .then(({ data }) => {
-              this.state.provider
-                .signMsg(data)
-                .then((signedMsg: any) => {
-                  userApi
-                    .login({
-                      address: rootStore.user.address,
-                      msg: data,
-                      signedMsg,
-                    })
-                    .then((result) => {
-                      localStorage.dds_token = result.data.key;
-                    })
-                    .catch((err) => {
-                      console.log(err, 'login');
-                    });
-                })
-                .catch((err: any) => console.log(err));
-            })
-            .catch((err) => console.log(err, 'msg'));
-        }
-      })
-      .catch((err: any) => {
-        rootStore.modals.metamask.setErr(err.message);
-      });
+      if (!localStorage.dds_token) {
+        const metMsg: any = await userApi.getMsg();
+
+        const signedMsg = await this.state.provider.signMsg(metMsg.data);
+
+        const login: any = await userApi.login({
+          address,
+          msg: metMsg.data,
+          signedMsg,
+        });
+
+        localStorage.dds_token = login.data.key;
+        rootStore.user.setAddress(address);
+        localStorage.dds_metamask = true;
+      } else {
+        rootStore.user.setAddress(address);
+        localStorage.dds_metamask = true;
+      }
+
+      const { data: user } = await userApi.getMe();
+      console.log(user, 'me');
+    } catch (error) {
+      console.log(error, 'connect');
+      rootStore.user.disconnect();
+    }
   };
 
   render() {

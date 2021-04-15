@@ -18,6 +18,9 @@ export const Store = RootModel.create({
     createCollection: {
       isOpen: false,
     },
+    success: {
+      successMsg: '',
+    },
   },
   user: {
     address: '',

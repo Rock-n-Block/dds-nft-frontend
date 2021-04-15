@@ -4,14 +4,15 @@ import { useFormikContext } from 'formik';
 
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import { Button } from '../../atoms';
+import { IColorScheme, ISize } from '../../atoms/Button';
 
 const { Dragger } = Upload;
 
-interface IUploader {
+interface IUploader extends IColorScheme, ISize {
   type?: 'area' | 'button';
 }
 
-const Uploader: React.FC<IUploader> = ({ type = 'area' }) => {
+const Uploader: React.FC<IUploader> = ({ type = 'area', colorScheme = 'outline', size = 'sm' }) => {
   const formik = useFormikContext();
   const [imageUrl, setImageUrl] = React.useState('');
   const getBase64 = (img: any, callback: any) => {
@@ -91,7 +92,7 @@ const Uploader: React.FC<IUploader> = ({ type = 'area' }) => {
           multiple={false}
           showUploadList={false}
         >
-          <Button colorScheme="outline" size="sm">
+          <Button colorScheme={colorScheme} size={size}>
             Choose file
           </Button>
         </Upload>

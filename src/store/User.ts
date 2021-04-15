@@ -8,7 +8,9 @@ export const User = types
     setAddress(addr: string) {
       self.address = addr;
     },
-    clear() {
+    disconnect() {
       self.address = '';
+      delete localStorage.dds_token;
+      delete localStorage.dds_metamask;
     },
   }));

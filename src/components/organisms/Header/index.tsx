@@ -6,6 +6,7 @@ import LogoImg from '../../../assets/img/icons/logo.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
+import { UserPreview } from '..';
 
 import './Header.scss';
 import { BurgerMenu } from '../index';
@@ -40,7 +41,7 @@ const Header: React.FC = observer(() => {
               <NavLink exact to="/2" className="header__nav-item text-bold">
                 Following
               </NavLink>
-              <NavLink exact to="/3" className="header__nav-item text-bold">
+              <NavLink exact to="/activity" className="header__nav-item text-bold">
                 Activity
               </NavLink>
               <NavLink exact to="/4" className="header__nav-item text-bold">
@@ -50,14 +51,12 @@ const Header: React.FC = observer(() => {
           </div>
           <div className="header__box">
             {user.address ? (
-              <Button link="/create" linkClassName="header__btn">
-                Create
-              </Button>
-            ) : (
-              ''
-            )}
-            {user.address ? (
-              ''
+              <>
+                <Button link="/create" linkClassName="header__btn">
+                  Create
+                </Button>
+                <UserPreview />
+              </>
             ) : (
               <Button colorScheme="outline" onClick={connectWallet} className="header__btn">
                 Connect wallet

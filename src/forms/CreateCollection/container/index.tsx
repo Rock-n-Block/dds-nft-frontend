@@ -3,12 +3,15 @@
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
 import { withFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
 import { validateForm } from '../../../utils/validate';
 import CreateCollection, { ICreateCollection } from '../component';
+import { useMst } from '../../../store/store';
 
-export default ({ walletConnector, isSingle }: any) => {
+export default observer(({ walletConnector, isSingle }: any) => {
+  const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateCollection>({
     enableReinitialize: true,
     mapPropsToValues: () => ({
@@ -18,6 +21,7 @@ export default ({ walletConnector, isSingle }: any) => {
       descr: '',
       shortUrl: '',
       preview: '',
+      isLoading: false,
     }),
     validate: (values) => {
       const errors = validateForm({ values, notRequired: ['description', 'shortUrl'] });
@@ -25,8 +29,9 @@ export default ({ walletConnector, isSingle }: any) => {
       return errors;
     },
 
-    handleSubmit: (values) => {
+    handleSubmit: (values, { setFieldValue }) => {
       console.log(values);
+      setFieldValue('isLoading', true);
 
       const formData = new FormData();
 
@@ -56,16 +61,27 @@ export default ({ walletConnector, isSingle }: any) => {
                 .saveCollection(formData)
                 .then((result) => {
                   console.log(result, 'create collection');
+                  setFieldValue('isLoading', false);
+                  modals.createCollection.close();
+                  modals.success.setSuccessMsg('Congrats you create your own NFT collection!');
                 })
                 .catch((err: any) => {
+                  setFieldValue('isLoading', false);
+                  modals.createCollection.close();
                   console.log(err, 'err');
                 });
             })
             .catch((err: any) => {
+              setFieldValue('isLoading', false);
+              modals.createCollection.close();
               console.log(err, 'err');
             });
         })
-        .catch((err) => console.log(err, 'err'));
+        .catch((err) => {
+          setFieldValue('isLoading', false);
+          modals.createCollection.close();
+          console.log(err, 'err');
+        });
     },
 
     displayName: 'ChangePasswordForm',

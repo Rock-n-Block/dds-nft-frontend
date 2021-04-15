@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Footer, Header, MetamaskErrModal, TermsModal } from './components/organisms';
+import { Footer, Header, MetamaskErrModal, TermsModal, SuccessModal } from './components/organisms';
 import {
+  ActivityPage,
   ConnectPage,
   CreateChoosePage,
   CreatePage,
@@ -10,6 +11,7 @@ import {
   OverviewPage,
   TokenPage,
   UserPage,
+  ProfilePage,
 } from './pages';
 
 import './styles/index.scss';
@@ -24,6 +26,7 @@ const App: React.FC = () => {
         <Route exact path="/overview" component={OverviewPage} />
         <Route exact path="/token/:token" component={TokenPage} />
         <Route exact path="/user" component={UserPage} />
+        <Route exact path="/activity" component={ActivityPage} />
         <Route
           exact
           path="/create"
@@ -45,10 +48,18 @@ const App: React.FC = () => {
             return localStorage.dds_token ? <CreatePage /> : <Redirect to="/" />;
           }}
         />
+        <Route
+          exact
+          path="/profile"
+          render={() => {
+            return localStorage.dds_token ? <ProfilePage /> : <Redirect to="/" />;
+          }}
+        />
       </Switch>
       <Footer />
       <TermsModal />
       <MetamaskErrModal />
+      <SuccessModal />
     </div>
   );
 };

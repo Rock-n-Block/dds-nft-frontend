@@ -27,6 +27,7 @@ export interface ICreateForm {
   numberOfCopies: number | string;
   tokenProperties: IProperti[];
   isSingle?: boolean;
+  isLoading: boolean;
 }
 
 const { TextArea } = Input;
@@ -223,7 +224,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
           <div className="input__field-create box-shadow">
             <TextArea
               id="tokenDescr"
-              rows={1}
+              rows={2}
               className="form-create__input input__create text-bold text-smd"
               size="large"
               placeholder='e. g. "After purchasing you’ll be able to get the real T-Shirt"'
@@ -289,7 +290,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
                   name={`tokenProperties[${index}].size`}
                   className="form-create__field input__field"
                   validateStatus={validateField(`tokenProperties`, touched, errors)}
-                  label={<span className="input__label text-bold">Properties</span>}
                   help={(() => {
                     return errors.tokenProperties &&
                       errors.tokenProperties[index] &&
@@ -356,6 +356,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
           colorScheme="gradient"
           size="lg"
           onClick={onSubmit}
+          loading={values.isLoading}
         >
           Create item
         </Button>

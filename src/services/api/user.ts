@@ -14,4 +14,6 @@ export default {
       msg: data.msg,
     }),
   getMsg: () => axios.get('account/get_metamask_message/'),
+  getSingleCollections: () => axios.get(`account/self/${localStorage.dds_token}/collections`),
+  getMe: () => axios.get(`account/self/${localStorage.dds_token}/`),
 };

@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button as BtnAntd } from 'antd';
 import classNames from 'classnames';
 
-interface ButtonProps {
-  size?: 'sm' | 'lg' | 'md';
+export interface IColorScheme {
   colorScheme?: 'purple' | 'outline' | 'white' | 'gradient' | 'clear';
+}
+
+export interface ISize {
+  size?: 'sm' | 'lg' | 'md' | 'smd';
+}
+
+export interface ButtonProps extends IColorScheme, ISize {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
@@ -33,10 +39,10 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       className={classNames(className, 'text text-bold btn', `btn-${size}`, `btn-${colorScheme}`, {
         'box-shadow': shadow,
+        'btn-loading': loading,
       })}
     >
-      {/* {loading ? <img className="btn__spinner" src={SpinnerImg} /> : ''} */}
-      {children}
+      {loading ? 'In progress...' : children}
     </BtnAntd>
   );
   if (link) {
