@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Footer, Header, MetamaskErrModal, TermsModal, SuccessModal } from './components/organisms';
+import { Footer, Header, MetamaskErrModal, SuccessModal, TermsModal } from './components/organisms';
 import {
   ActivityPage,
   ConnectPage,
@@ -9,9 +9,9 @@ import {
   CreatePage,
   HomePage,
   OverviewPage,
+  ProfilePage,
   TokenPage,
   UserPage,
-  ProfilePage,
 } from './pages';
 
 import './styles/index.scss';

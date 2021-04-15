@@ -4,8 +4,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ArrowImg from '../../assets/img/icons/arrow-full.svg';
 import { CreateCollectionModal } from '../../components/organisms';
 import { CreateForm } from '../../forms';
-import { useWalletConnectorContext } from '../../services/walletConnect';
 import { userApi } from '../../services/api';
+import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import './Create.scss';
 

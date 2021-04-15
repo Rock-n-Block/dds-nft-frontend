@@ -174,7 +174,7 @@ const Home: React.FC = () => {
           />
         </div>
         <div className="home__preview-search">
-          <Search />
+          <Search placeholder="Search items, collections, and accounts" />
         </div>
         <div className="row">
           <h1 className="home__preview-title h1 text-white text-center text-bolder">

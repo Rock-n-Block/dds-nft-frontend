@@ -35,6 +35,7 @@
       transform: translateX(-50%);
       @include b('mobile') {
         padding: 0 15px;
+
         width: 100%;
       }
     }

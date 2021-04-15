@@ -6,9 +6,9 @@ import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
 import { storeApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import CreateCollection, { ICreateCollection } from '../component';
-import { useMst } from '../../../store/store';
 
 export default observer(({ walletConnector, isSingle }: any) => {
   const { modals } = useMst();

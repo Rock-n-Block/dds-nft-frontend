@@ -69,9 +69,10 @@
     border: none;
     box-shadow: none;
   }
+
   &-loading {
-    background: #f4f4f4 !important;
-    border: 2px solid #dddddd !important;
     color: #919191;
+    background: #f4f4f4 !important;
+    border: 2px solid #ddd !important;
   }
 }

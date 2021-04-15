@@ -6,9 +6,9 @@ import LogoImg from '../../../assets/img/icons/logo.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
+import { BurgerMenu, UserPreview } from '../index';
 
 import './Header.scss';
-import { BurgerMenu, UserPreview } from '../index';
 
 const Header: React.FC = observer(() => {
   const { modals, user } = useMst();
@@ -63,9 +63,8 @@ const Header: React.FC = observer(() => {
             )}
           </div>
         </div>
+        <BurgerMenu className="header-mobile__content" />
       </div>
-
-      <BurgerMenu className="header-mobile__content" />
     </header>
   );
 });

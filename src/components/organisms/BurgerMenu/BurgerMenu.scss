@@ -6,29 +6,76 @@
 
 @include b('mobile') {
   .header-mobile {
+    position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 
-    &__menu {
+    &__logo {
+      width: 64px;
+      height: 100%;
+    }
+    &__box{
       margin-left: auto;
-      margin-right: 20px;
+    }
+    &__menu {
+      margin-right: 10px;
+      margin-left: 15px;
+
       &-items {
+        overflow: auto;
+        position: fixed;
+        z-index: 999;
+        top: 51px;
+        left: 0px;
+
         padding: 20px 20px 40px 20px;
-        width: 100%;
-        height: 91vh;
+
+        width: 100vw;
+        height: calc(100vh - 40px);
+
         background-color: #fafafaff;
-        position: absolute;
-        top: 76px;
+
+        .header-mobile__search {
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
       }
     }
+
     &__nav {
+      margin-top: 40px;
+
       display: flex;
       flex-direction: column;
+
       &-item {
         &:not(:first-child) {
           margin-top: 16px;
         }
+      }
+    }
+    .footer{
+      &__nav{
+        margin-top: 0;
+      }
+      &__btns{
+        margin-top:137px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .btn-link{
+          width: 100%;
+          max-width: 165px;
+        }
+        .btn{
+          width: 100%;
+        }
+      }
+      .flex-center{
+        justify-content: center;
+      }
+      &__box-bottom{
+        margin-top:41px;
       }
     }
   }

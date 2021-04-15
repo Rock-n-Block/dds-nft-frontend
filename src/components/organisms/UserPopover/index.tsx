@@ -1,12 +1,12 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import { Switch } from 'antd';
+import { observer } from 'mobx-react-lite';
 
-import { useMst } from '../../../store/store';
-import { UserWallet, Button } from '../../atoms';
-import EthImg from '../../../assets/img/icons/eth.svg';
 import SwapImg from '../../../assets/img/icons/arrows-swap.svg';
+import EthImg from '../../../assets/img/icons/eth.svg';
+import { useMst } from '../../../store/store';
+import { Button, UserWallet } from '../../atoms';
 
 import './UserPopover.scss';
 

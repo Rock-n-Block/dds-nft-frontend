@@ -1,4 +1,4 @@
-import { types, applySnapshot, flow } from 'mobx-state-tree';
+import { applySnapshot, flow, types } from 'mobx-state-tree';
 
 import { userApi } from '../services/api';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal } from '../../molecules';
-import { Button } from '../../atoms';
-import { useMst } from '../../../store/store';
-import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import SuccessImg from '../../../assets/img/icons/success.svg';
+import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
+import { useMst } from '../../../store/store';
+import { Button } from '../../atoms';
+import { Modal } from '../../molecules';
 
 import './SuccessModal.scss';
 

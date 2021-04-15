@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
 
 import followingUserAvatar from '../../assets/img/mock/following-user.png';
@@ -22,7 +23,6 @@ import {
 } from '../../components/organisms';
 
 import './User.scss';
-import { useParams, useLocation } from 'react-router-dom';
 
 interface IUser {
   avatarSrc?: string;
