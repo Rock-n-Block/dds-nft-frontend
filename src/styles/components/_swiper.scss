@@ -1,3 +1,5 @@
+@import "src/styles/mixins/main";
+
 .swiper {
   &-navigation {
     position: absolute;
@@ -37,4 +39,20 @@
       display: none;
     }
   }
+
+  &-container {
+
+    .swiper-slide {
+      margin-right: 20px !important;
+    }
+
+    @include b('mobile') {
+      max-width: 320px;
+      .swiper-slide {
+        margin-right: 0 !important;
+      }
+    }
+  }
+
+
 }
