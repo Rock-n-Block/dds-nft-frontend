@@ -1,4 +1,5 @@
 @import '../../../styles/vars';
+@import 'src/styles/mixins/media';
 
 .filter {
   padding-right: 70px;
@@ -10,6 +11,9 @@
   &__box {
     display: flex;
     align-items: center;
+    @include b('mobile') {
+      flex-wrap: wrap;
+    }
   }
 
   &__item {
@@ -24,11 +28,22 @@
 
     & + & {
       margin-left: 10px;
+      @include b('mobile') {
+        margin-left: 0;
+      }
     }
 
     &.active {
       color: #fff;
       background: $purple;
     }
+
+    @include b('mobile') {
+      margin: 0 10px 5px 0;
+    }
+  }
+
+  @include b('mobile') {
+    padding-right: 0;
   }
 }

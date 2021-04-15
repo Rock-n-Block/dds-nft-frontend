@@ -71,16 +71,16 @@ const Footer: React.FC = () => {
           </div>
           <div className="footer__social">
             <a href="/" target="_blank" className="footer__social-item">
-              <DiskImg />
+              <FbImg />
             </a>
             <a href="/" target="_blank" className="footer__social-item">
-              <FbImg />
+              <TwImg />
             </a>
             <a href="/" target="_blank" className="footer__social-item">
               <InstImg />
             </a>
             <a href="/" target="_blank" className="footer__social-item">
-              <TwImg />
+              <DiskImg />
             </a>
             <a href="/" target="_blank" className="footer__social-item">
               <YoutubeImg />

@@ -29,7 +29,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
   socialNetworks,
 }) => {
   return (
-    <div className="User__user-overview user-overview">
+    <div className="user-overview">
       {avatarSrc ? (
         <Avatar src={avatarSrc} className="user-overview__avatar" size={150} alt="User avatar" />
       ) : (
@@ -49,6 +49,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
               socialNetworks.map((network) => (
                 <SocialNetwork
                   socialNetwork={network}
+                  withTitle
                   className="social-networks__network text text-purple text-bold"
                   key={nextId()}
                 />

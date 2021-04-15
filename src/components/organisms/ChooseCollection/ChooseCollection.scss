@@ -1,4 +1,5 @@
 @import '../../../styles/vars';
+@import '../../../styles/mixins/media';
 
 .ch-coll {
   text-align: center;
@@ -18,11 +19,22 @@
 
   &__content {
     margin-top: 20px;
+
+    @include b('mobile') {
+      .swiper-slide {
+        margin-right: 10px !important;
+
+        width: 100% !important;
+        max-width: 140px;
+        min-height: 140px;
+      }
+    }
   }
 
   &__item {
     padding: 40px 0 30px;
 
+    width: 100%;
     max-width: 195px;
 
     cursor: pointer;
@@ -36,6 +48,9 @@
 
     &-title {
       margin: 25px 0 6px;
+      @include b('mobile') {
+        margin-top: 20px;
+      }
     }
 
     &-img {
@@ -47,6 +62,9 @@
       img {
         height: 100%;
       }
+    }
+    @include b('mobile') {
+      padding: 12px 13px;
     }
   }
 

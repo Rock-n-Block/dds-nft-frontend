@@ -31,8 +31,8 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
           </div>
           <Swiper
             spaceBetween={20}
-            slidesPerView={4}
-            slidesPerGroup={4}
+            slidesPerView="auto"
+            // slidesPerGroup={1}
             navigation={{
               prevEl: prevRef.current!, // Assert non-null
               nextEl: nextRef.current!, // Assert non-null

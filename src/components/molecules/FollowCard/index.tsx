@@ -17,10 +17,12 @@ const FollowCard: React.FC<IFollowCard> = ({ tokens, img, followers, name }) => 
     <div className="follow-card ">
       <img src={img} className="follow-card__avatar" alt={`${name} avatar`} />
       <div className="follow-card__info">
-        <p className="follow-card__info-followers text text-gray text-sm text-bold text-upper">
-          {followers} followers
-        </p>
-        <h3 className="follow-card__info-name text-purple-l text-md text-bold">{name}</h3>
+        <div className="follow-card__info-text">
+          <p className="follow-card__info-followers text text-gray text-sm text-bold text-upper">
+            {followers} followers
+          </p>
+          <h3 className="follow-card__info-name text-purple-l text-md text-bold">{name}</h3>
+        </div>
         <Button colorScheme="purple" className="follow-card__info__follow-btn">
           <span className="text text-bold">Follow</span>
         </Button>

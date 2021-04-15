@@ -1,15 +1,32 @@
+@import 'src/styles/mixins/media';
+
 .h1 {
   font-size: 50px;
   line-height: 61px;
 
+  @include b('mobile') {
+    max-width: 360px;
+
+    font-size: 40px;
+    line-height: 49px;
+  }
+
   &-md {
     font-size: 40px;
     line-height: 49px;
+    @include b('mobile') {
+      font-size: 30px;
+      line-height: 37px;
+    }
   }
 
   &-xl {
     font-size: 55px;
     line-height: 67px;
+    @include b('mobile') {
+      font-size: 25px;
+      line-height: 30px;
+    }
   }
 }
 
@@ -30,6 +47,10 @@
   &-smd {
     font-size: 16px;
     line-height: 20px;
+    @include b('mobile') {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
 
   &-md {
@@ -45,11 +66,19 @@
   &-xl {
     font-size: 25px;
     line-height: 30px;
+    @include b('mobile') {
+      font-size: 20px;
+      line-height: 24px;
+    }
   }
 
   &-xxl {
     font-size: 40px;
     line-height: 49px;
+    @include b('mobile') {
+      font-size: 30px;
+      line-height: 37px;
+    }
   }
 
   &-regular {

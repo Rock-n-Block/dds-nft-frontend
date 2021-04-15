@@ -1,9 +1,30 @@
+@import 'src/styles/mixins/media';
+
 .explore {
   &__title {
     margin-bottom: 30px;
+    @include b('mobile') {
+      margin-bottom: 17px;
+    }
   }
 
   &__content {
     margin-top: 30px;
+  }
+
+  @include b('mobile') {
+    .filter {
+      position: relative;
+
+      .sort {
+        position: absolute;
+        top: -40px;
+        right: 0;
+
+        &__content {
+          left: -110px;
+        }
+      }
+    }
   }
 }

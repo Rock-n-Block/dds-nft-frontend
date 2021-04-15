@@ -1,4 +1,5 @@
 @import '../../../styles/vars';
+@import 'src/styles/mixins/media';
 
 .footer {
   padding: 65px 0 45px;
@@ -27,6 +28,9 @@
     img {
       transform: rotate(-90deg);
     }
+    @include b('mobile') {
+      display: none;
+    }
   }
 
   &__nav {
@@ -36,12 +40,19 @@
       margin-top: 20px;
 
       display: block;
+      @include b('mobile') {
+        margin-top: 25px;
+      }
     }
 
     &-box {
       & + & {
         margin-left: 9.028vw;
       }
+    }
+
+    @include b('mobile') {
+      margin-top: 40px;
     }
   }
 
@@ -55,6 +66,12 @@
 
     &-bottom {
       align-items: flex-end;
+      @include b('mobile') {
+        align-items: center;
+      }
+    }
+    @include b('mobile') {
+      flex-direction: column;
     }
   }
 
@@ -67,6 +84,10 @@
     color: #000;
 
     opacity: 0.3;
+    @include b('mobile') {
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
 
   &__social {
@@ -84,6 +105,10 @@
         path {
           transition: 0.3s;
         }
+        @include b('mobile') {
+          width: 22px;
+          height: 22px;
+        }
       }
 
       &:hover {
@@ -92,6 +117,15 @@
             fill: $purple;
           }
         }
+      }
+    }
+  }
+  @include b('mobile') {
+    padding: 40px 0 20px;
+    &__logo {
+      order: 1;
+      img {
+        display: none;
       }
     }
   }

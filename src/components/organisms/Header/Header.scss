@@ -1,4 +1,5 @@
 @import '../../../styles/vars';
+@import 'src/styles/mixins/media';
 
 .header {
   position: sticky;
@@ -18,7 +19,9 @@
     justify-content: space-between;
     align-items: center;
   }
-
+  &-mobile__content {
+    display: none;
+  }
   &__box {
     display: flex;
     align-items: center;
@@ -42,5 +45,15 @@
     & + & {
       margin-left: 8px;
     }
+  }
+
+  @include b('mobile') {
+    padding: 13px 0;
+  }
+}
+
+@include b('mobile') {
+  .header__content {
+    display: none;
   }
 }

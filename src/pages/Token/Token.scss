@@ -1,4 +1,5 @@
 @import '../../styles/vars';
+@import 'src/styles/mixins/media';
 
 .token {
   padding: 20px 0;
@@ -32,6 +33,31 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
+    &-container {
+      display: flex;
+      align-items: center;
+      @include b('mobile') {
+        margin: 0 10px;
+
+        width: 100%;
+
+        &:last-child {
+          margin-top: 20px;
+        }
+
+        .btn {
+          width: 100%;
+          max-width: 180px;
+        }
+      }
+    }
+    @include b('mobile') {
+      padding-top: 0;
+
+      border-top: none;
+      flex-wrap: wrap;
+    }
+
     &-item {
       & + & {
         margin-left: 20px;
@@ -40,6 +66,9 @@
 
     &-text {
       margin-left: 40px;
+      @include b('mobile') {
+        margin-left: 10px;
+      }
 
       & + & {
         margin-left: 15px;
@@ -91,6 +120,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @include b('mobile') {
+      .token__wrapper {
+        display: none;
+      }
+    }
   }
 
   &__content {
@@ -116,6 +150,10 @@
           }
         }
       }
+    }
+
+    @include b('mobile') {
+      flex-direction: column;
     }
   }
 
