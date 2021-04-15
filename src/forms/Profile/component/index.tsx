@@ -7,7 +7,7 @@ import { Uploader } from '../../../components/organisms';
 // import { validateField } from '../../../utils/validate';
 
 export interface IProfile {
-  displayName?: string;
+  displayName: string;
   customUrl?: string;
   bio?: string;
   twitter?: string;
@@ -35,11 +35,13 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
         <Form.Item
           name="displayName"
           className="form-profile__item input__field"
+          initialValue={values.displayName}
           label={<span className="input__label text-bold">Display name</span>}
         >
           <div className="input__field-create box-shadow">
             <Input
               id="displayName"
+              value={values.displayName}
               className="form-profile__input input input__create text-bold text-smd"
               size="large"
               type="text"
@@ -143,7 +145,7 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
       </div>
       <div className="form-profile__upload">
         <div className="form-profile__upload-img">
-          <img src={values.preview} alt={values.displayName} />
+          <img src={`https://${values.preview}`} alt={values.displayName} />
         </div>
         <div className="form-profile__upload-text text-bold">
           We recommend an image of at least 400x400. Gifs work too.

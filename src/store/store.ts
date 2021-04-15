@@ -8,7 +8,6 @@ const RootModel = types.model({
   modals: Modals,
   user: User,
 });
-
 export const Store = RootModel.create({
   modals: {
     terms: {
@@ -24,6 +23,8 @@ export const Store = RootModel.create({
   },
   user: {
     address: '',
+    is_verificated: false,
+    display_name: '',
   },
 });
 

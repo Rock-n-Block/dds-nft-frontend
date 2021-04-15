@@ -1,27 +1,27 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line no-param-reassign
 import React from 'react';
 import { withFormik } from 'formik';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 
-// import { storeApi } from '../../../services/api';
 import { validateForm } from '../../../utils/validate';
 import Profile, { IProfile } from '../component';
-// import { useMst } from '../../../store/store';
+import { useMst } from '../../../store/store';
 
-export default observer(() => {
-  // const { modals } = useMst();
+const ChangePasswordForm: React.FC = () => {
+  const { user } = useMst();
+  console.log(user.display_name, 'user name');
+
   const FormWithFormik = withFormik<any, IProfile>({
     enableReinitialize: true,
-    mapPropsToValues: () => ({
-      displayName: '',
-      customUrl: '',
-      bio: '',
-      twitter: '',
-      img: '',
-      preview: '',
-    }),
+    mapPropsToValues: () => {
+      return {
+        displayName: user.display_name || '',
+        customUrl: user.custom_url || '',
+        bio: user.bio || '',
+        twitter: user.twitter || '',
+        img: '',
+        preview: user.avatar || '',
+      };
+    },
     validate: (values) => {
       const errors = validateForm({ values, notRequired: ['displayName'] });
 
@@ -30,9 +30,12 @@ export default observer(() => {
 
     handleSubmit: (values) => {
       console.log(values);
+      console.log(user);
     },
 
-    displayName: 'ChangePasswordForm',
+    displayName: 'IProfile',
   })(Profile);
   return <FormWithFormik />;
-});
+};
+
+export default observer(ChangePasswordForm);

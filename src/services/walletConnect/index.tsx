@@ -60,9 +60,7 @@ class Connector extends React.Component<any, any> {
         rootStore.user.setAddress(address);
         localStorage.dds_metamask = true;
       }
-
-      const { data: user } = await userApi.getMe();
-      console.log(user, 'me');
+      rootStore.user.getMe();
     } catch (error) {
       console.log(error, 'connect');
       rootStore.user.disconnect();
