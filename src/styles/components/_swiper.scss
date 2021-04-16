@@ -1,4 +1,4 @@
-@import "src/styles/mixins/main";
+@import 'src/styles/mixins/main';
 
 .swiper {
   &-navigation {
@@ -32,6 +32,18 @@
         transform: rotate(180deg);
       }
     }
+
+    @include b('mobile') {
+      top: -50px;
+      &-next {
+        right: 0;
+      }
+
+      &-prev {
+        right: 56px;
+        left: auto;
+      }
+    }
   }
 
   &-button {
@@ -41,7 +53,6 @@
   }
 
   &-container {
-
     .swiper-slide {
       margin-right: 20px !important;
     }
@@ -53,6 +64,4 @@
       }
     }
   }
-
-
 }
