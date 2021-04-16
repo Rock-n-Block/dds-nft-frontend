@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Popover } from 'antd';
 import { observer } from 'mobx-react-lite';
 
-import UserPopover from '../UserPopover';
 import { useMst } from '../../../store/store';
+import UserPopover from '../UserPopover';
 
 import './UserPreview.scss';
 

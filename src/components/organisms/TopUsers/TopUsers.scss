@@ -56,15 +56,19 @@
       @include b('mobile') {
         display: flex;
         justify-content: center;
+
         width: 50%;
       }
     }
     @include b('mobile') {
-      width: 100%;
       margin: 17px 0 17px 0;
+
+      width: 100%;
+
       &:first-child {
         max-width: 250px;
       }
+
       &:last-child {
         max-width: 348px;
       }

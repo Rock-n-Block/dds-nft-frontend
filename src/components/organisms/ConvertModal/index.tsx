@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import { Form, Input } from 'antd';
 import { observer } from 'mobx-react-lite';
 
+import SwapImg from '../../../assets/img/icons/arrows-swap.svg';
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import { useMst } from '../../../store/store';
+import { Button } from '../../atoms';
 import { Modal } from '../../molecules';
 
 import './ConvertModal.scss';
-import { Button } from '../../atoms';
-import { Form, Input } from 'antd';
-import SwapImg from '../../../assets/img/icons/arrows-swap.svg';
 
 export interface ConvertModalProps {
   pay: ICurrency;

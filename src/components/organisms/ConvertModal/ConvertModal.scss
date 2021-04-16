@@ -1,37 +1,51 @@
 @import 'src/styles/vars';
 
 .m-convert {
-  background: #fafafa;
-  box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
-  border-radius: 30px;
-  max-width: 460px;
   width: 100%;
+  max-width: 460px;
+
+  background: #fafafa;
+  border-radius: 30px;
+  box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+
   &__content {
     position: relative;
+
     padding: 30px;
   }
+
   &__close-btn {
     position: absolute !important;
     top: 30px;
     right: 30px;
   }
+
   &__title {
     margin-bottom: 35px;
   }
+
   &__convert-btn {
     margin-top: 30px;
   }
+
   &__swap {
     padding-bottom: 20px;
+
     border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+
     &-img {
       margin-top: 30px;
       margin-bottom: 7px;
-      border-radius: 16px;
-      background: $purple;
+
       height: fit-content;
+
       cursor: pointer;
+
+      background: $purple;
+      border-radius: 16px;
+
       transform: rotate(90deg);
+
       &:hover,
       &:focus {
         img {

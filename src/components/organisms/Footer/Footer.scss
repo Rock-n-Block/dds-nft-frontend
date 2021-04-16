@@ -122,8 +122,10 @@
   }
   @include b('mobile') {
     padding: 40px 0 20px;
+
     &__logo {
       order: 1;
+
       img {
         display: none;
       }

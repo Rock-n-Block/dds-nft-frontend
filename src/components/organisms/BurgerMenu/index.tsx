@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import './BurgerMenu.scss';
 import { Link, NavLink } from 'react-router-dom';
+import classNames from 'classnames';
+
 import LogoImg from '../../../assets/img/icons/logo.svg';
 import { ReactComponent as Menu } from '../../../assets/img/icons/menu.svg';
-import classNames from 'classnames';
 import { Button } from '../../atoms';
 import { Footer } from '../index';
+
+import './BurgerMenu.scss';
 
 interface BurgerMenuProps {
   className: string;

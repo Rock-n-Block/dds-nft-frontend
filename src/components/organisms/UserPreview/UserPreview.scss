@@ -1,28 +1,39 @@
 @import '../../../styles/vars';
+
 .u-preview {
   margin-left: 8px;
-  border: 1px solid $purple;
-  border-radius: 16px;
+
   display: flex;
   align-items: center;
+
+  border: 1px solid $purple;
+  border-radius: 16px;
+
   &__text {
-    padding: 9px 0;
     margin-right: 7px;
-    cursor: pointer;
+    padding: 9px 0;
     padding-left: 15px;
-  }
-  &__img {
-    width: 40px;
-    display: flex;
+
     cursor: pointer;
+  }
+
+  &__img {
+    margin-top: -3px;
+    margin-right: -2px;
+    margin-bottom: -2px;
+
+    display: flex;
     overflow: hidden;
-    border-radius: 50%;
     justify-content: center;
     align-items: center;
+
+    width: 40px;
     height: 40px;
-    margin-right: -2px;
-    margin-top: -3px;
-    margin-bottom: -2px;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
     img {
       width: 100%;
     }

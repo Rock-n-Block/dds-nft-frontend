@@ -44,22 +44,26 @@ textarea {
     &:hover {
       border: none;
     }
+
     .ant-input {
       font-size: 16px;
-      line-height: 20px;
       font-weight: 700;
+      line-height: 20px;
+
       background: transparent !important;
       border: none;
 
       &:hover {
         border: none;
       }
+
       &-suffix {
         font-size: 18px;
-        line-height: 22px;
         font-weight: 700;
-        mix-blend-mode: normal;
+        line-height: 22px;
+
         opacity: 0.5;
+        mix-blend-mode: normal;
       }
     }
   }

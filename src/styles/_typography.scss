@@ -156,8 +156,10 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
   &-hover {
     transition: 0.3s;
+
     &:hover {
       color: $purple;
     }

@@ -2,10 +2,10 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
 
-import { validateForm } from '../../../utils/validate';
-import Profile, { IProfile } from '../component';
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
+import { validateForm } from '../../../utils/validate';
+import Profile, { IProfile } from '../component';
 
 const ChangePasswordForm: React.FC = () => {
   const { user } = useMst();
