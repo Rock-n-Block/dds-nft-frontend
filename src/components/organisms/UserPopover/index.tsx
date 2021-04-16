@@ -9,9 +9,20 @@ import EthImg from '../../../assets/img/icons/eth.svg';
 import SwapImg from '../../../assets/img/icons/arrows-swap.svg';
 
 import './UserPopover.scss';
+import { ConvertModal } from '../index';
+import { ConvertModalProps } from '../ConvertModal';
+
+const balance: ConvertModalProps = {
+  pay: { currency: 'ETH' },
+  receive: { currency: 'dETH' },
+};
 
 const UserPopover: React.FC = observer(() => {
-  const { user } = useMst();
+  const { modals, user } = useMst();
+
+  const handleOpenModal = (): void => {
+    modals.convert.open();
+  };
 
   const handleDisconnect = (): void => {
     user.disconnect();
@@ -32,7 +43,9 @@ const UserPopover: React.FC = observer(() => {
               <div className="u-popover__swap-item-content">
                 <div className="u-popover__swap-item-title text-purple text-bold">Balance</div>
                 <div className="u-popover__swap-item-wrapper">
-                  <div className="text-bold u-popover__swap-item-currency">0 ETH</div>
+                  <div className="text-bold u-popover__swap-item-currency">
+                    {balance.pay.value ?? 0} {balance.pay.currency}
+                  </div>
                   <div className="text-gray u-popover__swap-item-currency">$0.00</div>
                 </div>
               </div>
@@ -44,15 +57,18 @@ const UserPopover: React.FC = observer(() => {
               <div className="u-popover__swap-item-content">
                 <div className="u-popover__swap-item-title text-purple text-bold">Balance</div>
                 <div className="u-popover__swap-item-wrapper">
-                  <div className="text-bold u-popover__swap-item-currency">0 ETH</div>
+                  <div className="text-bold u-popover__swap-item-currency">
+                    {balance.receive.value ?? 0} {balance.receive.currency}
+                  </div>
                   <div className="text-gray u-popover__swap-item-currency">$0.00</div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="u-popover__swap-img">
+          <Button colorScheme="purple" className="u-popover__swap-img" onClick={handleOpenModal}>
             <img src={SwapImg} alt="swap" />
-          </div>
+          </Button>
+          <ConvertModal pay={balance.pay} receive={balance.receive} />
         </div>
         <Button link="/" colorScheme="white" size="smd">
           <div className="text">Manage funds in Zerion</div>

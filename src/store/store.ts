@@ -17,6 +17,9 @@ export const Store = RootModel.create({
     createCollection: {
       isOpen: false,
     },
+    convert: {
+      isOpen: false,
+    },
     success: {
       successMsg: '',
     },

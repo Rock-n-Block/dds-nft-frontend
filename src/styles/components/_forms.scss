@@ -243,6 +243,27 @@
       }
     }
   }
+  &-convert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .ant-row {
+      max-width: 400px;
+      width: 100%;
+    }
+    .ant-col {
+      label {
+        width: 100% !important;
+        justify-content: space-between;
+      }
+    }
+    & > .btn {
+      padding: 10px 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
 .ant-form-item-control {

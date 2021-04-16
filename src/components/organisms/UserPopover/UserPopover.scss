@@ -14,7 +14,7 @@
       align-items: flex-end;
       margin-bottom: 20px;
     }
-    &-img {
+    & &-img {
       padding: 7px 10px;
       border-radius: 16px;
       background: $purple;
@@ -24,6 +24,13 @@
       align-items: center;
       justify-content: center;
       margin-left: 35px;
+      &:hover,
+      &:focus {
+        img {
+          filter: invert(75%) sepia(74%) saturate(2024%) hue-rotate(247deg) brightness(81%)
+            contrast(90%);
+        }
+      }
     }
     &-item {
       display: flex;
