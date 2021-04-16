@@ -2,9 +2,10 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
 
-import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import Profile, { IProfile } from '../component';
+import { userApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 
 const ChangePasswordForm: React.FC = () => {
   const { user } = useMst();
@@ -31,6 +32,22 @@ const ChangePasswordForm: React.FC = () => {
     handleSubmit: (values) => {
       console.log(values);
       console.log(user);
+      const formData = new FormData();
+      formData.append('avatar', values.img);
+      formData.append('display_name', values.displayName ? values.displayName : '');
+      formData.append('bio', values.bio ? values.bio : '');
+      formData.append('custom_url', values.customUrl ? values.customUrl : '');
+      formData.append('twitter', values.twitter ? values.twitter : '');
+      formData.append('site', values.site ? values.site : '');
+
+      userApi
+        .update(formData)
+        .then(({ data }) => {
+          user.update(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     displayName: 'IProfile',

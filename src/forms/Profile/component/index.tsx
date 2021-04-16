@@ -7,7 +7,7 @@ import { Uploader } from '../../../components/organisms';
 // import { validateField } from '../../../utils/validate';
 
 export interface IProfile {
-  displayName: string;
+  displayName?: string;
   customUrl?: string;
   bio?: string;
   twitter?: string;
@@ -54,11 +54,13 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
         <Form.Item
           name="customUrl"
           className="form-profile__item input__field"
+          initialValue={values.customUrl}
           label={<span className="input__label text-bold">Custom URL</span>}
         >
           <div className="input__field-create box-shadow">
             <Input
               id="customUrl"
+              value={values.customUrl}
               className="form-profile__input input input__create text-bold text-smd"
               size="large"
               type="text"
@@ -71,11 +73,13 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
         <Form.Item
           name="bio"
           className="form-profile__item input__field"
+          initialValue={values.bio}
           label={<span className="input__label text-bold">Bio</span>}
         >
           <div className="input__field-create box-shadow">
             <TextArea
               id="bio"
+              value={values.bio}
               rows={2}
               className="form-profile__input input__create text-bold text-smd"
               size="large"
@@ -88,6 +92,7 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
         <Form.Item
           name="twitter"
           className="form-profile__item input__field"
+          initialValue={values.twitter}
           label={
             <>
               <div className="input__label text-bold">Twitter Username</div>
@@ -103,6 +108,7 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
               className="form-profile__input input input__create text-bold text-smd"
               size="large"
               type="text"
+              value={values.twitter}
               placeholder="@"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -113,6 +119,7 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
         <Form.Item
           name="site"
           className="form-profile__item input__field"
+          initialValue={values.site}
           label={<span className="input__label text-bold">Personal site or portfolio</span>}
         >
           <div className="input__field-create box-shadow">
@@ -120,6 +127,7 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
               id="site"
               className="form-profile__input input input__create text-bold text-smd"
               size="large"
+              value={values.site}
               type="text"
               placeholder="https://"
               onChange={handleChange}
@@ -145,7 +153,7 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
       </div>
       <div className="form-profile__upload">
         <div className="form-profile__upload-img">
-          <img src={`https://${values.preview}`} alt={values.displayName} />
+          <img src={values.preview} alt={values.displayName} />
         </div>
         <div className="form-profile__upload-text text-bold">
           We recommend an image of at least 400x400. Gifs work too.
