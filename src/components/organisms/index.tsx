@@ -11,6 +11,7 @@ export { default as Search } from './Search';
 export { default as Uploader } from './Uploader';
 export { default as ChooseCollection } from './ChooseCollection';
 export { default as TermsModal } from './TermsModal';
+export { default as ConvertModal } from './ConvertModal';
 export { default as UserOnSale } from './UserOnSale';
 export { default as UserCollectibles } from './UserCollectibles';
 export { default as UserActivity } from './UserActivity';
