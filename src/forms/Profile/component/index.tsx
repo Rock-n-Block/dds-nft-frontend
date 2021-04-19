@@ -4,6 +4,8 @@ import { FormikProps } from 'formik';
 
 import { Button } from '../../../components/atoms';
 import { Uploader } from '../../../components/organisms';
+import VerifyModal from '../../../components/organisms/VerifyModal';
+import { useMst } from '../../../store/store';
 // import { validateField } from '../../../utils/validate';
 
 export interface IProfile {
@@ -26,6 +28,12 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
   values,
   handleSubmit,
 }) => {
+  const { modals } = useMst();
+
+  const handleOpenModal = (): void => {
+    modals.verify.open();
+  };
+
   const onSubmit = () => {
     handleSubmit();
   };
@@ -143,9 +151,10 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
               Marketplace. Please allow up to several weeks for the process.
             </div>
           </div>
-          <Button colorScheme="purple" size="smd" link="/">
+          <Button colorScheme="purple" size="smd" onClick={handleOpenModal}>
             Get verified
           </Button>
+          <VerifyModal />
         </div>
         <Button colorScheme="gradient" size="md" onClick={onSubmit}>
           Update profile
