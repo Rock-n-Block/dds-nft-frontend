@@ -6,10 +6,12 @@ import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
 import { Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
+import { userApi } from '../../../services/api';
 
 export interface INFTCard {
   img: string;
   name: string;
+  id?: number;
   auction?: {
     count: number | string;
     sold: number | string;
@@ -35,6 +37,7 @@ export interface INFTCard {
 const NFTCard: React.FC<INFTCard> = ({
   img,
   name,
+  id,
   auction,
   artist,
   owner,
@@ -45,7 +48,15 @@ const NFTCard: React.FC<INFTCard> = ({
   const [isLike, setLike] = React.useState(like);
 
   const handleLike = (): void => {
-    setLike(!isLike);
+    userApi
+      .like({ id })
+      .then(({ data }) => {
+        console.log(data);
+        setLike(data === 'liked');
+      })
+      .catch((err) => {
+        console.log(err, 'handle like');
+      });
   };
   return (
     <div className="nft-card">

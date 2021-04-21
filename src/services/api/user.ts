@@ -17,4 +17,6 @@ export default {
   getSingleCollections: () => axios.get(`account/self/${localStorage.dds_token}/collections`),
   getMe: () => axios.get(`account/self/${localStorage.dds_token}/`),
   update: (data: any) => axios.patch(`account/self/${localStorage.dds_token}/`, data),
+  like: (data: { id: number | undefined }) =>
+    axios.post(`account/self/${localStorage.dds_token}/like/`, data),
 };

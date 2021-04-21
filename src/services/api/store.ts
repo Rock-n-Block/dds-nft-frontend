@@ -18,4 +18,5 @@ export default {
   saveCollection: (data: any) => axios.post('store/save_collection/', data),
   getExplore: (page: number) => axios.get(`store/hot/${page}/`),
   getCollections: () => axios.get('store/hot_collections/'),
+  // getLiked: (address) => axios.get('store/liked/'),
 };
