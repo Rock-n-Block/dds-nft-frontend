@@ -37,6 +37,18 @@ const ConvertModal = types
       self.isOpen = false;
     },
   }));
+const VerifyModal = types
+  .model({
+    isOpen: types.boolean,
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 
 const MetamaskModal = types
   .model({
@@ -63,5 +75,6 @@ export const Modals = types.model({
   metamask: MetamaskModal,
   createCollection: CreateCollectionModal,
   convert: ConvertModal,
+  verify: VerifyModal,
   success: SuccessModal,
 });

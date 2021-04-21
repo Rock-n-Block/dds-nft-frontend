@@ -72,7 +72,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
         <div className="form-create__upload">
           <div className="form-create__upload-title text-bold text-lg">Upload file</div>
           <div className="form-create__upload-item">
-            <Uploader />
+            <Uploader>
+              <span className="text-gray-l text-smd text-bold">
+                PNG, GIF, WEBP, MP4 or MP3. Max 30mb.
+              </span>
+            </Uploader>
           </div>
         </div>
         <div className="form-create__box box-outline">
@@ -290,6 +294,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = ({
                   name={`tokenProperties[${index}].size`}
                   className="form-create__field input__field"
                   validateStatus={validateField(`tokenProperties`, touched, errors)}
+                  label={<span className="input__label text-bold">Properties</span>}
                   help={(() => {
                     return errors.tokenProperties &&
                       errors.tokenProperties[index] &&
