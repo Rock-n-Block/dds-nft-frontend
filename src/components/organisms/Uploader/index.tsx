@@ -20,7 +20,6 @@ const Uploader: React.FC<IUploader> = ({
   className,
   children,
 }) => {
-  console.log(children);
   const formik = useFormikContext();
   const [imageUrl, setImageUrl] = React.useState('');
   const getBase64 = (img: any, callback: any) => {

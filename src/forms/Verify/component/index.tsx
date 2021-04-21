@@ -110,7 +110,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             >
               <div className="input__field-create box-white box-shadow">
                 <Input
-                  id="verifyDisplayName"
+                  id="displayName"
                   size="large"
                   placeholder="Enter your display name"
                   className="input__create text-bold text-smd text-center"
@@ -176,7 +176,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             >
               <div className="input__field-create box-white box-shadow">
                 <Input
-                  id="verifyDisplayName"
+                  id="about"
                   size="large"
                   placeholder="Tell us about yourself"
                   className=" input__create text-bold text-smd text-center"
@@ -240,7 +240,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             >
               <div className="input__field-create box-white box-shadow">
                 <Input
-                  id="verifyDisplayName"
+                  id="twitter"
                   size="large"
                   placeholder="https://"
                   className=" input__create text-bold text-smd text-center"
@@ -277,7 +277,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             >
               <div className="input__field-create box-white box-shadow">
                 <Input
-                  id="verifyDisplayName"
+                  id="instagram"
                   size="large"
                   placeholder="https://"
                   className=" input__create text-bold text-smd text-center"
@@ -316,7 +316,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             >
               <div className="input__field-create box-white box-shadow">
                 <Input
-                  id="verifyDisplayName"
+                  id="website"
                   size="large"
                   placeholder="https://"
                   className=" input__create text-bold text-smd text-center"
@@ -349,7 +349,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             >
               <div className="input__field-create box-white box-shadow">
                 <Input
-                  id="verifyDisplayName"
+                  id="email"
                   size="large"
                   placeholder="name@example.com"
                   className=" input__create text-bold text-smd text-center"
