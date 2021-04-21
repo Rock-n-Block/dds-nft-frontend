@@ -1,12 +1,13 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
+import BigNumber from 'bignumber.js/bignumber';
 
 import ShareImg from '../../assets/img/icons/share.svg';
-import TokenImg from '../../assets/img/mock/token.jpg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
 import { TokenTabs } from '../../components/organisms';
+import { storeApi } from '../../services/api';
 
 import './Token.scss';
 
@@ -129,11 +130,24 @@ const Token: React.FC = () => {
       },
     ],
   };
-  console.log(token);
+
+  const [tokenData, setTokenData] = React.useState<any>({});
+
+  React.useEffect(() => {
+    storeApi
+      .getToken(token)
+      .then(({ data: tokendata }: any) => {
+        setTokenData(tokendata);
+        console.log(tokendata);
+      })
+      .catch((err: any) => {
+        console.log(err, 'get token');
+      });
+  }, [token]);
   return (
     <div className="token">
       <div className="token__preview">
-        <img src={TokenImg} alt="" className="token__preview-img" />
+        <img src={`https://${tokenData.media}`} alt="" className="token__preview-img" />
       </div>
       <div className="row">
         <div className="token__content">
@@ -150,16 +164,16 @@ const Token: React.FC = () => {
               ))}
             </div>
             <div className="token__title text-bold text-xl">
-              {`${data.collection} - Series ${data.series} - #${data.number} - ${data.name}`}
+              {`${data.collection} - ${tokenData.name}`}
             </div>
             <div className="token__wrapper">
               <div className="token__price">
-                <div className="text-bold text-purple-l text-xl">{data.price_eth} ETH</div>
+                <div className="text-bold text-purple-l text-xl">{data.price} ETH</div>
                 <div className="token__price-gray text-gray text-md">
-                  <span>${data.price}</span>
+                  <span>${tokenData.USD_price}</span>
                 </div>
                 <div className="token__price-gray text-gray text-md">
-                  <span>{`${data.sold} of ${data.count}`}</span>
+                  <span>{`${tokenData.available} of ${tokenData.total_supply}`}</span>
                 </div>
               </div>
               <div className="token__wrapper">
@@ -180,8 +194,12 @@ const Token: React.FC = () => {
               </div>
               <div className="token__btns-container">
                 <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
-                <div className="token__btns-text text-gray">{`${data.price_fee_eth}ETH`}</div>
-                <div className="token__btns-text text-gray">{`$${data.price_fee_dol}`}</div>
+                <div className="token__btns-text text-gray">{`${new BigNumber(
+                  tokenData.price,
+                ).times(102.5)}ETH`}</div>
+                <div className="token__btns-text text-gray">{`$${new BigNumber(
+                  tokenData.USD_price,
+                ).times(102.5)}`}</div>
               </div>
             </div>
             <div className="token__info">
