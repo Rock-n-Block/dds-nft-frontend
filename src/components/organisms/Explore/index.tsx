@@ -30,10 +30,12 @@ const Explore: React.FC = () => {
         artist={{
           name: data.creator.name,
           id: data.creator.id,
+          avatar: data.creator.avatar,
         }}
         owner={{
           name: data.owner.name,
           id: data.owner.id,
+          avatar: data.owner.avatar,
         }}
       />
     );

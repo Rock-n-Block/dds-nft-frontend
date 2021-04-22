@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
-
-import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
 import { Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
@@ -25,10 +23,12 @@ export interface INFTCard {
   artist: {
     name: string;
     id?: number | string;
+    avatar?: string;
   };
   owner?: {
     name: string;
     id?: number | string;
+    avatar?: string;
   };
   like?: boolean;
   disableLinks?: boolean;
@@ -128,7 +128,7 @@ const NFTCard: React.FC<INFTCard> = ({
           </div>
           <UserMini
             className="nft-card__user"
-            img={PreviewOwnerImg}
+            img={`https://${artist.avatar}`}
             topText={<span className="text-gray text-upper text-sm text-regular">Artist</span>}
             bottomText={<span className="text-purple-l">{artist.name}</span>}
             shadow={false}
@@ -137,7 +137,7 @@ const NFTCard: React.FC<INFTCard> = ({
           {owner ? (
             <UserMini
               className="nft-card__user"
-              img={PreviewOwnerImg}
+              img={`https://${owner.avatar}`}
               topText={<span className="text-gray text-upper text-sm text-regular">Owner</span>}
               bottomText={<span className="text-purple-l">{owner?.name}</span>}
               shadow={false}
