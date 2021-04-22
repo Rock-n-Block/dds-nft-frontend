@@ -288,6 +288,12 @@
       align-items: center;
     }
   }
+
+  &-verify {
+    &__input {
+      margin-top: 30px;
+    }
+  }
 }
 
 .ant-form-item-control {

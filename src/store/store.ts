@@ -20,6 +20,9 @@ export const Store = RootModel.create({
     convert: {
       isOpen: false,
     },
+    verify: {
+      isOpen: false,
+    },
     success: {
       successMsg: '',
     },

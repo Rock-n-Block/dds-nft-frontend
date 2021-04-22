@@ -19,4 +19,5 @@ export default {
   getExplore: (page: number) => axios.get(`store/hot/${page}/`),
   getCollections: () => axios.get('store/hot_collections/'),
   // getLiked: (address) => axios.get('store/liked/'),
+  getToken: (id: number | string) => axios.get(`store/${id}/`),
 };

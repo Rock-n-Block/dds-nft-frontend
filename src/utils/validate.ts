@@ -51,6 +51,33 @@ export const validateForm = ({ values, notRequired }: any) => {
       }
     },
 
+    displayName: (value: string): void => {
+      if (!value) {
+        errCopy.displayName = 'Enter your wallet';
+      }
+    },
+    about: (value: string): void => {
+      if (!value) {
+        errCopy.about = 'Tell us about you';
+      }
+    },
+    twitter: (value: string): void => {
+      if (!value) {
+        errCopy.twitter = 'Enter your twitter';
+      }
+    },
+    instagram: (value: string): void => {
+      if (!value) {
+        errCopy.instagram = 'Enter your instagram';
+      }
+    },
+
+    website: (value: string): void => {
+      if (!value) {
+        errCopy.instagram = 'Enter your website';
+      }
+    },
+
     numberOfCopies: (value: string): void => {
       if (!value) {
         errCopy.numberOfCopies = '"Number of copies" must be a number';

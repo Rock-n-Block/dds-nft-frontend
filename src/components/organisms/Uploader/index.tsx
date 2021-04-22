@@ -10,9 +10,16 @@ const { Dragger } = Upload;
 
 interface IUploader extends IColorScheme, ISize {
   type?: 'area' | 'button';
+  className?: string;
 }
 
-const Uploader: React.FC<IUploader> = ({ type = 'area', colorScheme = 'outline', size = 'sm' }) => {
+const Uploader: React.FC<IUploader> = ({
+  type = 'area',
+  colorScheme = 'outline',
+  size = 'sm',
+  className,
+  children,
+}) => {
   const formik = useFormikContext();
   const [imageUrl, setImageUrl] = React.useState('');
   const getBase64 = (img: any, callback: any) => {
@@ -51,7 +58,7 @@ const Uploader: React.FC<IUploader> = ({ type = 'area', colorScheme = 'outline',
     formik.setFieldValue('img', '');
   };
   return (
-    <div className="uploader">
+    <div className={`${className} uploader`}>
       {type === 'area' ? (
         <>
           <Dragger
@@ -60,13 +67,7 @@ const Uploader: React.FC<IUploader> = ({ type = 'area', colorScheme = 'outline',
             multiple={false}
             showUploadList={false}
           >
-            {imageUrl ? (
-              <img src={imageUrl} alt="" className="uploader__img" />
-            ) : (
-              <span className="text-gray-l text-smd text-bold">
-                PNG, GIF, WEBP, MP4 or MP3. Max 30mb.
-              </span>
-            )}
+            {imageUrl ? <img src={imageUrl} alt="" className="uploader__img" /> : children}
           </Dragger>
           {imageUrl ? (
             <div
