@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
+import { observer } from 'mobx-react-lite';
 
 import followingUserAvatar from '../../assets/img/mock/following-user.png';
 import PreviewImg from '../../assets/img/mock/home-preview.jpg';
@@ -21,11 +22,10 @@ import {
   UserLiked,
   UserOnSale,
 } from '../../components/organisms';
-
-import './User.scss';
 import { userApi } from '../../services/api';
 import { useMst } from '../../store/store';
-import { observer } from 'mobx-react-lite';
+
+import './User.scss';
 
 interface IUser {
   avatarSrc?: string;
@@ -249,7 +249,7 @@ const User: React.FC = observer(() => {
           <UserCreated />
         </TabPane>
         <TabPane tab="Liked" key="liked">
-          <UserLiked />
+          <UserLiked address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Activity" key="activity">
           <UserActivity

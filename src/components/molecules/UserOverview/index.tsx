@@ -4,12 +4,12 @@ import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Popover } from 'antd';
 
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
+import { userApi } from '../../../services/api';
 import { Button, SocialNetwork, UserWallet } from '../../atoms';
 import { ISocialNetwork } from '../../atoms/SocialNetwork';
 import PopoverUserLinks, { PopoverUserLinksProps } from '../PopoverUserLinks';
 
 import './UserOverview.scss';
-import { userApi } from '../../../services/api';
 
 export interface UserOverviewProps {
   id: string | undefined;

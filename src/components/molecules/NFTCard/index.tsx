@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
+
+import { userApi } from '../../../services/api';
 import { Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
-import { userApi } from '../../../services/api';
 
 export interface INFTCard {
   img: string;

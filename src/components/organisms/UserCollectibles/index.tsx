@@ -1,5 +1,6 @@
 import React from 'react';
 import { Masonry } from 'masonic';
+import { observer } from 'mobx-react-lite';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
 import { NoItemsFound } from '../../atoms';
@@ -25,7 +26,7 @@ const hotBids = [
   },
 ];
 
-const UserCollectibles: React.FC = () => {
+const UserCollectibles: React.FC = observer(() => {
   // const [test, setTest] = React.useState(hotBids);
 
   const renderCard = ({ data }: any) => {
@@ -49,6 +50,6 @@ const UserCollectibles: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default UserCollectibles;
