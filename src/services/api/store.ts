@@ -20,4 +20,10 @@ export default {
   getCollections: () => axios.get('store/hot_collections/'),
   // getLiked: (address) => axios.get('store/liked/'),
   getToken: (id: number | string) => axios.get(`store/${id}/`),
+  buyToken: (id: number | string, amount: number) =>
+    axios.post(`/store/buy/${localStorage.dds_token}/`, {
+      id,
+      erc20Address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
+      tokenAmount: amount,
+    }),
 };

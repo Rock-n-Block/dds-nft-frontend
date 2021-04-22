@@ -2,12 +2,15 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
+import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
 import { TokenTabs } from '../../components/organisms';
 import { storeApi } from '../../services/api';
+import { useMst } from '../../store/store';
+import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import './Token.scss';
 
@@ -15,7 +18,9 @@ interface IToken {
   token: string;
 }
 
-const Token: React.FC = () => {
+const Token: React.FC = observer(() => {
+  const connector = useWalletConnectorContext();
+  const { user } = useMst();
   const { token } = useParams<IToken>();
   const data = {
     tags: ['Art', 'Games', 'Test'],
@@ -133,6 +138,17 @@ const Token: React.FC = () => {
 
   const [tokenData, setTokenData] = React.useState<any>({});
 
+  const handleBuy = async () => {
+    const { data: buyTokenData }: any = await storeApi.buyToken(
+      token,
+      tokenData.standart === 'ERC721' ? 0 : 1,
+    );
+
+    await connector.metamaskService.sendTransaction(buyTokenData.initial_tx);
+
+    console.log(buyTokenData, 'data');
+  };
+
   React.useEffect(() => {
     storeApi
       .getToken(token)
@@ -144,6 +160,7 @@ const Token: React.FC = () => {
         console.log(err, 'get token');
       });
   }, [token]);
+
   return (
     <div className="token">
       <div className="token__preview">
@@ -183,25 +200,33 @@ const Token: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="token__btns">
-              <div className="token__btns-container">
-                <Button colorScheme="gradient" shadow size="md" className="token__btns-item">
-                  <span className="text-bold">Buy now</span>
-                </Button>
-                <Button colorScheme="white" shadow size="md" className="token__btns-item">
-                  <span className="text-grad text-bold">Bid</span>
-                </Button>
+            {user.address && (
+              <div className="token__btns">
+                <div className="token__btns-container">
+                  <Button
+                    colorScheme="gradient"
+                    shadow
+                    size="md"
+                    className="token__btns-item"
+                    onClick={handleBuy}
+                  >
+                    <span className="text-bold">Buy now</span>
+                  </Button>
+                  <Button colorScheme="white" shadow size="md" className="token__btns-item">
+                    <span className="text-grad text-bold">Bid</span>
+                  </Button>
+                </div>
+                <div className="token__btns-container">
+                  <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
+                  <div className="token__btns-text text-gray">{`${new BigNumber(
+                    tokenData.price,
+                  ).times(102.5)}ETH`}</div>
+                  <div className="token__btns-text text-gray">{`$${new BigNumber(
+                    tokenData.USD_price,
+                  ).times(102.5)}`}</div>
+                </div>
               </div>
-              <div className="token__btns-container">
-                <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
-                <div className="token__btns-text text-gray">{`${new BigNumber(
-                  tokenData.price,
-                ).times(102.5)}ETH`}</div>
-                <div className="token__btns-text text-gray">{`$${new BigNumber(
-                  tokenData.USD_price,
-                ).times(102.5)}`}</div>
-              </div>
-            </div>
+            )}
             <div className="token__info">
               <div className="token__info-text text-md">{data.collection}</div>
               <div className="token__info-text text-md">{`Name: ${data.name}`}</div>
@@ -227,6 +252,6 @@ const Token: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Token;
