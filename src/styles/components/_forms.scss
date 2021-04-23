@@ -261,6 +261,39 @@
       }
     }
   }
+
+  &-convert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .ant-row {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .ant-col {
+      label {
+        justify-content: space-between;
+
+        width: 100% !important;
+      }
+    }
+
+    & > .m-convert__swap-img {
+      padding: 10px 7px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &-verify {
+    &__input {
+      margin-top: 30px;
+    }
+  }
 }
 
 .ant-form-item-control {

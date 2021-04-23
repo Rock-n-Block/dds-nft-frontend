@@ -17,6 +17,12 @@ export const Store = RootModel.create({
     createCollection: {
       isOpen: false,
     },
+    convert: {
+      isOpen: false,
+    },
+    verify: {
+      isOpen: false,
+    },
     success: {
       successMsg: '',
     },

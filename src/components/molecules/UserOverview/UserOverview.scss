@@ -22,6 +22,12 @@
     }
   }
 
+  &__edit-cover {
+    position: absolute !important;
+    top: -17px;
+    right: 50px;
+  }
+
   &__content {
     margin-left: 220px;
     //display: flex;

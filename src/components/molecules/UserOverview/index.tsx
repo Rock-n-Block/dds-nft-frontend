@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import nextId from 'react-id-generator';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Popover } from 'antd';
@@ -9,12 +9,16 @@ import { ISocialNetwork } from '../../atoms/SocialNetwork';
 import PopoverUserLinks, { PopoverUserLinksProps } from '../PopoverUserLinks';
 
 import './UserOverview.scss';
+import { userApi } from '../../../services/api';
 
 export interface UserOverviewProps {
+  id: string | undefined;
   avatarSrc?: string;
   name: string;
   wallet: string;
   description?: string;
+  self?: boolean;
+  follows?: boolean;
   socialNetworks?: Array<ISocialNetwork>;
 }
 
@@ -22,12 +26,49 @@ const content = (props: PopoverUserLinksProps) => {
   return <PopoverUserLinks {...props} />;
 };
 const UserOverview: React.FC<UserOverviewProps> = ({
+  id,
   avatarSrc,
   name,
   wallet,
   description,
+  self = false,
+  follows = false,
   socialNetworks,
 }) => {
+  let followBtn;
+  const [follow, setFollow] = useState<boolean>(follows);
+
+  const handleUnfollow = () => {
+    userApi
+      .unfollow({ id: +(id ?? 0) })
+      .then(() => {
+        setFollow(false);
+      })
+      .catch((err) => {
+        console.log(err, 'unfollow user');
+      });
+  };
+  const handleFollow = () => {
+    userApi
+      .follow({ id: +(id ?? 0) })
+      .then(() => {
+        setFollow(true);
+      })
+      .catch((err) => {
+        console.log(err, 'follow user');
+      });
+  };
+
+  if (follow) {
+    followBtn = (
+      <Button colorScheme="outline" onClick={handleUnfollow}>
+        Unfollow
+      </Button>
+    );
+  } else {
+    followBtn = <Button onClick={handleFollow}>Follow </Button>;
+  }
+  // useEffect(() => {}, [follow]);
   return (
     <div className="user-overview">
       {avatarSrc ? (
@@ -39,6 +80,13 @@ const UserOverview: React.FC<UserOverviewProps> = ({
           size={150}
           alt="User avatar"
         />
+      )}
+      {self ? (
+        <Button size="sm" colorScheme="white" className="user-overview__edit-cover">
+          Edit cover
+        </Button>
+      ) : (
+        <></>
       )}
       <div className="user-overview__content">
         <h3 className="user-overview__content__name text-bold text-xl">{name}</h3>
@@ -61,7 +109,13 @@ const UserOverview: React.FC<UserOverviewProps> = ({
         </div>
         <p className="user-overview__content__description text text-regular">{description}</p>
         <div className="user-overview__content__buttons">
-          <Button size="sm">Follow </Button>
+          {self ? (
+            <Button link="/profile" className="user-overview__content__buttons-edit">
+              Edit Profile
+            </Button>
+          ) : (
+            followBtn
+          )}
           <Popover
             content={content({ name, socialNetworks })}
             trigger="click"
@@ -72,9 +126,13 @@ const UserOverview: React.FC<UserOverviewProps> = ({
               Share link
             </Button>
           </Popover>
-          <Button size="sm" colorScheme="white">
-            Report User
-          </Button>
+          {self ? (
+            <></>
+          ) : (
+            <Button size="sm" colorScheme="white">
+              Report User
+            </Button>
+          )}
         </div>
       </div>
     </div>

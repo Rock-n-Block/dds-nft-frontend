@@ -15,12 +15,13 @@ import { Button } from '../../atoms';
 import { Search, UserPreview } from '../index';
 
 import './BurgerMenu.scss';
+import { observer } from 'mobx-react-lite';
 
 interface BurgerMenuProps {
   className: string;
 }
 
-const BurgerMenu: React.FC<BurgerMenuProps> = ({ className }) => {
+const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
   const [isMenuItemsVisible, setIsModalVisible] = useState(false);
@@ -127,5 +128,5 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ className }) => {
       </div>
     </div>
   );
-};
+});
 export default BurgerMenu;

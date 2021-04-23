@@ -2,6 +2,12 @@ import { applySnapshot, flow, types } from 'mobx-state-tree';
 
 import { userApi } from '../services/api';
 
+const Follower = types.model({
+  avatar: types.optional(types.string, ''),
+  name: types.optional(types.string, ''),
+  his_followers: types.optional(types.number, 0),
+  id: types.optional(types.union(types.number, types.string, types.null), null),
+});
 /* eslint-disable no-param-reassign */
 export const User = types
   .model({
@@ -10,8 +16,8 @@ export const User = types
     bio: types.optional(types.maybeNull(types.string), null),
     custom_url: types.optional(types.maybeNull(types.string), null),
     display_name: types.optional(types.maybeNull(types.string), null),
-    followers: types.optional(types.array(types.string), []),
-    follows: types.optional(types.array(types.string), []),
+    followers: types.optional(types.array(Follower), []),
+    follows: types.optional(types.array(Follower), []),
     id: types.optional(types.union(types.number, types.string, types.null), null),
     is_verificated: types.boolean,
     site: types.optional(types.maybeNull(types.string), null),

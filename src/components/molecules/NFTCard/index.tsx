@@ -6,10 +6,12 @@ import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
 import { Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
+import { userApi } from '../../../services/api';
 
 export interface INFTCard {
   img: string;
   name: string;
+  id?: number;
   auction?: {
     count: number | string;
     sold: number | string;
@@ -35,6 +37,7 @@ export interface INFTCard {
 const NFTCard: React.FC<INFTCard> = ({
   img,
   name,
+  id,
   auction,
   artist,
   owner,
@@ -45,14 +48,22 @@ const NFTCard: React.FC<INFTCard> = ({
   const [isLike, setLike] = React.useState(like);
 
   const handleLike = (): void => {
-    setLike(!isLike);
+    userApi
+      .like({ id })
+      .then(({ data }) => {
+        console.log(data);
+        setLike(data === 'liked');
+      })
+      .catch((err) => {
+        console.log(err, 'handle like');
+      });
   };
   return (
     <div className="nft-card">
       {disableLinks ? (
         <div className="nft-card__box-img">{img ? <img src={img} alt="hot" /> : ''}</div>
       ) : (
-        <Link to="/" className="nft-card__box-img">
+        <Link to={`/token/${id}`} className="nft-card__box-img">
           {img ? <img src={img} alt="hot" /> : ''}
         </Link>
       )}
@@ -61,7 +72,7 @@ const NFTCard: React.FC<INFTCard> = ({
           {disableLinks ? (
             <div className="nft-card__name text-bold text-black">{name}</div>
           ) : (
-            <Link to="/" className="nft-card__name text-bold text-black">
+            <Link to={`/token/${id}`} className="nft-card__name text-bold text-black">
               {name}
             </Link>
           )}
