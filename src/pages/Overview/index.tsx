@@ -1,7 +1,10 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { ReactComponent as Teapot } from '../../assets/img/icons/teapot.svg';
 import { Button } from '../../components/atoms';
+import { useWalletConnectorContext } from '../../services/walletConnect';
+import { useMst } from '../../store/store';
 
 import './Overview.scss';
 
@@ -46,7 +49,17 @@ const useDDS: Array<string> = [
   'Participate in moderation',
 ];
 
-const Overview: React.FC = () => {
+const Overview: React.FC = observer(() => {
+  const { modals } = useMst();
+  const walletConnector = useWalletConnectorContext();
+
+  const connectWallet = (): void => {
+    if (!localStorage.ddsTerms) {
+      modals.terms.open();
+    } else {
+      walletConnector.connect();
+    }
+  };
   return (
     <div className="dds-overview">
       <h1 className="dds-overview__title text-blue-grad text-bold">
@@ -63,7 +76,12 @@ const Overview: React.FC = () => {
         <h3 className="dds-overview__connect-wallet__title text-bold text-black text">
           Connect your wallet to check your eligibility
         </h3>
-        <Button colorScheme="gradient" size="md" className="dds-overview__connect-wallet__connect">
+        <Button
+          colorScheme="gradient"
+          size="md"
+          onClick={connectWallet}
+          className="dds-overview__connect-wallet__connect"
+        >
           Connect Wallet
         </Button>
       </div>
@@ -123,6 +141,6 @@ const Overview: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Overview;

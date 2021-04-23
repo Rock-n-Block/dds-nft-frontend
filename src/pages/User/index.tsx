@@ -193,7 +193,6 @@ const User: React.FC = observer(() => {
     userApi
       .getUser({ id: userId ?? '0' })
       .then(({ data }) => {
-        console.log(data);
         setCurrentUser({
           id: data.id,
           address: data.address,
@@ -206,8 +205,6 @@ const User: React.FC = observer(() => {
           follows: data.follows,
           followers: data.followers,
         });
-        console.log('user', currentUser);
-        // setCollections((prevCollections: any) => [...prevCollections, ...data]);
       })
       .catch((err) => {
         console.log(err, 'get user');

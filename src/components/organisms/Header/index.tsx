@@ -23,7 +23,7 @@ const Header: React.FC = observer(() => {
   };
 
   return (
-    <header className="header box-shadow">
+    <header className="header">
       <div className="row">
         <div className="header__content">
           <div className="header__box">
@@ -43,7 +43,7 @@ const Header: React.FC = observer(() => {
               <NavLink exact to="/activity" className="header__nav-item text-bold">
                 Activity
               </NavLink>
-              <NavLink exact to="/4" className="header__nav-item text-bold">
+              <NavLink exact to="/overview" className="header__nav-item text-bold">
                 How it works
               </NavLink>
             </div>

@@ -8,6 +8,7 @@ import {
   CreateChoosePage,
   CreatePage,
   HomePage,
+  NoPageFound,
   OverviewPage,
   ProfilePage,
   TokenPage,
@@ -55,6 +56,7 @@ const App: React.FC = () => {
             return localStorage.dds_token ? <ProfilePage /> : <Redirect to="/" />;
           }}
         />
+        <Route component={NoPageFound} />
       </Switch>
       <Footer />
       <TermsModal />
