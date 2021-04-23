@@ -18,7 +18,7 @@ export interface IProfile {
   preview?: string;
 }
 
-const { TextArea } = Input;
+// const { TextArea } = Input;
 
 const Profile: React.FC<FormikProps<IProfile>> = ({
   // touched,
@@ -85,10 +85,9 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
           label={<span className="input__label text-bold">Bio</span>}
         >
           <div className="input__field-create box-shadow">
-            <TextArea
+            <Input
               id="bio"
               value={values.bio}
-              rows={2}
               className="form-profile__input input__create text-bold text-smd"
               size="large"
               placeholder="Tell about yourself in a few words"
