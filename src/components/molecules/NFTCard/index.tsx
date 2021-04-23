@@ -52,7 +52,6 @@ const NFTCard: React.FC<INFTCard> = ({
     userApi
       .like({ id })
       .then(({ data }) => {
-        console.log(data);
         setLike(data === 'liked');
       })
       .catch((err) => {
@@ -101,9 +100,13 @@ const NFTCard: React.FC<INFTCard> = ({
             <>
               <div className="nft-card__auction">
                 <div className="nft-card__auction-bid-box box-shadow">
-                  <span className="text-grad text-bold">
-                    {new BigNumber(bid?.price).toFixed()} ETH
-                  </span>
+                  {bid.price ? (
+                    <span className="text-grad text-bold">
+                      {new BigNumber(bid?.price).toFixed()} ETH
+                    </span>
+                  ) : (
+                    <span className="text-grad text-bold">Not for sale</span>
+                  )}
                 </div>
                 <div className="nft-card__auction-text text-gray text-bold">
                   {bid?.sold} of {bid?.count}
