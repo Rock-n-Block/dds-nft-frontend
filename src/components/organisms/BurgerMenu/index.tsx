@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
 import { ReactComponent as Menu } from '../../../assets/img/icons/menu.svg';
@@ -15,7 +16,6 @@ import { Button } from '../../atoms';
 import { Search, UserPreview } from '../index';
 
 import './BurgerMenu.scss';
-import { observer } from 'mobx-react-lite';
 
 interface BurgerMenuProps {
   className: string;

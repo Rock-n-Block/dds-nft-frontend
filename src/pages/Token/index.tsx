@@ -9,8 +9,8 @@ import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
 import { TokenTabs } from '../../components/organisms';
 import { storeApi } from '../../services/api';
-import { useMst } from '../../store/store';
 import { useWalletConnectorContext } from '../../services/walletConnect';
+import { useMst } from '../../store/store';
 
 import './Token.scss';
 
