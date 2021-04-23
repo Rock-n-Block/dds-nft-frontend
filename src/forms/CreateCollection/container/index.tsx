@@ -54,7 +54,7 @@ export default observer(({ walletConnector, isSingle }: any) => {
           walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
-              formData.append('tx_hash', res.transactionHash);
+              formData.append('address', res.transactionHash);
               formData.append('avatar', values.img);
 
               storeApi

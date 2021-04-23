@@ -64,7 +64,7 @@ const NFTCard: React.FC<INFTCard> = ({
       {disableLinks ? (
         <div className="nft-card__box-img">{img ? <img src={img} alt="hot" /> : ''}</div>
       ) : (
-        <Link to="/" className="nft-card__box-img">
+        <Link to={`/token/${id}`} className="nft-card__box-img">
           {img ? <img src={img} alt="hot" /> : ''}
         </Link>
       )}
@@ -73,7 +73,7 @@ const NFTCard: React.FC<INFTCard> = ({
           {disableLinks ? (
             <div className="nft-card__name text-bold text-black">{name}</div>
           ) : (
-            <Link to="/" className="nft-card__name text-bold text-black">
+            <Link to={`/token/${id}`} className="nft-card__name text-bold text-black">
               {name}
             </Link>
           )}

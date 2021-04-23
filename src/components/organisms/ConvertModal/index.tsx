@@ -52,7 +52,12 @@ const ConvertModal: React.FC<ConvertModalProps> = observer(({ pay, receive }) =>
   /*
    */
   return (
-    <Modal isVisible={modals.convert.isOpen} className="m-convert" handleCancel={handleClose}>
+    <Modal
+      isVisible={modals.convert.isOpen}
+      className="m-convert"
+      handleCancel={handleClose}
+      width={460}
+    >
       <div className="m-convert__content">
         <Button className="m-convert__close-btn" colorScheme="clear" onClick={handleClose}>
           <img src={ClearImg} alt="close" />

@@ -83,7 +83,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
               formData.append('internal_id', data.internal_id);
-              formData.append('tx_hash', res.transactionHash);
+              formData.append('address', res.transactionHash);
               formData.append('media', values.img);
 
               storeApi
