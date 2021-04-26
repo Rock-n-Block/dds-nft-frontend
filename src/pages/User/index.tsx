@@ -37,14 +37,14 @@ interface IUser {
   followingUsers: Array<IFollowCard>;
 }
 interface INewUser {
-  id: number;
+  id: number | string | null;
   address: string;
-  displayName: string;
-  avatar: string;
-  bio: string;
-  customUrl: string;
-  twitter: string;
-  site: string;
+  displayName: string | null;
+  avatar: string | null;
+  bio: string | null;
+  customUrl: string | null;
+  twitter: string | null;
+  site: string | null;
   follows: any;
   followers: any;
 }
@@ -213,6 +213,19 @@ const User: React.FC = observer(() => {
   React.useEffect(() => {
     if (!self) {
       loadUser();
+    } else {
+      setCurrentUser({
+        id: user.id,
+        address: user.address,
+        displayName: user.display_name,
+        avatar: user.avatar,
+        bio: user.bio,
+        customUrl: user.custom_url,
+        twitter: user.twitter,
+        site: user.site,
+        follows: user.follows,
+        followers: user.followers,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -229,7 +242,7 @@ const User: React.FC = observer(() => {
           name={currentUser?.displayName ?? 'UserName'}
           wallet={currentUser?.address ?? 'wallet address'}
           avatarSrc={currentUser?.avatar ? `https://${currentUser?.avatar}` : userAvatar}
-          description={currentUser?.bio}
+          description={currentUser?.bio ?? ''}
           self={self}
           follows={follows}
           socialNetworks={mockUser.socialNetworks} // TODO: split social networks
