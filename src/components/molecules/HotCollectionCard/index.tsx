@@ -9,7 +9,8 @@ import './HotCollectionCard.scss';
 export interface IHotCollectionCard {
   tokens: string[];
   user: {
-    img: string;
+    id:string|number;
+    avatar:string;
     name: string;
   };
 }
@@ -30,7 +31,8 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({ tokens, user }) => {
         })}
       </Link>
       <UserMini
-        img={user.img}
+        img={`https://${user.avatar}`}
+        id={user.id}
         topText={<span className="text-upper text-gray text-sm text-regular">By</span>}
         bottomText={<span className="text-purple-l">{user.name}</span>}
       />
