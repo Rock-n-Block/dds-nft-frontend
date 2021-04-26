@@ -20,6 +20,7 @@ export const User = types
     follows: types.optional(types.array(Follower), []),
     id: types.optional(types.union(types.number, types.string, types.null), null),
     is_verificated: types.boolean,
+    likes:types.optional(types.array(types.number),[]),
     site: types.optional(types.maybeNull(types.string), null),
     twitter: types.optional(types.maybeNull(types.string), null),
   })

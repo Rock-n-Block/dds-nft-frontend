@@ -11,14 +11,19 @@ import './TokenTabs.scss';
 const { TabPane } = Tabs;
 
 interface TokenTabsProps {
-  owner: IUserMini;
-  artist: IUserMini;
-  collection: IUserMini;
+  owner: IUser;
+  artist: IUser;
+  collection: { col: IUser; standart: string };
   cost?: number;
   history: Array<IUserMini>;
   details: Array<IDetail>;
   bids: Array<IUserMini>;
   owners: Array<IUserMini>;
+}
+interface IUser {
+  id: number;
+  avatar: string;
+  name: string;
 }
 
 const TokenTabs: React.FC<TokenTabsProps> = ({
