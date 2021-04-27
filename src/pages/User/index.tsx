@@ -253,10 +253,10 @@ const User: React.FC = observer(() => {
           <UserOnSale />
         </TabPane>
         <TabPane tab="Collectibles" key="collectibles">
-          <UserCollectibles />
+          <UserCollectibles address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Created" key="created">
-          <UserCreated />
+          <UserCreated address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Liked" key="liked">
           <UserLiked address={currentUser?.address ?? ''} />

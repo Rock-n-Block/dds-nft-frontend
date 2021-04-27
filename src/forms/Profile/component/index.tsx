@@ -5,6 +5,7 @@ import { FormikProps } from 'formik';
 import { Button } from '../../../components/atoms';
 import { Uploader } from '../../../components/organisms';
 import VerifyModal from '../../../components/organisms/VerifyModal';
+import {observer} from 'mobx-react-lite';
 import { useMst } from '../../../store/store';
 // import { validateField } from '../../../utils/validate';
 
@@ -20,7 +21,7 @@ export interface IProfile {
 
 // const { TextArea } = Input;
 
-const Profile: React.FC<FormikProps<IProfile>> = ({
+const Profile: React.FC<FormikProps<IProfile>> = observer(({
   // touched,
   // errors,
   handleChange,
@@ -170,6 +171,6 @@ const Profile: React.FC<FormikProps<IProfile>> = ({
       </div>
     </Form>
   );
-};
+});
 
 export default Profile;

@@ -25,6 +25,8 @@ export default {
       erc20Address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
       tokenAmount: amount,
     }),
-  getLiked: (address: string) => axios.get(`store/liked/${address}/`),
-  getFollowing: (page: number) => axios.get(`store/following/${localStorage.dds_token}/${page}/`), // TODO: dynamically change page
+  getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),
+  getFollowing: (page: number) => axios.get(`store/following/${localStorage.dds_token}/${page}/`),
+  getCreated: (address: string, page: number) => axios.get(`store/created/${address}/${page}/`),
+  getCollectibles: (address: string, page: number) => axios.get(`store/owned/${address}/${page}/`),
 };
