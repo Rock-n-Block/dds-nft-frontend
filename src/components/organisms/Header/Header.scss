@@ -39,7 +39,9 @@
       }
 
       &.active {
-        color: $purple;
+        & > a {
+          color: $purple;
+        }
       }
     }
   }

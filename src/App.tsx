@@ -11,6 +11,7 @@ import {
   NoPageFound,
   OverviewPage,
   ProfilePage,
+  SearchPage,
   TokenPage,
   UserPage,
 } from './pages';
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <Route exact path="/token/:token" component={TokenPage} />
         <Route exact path="/user/:userId" component={UserPage} />
         <Route exact path="/activity" component={ActivityPage} />
+        <Route exact path="/search" component={SearchPage} />
         <Route
           exact
           path="/create"

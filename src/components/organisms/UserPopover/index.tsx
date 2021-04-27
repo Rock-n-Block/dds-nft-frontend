@@ -30,7 +30,7 @@ const UserPopover: React.FC = observer(() => {
   return (
     <div className="u-popover">
       <UserWallet className="u-popover__copy" address={user.address} />
-      <Link to="/" className="text-purple">
+      <Link to="/profile" className="text-purple">
         Set display name
       </Link>
       <div className="u-popover__swap">
@@ -70,8 +70,12 @@ const UserPopover: React.FC = observer(() => {
           </Button>
           <ConvertModal pay={balance.pay} receive={balance.receive} />
         </div>
-        <Button link="/" colorScheme="white" size="smd">
-          <div className="text">Manage funds in Zerion</div>
+        <Button colorScheme="white" size="smd">
+          <div className="text">
+            <a href="https://zerion.io/" target="_blank" rel="noreferrer noopener">
+              Manage funds in Zerion
+            </a>
+          </div>
         </Button>
       </div>
       <div className="u-popover__nav">

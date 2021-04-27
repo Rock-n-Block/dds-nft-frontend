@@ -9,6 +9,7 @@ import { Button } from '../../atoms';
 import { BurgerMenu, UserPreview } from '../index';
 
 import './Header.scss';
+import { NavHashLink } from 'react-router-hash-link';
 
 const Header: React.FC = observer(() => {
   const { modals, user } = useMst();
@@ -31,10 +32,16 @@ const Header: React.FC = observer(() => {
               <img src={LogoImg} alt="dds" className="header__logo" />
             </Link>
             <div className="header__nav">
-              <NavLink exact to="/" className="header__nav-item text-bold">
-                Explore
+              <NavLink exact to="/" className="header__nav-item">
+                <NavHashLink to="/#explore" smooth className="text-gray text-bold">
+                  Explore
+                </NavHashLink>
               </NavLink>
-              <NavLink exact to="/1" className="header__nav-item text-bold">
+              <NavLink
+                exact
+                to={`/user/${user.id}?tab=collectibles`}
+                className="header__nav-item text-bold"
+              >
                 My items
               </NavLink>
               <NavLink exact to="/2" className="header__nav-item text-bold">
