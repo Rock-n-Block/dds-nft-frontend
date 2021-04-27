@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { storeApi } from '../../services/api';
 import { Masonry, useInfiniteLoader } from 'masonic';
-import { NFTCard, PageOverview } from '../../components/molecules';
-import HotImg from '../../assets/img/mock/hot.jpg';
-import ShadowImg from '../../assets/img/shadow.png';
+
 import PreviewImg from '../../assets/img/mock/home-preview.jpg';
+import HotImg from '../../assets/img/mock/hot.jpg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
+import ShadowImg from '../../assets/img/shadow.png';
+import { NFTCard, PageOverview } from '../../components/molecules';
+import { storeApi } from '../../services/api';
 
 const Collections: React.FC = () => {
   const [collection, setCollection] = React.useState<any>({});
