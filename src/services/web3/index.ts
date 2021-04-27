@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import Web3 from 'web3';
 
+import config from './config';
+
 declare global {
   interface Window {
     ethereum: any;
@@ -193,21 +195,27 @@ export default class MetamaskService {
   }
 
   createTransaction(
-    abi: Array<any>,
     method: string,
     data: Array<any>,
-    tokenAddress: string,
+    tx?: any,
+    tokenAddress?: string,
     walletAddress?: string,
     value?: any,
   ) {
-    const transactionMethod = MetamaskService.getMethodInterface(abi, method);
+    const transactionMethod = MetamaskService.getMethodInterface(config.ABI, method);
 
-    const approveSignature = this.encodeFunctionCall(transactionMethod, data);
+    const signature = this.encodeFunctionCall(transactionMethod, data);
 
+    if (tx) {
+      tx.from = walletAddress || this.walletAddress;
+      tx.data = signature;
+
+      return this.sendTransaction(tx);
+    }
     return this.sendTransaction({
       from: walletAddress || this.walletAddress,
       to: tokenAddress,
-      data: approveSignature,
+      data: signature,
       value: value || '',
     });
   }
