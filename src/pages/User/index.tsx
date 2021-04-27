@@ -8,7 +8,7 @@ import firstCard from '../../assets/img/mock/user-activity-card.png';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import ShadowImg from '../../assets/img/shadow.png';
 import { ISocialNetwork } from '../../components/atoms/SocialNetwork';
-import { UserOverview } from '../../components/molecules';
+import { PageOverview } from '../../components/molecules';
 import { IActivityCard } from '../../components/molecules/ActivityCard';
 import { IFollowCard } from '../../components/molecules/FollowCard';
 import {
@@ -227,7 +227,7 @@ const User: React.FC = observer(() => {
         style={{ backgroundImage: `url(${ShadowImg}), url(${PreviewImg})` }}
       />
       <div className="row">
-        <UserOverview
+        <PageOverview
           id={userId}
           name={currentUser?.displayName ?? 'UserName'}
           wallet={currentUser?.address ?? 'wallet address'}
@@ -236,6 +236,7 @@ const User: React.FC = observer(() => {
           self={self}
           follows={follows}
           socialNetworks={mockUser.socialNetworks} // TODO: split social networks
+          parentComponent="User"
         />
       </div>
       <Tabs tabBarExtraContent={sort} className="tabs" defaultActiveKey={activeTab}>
