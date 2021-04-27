@@ -4,7 +4,6 @@ import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
-import PreviewOwnerImg from '../../../assets/img/mock/home-preview-owner.jpg';
 import HotCollectionCard from '../../molecules/HotCollectionCard';
 
 import './HotCollections.scss';
@@ -54,8 +53,9 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
                 <HotCollectionCard
                   tokens={item.tokens}
                   user={{
-                    img: PreviewOwnerImg,
-                    name: item.creator,
+                    id:item.creator.id,
+                    avatar: item.creator.avatar,
+                    name: item.creator.name,
                   }}
                 />
               </SwiperSlide>
