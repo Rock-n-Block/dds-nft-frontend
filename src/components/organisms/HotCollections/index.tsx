@@ -51,9 +51,11 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
             {items.map((item: any) => (
               <SwiperSlide className="h-collections__slide" key={nextId()}>
                 <HotCollectionCard
+                  name={item.name}
+                  id={item.id}
                   tokens={item.tokens}
                   user={{
-                    id:item.creator.id,
+                    id: item.creator.id,
                     avatar: item.creator.avatar,
                     name: item.creator.name,
                   }}
