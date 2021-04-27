@@ -29,4 +29,6 @@ export default {
   getFollowing: (page: number) => axios.get(`store/following/${localStorage.dds_token}/${page}/`),
   getCreated: (address: string, page: number) => axios.get(`store/created/${address}/${page}/`),
   getCollectibles: (address: string, page: number) => axios.get(`store/owned/${address}/${page}/`),
+  getUserCollections: (address: string, page: number) =>
+    axios.get(`store/collections/${address}/${page}/`),
 };

@@ -16,6 +16,7 @@ import {
   Sort,
   UserActivity,
   UserCollectibles,
+  UserCollections,
   UserCreated,
   UserFollower,
   UserFollowing,
@@ -254,6 +255,9 @@ const User: React.FC = observer(() => {
         </TabPane>
         <TabPane tab="Collectibles" key="collectibles">
           <UserCollectibles address={currentUser?.address ?? ''} />
+        </TabPane>
+        <TabPane tab="Collections" key="collections">
+          <UserCollections address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Created" key="created">
           <UserCreated address={currentUser?.address ?? ''} />

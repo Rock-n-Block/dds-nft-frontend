@@ -25,3 +25,4 @@ export { default as CreateCollectionModal } from './CreateCollectionModal';
 export { default as SuccessModal } from './SuccessModal';
 export { default as UserPreview } from './UserPreview';
 export { default as UserPopover } from './UserPopover';
+export { default as UserCollections } from './UserCollections';
