@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
@@ -169,31 +169,38 @@ const Token: React.FC = observer(() => {
     return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
   }, [user, tokenData]);
   const handleBuy = async () => {
-    const { data: buyTokenData }: any = await storeApi.buyToken(
-      token,
-      tokenData.standart === 'ERC721' ? 0 : 1,
-    );
+    try {
+      const { data: buyTokenData }: any = await storeApi.buyToken(
+        token,
+        tokenData.standart === 'ERC721' ? 0 : 1,
+      );
 
-    await connector.metamaskService.sendTransaction(buyTokenData.initial_tx);
-
-    console.log(buyTokenData, 'data');
+      console.log(buyTokenData.initial_tx, 'data');
+      await connector.metamaskService.createTransaction(
+        buyTokenData.initial_tx.method,
+        [
+          buyTokenData.initial_tx.data.idOrder,
+          buyTokenData.initial_tx.data.whoIsSelling,
+          buyTokenData.initial_tx.data.tokenToBuy,
+          buyTokenData.initial_tx.data.tokenToSell,
+          buyTokenData.initial_tx.data.feeAddresses,
+          buyTokenData.initial_tx.data.feeAmount,
+          buyTokenData.initial_tx.data.signature,
+        ],
+        {
+          gas: buyTokenData.initial_tx.gas,
+          gasPrice: buyTokenData.initial_tx.gasPrice,
+          nonce: buyTokenData.initial_tx.nonce,
+          to: buyTokenData.initial_tx.to,
+          value: buyTokenData.initial_tx.value,
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleLike = (): void => {
-    userApi
-      .like({ id: tokenData.id })
-      .then(({ data }) => {
-        if (data === 'liked') {
-          setIsLike(true);
-        } else {
-          setIsLike(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err, 'handle like');
-      });
-  };
-  useEffect(() => {
+  React.useEffect(() => {
     storeApi
       .getToken(token)
       .then(({ data: tokendata }: any) => {

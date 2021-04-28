@@ -18,6 +18,8 @@ export default {
   saveCollection: (data: any) => axios.post('store/save_collection/', data),
   getExplore: (page: number) => axios.get(`store/hot/${page}/`),
   getCollections: () => axios.get('store/hot_collections/'),
+  getCollectionById: (id: number | string, page: number) =>
+    axios.get(`store/collections/${id}/${page}/`),
   getToken: (id: number | string) => axios.get(`store/${id}/`),
   buyToken: (id: number | string, amount: number) =>
     axios.post(`/store/buy/${localStorage.dds_token}/`, {

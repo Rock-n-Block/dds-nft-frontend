@@ -83,7 +83,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
         className="form-create-coll__item input__field"
         validateStatus={validateField('descr', touched, errors)}
         help={!touched.descr ? false : errors.descr}
-        label={<span className="input__label text-bold">Descripption</span>}
+        label={<span className="input__label text-bold">Description</span>}
       >
         <div className="input__field-create box-shadow">
           <Input
