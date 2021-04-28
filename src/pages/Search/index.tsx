@@ -1,9 +1,10 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { Tabs } from 'antd';
+
+import { Sort } from '../../components/organisms';
 
 import './Search.scss';
-import { useLocation } from 'react-router-dom';
-import { Sort } from '../../components/organisms';
-import { Tabs } from 'antd';
 
 const { TabPane } = Tabs;
 const sortTypes = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low', 'text'];

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { NavHashLink } from 'react-router-hash-link';
 import { observer } from 'mobx-react-lite';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
@@ -9,7 +10,6 @@ import { Button } from '../../atoms';
 import { BurgerMenu, UserPreview } from '../index';
 
 import './Header.scss';
-import { NavHashLink } from 'react-router-hash-link';
 
 const Header: React.FC = observer(() => {
   const { modals, user } = useMst();

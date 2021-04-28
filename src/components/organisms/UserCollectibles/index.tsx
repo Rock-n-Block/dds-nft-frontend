@@ -3,11 +3,11 @@ import { Masonry, useInfiniteLoader } from 'masonic';
 import { observer } from 'mobx-react-lite';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
+import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 
 import './UserCollectibles.scss';
-import { storeApi } from '../../../services/api';
 
 interface UserCollectiblesProps {
   address: string;

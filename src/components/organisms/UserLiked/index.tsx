@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Masonry, useInfiniteLoader } from 'masonic';
 
+import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
-import HotImg from '../../../assets/img/mock/hot.jpg';
 
 interface UserLikedProps {
   address: string;

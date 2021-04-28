@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
+import { observer } from 'mobx-react-lite';
 
 import { userApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 import { Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
-import { observer } from 'mobx-react-lite';
-import { useMst } from '../../../store/store';
 
 export interface INFTCard {
   img: string;

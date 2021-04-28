@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-
-import { NoItemsFound } from '../../atoms';
 import { Masonry, useInfiniteLoader } from 'masonic';
-import { NFTCard } from '../../molecules';
-import { storeApi } from '../../../services/api';
+
 import HotImg from '../../../assets/img/mock/hot.jpg';
+import { storeApi } from '../../../services/api';
+import { NoItemsFound } from '../../atoms';
+import { NFTCard } from '../../molecules';
+
 import './UserCreated.scss';
 
 interface UserCreatedProps {

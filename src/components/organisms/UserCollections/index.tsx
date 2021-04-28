@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { observer } from 'mobx-react-lite';
-import { storeApi } from '../../../services/api';
 import { Masonry, useInfiniteLoader } from 'masonic';
+import { observer } from 'mobx-react-lite';
+
+import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import HotCollectionCard from '../../molecules/HotCollectionCard';
 
