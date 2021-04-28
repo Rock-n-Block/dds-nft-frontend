@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
@@ -200,7 +200,21 @@ const Token: React.FC = observer(() => {
     }
   };
 
-  React.useEffect(() => {
+  const handleLike = (): void => {
+    userApi
+      .like({ id: tokenData.id })
+      .then(({ data }) => {
+        if (data === 'liked') {
+          setIsLike(true);
+        } else {
+          setIsLike(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'handle like');
+      });
+  };
+  useEffect(() => {
     storeApi
       .getToken(token)
       .then(({ data: tokendata }: any) => {

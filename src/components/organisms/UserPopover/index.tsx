@@ -11,6 +11,7 @@ import { ConvertModalProps } from '../ConvertModal';
 import { ConvertModal } from '../index';
 
 import './UserPopover.scss';
+import { NavHashLink } from 'react-router-hash-link';
 
 const balance: ConvertModalProps = {
   pay: { currency: 'ETH' },
@@ -79,9 +80,9 @@ const UserPopover: React.FC = observer(() => {
         </Button>
       </div>
       <div className="u-popover__nav">
-        <Link to="/" className="u-popover__nav-item text-bold text-black">
+        <NavHashLink to="/#explore" smooth className="u-popover__nav-item text-bold text-black">
           Explore
-        </Link>
+        </NavHashLink>
         <Link to="/profile" className="u-popover__nav-item text-bold text-black">
           Edit profile
         </Link>

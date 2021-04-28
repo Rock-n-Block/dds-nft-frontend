@@ -54,7 +54,6 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
                   name={item.name}
                   id={item.id}
                   tokens={item.tokens}
-                  id={item.id}
                   user={{
                     id: item.creator.id,
                     avatar: item.creator.avatar,
