@@ -26,6 +26,9 @@ export const Store = RootModel.create({
     success: {
       successMsg: '',
     },
+    auction: {
+      isOpen: false,
+    },
   },
   user: {
     address: '',

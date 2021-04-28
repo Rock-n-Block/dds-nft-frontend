@@ -1,0 +1,14 @@
+.m-auction {
+  &__content {
+    position: relative;
+    padding: 40px 20px 30px;
+  }
+  &__close-btn {
+    position: absolute !important;
+    top: 20px;
+    right: 20px;
+  }
+  &__description {
+    margin-top: 20px;
+  }
+}

@@ -5,9 +5,10 @@ import { observer } from 'mobx-react-lite';
 
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
-import { Like, UserMini } from '../../atoms';
+import { Button, Like, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
+import { AuctionModal } from '../../organisms';
 
 export interface INFTCard {
   img: string;
@@ -38,8 +39,11 @@ export interface INFTCard {
 
 const NFTCard: React.FC<INFTCard> = observer(
   ({ img, name, id, auction, artist, owner, bid, disableLinks }) => {
-    const { user } = useMst();
+    const { user, modals } = useMst();
 
+    const handleOpenModal = (): void => {
+      modals.auction.open();
+    };
     const [isLike, setIsLike] = useState<boolean>(
       !!user.likes.find((likedTokenId) => likedTokenId === id),
     );
@@ -120,11 +124,15 @@ const NFTCard: React.FC<INFTCard> = observer(
                 </div>
                 <div className="nft-card__auction">
                   {disableLinks ? (
-                    <div className="text-bold text-purple-l">Place a bid</div>
+                    <div className="text-bold text-purple-l">
+                      <Button colorScheme="clear" onClick={handleOpenModal}>
+                        Place a bid
+                      </Button>
+                    </div>
                   ) : (
-                    <Link to="/" className="text-bold text-purple-l">
-                      Place a bid
-                    </Link>
+                    <Button colorScheme="clear" onClick={handleOpenModal}>
+                      <span className="text-bold text-purple-l">Place a bid</span>
+                    </Button>
                   )}
                 </div>
               </>
@@ -158,6 +166,7 @@ const NFTCard: React.FC<INFTCard> = observer(
             )}
           </div>
         </div>
+        <AuctionModal owner={{ name: owner?.name ?? '', id: owner?.id }} artist={artist} />
       </div>
     );
   },
