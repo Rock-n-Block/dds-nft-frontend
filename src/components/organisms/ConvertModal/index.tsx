@@ -74,7 +74,7 @@ const ConvertModal: React.FC<ConvertModalProps> = observer(({ pay, receive }) =>
               </>
             }
           >
-            <div className="input__field-create box-shadow">
+            <div className="input__field-create box-shadow box-white">
               <Input
                 className="form-create-coll__input input input__create text-bold text-smd"
                 placeholder="Enter an amount"
@@ -94,7 +94,7 @@ const ConvertModal: React.FC<ConvertModalProps> = observer(({ pay, receive }) =>
             name="payCurrency"
             label={<span className="input__label text text-bold">You receive</span>}
           >
-            <div className="input__field-create box-shadow">
+            <div className="input__field-create box-shadow box-white">
               <Input
                 className="form-create-coll__input input input__create text-bold text-smd"
                 placeholder="Amount you will receive"

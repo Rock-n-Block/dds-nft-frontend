@@ -30,10 +30,12 @@ const Explore: React.FC = () => {
         artist={{
           name: data.creator.name,
           id: data.creator.id,
+          avatar: data.creator.avatar,
         }}
         owner={{
           name: data.owner.name,
           id: data.owner.id,
+          avatar: data.owner.avatar,
         }}
       />
     );
@@ -83,7 +85,7 @@ const Explore: React.FC = () => {
     console.log(value);
     setActiveFilter(value[0]);
   };
-  const handleSortChage = (value: string): void => {
+  const handleSortChange = (value: string): void => {
     console.log(value);
   };
   return (
@@ -94,7 +96,7 @@ const Explore: React.FC = () => {
           isAllFilterItem
           filters={filters}
           onChange={handleFilterChange}
-          onChangeSort={handleSortChage}
+          onChangeSort={handleSortChange}
           sortItems={sortItems}
         />
         <div className="explore__content">

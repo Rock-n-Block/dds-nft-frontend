@@ -16,6 +16,7 @@ import {
   Sort,
   UserActivity,
   UserCollectibles,
+  UserCollections,
   UserCreated,
   UserFollower,
   UserFollowing,
@@ -37,14 +38,14 @@ interface IUser {
   followingUsers: Array<IFollowCard>;
 }
 interface INewUser {
-  id: number;
+  id: number | string | null;
   address: string;
-  displayName: string;
-  avatar: string;
-  bio: string;
-  customUrl: string;
-  twitter: string;
-  site: string;
+  displayName: string | null;
+  avatar: string | null;
+  bio: string | null;
+  customUrl: string | null;
+  twitter: string | null;
+  site: string | null;
   follows: any;
   followers: any;
 }
@@ -193,7 +194,6 @@ const User: React.FC = observer(() => {
     userApi
       .getUser({ id: userId ?? '0' })
       .then(({ data }) => {
-        console.log(data);
         setCurrentUser({
           id: data.id,
           address: data.address,
@@ -206,8 +206,6 @@ const User: React.FC = observer(() => {
           follows: data.follows,
           followers: data.followers,
         });
-        console.log('user', currentUser);
-        // setCollections((prevCollections: any) => [...prevCollections, ...data]);
       })
       .catch((err) => {
         console.log(err, 'get user');
@@ -216,6 +214,19 @@ const User: React.FC = observer(() => {
   React.useEffect(() => {
     if (!self) {
       loadUser();
+    } else {
+      setCurrentUser({
+        id: user.id,
+        address: user.address,
+        displayName: user.display_name,
+        avatar: user.avatar,
+        bio: user.bio,
+        customUrl: user.custom_url,
+        twitter: user.twitter,
+        site: user.site,
+        follows: user.follows,
+        followers: user.followers,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -232,7 +243,7 @@ const User: React.FC = observer(() => {
           name={currentUser?.displayName ?? 'UserName'}
           wallet={currentUser?.address ?? 'wallet address'}
           avatarSrc={currentUser?.avatar ? `https://${currentUser?.avatar}` : userAvatar}
-          description={currentUser?.bio}
+          description={currentUser?.bio ?? ''}
           self={self}
           follows={follows}
           socialNetworks={mockUser.socialNetworks} // TODO: split social networks
@@ -244,13 +255,16 @@ const User: React.FC = observer(() => {
           <UserOnSale />
         </TabPane>
         <TabPane tab="Collectibles" key="collectibles">
-          <UserCollectibles />
+          <UserCollectibles address={currentUser?.address ?? ''} />
+        </TabPane>
+        <TabPane tab="Collections" key="collections">
+          <UserCollections address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Created" key="created">
-          <UserCreated />
+          <UserCreated address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Liked" key="liked">
-          <UserLiked />
+          <UserLiked address={currentUser?.address ?? ''} />
         </TabPane>
         <TabPane tab="Activity" key="activity">
           <UserActivity

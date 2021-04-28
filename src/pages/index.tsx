@@ -8,3 +8,5 @@ export { default as OverviewPage } from './Overview';
 export { default as ActivityPage } from './Activity';
 export { default as ProfilePage } from './Profile';
 export { default as CollectionsPage } from './Collections';
+export { default as SearchPage } from './Search';
+export { default as NoPageFound } from './NoPageFound';

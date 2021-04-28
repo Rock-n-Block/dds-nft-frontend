@@ -9,8 +9,10 @@ import {
   CreateChoosePage,
   CreatePage,
   HomePage,
+  NoPageFound,
   OverviewPage,
   ProfilePage,
+  SearchPage,
   TokenPage,
   UserPage,
 } from './pages';
@@ -29,6 +31,7 @@ const App: React.FC = () => {
         <Route exact path="/user/:userId" component={UserPage} />
         <Route exact path="/collections/:collectionId" component={CollectionsPage} />
         <Route exact path="/activity" component={ActivityPage} />
+        <Route exact path="/search" component={SearchPage} />
         <Route
           exact
           path="/create"
@@ -57,6 +60,7 @@ const App: React.FC = () => {
             return localStorage.dds_token ? <ProfilePage /> : <Redirect to="/" />;
           }}
         />
+        <Route component={NoPageFound} />
       </Switch>
       <Footer />
       <TermsModal />

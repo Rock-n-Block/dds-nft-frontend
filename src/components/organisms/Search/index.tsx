@@ -21,7 +21,7 @@ const Search: React.FC = () => {
   };
 
   return (
-    <div className="search box-shadow">
+    <div className="search box-shadow box-white">
       <div
         className="search__img"
         onClick={handleSearch}

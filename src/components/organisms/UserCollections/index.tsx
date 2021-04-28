@@ -1,57 +1,47 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Masonry, useInfiniteLoader } from 'masonic';
+import { observer } from 'mobx-react-lite';
 
-import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
-import { NFTCard } from '../../molecules';
+import HotCollectionCard from '../../molecules/HotCollectionCard';
 
-import './UserCreated.scss';
-
-interface UserCreatedProps {
+interface UserCollectionsProps {
   address: string;
 }
-const UserCreated: React.FC<UserCreatedProps> = ({ address }) => {
-  const [createdCards, setCreatedCards] = useState<any>({});
+
+const UserCollections: React.FC<UserCollectionsProps> = observer(({ address }) => {
+  const [collectionsCards, setCollectionsCards] = useState<any>({});
   const renderCard = ({ data }: any) => {
     return (
-      <NFTCard
-        img={data.media ? `https://${data.media}` : HotImg}
+      <HotCollectionCard
         name={data.name}
         id={data.id}
-        bid={{
-          price: data.price,
-          sold: data.total_supply - data.available,
-          count: data.total_supply,
-        }}
-        artist={{
-          name: data.creator.name,
+        tokens={data.tokens}
+        notDisplayUser
+        user={{
           id: data.creator.id,
           avatar: data.creator.avatar,
-        }}
-        owner={{
-          name: data.owner.name,
-          id: data.owner.id,
-          avatar: data.owner.avatar,
+          name: data.creator.name,
         }}
       />
     );
   };
-  const loadUserCreated = useCallback(
+  const loadUserCollections = useCallback(
     async (page = 1) => {
       return storeApi
-        .getCreated(address, page)
+        .getUserCollections(address, page)
         .then(({ data }) => {
-          setCreatedCards((prevCreated: any) => {
-            if (prevCreated.tokens) {
+          setCollectionsCards((prevCreated: any) => {
+            if (prevCreated.collections) {
               return {
                 ...prevCreated,
-                tokens: [...prevCreated.tokens, ...data],
+                collections: [...prevCreated.collections, ...data],
                 length: data.length,
               };
             }
             return {
-              tokens: [...data],
+              collections: [...data],
               length: data.length,
             };
           });
@@ -66,15 +56,15 @@ const UserCreated: React.FC<UserCreatedProps> = ({ address }) => {
   let prevPage = 1;
   const maybeLoadMore = useInfiniteLoader(
     async () => {
-      const page = (createdCards.tokens.length + 50) / 50;
+      const page = (collectionsCards.collections.length + 50) / 50;
       if (prevPage !== page) {
         prevPage = page;
-        await loadUserCreated(page);
+        await loadUserCollections(page);
       }
     },
     {
       isItemLoaded: () => {
-        if (createdCards.tokens.length >= createdCards.length) {
+        if (collectionsCards.collections.length >= collectionsCards.length) {
           return true;
         }
         return false;
@@ -82,16 +72,16 @@ const UserCreated: React.FC<UserCreatedProps> = ({ address }) => {
     },
   );
   useEffect(() => {
-    loadUserCreated();
-  }, [loadUserCreated]);
+    loadUserCollections();
+  }, [loadUserCollections]);
   return (
-    <div className="user-created">
+    <div className="user-collectibles">
       <div className="row">
-        <div className="user-created__content">
-          {createdCards.tokens && createdCards.tokens.length ? (
+        <div className="user-collectibles__content">
+          {collectionsCards.collections && collectionsCards.collections.length ? (
             <Masonry
-              items={createdCards.tokens}
-              columnGutter={10}
+              items={collectionsCards.collections}
+              columnGutter={20}
               columnWidth={320}
               overscanBy={5}
               render={renderCard}
@@ -104,6 +94,6 @@ const UserCreated: React.FC<UserCreatedProps> = ({ address }) => {
       </div>
     </div>
   );
-};
+});
 
-export default UserCreated;
+export default UserCollections;

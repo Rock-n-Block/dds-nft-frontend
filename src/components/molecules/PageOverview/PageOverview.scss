@@ -26,6 +26,10 @@
     position: absolute !important;
     top: -17px;
     right: 50px;
+    @include b('mobile') {
+      top: -180px;
+      right: 0;
+    }
   }
 
   &__content {
