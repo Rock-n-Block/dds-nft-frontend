@@ -8,17 +8,18 @@ import './HotCollectionCard.scss';
 
 export interface IHotCollectionCard {
   tokens: string[];
+  id: number;
   user: {
-    id:string|number;
-    avatar:string;
+    id: string | number;
+    avatar: string;
     name: string;
   };
 }
 
-const HotCollectionCard: React.FC<IHotCollectionCard> = ({ tokens, user }) => {
+const HotCollectionCard: React.FC<IHotCollectionCard> = ({ tokens, id, user }) => {
   return (
     <div className="hot-col-card">
-      <Link to="/" className="hot-col-card__box">
+      <Link to={`/collections/${id}`} className="hot-col-card__box">
         {new Array(6).fill(0).map((item, index) => {
           if (tokens[index]) {
             return (

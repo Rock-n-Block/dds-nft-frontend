@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
+import { observer } from 'mobx-react-lite';
 
 import followingUserAvatar from '../../assets/img/mock/following-user.png';
 import PreviewImg from '../../assets/img/mock/home-preview.jpg';
@@ -8,7 +9,7 @@ import firstCard from '../../assets/img/mock/user-activity-card.png';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import ShadowImg from '../../assets/img/shadow.png';
 import { ISocialNetwork } from '../../components/atoms/SocialNetwork';
-import { UserOverview } from '../../components/molecules';
+import { PageOverview } from '../../components/molecules';
 import { IActivityCard } from '../../components/molecules/ActivityCard';
 import { IFollowCard } from '../../components/molecules/FollowCard';
 import {
@@ -21,11 +22,10 @@ import {
   UserLiked,
   UserOnSale,
 } from '../../components/organisms';
-
-import './User.scss';
 import { userApi } from '../../services/api';
 import { useMst } from '../../store/store';
-import { observer } from 'mobx-react-lite';
+
+import './User.scss';
 
 interface IUser {
   avatarSrc?: string;
@@ -227,7 +227,7 @@ const User: React.FC = observer(() => {
         style={{ backgroundImage: `url(${ShadowImg}), url(${PreviewImg})` }}
       />
       <div className="row">
-        <UserOverview
+        <PageOverview
           id={userId}
           name={currentUser?.displayName ?? 'UserName'}
           wallet={currentUser?.address ?? 'wallet address'}
@@ -236,6 +236,7 @@ const User: React.FC = observer(() => {
           self={self}
           follows={follows}
           socialNetworks={mockUser.socialNetworks} // TODO: split social networks
+          parentComponent="User"
         />
       </div>
       <Tabs tabBarExtraContent={sort} className="tabs" defaultActiveKey={activeTab}>
