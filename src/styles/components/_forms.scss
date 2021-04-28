@@ -294,23 +294,29 @@
       margin-top: 30px;
     }
   }
+
   &-auction {
     &__item {
       margin-top: 20px;
+
       &:first-child {
         margin-top: 40px;
       }
     }
+
     &__overview {
       margin-top: 30px;
+
       &-item {
         display: flex;
         justify-content: space-between;
+
         &:not(:first-child) {
           margin-top: 16px;
         }
       }
     }
+
     &__submit-btn {
       margin: 30px auto 0;
     }

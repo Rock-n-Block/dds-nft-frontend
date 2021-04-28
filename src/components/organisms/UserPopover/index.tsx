@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NavHashLink } from 'react-router-hash-link';
 import { Switch } from 'antd';
 import { observer } from 'mobx-react-lite';
 
@@ -11,7 +12,6 @@ import { ConvertModalProps } from '../ConvertModal';
 import { ConvertModal } from '../index';
 
 import './UserPopover.scss';
-import { NavHashLink } from 'react-router-hash-link';
 
 const balance: ConvertModalProps = {
   pay: { currency: 'ETH' },

@@ -1,13 +1,14 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+
+import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
+import PlaceBidForm from '../../../forms/PlaceBid/container';
 import { useMst } from '../../../store/store';
+import { Button } from '../../atoms';
 import { Modal } from '../../molecules';
 
 import './AuctionModal.scss';
-import { Button } from '../../atoms';
-import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
-import PlaceBidForm from '../../../forms/PlaceBid/container';
 
 interface AuctionModalProps {
   owner?: {

@@ -6,9 +6,9 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
 import { Button, Like, UserMini } from '../../atoms';
+import { AuctionModal } from '../../organisms';
 
 import './NFTCard.scss';
-import { AuctionModal } from '../../organisms';
 
 export interface INFTCard {
   img: string;

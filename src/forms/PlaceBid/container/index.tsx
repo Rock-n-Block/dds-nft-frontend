@@ -1,8 +1,9 @@
 import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
-import PlaceBid, { IPlaceBid } from '../component';
+
 import { validateForm } from '../../../utils/validate';
+import PlaceBid, { IPlaceBid } from '../component';
 
 interface PlaceBidFormProps {
   balance?: { value: string; currency: string };
