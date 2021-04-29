@@ -10,7 +10,7 @@ export interface IHotCollectionCard {
   tokens: string[];
   name: string;
   id: number;
-  user: {
+  user?: {
     id: string | number;
     avatar: string;
     name: string;
@@ -47,10 +47,10 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({
           <></>
         ) : (
           <UserMini
-            img={user.avatar}
+            img={user?.avatar}
             id={user?.id}
             topText={<span className="text-upper text-gray text-sm text-regular">By</span>}
-            bottomText={<span className="text-purple-l">{user.name}</span>}
+            bottomText={<span className="text-purple-l">{user?.name}</span>}
           />
         )}
       </div>
