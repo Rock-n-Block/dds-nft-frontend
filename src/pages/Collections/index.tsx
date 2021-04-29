@@ -8,9 +8,14 @@ import userAvatar from '../../assets/img/mock/user-avatar.png';
 import ShadowImg from '../../assets/img/shadow.png';
 import { NFTCard, PageOverview } from '../../components/molecules';
 import { storeApi } from '../../services/api';
+import { Tabs } from 'antd';
+import { NoItemsFound } from '../../components/atoms';
+import './Collections.scss';
 
+const { TabPane } = Tabs;
 const Collections: React.FC = () => {
   const [collection, setCollection] = React.useState<any>({});
+  const [collectionForSale, setCollectionForSale] = React.useState<any>({});
 
   const { collectionId } = useParams<{ collectionId: string | undefined }>();
 
@@ -28,10 +33,12 @@ const Collections: React.FC = () => {
         artist={{
           name: data.creator.name,
           id: data.creator.id,
+          avatar: data.creator.avatar,
         }}
         owner={{
           name: data.owner.name,
           id: data.owner.id,
+          avatar: data.owner.avatar,
         }}
       />
     );
@@ -50,6 +57,17 @@ const Collections: React.FC = () => {
               };
             }
             return { ...prevCards, ...data, length: data.tokens.length };
+          });
+          setCollectionForSale((prevCards: any) => {
+            const saleTokens = data?.tokens.filter((token: any) => token.selling);
+            if (prevCards.tokens) {
+              return {
+                ...prevCards,
+                tokens: [...prevCards.tokens, ...saleTokens],
+                length: saleTokens.length,
+              };
+            }
+            return { ...prevCards, tokens: saleTokens, length: saleTokens.length };
           });
         })
         .catch((err: any) => {
@@ -92,23 +110,42 @@ const Collections: React.FC = () => {
           name={collection?.name ?? 'CollectionName'}
           wallet={collection?.address ?? 'wallet address'}
           avatarSrc={collection?.avatar ? `https://${collection?.avatar}` : userAvatar}
-          description={collection?.bio}
+          description={collection?.description}
           parentComponent="Collections"
         />
-        <div className="collections__content">
-          {collection.tokens && collection.tokens.length ? (
-            <Masonry
-              items={collection.tokens}
-              columnGutter={10}
-              columnWidth={320}
-              overscanBy={5}
-              render={renderCard}
-              onRender={maybeLoadMore}
-            />
-          ) : (
-            ''
-          )}
-        </div>
+        <Tabs className="tabs">
+          <TabPane tab="On sale" key="on-sale">
+            <div className="collections__content">
+              {collectionForSale.tokens ? (
+                <Masonry
+                  items={collectionForSale.tokens}
+                  columnGutter={10}
+                  columnWidth={320}
+                  overscanBy={5}
+                  render={renderCard}
+                />
+              ) : (
+                <NoItemsFound />
+              )}
+            </div>
+          </TabPane>
+          <TabPane tab="Collectibles" key="collectibles">
+            <div className="collections__content">
+              {collection.tokens && collection.tokens.length ? (
+                <Masonry
+                  items={collection.tokens}
+                  columnGutter={10}
+                  columnWidth={320}
+                  overscanBy={5}
+                  render={renderCard}
+                  onRender={maybeLoadMore}
+                />
+              ) : (
+                <NoItemsFound />
+              )}
+            </div>
+          </TabPane>
+        </Tabs>
       </div>
     </div>
   );
