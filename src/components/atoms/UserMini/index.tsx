@@ -7,7 +7,7 @@ import CheckImg from '../../../assets/img/icons/user-check.svg';
 import './UserMini.scss';
 
 export interface IUserMini {
-  img: string;
+  img?: string;
   topText: React.ReactElement | string;
   bottomText: React.ReactElement | string;
   className?: string;

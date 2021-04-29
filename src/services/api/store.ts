@@ -33,4 +33,12 @@ export default {
   getCollectibles: (address: string, page: number) => axios.get(`store/owned/${address}/${page}/`),
   getUserCollections: (address: string, page: number) =>
     axios.get(`store/collections/${address}/${page}/`),
+  getSearchResults: (data: { text: string; page: number }, query: string) =>
+    axios.post(
+      `store/search/${query === 'items' ? '' : '?type='}${query === 'items' ? '' : query}`,
+      {
+        text: data.text,
+        page: data.page,
+      },
+    ),
 };
