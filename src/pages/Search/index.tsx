@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Tabs } from 'antd';
+import { Masonry } from 'masonic';
 
+import HotImg from '../../assets/img/mock/hot.jpg';
+import { NoItemsFound } from '../../components/atoms';
+import UserMini from '../../components/atoms/UserMini';
+import { NFTCard } from '../../components/molecules';
+import HotCollectionCard from '../../components/molecules/HotCollectionCard';
 import { Sort } from '../../components/organisms';
+import { storeApi } from '../../services/api';
 
 import './Search.scss';
-import { NFTCard } from '../../components/molecules';
-import { storeApi } from '../../services/api';
-import { NoItemsFound } from '../../components/atoms';
-import HotImg from '../../assets/img/mock/hot.jpg';
-import UserMini from '../../components/atoms/UserMini';
-import HotCollectionCard from '../../components/molecules/HotCollectionCard';
-import { Masonry } from 'masonic';
 
 const { TabPane } = Tabs;
 const sortTypes = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low', 'text'];

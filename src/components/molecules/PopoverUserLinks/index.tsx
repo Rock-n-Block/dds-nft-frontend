@@ -1,10 +1,11 @@
 import React from 'react';
 
-import './PopoverUserLinks.scss';
-import { ReactComponent as TwitterFilled } from '../../../assets/img/icons/social/user/twitter-filled.svg';
+import { ReactComponent as EmailFilled } from '../../../assets/img/icons/social/user/email-filled.svg';
 import { ReactComponent as FacebookFilled } from '../../../assets/img/icons/social/user/facebook-filled.svg';
 import { ReactComponent as TelegramFilled } from '../../../assets/img/icons/social/user/telegram-filled.svg';
-import { ReactComponent as EmailFilled } from '../../../assets/img/icons/social/user/email-filled.svg';
+import { ReactComponent as TwitterFilled } from '../../../assets/img/icons/social/user/twitter-filled.svg';
+
+import './PopoverUserLinks.scss';
 
 export interface PopoverUserLinksProps {
   name: string;
