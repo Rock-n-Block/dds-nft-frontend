@@ -98,7 +98,6 @@ const PageOverview: React.FC<PageOverviewProps> = ({
               socialNetworks.map((network) => (
                 <SocialNetwork
                   socialNetwork={network}
-                  withTitle
                   className="social-networks__network text text-purple text-bold"
                   key={nextId()}
                 />
@@ -118,7 +117,7 @@ const PageOverview: React.FC<PageOverviewProps> = ({
             followBtn
           )}
           <Popover
-            content={content({ name, socialNetworks })}
+            content={content({ name, text: `Share ${parentComponent}` })}
             trigger="click"
             placement="bottomLeft"
           >
