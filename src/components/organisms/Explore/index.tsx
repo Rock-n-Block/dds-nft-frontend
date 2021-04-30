@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useWindowSize } from '@react-hook/window-size';
 import {
   MasonryScroller,
   useContainerPosition,
@@ -6,7 +7,6 @@ import {
   usePositioner,
   useResizeObserver,
 } from 'masonic';
-import { useWindowSize } from '@react-hook/window-size';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
