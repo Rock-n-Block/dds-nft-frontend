@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from '@react-hook/window-size';
 import {
   MasonryScroller,
@@ -104,27 +104,29 @@ const Explore: React.FC = () => {
     },
   );
 
+  const handleFilterChange = (value: string[]): void => {
+    setActiveFilter(value[0]);
+  };
+  const handleSortChange = (value: string): void => {
+    console.log(value);
+  };
+  const containerRef = useRef(null);
+  const [windowWidth, windowHeight] = useWindowSize();
+  const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
+
+  const positioner = usePositioner(
+    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
+    [explore.tokens],
+  );
+
+  const resizeObserver = useResizeObserver(positioner);
+
   useEffect(() => {
     loadTags();
   }, [loadTags]);
   useEffect(() => {
     loadExplore();
   }, [loadExplore]);
-  const handleFilterChange = (value: string[]): void => {
-    console.log(value);
-    setActiveFilter(value[0]);
-  };
-  const handleSortChange = (value: string): void => {
-    console.log(value);
-  };
-  const containerRef = React.useRef(null);
-  const [windowWidth, windowHeight] = useWindowSize();
-  const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
-
-  const positioner = usePositioner({ width, columnWidth: 320, columnGutter: 10 }, [explore.tokens]);
-
-  const resizeObserver = useResizeObserver(positioner);
-
   return (
     <div className="explore">
       <div className="row">
