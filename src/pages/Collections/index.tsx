@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { Tabs } from 'antd';
 import { Masonry, useInfiniteLoader } from 'masonic';
 
 import PreviewImg from '../../assets/img/mock/home-preview.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import ShadowImg from '../../assets/img/shadow.png';
+import { NoItemsFound } from '../../components/atoms';
 import { NFTCard, PageOverview } from '../../components/molecules';
 import { storeApi } from '../../services/api';
-import { Tabs } from 'antd';
-import { NoItemsFound } from '../../components/atoms';
+
 import './Collections.scss';
 
 const { TabPane } = Tabs;

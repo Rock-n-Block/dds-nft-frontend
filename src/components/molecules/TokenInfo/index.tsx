@@ -36,7 +36,7 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
         15% of sales will go to creator
       </div>
       <UserMini
-        img={collection.col.avatar}
+        img={collection.col?.avatar}
         imgSize="lg"
         isCheck
         topText={
@@ -45,7 +45,7 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
           </span>
         }
         bottomText={
-          <span className="text text-purple-l text-smd text-bold">{collection.col.name}</span>
+          <span className="text text-purple-l text-smd text-bold">{collection.col?.name}</span>
         }
       />
     </div>

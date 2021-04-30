@@ -30,6 +30,7 @@ interface IToken {
   media: string;
   name: string;
   owners: IUser; // TODO: array of owners
+  tags: Array<string>;
   price: number;
   royalty: number;
   selling: true;
@@ -229,6 +230,7 @@ const Token: React.FC = observer(() => {
           id: tokendata.id,
           media: tokendata.media,
           name: tokendata.name,
+          tags: tokendata.tags,
           owners: tokendata.owners, // TODO: array of owners
           price: tokendata.price,
           royalty: tokendata.royalty,
@@ -254,7 +256,7 @@ const Token: React.FC = observer(() => {
         <div className="token__content">
           <div className="token__content-left">
             <div className="token__tags">
-              {mockData.tags.map((tag) => (
+              {tokenData.tags?.map((tag) => (
                 <Link
                   to="/"
                   key={nextId()}
@@ -317,10 +319,16 @@ const Token: React.FC = observer(() => {
               </div>
             )}
             <div className="token__info">
-              <div className="token__info-text text-md">{tokenData.collection?.name}</div>
-              <div className="token__info-text text-md">{`Name: ${mockData.name}`}</div>
-              <div className="token__info-text text-md">{`Series: ${mockData.series}`}</div>
-              <div className="token__info-text text-md">{`Number: ${mockData.number}`}</div>
+              {tokenData.description ? (
+                <div className="token__info-text text-md">{tokenData.description}</div>
+              ) : (
+                <>
+                  <div className="token__info-text text-md">{tokenData.collection?.name}</div>
+                  <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
+                  <div className="token__info-text text-md">{`Series: ${mockData.series}`}</div>
+                  <div className="token__info-text text-md">{`Number: ${mockData.number}`}</div>
+                </>
+              )}
             </div>
             <Button colorScheme="white" shadow className="token__info-btn">
               <span className="text-grad text-smd">Read more</span>
