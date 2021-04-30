@@ -197,12 +197,13 @@ export default class MetamaskService {
   createTransaction(
     method: string,
     data: Array<any>,
+    contract: 'NFT' | 'TOKEN',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
     value?: any,
   ) {
-    const transactionMethod = MetamaskService.getMethodInterface(config.ABI, method);
+    const transactionMethod = MetamaskService.getMethodInterface(config[contract].ABI, method);
 
     const signature = this.encodeFunctionCall(transactionMethod, data);
 

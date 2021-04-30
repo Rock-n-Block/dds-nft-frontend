@@ -10,7 +10,7 @@ import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import CreateForm, { ICreateForm } from '../component';
 
-export default observer(({ isSingle, walletConnector }: any) => {
+export default observer(({ isSingle, walletConnector, collections }: any) => {
   const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
@@ -33,9 +33,10 @@ export default observer(({ isSingle, walletConnector }: any) => {
         },
       ],
       isLoading: false,
+      collectionId: '4',
     }),
     validate: (values) => {
-      const notRequired: string[] = ['tokenDescr', 'preview'];
+      const notRequired: string[] = ['tokenDescr', 'preview', 'userImg'];
       if (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth')) {
         notRequired.push('instantSalePriceEth');
       }
@@ -61,8 +62,8 @@ export default observer(({ isSingle, walletConnector }: any) => {
       formData.append('description', values.tokenDescr);
       formData.append('price', values.instantSalePriceEth.toString());
       formData.append('creator_royalty', values.tokenRoyalties.toString());
-      formData.append('standart', 'ERC721');
-      formData.append('collection', '4');
+      formData.append('standart', isSingle ? 'ERC721' : 'ERC1185');
+      formData.append('collection', values.collectionId);
       formData.append('currency', 'ETH');
       formData.append('creator', localStorage.dds_token);
 
@@ -83,7 +84,7 @@ export default observer(({ isSingle, walletConnector }: any) => {
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
               formData.append('internal_id', data.internal_id);
-              formData.append('address', res.transactionHash);
+              formData.append('tx_hash', res.transactionHash);
               formData.append('media', values.img);
 
               storeApi
@@ -111,5 +112,5 @@ export default observer(({ isSingle, walletConnector }: any) => {
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
-  return <FormWithFormik isSingle={isSingle} />;
+  return <FormWithFormik isSingle={isSingle} collections={collections} />;
 });

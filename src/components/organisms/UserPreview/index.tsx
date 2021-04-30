@@ -24,7 +24,7 @@ const UserPreview: React.FC = observer(() => {
         placement="bottomRight"
       >
         <div className="u-preview__img">
-          <img src={user.avatar ? user.avatar : ''} alt="" />
+          <img src={user.avatar ? `https://${user.avatar}` : ''} alt="" />
         </div>
       </Popover>
     </div>

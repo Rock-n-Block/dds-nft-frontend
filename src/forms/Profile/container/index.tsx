@@ -21,7 +21,7 @@ const ChangePasswordForm: React.FC = () => {
         twitter: user.twitter || '',
         site: user.site || '',
         img: '',
-        preview: user.avatar || '',
+        preview: `https://${user.avatar}` || '',
       };
     },
     validate: (values) => {
