@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Masonry, useInfiniteLoader } from 'masonic';
+import {
+  MasonryScroller,
+  useContainerPosition,
+  useInfiniteLoader,
+  usePositioner,
+  useResizeObserver,
+} from 'masonic';
+import { useWindowSize } from '@react-hook/window-size';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
@@ -67,8 +74,10 @@ const Explore: React.FC = () => {
               }
               return { ...prevExplore, ...data };
             });
-          }
-          setExplore({ tokens: [...data.tokens], length: data.length });
+          } else
+            setExplore({
+              ...data,
+            });
         })
         .catch((err: any) => {
           console.log(err, 'get tokens');
@@ -108,6 +117,14 @@ const Explore: React.FC = () => {
   const handleSortChange = (value: string): void => {
     console.log(value);
   };
+  const containerRef = React.useRef(null);
+  const [windowWidth, windowHeight] = useWindowSize();
+  const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
+
+  const positioner = usePositioner({ width, columnWidth: 320, columnGutter: 10 }, [explore.tokens]);
+
+  const resizeObserver = useResizeObserver(positioner);
+
   return (
     <div className="explore">
       <div className="row">
@@ -121,11 +138,13 @@ const Explore: React.FC = () => {
         />
         <div className="explore__content">
           {explore.tokens && explore.tokens.length ? (
-            <Masonry
-              key={activeFilter}
+            <MasonryScroller
+              positioner={positioner}
+              resizeObserver={resizeObserver}
+              containerRef={containerRef}
               items={explore.tokens}
-              columnGutter={10}
-              columnWidth={320}
+              height={windowHeight}
+              offset={offset}
               overscanBy={5}
               render={renderCard}
               onRender={maybeLoadMore}
