@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
 import { Switch } from 'antd';
+import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
 
 import SwapImg from '../../../assets/img/icons/arrows-swap.svg';
 import EthImg from '../../../assets/img/icons/eth.svg';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button, UserWallet } from '../../atoms';
 import { ConvertModal } from '../index';
 
 import './UserPopover.scss';
-import { useWalletConnectorContext } from '../../../services/walletConnect';
-import BigNumber from 'bignumber.js/bignumber';
 
 const UserPopover: React.FC = observer(() => {
   const { modals, user } = useMst();

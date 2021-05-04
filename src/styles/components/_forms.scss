@@ -287,15 +287,18 @@
       justify-content: center;
       align-items: center;
     }
+
     .input__field-create {
       position: relative;
     }
+
     &__input {
       &-error {
         position: absolute;
-        color: #ff0000ff;
-        bottom: -25px;
         left: 0;
+        bottom: -25px;
+
+        color: #f00f;
       }
     }
   }
