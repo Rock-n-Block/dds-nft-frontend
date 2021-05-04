@@ -9,31 +9,15 @@ import { Button } from '../../atoms';
 import { Modal } from '../../molecules';
 
 import './ConvertModal.scss';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
+import BigNumber from 'bignumber.js/bignumber';
 
-export interface ConvertModalProps {
-  pay: ICurrency;
-  receive: ICurrency;
-}
-interface ICurrency {
-  value?: string;
-  currency: string;
-}
+const ConvertModal: React.FC = observer(() => {
+  const { modals, user } = useMst();
+  const walletConnector = useWalletConnectorContext();
+  const [value, setValue] = useState<string>('0');
+  const [swappingCurrency, setSwappingCurrency] = useState<Array<'ETH' | 'dETH'>>(['ETH', 'dETH']);
 
-const ConvertModal: React.FC<ConvertModalProps> = observer(({ pay, receive }) => {
-  const { modals } = useMst();
-  const [payValue, setPayValue] = useState<ICurrency>({
-    value: pay.value ?? '0',
-    currency: pay.currency,
-  });
-
-  const [receiveValue, setReceiveValue] = useState<ICurrency>({
-    value: receive.value ?? '0',
-    currency: receive.currency,
-  });
-
-  const editValues = (e: any, prevValue: ICurrency, callBack: any): void => {
-    callBack({ value: e.target.value, currency: prevValue.currency });
-  };
   const loseFocus = (e: any) => {
     // TODO: change any
     if (e.key === 'Enter') {
@@ -43,14 +27,48 @@ const ConvertModal: React.FC<ConvertModalProps> = observer(({ pay, receive }) =>
   const handleClose = (): void => {
     modals.convert.close();
   };
-  const handleConvert = (): void => {
-    const intermediateValue = payValue;
-    setPayValue(receiveValue);
-    setReceiveValue(intermediateValue);
-    console.log(payValue, receiveValue);
+  const checkValid = (checkedValue: string): boolean => {
+    const val = new BigNumber(checkedValue);
+    const maxVal = new BigNumber(
+      swappingCurrency[0] === 'ETH' ? user.balance?.eth : user.balance?.weth,
+    );
+    return val.isLessThan(maxVal);
   };
-  /*
-   */
+  const handleConvert = (): void => {
+    if (swappingCurrency[0] === 'ETH') {
+      setSwappingCurrency(['dETH', 'ETH']);
+    } else {
+      setSwappingCurrency(['ETH', 'dETH']);
+    }
+    setValue('0');
+  };
+  const handleSubmitConvert = (): void => {
+    if (swappingCurrency[0] === 'ETH') {
+      walletConnector.metamaskService.createTransaction('deposit', [value], 'WETH').then(() => {
+        console.log('user.balance.eth, value', user.balance.eth, value);
+        user.setBalance(
+          new BigNumber(user.balance.eth).minus(new BigNumber(value)).toString(10),
+          'eth',
+        );
+        user.setBalance(
+          new BigNumber(user.balance.weth).plus(new BigNumber(value)).toString(10),
+          'weth',
+        );
+      });
+    } else {
+      walletConnector.metamaskService.createTransaction('withdraw', [value], 'WETH').then(() => {
+        user.setBalance(
+          new BigNumber(user.balance.eth).plus(new BigNumber(value)).toString(10),
+          'eth',
+        );
+        user.setBalance(
+          new BigNumber(user.balance.weth).minus(new BigNumber(value)).toString(10),
+          'weth',
+        );
+      });
+    }
+    modals.convert.close();
+  };
   return (
     <Modal
       isVisible={modals.convert.isOpen}
@@ -65,54 +83,63 @@ const ConvertModal: React.FC<ConvertModalProps> = observer(({ pay, receive }) =>
         <h3 className="m-convert__title text-lg text-bold">Convert</h3>
         <Form name="form-convert" layout="vertical" className="m-convert__form form-convert">
           <Form.Item
-            className="form-create-coll__item input__field"
+            className="form-convert__item input__field"
             name="payCurrency"
             label={
               <>
                 <span className="input__label text text-bold">You pay</span>
-                <span className="input__label text text-bold text-gray">Max amount is 0</span>
+                <span className="input__label text text-bold text-gray">
+                  Max amount is{' '}
+                  {swappingCurrency[0] === 'ETH' ? user.balance?.eth : user.balance?.weth}
+                </span>
               </>
             }
           >
             <div className="input__field-create box-shadow box-white">
               <Input
-                className="form-create-coll__input input input__create text-bold text-smd"
+                className="form-convert__input input input__create text-bold text-smd"
                 placeholder="Enter an amount"
-                value={payValue.value}
-                suffix={payValue.currency}
-                onBlur={(e) => setPayValue({ value: e.target.value, currency: payValue.currency })}
-                onChange={(e) => editValues(e, payValue, setPayValue)}
+                value={value}
+                suffix={swappingCurrency[0]}
+                onBlur={(e) => setValue(e.target.value)}
+                onChange={(e) => setValue(e.target.value)}
                 onKeyDown={(e) => loseFocus(e)}
               />
+              {!checkValid(value) && (
+                <span className="form-convert__input-error text">
+                  {value
+                    ? `You don't have enough ${swappingCurrency[0]}`
+                    : `Enter ${swappingCurrency[0]} amount to swap`}
+                </span>
+              )}
             </div>
           </Form.Item>
           <Button colorScheme="purple" className="m-convert__swap-img" onClick={handleConvert}>
             <img src={SwapImg} alt="swap" />
           </Button>
           <Form.Item
-            className="form-create-coll__item input__field"
+            className="form-convert__item input__field"
             name="payCurrency"
             label={<span className="input__label text text-bold">You receive</span>}
           >
             <div className="input__field-create box-shadow box-white">
               <Input
-                className="form-create-coll__input input input__create text-bold text-smd"
+                className="form-convert__input input input__create text-bold text-smd"
                 placeholder="Amount you will receive"
-                value={receiveValue.value}
-                suffix={receiveValue.currency}
-                onBlur={(e) =>
-                  setReceiveValue({ value: e.target.value, currency: receiveValue.currency })
-                }
-                onChange={(e) => editValues(e, receiveValue, setReceiveValue)}
+                value={value}
+                suffix={swappingCurrency[1]}
+                onBlur={(e) => setValue(e.target.value)}
+                onChange={(e) => setValue(e.target.value)}
                 onKeyDown={(e) => loseFocus(e)}
               />
             </div>
           </Form.Item>
           <Button
-            onClick={handleConvert}
+            onClick={handleSubmitConvert}
             size="md"
             colorScheme="gradient"
             className="m-convert__convert-btn"
+            disabled={!checkValid(value)}
           >
             Convert
           </Button>

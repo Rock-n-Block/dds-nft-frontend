@@ -121,6 +121,20 @@ export default class MetamaskService {
     return new this.web3Provider.eth.Contract(abi, tokenAddress);
   }
 
+  // returns eth balance in wei
+  getEthBalance() {
+    return this.web3Provider.eth.getBalance(this.walletAddress);
+  }
+
+  getWethBalance() {
+    const contractAbi = 'WETH';
+    const contract = this.getContract(
+      '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+      config[contractAbi].ABI,
+    );
+    return contract.methods.totalSupply().call();
+  }
+
   static getMethodInterface(abi: Array<any>, methodName: string) {
     return abi.filter((m) => {
       return m.name === methodName;
@@ -188,22 +202,39 @@ export default class MetamaskService {
     }
   }
 
-  static calcTransactionAmount(amount: number, tokenDecimal: number) {
-    return new BigNumber(amount)
-      .times(new BigNumber(tokenDecimal).times(tokenDecimal))
-      .toString(10);
+  static calcTransactionAmount(amount: number | string, tokenDecimal: number) {
+    return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimal)).toString(10);
   }
 
   createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'NFT' | 'TOKEN',
+    contract: 'NFT' | 'TOKEN' | 'WETH',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
     value?: any,
   ) {
     const transactionMethod = MetamaskService.getMethodInterface(config[contract].ABI, method);
+
+    if (contract === 'WETH') {
+      const weiValue = MetamaskService.calcTransactionAmount(data[0], 18);
+      if (method === 'deposit') {
+        return this.sendTransaction({
+          to: '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+          value: weiValue || '',
+        });
+      }
+      if (method === 'withdraw') {
+        const signature = this.encodeFunctionCall(transactionMethod, [weiValue]);
+
+        return this.sendTransaction({
+          to: '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+          data: signature,
+          value: '',
+        });
+      }
+    }
 
     const signature = this.encodeFunctionCall(transactionMethod, data);
 
