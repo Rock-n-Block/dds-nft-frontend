@@ -14,7 +14,8 @@ export default {
       msg: data.msg,
     }),
   getMsg: () => axios.get('account/get_metamask_message/'),
-  getSingleCollections: () => axios.get(`account/self/${localStorage.dds_token}/collections`),
+  getSingleCollections: (address?: string) =>
+    axios.get(`account/self/${address || localStorage.dds_token}/collections/`),
   getMe: () => axios.get(`account/self/${localStorage.dds_token}/`),
   update: (data: any) => axios.patch(`account/self/${localStorage.dds_token}/`, data),
   follow: (data: { id: number | undefined }) =>
