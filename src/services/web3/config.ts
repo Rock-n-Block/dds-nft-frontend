@@ -417,7 +417,7 @@ export default {
     ],
   },
   WETH: {
-    ADDRESS: '',
+    ADDRESS: '0xdC2fBC02197dF78643a53a39fD5F322307613127',
     ABI: [
       {
         constant: true,

@@ -11,6 +11,7 @@ import { Button } from '../../atoms';
 import { Modal } from '../../molecules';
 
 import './ConvertModal.scss';
+import MetamaskService from '../../../services/web3';
 
 const ConvertModal: React.FC = observer(() => {
   const { modals, user } = useMst();
@@ -43,20 +44,22 @@ const ConvertModal: React.FC = observer(() => {
     setValue('0');
   };
   const handleSubmitConvert = (): void => {
+    const weiValue = MetamaskService.calcTransactionAmount(value, 18);
     if (swappingCurrency[0] === 'ETH') {
-      walletConnector.metamaskService.createTransaction('deposit', [value], 'WETH').then(() => {
-        console.log('user.balance.eth, value', user.balance.eth, value);
-        user.setBalance(
-          new BigNumber(user.balance.eth).minus(new BigNumber(value)).toString(10),
-          'eth',
-        );
-        user.setBalance(
-          new BigNumber(user.balance.weth).plus(new BigNumber(value)).toString(10),
-          'weth',
-        );
-      });
+      walletConnector.metamaskService
+        .createTransaction('deposit', [], 'WETH', '', '', '', weiValue)
+        .then(() => {
+          user.setBalance(
+            new BigNumber(user.balance.eth).minus(new BigNumber(value)).toString(10),
+            'eth',
+          );
+          user.setBalance(
+            new BigNumber(user.balance.weth).plus(new BigNumber(value)).toString(10),
+            'weth',
+          );
+        });
     } else {
-      walletConnector.metamaskService.createTransaction('withdraw', [value], 'WETH').then(() => {
+      walletConnector.metamaskService.createTransaction('withdraw', [weiValue], 'WETH').then(() => {
         user.setBalance(
           new BigNumber(user.balance.eth).plus(new BigNumber(value)).toString(10),
           'eth',
