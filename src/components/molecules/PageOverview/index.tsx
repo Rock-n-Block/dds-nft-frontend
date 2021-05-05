@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Popover } from 'antd';
@@ -37,8 +37,12 @@ const PageOverview: React.FC<PageOverviewProps> = ({
   socialNetworks,
   parentComponent,
 }) => {
-  let followBtn;
-  const [follow, setFollow] = useState<boolean>(follows);
+  // let followBtn;
+
+  const [follow, setFollow] = useState<boolean>(
+    follows,
+    // !!user.follows.find((followsUser: any) => +(id ?? 0) === +followsUser.id),
+  );
 
   const handleUnfollow = () => {
     userApi
@@ -60,21 +64,9 @@ const PageOverview: React.FC<PageOverviewProps> = ({
         console.log(err, 'follow user');
       });
   };
-
-  if (parentComponent === 'User') {
-    if (follow) {
-      followBtn = (
-        <Button colorScheme="outline" onClick={handleUnfollow}>
-          Unfollow
-        </Button>
-      );
-    } else {
-      followBtn = <Button onClick={handleFollow}>Follow </Button>;
-    }
-  } else {
-    followBtn = <></>;
-  }
-  // useEffect(() => {}, [follow]);
+  useEffect(() => {
+    setFollow(follows);
+  }, [follows]);
   return (
     <div className="page-overview">
       {avatarSrc ? (
@@ -114,7 +106,19 @@ const PageOverview: React.FC<PageOverviewProps> = ({
               Edit Profile
             </Button>
           ) : (
-            followBtn
+            <></>
+          )}
+          {!self && parentComponent === 'User' && follow ? (
+            <Button colorScheme="outline" onClick={handleUnfollow}>
+              Unfollow
+            </Button>
+          ) : (
+            <></>
+          )}
+          {!self && parentComponent === 'User' && !follow ? (
+            <Button onClick={handleFollow}>Follow </Button>
+          ) : (
+            <></>
           )}
           <Popover
             content={content({ name, text: `Share ${parentComponent}` })}
