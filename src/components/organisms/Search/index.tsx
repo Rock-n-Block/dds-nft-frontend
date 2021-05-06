@@ -6,7 +6,12 @@ import SearchImg from '../../../assets/img/icons/pupa.svg';
 
 import './Search.scss';
 
-const Search: React.FC = () => {
+interface SearchProps {
+  placeholder: string;
+  className?: string;
+}
+
+const Search: React.FC<SearchProps> = ({ placeholder, className }) => {
   const history = useHistory();
   const inputRef = React.useRef<any>();
   const handleKeyDown = (e: any) => {
@@ -21,7 +26,7 @@ const Search: React.FC = () => {
   };
 
   return (
-    <div className="search box-shadow">
+    <div className={`${className} search box-shadow`}>
       <div
         className="search__img"
         onClick={handleSearch}
@@ -35,7 +40,7 @@ const Search: React.FC = () => {
         ref={inputRef}
         type="text"
         className="input__search text-smd text-regular"
-        placeholder="Search items, collections, and accounts"
+        placeholder={placeholder}
         onKeyDown={handleKeyDown}
       />
     </div>
