@@ -1,5 +1,12 @@
-import React from 'react';
-import { Masonry, useInfiniteLoader } from 'masonic';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useWindowSize } from '@react-hook/window-size';
+import {
+  MasonryScroller,
+  useContainerPosition,
+  useInfiniteLoader,
+  usePositioner,
+  useResizeObserver,
+} from 'masonic';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
@@ -9,12 +16,12 @@ import Filter from '../Filter';
 import './Explore.scss';
 
 const Explore: React.FC = () => {
-  const [explore, setExplore] = React.useState<any>({});
-  const filters = ['Photography', 'Games', 'Metaverse', 'Music', 'Domains', 'DeFi', 'Memes'];
+  const [explore, setExplore] = useState<any>({});
+  const [tags, setTags] = useState<Array<string>>(['all']);
 
   const sortItems = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low'];
 
-  const [activeFilter, setActiveFilter] = React.useState(filters[0]);
+  const [activeFilter, setActiveFilter] = useState(tags[0]);
 
   const renderCard = ({ data }: any) => {
     return (
@@ -30,33 +37,54 @@ const Explore: React.FC = () => {
         artist={{
           name: data.creator.name,
           id: data.creator.id,
+          avatar: data.creator.avatar,
         }}
         owner={{
           name: data.owner.name,
           id: data.owner.id,
+          avatar: data.owner.avatar,
         }}
       />
     );
   };
-  const loadExplore = React.useCallback(async (page = 1) => {
-    return storeApi
-      .getExplore(page)
+  const loadTags = useCallback(() => {
+    storeApi
+      .getTags()
       .then(({ data }) => {
-        setExplore((prevExplore: any) => {
-          if (prevExplore.tokens) {
-            return {
-              ...prevExplore,
-              tokens: [...prevExplore.tokens, ...data.tokens],
-              length: data.length,
-            };
-          }
-          return { ...prevExplore, ...data };
-        });
+        console.log('tags', data);
+        setTags(data.tags);
       })
       .catch((err: any) => {
-        console.log(err, 'get tokens');
+        console.log(err, 'get tags');
       });
   }, []);
+  const loadExplore = useCallback(
+    async (page = 1) => {
+      return storeApi
+        .getExplore(page, activeFilter)
+        .then(({ data }) => {
+          if (page !== 1) {
+            setExplore((prevExplore: any) => {
+              if (prevExplore.tokens) {
+                return {
+                  ...prevExplore,
+                  tokens: [...prevExplore.tokens, ...data.tokens],
+                  length: data.length,
+                };
+              }
+              return { ...prevExplore, ...data };
+            });
+          } else
+            setExplore({
+              ...data,
+            });
+        })
+        .catch((err: any) => {
+          console.log(err, 'get tokens');
+        });
+    },
+    [activeFilter],
+  );
   let prevPage = 1;
   const maybeLoadMore = useInfiniteLoader(
     async () => {
@@ -76,34 +104,49 @@ const Explore: React.FC = () => {
     },
   );
 
-  React.useEffect(() => {
-    loadExplore();
-  }, [loadExplore]);
   const handleFilterChange = (value: string[]): void => {
-    console.log(value);
     setActiveFilter(value[0]);
   };
-  const handleSortChage = (value: string): void => {
+  const handleSortChange = (value: string): void => {
     console.log(value);
   };
+  const containerRef = useRef(null);
+  const [windowWidth, windowHeight] = useWindowSize();
+  const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
+
+  const positioner = usePositioner(
+    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
+    [explore.tokens],
+  );
+
+  const resizeObserver = useResizeObserver(positioner);
+
+  useEffect(() => {
+    loadTags();
+  }, [loadTags]);
+  useEffect(() => {
+    loadExplore();
+  }, [loadExplore]);
   return (
     <div className="explore">
       <div className="row">
         <h2 className="explore__title h1-md text-bold">Explore</h2>
         <Filter
           isAllFilterItem
-          filters={filters}
+          filters={tags}
           onChange={handleFilterChange}
-          onChangeSort={handleSortChage}
+          onChangeSort={handleSortChange}
           sortItems={sortItems}
         />
         <div className="explore__content">
           {explore.tokens && explore.tokens.length ? (
-            <Masonry
-              key={activeFilter}
+            <MasonryScroller
+              positioner={positioner}
+              resizeObserver={resizeObserver}
+              containerRef={containerRef}
               items={explore.tokens}
-              columnGutter={10}
-              columnWidth={320}
+              height={windowHeight}
+              offset={offset}
               overscanBy={5}
               render={renderCard}
               onRender={maybeLoadMore}

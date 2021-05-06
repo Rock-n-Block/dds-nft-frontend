@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
@@ -8,21 +8,45 @@ import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
 import { TokenTabs } from '../../components/organisms';
-import { storeApi } from '../../services/api';
+import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';
 
 import './Token.scss';
 
-interface IToken {
+interface ITokenId {
   token: string;
 }
-
+interface IToken {
+  // TODO: check optional labels
+  USDPrice: number;
+  available: number;
+  collection: IUser;
+  creator: IUser;
+  currency: string;
+  description?: string;
+  details?: string;
+  id: number;
+  media: string;
+  name: string;
+  owners: IUser; // TODO: array of owners
+  tags: Array<string>;
+  price: number;
+  royalty: number;
+  selling: true;
+  standart: 'ERC721';
+  totalSupply: number;
+}
+interface IUser {
+  id: number;
+  avatar: string;
+  name: string;
+}
 const Token: React.FC = observer(() => {
   const connector = useWalletConnectorContext();
   const { user } = useMst();
-  const { token } = useParams<IToken>();
-  const data = {
+  const { token } = useParams<ITokenId>();
+  const mockData = {
     tags: ['Art', 'Games', 'Test'],
     name: 'Skweebo',
     collection: 'CryptoCrawlerz',
@@ -136,31 +160,93 @@ const Token: React.FC = observer(() => {
     ],
   };
 
-  const [tokenData, setTokenData] = React.useState<any>({});
+  const [tokenData, setTokenData] = React.useState<IToken>({} as IToken);
 
+  const [isLike, setIsLike] = useState<boolean>(
+    !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id),
+  );
+  const checkLike = useCallback(() => {
+    console.log('isLiked?');
+    return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
+  }, [user, tokenData]);
   const handleBuy = async () => {
-    const { data: buyTokenData }: any = await storeApi.buyToken(
-      token,
-      tokenData.standart === 'ERC721' ? 0 : 1,
-    );
+    try {
+      const { data: buyTokenData }: any = await storeApi.buyToken(
+        token,
+        tokenData.standart === 'ERC721' ? 0 : 1,
+      );
 
-    await connector.metamaskService.sendTransaction(buyTokenData.initial_tx);
-
-    console.log(buyTokenData, 'data');
+      console.log(buyTokenData.initial_tx, 'data');
+      await connector.metamaskService.createTransaction(
+        buyTokenData.initial_tx.method,
+        [
+          buyTokenData.initial_tx.data.idOrder,
+          buyTokenData.initial_tx.data.whoIsSelling,
+          buyTokenData.initial_tx.data.tokenToBuy,
+          buyTokenData.initial_tx.data.tokenToSell,
+          buyTokenData.initial_tx.data.feeAddresses,
+          buyTokenData.initial_tx.data.feeAmount,
+          buyTokenData.initial_tx.data.signature,
+        ],
+        {
+          gas: buyTokenData.initial_tx.gas,
+          gasPrice: buyTokenData.initial_tx.gasPrice,
+          nonce: buyTokenData.initial_tx.nonce,
+          to: buyTokenData.initial_tx.to,
+          value: buyTokenData.initial_tx.value,
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  React.useEffect(() => {
+  const handleLike = (): void => {
+    userApi
+      .like({ id: tokenData.id })
+      .then(({ data }) => {
+        if (data === 'liked') {
+          setIsLike(true);
+        } else {
+          setIsLike(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err, 'handle like');
+      });
+  };
+  useEffect(() => {
     storeApi
       .getToken(token)
       .then(({ data: tokendata }: any) => {
-        setTokenData(tokendata);
+        setTokenData({
+          USDPrice: tokendata.USD_price,
+          available: tokendata.available,
+          collection: tokendata.collection,
+          creator: tokendata.creator,
+          currency: tokendata.currency,
+          description: tokendata.description,
+          details: tokendata.details,
+          id: tokendata.id,
+          media: tokendata.media,
+          name: tokendata.name,
+          tags: tokendata.tags,
+          owners: tokendata.owners, // TODO: array of owners
+          price: tokendata.price,
+          royalty: tokendata.royalty,
+          selling: tokendata.selling,
+          standart: tokendata.standart,
+          totalSupply: tokendata.total_supply,
+        });
         console.log(tokendata);
       })
       .catch((err: any) => {
         console.log(err, 'get token');
       });
   }, [token]);
-
+  useEffect(() => {
+    setIsLike(checkLike());
+  }, [checkLike]);
   return (
     <div className="token">
       <div className="token__preview">
@@ -170,7 +256,7 @@ const Token: React.FC = observer(() => {
         <div className="token__content">
           <div className="token__content-left">
             <div className="token__tags">
-              {data.tags.map((tag) => (
+              {tokenData.tags?.map((tag) => (
                 <Link
                   to="/"
                   key={nextId()}
@@ -181,20 +267,25 @@ const Token: React.FC = observer(() => {
               ))}
             </div>
             <div className="token__title text-bold text-xl">
-              {`${data.collection} - ${tokenData.name}`}
+              {`${tokenData?.collection?.name} - ${tokenData?.name}`}
             </div>
             <div className="token__wrapper">
               <div className="token__price">
-                <div className="text-bold text-purple-l text-xl">{data.price} ETH</div>
+                <div className="text-bold text-purple-l text-xl">{mockData.price} ETH</div>
                 <div className="token__price-gray text-gray text-md">
-                  <span>${tokenData.USD_price}</span>
+                  <span>${tokenData.USDPrice}</span>
                 </div>
                 <div className="token__price-gray text-gray text-md">
-                  <span>{`${tokenData.available} of ${tokenData.total_supply}`}</span>
+                  <span>{`${tokenData.available} of ${tokenData.totalSupply}`}</span>
                 </div>
               </div>
               <div className="token__wrapper">
-                <Like img="bold" like={data.like} likeCount={data.likeCount} />
+                <Like
+                  img="bold"
+                  onClick={handleLike}
+                  like={isLike}
+                  likeCount={mockData.likeCount}
+                />
                 <div className="token__share">
                   <img src={ShareImg} alt="" />
                 </div>
@@ -217,21 +308,27 @@ const Token: React.FC = observer(() => {
                   </Button>
                 </div>
                 <div className="token__btns-container">
-                  <div className="token__btns-text text-gray">{`Service fee ${data.fee} %.`}</div>
+                  <div className="token__btns-text text-gray">{`Service fee ${mockData.fee} %.`}</div>
                   <div className="token__btns-text text-gray">{`${new BigNumber(
                     tokenData.price,
                   ).times(102.5)}ETH`}</div>
                   <div className="token__btns-text text-gray">{`$${new BigNumber(
-                    tokenData.USD_price,
+                    tokenData.USDPrice,
                   ).times(102.5)}`}</div>
                 </div>
               </div>
             )}
             <div className="token__info">
-              <div className="token__info-text text-md">{data.collection}</div>
-              <div className="token__info-text text-md">{`Name: ${data.name}`}</div>
-              <div className="token__info-text text-md">{`Series: ${data.series}`}</div>
-              <div className="token__info-text text-md">{`Number: ${data.number}`}</div>
+              {tokenData.description ? (
+                <div className="token__info-text text-md">{tokenData.description}</div>
+              ) : (
+                <>
+                  <div className="token__info-text text-md">{tokenData.collection?.name}</div>
+                  <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
+                  <div className="token__info-text text-md">{`Series: ${mockData.series}`}</div>
+                  <div className="token__info-text text-md">{`Number: ${mockData.number}`}</div>
+                </>
+              )}
             </div>
             <Button colorScheme="white" shadow className="token__info-btn">
               <span className="text-grad text-smd">Read more</span>
@@ -239,13 +336,13 @@ const Token: React.FC = observer(() => {
           </div>
           <div className="token__content-right">
             <TokenTabs
-              artist={data.artist}
-              owner={data.owner}
-              collection={data.tabCollection}
-              owners={data.owners}
-              history={data.history}
-              details={data.details}
-              bids={data.bids}
+              artist={tokenData.creator}
+              owner={tokenData.owners} // TODO: owner later
+              collection={{ col: tokenData.collection, standart: tokenData.standart }}
+              owners={mockData.owners}
+              history={mockData.history}
+              details={mockData.details}
+              bids={mockData.bids}
             />
           </div>
         </div>

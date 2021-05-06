@@ -9,9 +9,9 @@ import { Button, SocialNetwork, UserWallet } from '../../atoms';
 import { ISocialNetwork } from '../../atoms/SocialNetwork';
 import PopoverUserLinks, { PopoverUserLinksProps } from '../PopoverUserLinks';
 
-import './UserOverview.scss';
+import './PageOverview.scss';
 
-export interface UserOverviewProps {
+export interface PageOverviewProps {
   id: string | undefined;
   avatarSrc?: string;
   name: string;
@@ -20,12 +20,13 @@ export interface UserOverviewProps {
   self?: boolean;
   follows?: boolean;
   socialNetworks?: Array<ISocialNetwork>;
+  parentComponent: 'User' | 'Collections';
 }
 
 const content = (props: PopoverUserLinksProps) => {
   return <PopoverUserLinks {...props} />;
 };
-const UserOverview: React.FC<UserOverviewProps> = ({
+const PageOverview: React.FC<PageOverviewProps> = ({
   id,
   avatarSrc,
   name,
@@ -34,6 +35,7 @@ const UserOverview: React.FC<UserOverviewProps> = ({
   self = false,
   follows = false,
   socialNetworks,
+  parentComponent,
 }) => {
   let followBtn;
   const [follow, setFollow] = useState<boolean>(follows);
@@ -59,45 +61,43 @@ const UserOverview: React.FC<UserOverviewProps> = ({
       });
   };
 
-  if (follow) {
-    followBtn = (
-      <Button colorScheme="outline" onClick={handleUnfollow}>
-        Unfollow
-      </Button>
-    );
+  if (parentComponent === 'User') {
+    if (follow) {
+      followBtn = (
+        <Button colorScheme="outline" onClick={handleUnfollow}>
+          Unfollow
+        </Button>
+      );
+    } else {
+      followBtn = <Button onClick={handleFollow}>Follow </Button>;
+    }
   } else {
-    followBtn = <Button onClick={handleFollow}>Follow </Button>;
+    followBtn = <></>;
   }
   // useEffect(() => {}, [follow]);
   return (
-    <div className="user-overview">
+    <div className="page-overview">
       {avatarSrc ? (
-        <Avatar src={avatarSrc} className="user-overview__avatar" size={150} alt="User avatar" />
+        <Avatar src={avatarSrc} className="page-overview__avatar" size={150} alt="avatar" />
       ) : (
-        <Avatar
-          icon={<UserOutlined />}
-          className="user-overview__avatar"
-          size={150}
-          alt="User avatar"
-        />
+        <Avatar icon={<UserOutlined />} className="user-overview__avatar" size={150} alt="avatar" />
       )}
-      {self ? (
-        <Button size="sm" colorScheme="white" className="user-overview__edit-cover">
+      {self && parentComponent === 'User' ? (
+        <Button size="sm" colorScheme="white" className="page-overview__edit-cover">
           Edit cover
         </Button>
       ) : (
         <></>
       )}
-      <div className="user-overview__content">
-        <h3 className="user-overview__content__name text-bold text-xl">{name}</h3>
-        <div className="user-overview__content_container">
-          <UserWallet address={wallet} className="user-overview__content__wallet" />
-          <div className="user-overview__content__social-networks social-networks">
-            {socialNetworks ? (
+      <div className="page-overview__content">
+        <h3 className="page-overview__content__name text-bold text-xl">{name}</h3>
+        <div className="page-overview__content_container">
+          <UserWallet address={wallet} className="page-overview__content__wallet" />
+          <div className="page-overview__content__social-networks social-networks">
+            {socialNetworks && parentComponent === 'User' ? (
               socialNetworks.map((network) => (
                 <SocialNetwork
                   socialNetwork={network}
-                  withTitle
                   className="social-networks__network text text-purple text-bold"
                   key={nextId()}
                 />
@@ -107,31 +107,38 @@ const UserOverview: React.FC<UserOverviewProps> = ({
             )}
           </div>
         </div>
-        <p className="user-overview__content__description text text-regular">{description}</p>
-        <div className="user-overview__content__buttons">
-          {self ? (
-            <Button link="/profile" className="user-overview__content__buttons-edit">
+        <p className="page-overview__content__description text text-regular">{description}</p>
+        <div className="page-overview__content__buttons">
+          {self && parentComponent === 'User' ? (
+            <Button link="/profile" className="page-overview__content__buttons-edit">
               Edit Profile
             </Button>
           ) : (
             followBtn
           )}
           <Popover
-            content={content({ name, socialNetworks })}
+            content={content({ name, text: `Share ${parentComponent}` })}
             trigger="click"
             placement="bottomLeft"
           >
-            <Button size="sm" colorScheme="white" className="user-overview__content__buttons_share">
+            <Button size="sm" colorScheme="white" className="page-overview__content__buttons_share">
               <ShareLinkSvg />
               Share link
             </Button>
           </Popover>
-          {self ? (
-            <></>
-          ) : (
+          {!self && parentComponent === 'User' ? (
             <Button size="sm" colorScheme="white">
               Report User
             </Button>
+          ) : (
+            <></>
+          )}
+          {parentComponent === 'Collections' ? (
+            <Button size="sm" colorScheme="white">
+              Report Collection
+            </Button>
+          ) : (
+            <></>
           )}
         </div>
       </div>
@@ -139,4 +146,4 @@ const UserOverview: React.FC<UserOverviewProps> = ({
   );
 };
 
-export default UserOverview;
+export default PageOverview;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { NavHashLink } from 'react-router-hash-link';
 import { observer } from 'mobx-react-lite';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
@@ -23,7 +24,7 @@ const Header: React.FC = observer(() => {
   };
 
   return (
-    <header className="header box-shadow">
+    <header className="header">
       <div className="row">
         <div className="header__content">
           <div className="header__box">
@@ -31,10 +32,16 @@ const Header: React.FC = observer(() => {
               <img src={LogoImg} alt="dds" className="header__logo" />
             </Link>
             <div className="header__nav">
-              <NavLink exact to="/" className="header__nav-item text-bold">
-                Explore
+              <NavLink exact to="/" className="header__nav-item">
+                <NavHashLink to="/#explore" smooth className="text-gray text-bold">
+                  Explore
+                </NavHashLink>
               </NavLink>
-              <NavLink exact to="/1" className="header__nav-item text-bold">
+              <NavLink
+                exact
+                to={`/user/${user.id}?tab=collectibles`}
+                className="header__nav-item text-bold"
+              >
                 My items
               </NavLink>
               <NavLink exact to="/2" className="header__nav-item text-bold">
@@ -43,7 +50,7 @@ const Header: React.FC = observer(() => {
               <NavLink exact to="/activity" className="header__nav-item text-bold">
                 Activity
               </NavLink>
-              <NavLink exact to="/4" className="header__nav-item text-bold">
+              <NavLink exact to="/overview" className="header__nav-item text-bold">
                 How it works
               </NavLink>
             </div>

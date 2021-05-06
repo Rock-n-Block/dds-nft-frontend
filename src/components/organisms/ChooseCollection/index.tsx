@@ -1,6 +1,7 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 import classNames from 'classnames';
+import { useFormikContext } from 'formik';
 import { observer } from 'mobx-react-lite';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,21 +18,29 @@ SwiperCore.use([Navigation]);
 interface IChooseCollection {
   items?: [
     {
-      img: string;
+      avatar: string;
       name: string;
-      token: string;
+      id: string;
     },
   ];
+  isSingle?: boolean;
 }
 
-const ChooseCollection: React.FC<IChooseCollection> = observer(({ items }) => {
+const ChooseCollection: React.FC<IChooseCollection> = observer(({ items, isSingle }) => {
+  const formik = useFormikContext();
   const { modals } = useMst();
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
-  const [activeCollection, setActiveCollection] = React.useState('dds');
+  const [activeCollection, setActiveCollection] = React.useState('4');
 
   const handleOpenModal = (): void => {
     modals.createCollection.open();
+  };
+
+  const changeCollection = (id: string): void => {
+    setActiveCollection(id);
+
+    formik.setFieldValue('collectionId', id);
   };
   return (
     <div className="ch-coll">
@@ -87,16 +96,16 @@ const ChooseCollection: React.FC<IChooseCollection> = observer(({ items }) => {
                 <img src={PlusImg} alt="new" />
               </div>
               <div className="ch-coll__item-title text-md text-bold">Create</div>
-              <div className="text-bold text-gray-l">ERC-1185</div>
+              <div className="text-bold text-gray-l">{isSingle ? 'ERC-721' : 'ERC-1185'}</div>
             </div>
           </SwiperSlide>
           <SwiperSlide className="ch-coll__slide" key={nextId()}>
             <div
               className={classNames('ch-coll__item box-shadow', {
-                active: activeCollection === 'dds',
+                active: activeCollection === '4',
               })}
-              onClick={() => setActiveCollection('dds')}
-              onKeyDown={() => setActiveCollection('dds')}
+              onClick={() => changeCollection('4')}
+              onKeyDown={() => changeCollection('4')}
               role="button"
               tabIndex={0}
             >
@@ -112,18 +121,18 @@ const ChooseCollection: React.FC<IChooseCollection> = observer(({ items }) => {
               <SwiperSlide className="ch-coll__slide" key={nextId()}>
                 <div
                   className={classNames('ch-coll__item box-shadow', {
-                    active: activeCollection === item.name,
+                    active: activeCollection === item.id.toString(),
                   })}
-                  onClick={() => setActiveCollection(item.name)}
-                  onKeyDown={() => setActiveCollection(item.name)}
+                  onClick={() => changeCollection(item.id.toString())}
+                  onKeyDown={() => changeCollection(item.id.toString())}
                   role="button"
                   tabIndex={0}
                 >
                   <div className="ch-coll__item-img">
-                    <img src={item.img} alt="dds" />
+                    <img src={`https://${item.avatar}`} alt="dds" />
                   </div>
                   <div className="ch-coll__item-title text-md text-bold">{item.name}</div>
-                  <div className="text-bold text-gray-l">{item.token}</div>
+                  <div className="text-bold text-gray-l">{isSingle ? 'ERC-721' : 'ERC-1185'}</div>
                 </div>
               </SwiperSlide>
             ))}

@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js/bignumber';
 import { Observable } from 'rxjs';
 import Web3 from 'web3';
 
+import config from './config';
+
 declare global {
   interface Window {
     ethereum: any;
@@ -119,6 +121,20 @@ export default class MetamaskService {
     return new this.web3Provider.eth.Contract(abi, tokenAddress);
   }
 
+  // returns eth balance in wei
+  getEthBalance() {
+    return this.web3Provider.eth.getBalance(this.walletAddress);
+  }
+
+  getWethBalance() {
+    const contractAbi = 'WETH';
+    const contract = this.getContract(
+      '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+      config[contractAbi].ABI,
+    );
+    return contract.methods.totalSupply().call();
+  }
+
   static getMethodInterface(abi: Array<any>, methodName: string) {
     return abi.filter((m) => {
       return m.name === methodName;
@@ -186,28 +202,36 @@ export default class MetamaskService {
     }
   }
 
-  static calcTransactionAmount(amount: number, tokenDecimal: number) {
-    return new BigNumber(amount)
-      .times(new BigNumber(tokenDecimal).times(tokenDecimal))
-      .toString(10);
+  static calcTransactionAmount(amount: number | string, tokenDecimal: number) {
+    return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimal)).toString(10);
   }
 
   createTransaction(
-    abi: Array<any>,
     method: string,
     data: Array<any>,
-    tokenAddress: string,
+    contract: 'NFT' | 'TOKEN' | 'WETH',
+    tx?: any,
+    tokenAddress?: string,
     walletAddress?: string,
     value?: any,
   ) {
-    const transactionMethod = MetamaskService.getMethodInterface(abi, method);
+    const transactionMethod = MetamaskService.getMethodInterface(config[contract].ABI, method);
 
-    const approveSignature = this.encodeFunctionCall(transactionMethod, data);
+    let signature;
+    if (transactionMethod.inputs.length) {
+      signature = this.encodeFunctionCall(transactionMethod, data);
+    }
 
+    if (tx) {
+      tx.from = walletAddress || this.walletAddress;
+      tx.data = signature;
+
+      return this.sendTransaction(tx);
+    }
     return this.sendTransaction({
       from: walletAddress || this.walletAddress,
-      to: tokenAddress,
-      data: approveSignature,
+      to: tokenAddress || config[contract].ADDRESS,
+      data: signature || '',
       value: value || '',
     });
   }

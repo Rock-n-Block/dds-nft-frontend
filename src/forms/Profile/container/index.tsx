@@ -19,8 +19,9 @@ const ChangePasswordForm: React.FC = () => {
         customUrl: user.custom_url || '',
         bio: user.bio || '',
         twitter: user.twitter || '',
+        site: user.site || '',
         img: '',
-        preview: user.avatar || '',
+        preview: `https://${user.avatar}` || '',
       };
     },
     validate: (values) => {

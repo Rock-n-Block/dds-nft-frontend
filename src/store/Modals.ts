@@ -49,6 +49,18 @@ const VerifyModal = types
       self.isOpen = false;
     },
   }));
+const AuctionModal = types
+  .model({
+    isOpen: types.boolean,
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 
 const MetamaskModal = types
   .model({
@@ -77,4 +89,5 @@ export const Modals = types.model({
   convert: ConvertModal,
   verify: VerifyModal,
   success: SuccessModal,
+  auction: AuctionModal,
 });

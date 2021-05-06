@@ -10,7 +10,7 @@ import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import CreateCollection, { ICreateCollection } from '../component';
 
-export default observer(({ walletConnector, isSingle }: any) => {
+export default observer(({ walletConnector, isSingle, getCollections }: any) => {
   const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateCollection>({
     enableReinitialize: true,
@@ -54,7 +54,7 @@ export default observer(({ walletConnector, isSingle }: any) => {
           walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
-              formData.append('address', res.transactionHash);
+              formData.append('tx_hash', res.transactionHash);
               formData.append('avatar', values.img);
 
               storeApi
@@ -64,6 +64,7 @@ export default observer(({ walletConnector, isSingle }: any) => {
                   setFieldValue('isLoading', false);
                   modals.createCollection.close();
                   modals.success.setSuccessMsg('Congrats you create your own NFT collection!');
+                  getCollections();
                 })
                 .catch((err: any) => {
                   setFieldValue('isLoading', false);

@@ -26,11 +26,15 @@ export const Store = RootModel.create({
     success: {
       successMsg: '',
     },
+    auction: {
+      isOpen: false,
+    },
   },
   user: {
     address: '',
     is_verificated: false,
     display_name: '',
+    balance: { eth: '0', weth: '0' },
   },
 });
 

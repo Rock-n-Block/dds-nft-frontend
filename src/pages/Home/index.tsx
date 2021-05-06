@@ -201,7 +201,7 @@ const Home: React.FC = () => {
       ) : (
         ''
       )}
-      <div className="home__explore">
+      <div className="home__explore" id="explore">
         <Explore />
       </div>
     </main>

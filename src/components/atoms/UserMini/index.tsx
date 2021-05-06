@@ -7,7 +7,7 @@ import CheckImg from '../../../assets/img/icons/user-check.svg';
 import './UserMini.scss';
 
 export interface IUserMini {
-  img: string;
+  img?: string;
   topText: React.ReactElement | string;
   bottomText: React.ReactElement | string;
   className?: string;
@@ -44,7 +44,7 @@ const UserMini: React.FC<IUserMini> = ({
             'u-mini__box-img-lg': imgSize === 'lg',
           })}
         >
-          <img src={img} alt="owner name" className="u-mini__img" />
+          <img src={`https://${img}`} alt="owner name" className="u-mini__img" />
         </div>
         {isCheck ? <img src={CheckImg} alt="" className="u-mini__img-check" /> : ''}
       </div>

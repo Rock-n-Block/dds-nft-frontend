@@ -2041,7 +2041,7 @@
     "@react-hook/event" "^1.2.1"
     "@react-hook/throttle" "^2.2.0"
 
-"@react-hook/window-size@^3.0.6":
+"@react-hook/window-size@^3.0.6", "@react-hook/window-size@^3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@react-hook/window-size/-/window-size-3.0.7.tgz#00d176e7a8eb55814e161eae34aae20afbcbe35d"
   integrity sha512-bK5ed/jN+cxy0s1jt2CelCnUt7jZRseUvPQ22ZJkUl/QDOsD+7CA/6wcqC3c0QweM/fPBRP6uI56TJ48SnlVww==
@@ -16145,7 +16145,7 @@ web3-utils@1.3.5:
     underscore "1.9.1"
     utf8 "3.0.0"
 
-web3@^1.3.0:
+web3@^1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/web3/-/web3-1.3.5.tgz#ef4c3a2241fdd74f2f7794e839f30bc6f9814e46"
   integrity sha512-UyQW/MT5EIGBrXPCh/FDIaD7RtJTn5/rJUNw2FOglp0qoXnCQHNKvntiR1ylztk05fYxIF6UgsC76IrazlKJjw==

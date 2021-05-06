@@ -15,15 +15,28 @@ interface ICreate {
 
 const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) => {
   const walletConnector = useWalletConnectorContext();
+  const [collections, setCollections] = React.useState([]);
 
-  React.useEffect(() => {
+  const getCollections = React.useCallback((): void => {
     userApi
       .getSingleCollections()
       .then(({ data }) => {
         console.log(data, 'single coll');
+        setCollections(
+          data.collections.filter((coll: any) => {
+            if (isSingle) {
+              return coll.standart === 'ERC721';
+            }
+            return coll.standart === 'ERC1185';
+          }),
+        );
       })
       .catch((err) => console.log(err, 'get single'));
-  }, []);
+  }, [isSingle]);
+
+  React.useEffect(() => {
+    getCollections();
+  }, [isSingle, getCollections]);
   return (
     <div className="create">
       <div className="row">
@@ -43,10 +56,14 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
             <span className="text-grad">{isSingle ? 'single' : 'multiple'}</span>
             <span> collectible</span>
           </h1>
-          <CreateForm isSingle={isSingle} walletConnector={walletConnector} />
+          <CreateForm
+            isSingle={isSingle}
+            collections={collections}
+            walletConnector={walletConnector}
+          />
         </div>
       </div>
-      <CreateCollectionModal isSingle={isSingle} />
+      <CreateCollectionModal isSingle={isSingle} getCollections={getCollections} />
     </div>
   );
 };
