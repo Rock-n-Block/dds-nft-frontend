@@ -30,7 +30,6 @@ export default {
       tokenAmount: amount,
     }),
   getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),
-  getFollowing: (page: number) => axios.get(`store/following/${localStorage.dds_token}/${page}/`),
   getCreated: (address: string, page: number) => axios.get(`store/created/${address}/${page}/`),
   getCollectibles: (address: string, page: number) => axios.get(`store/owned/${address}/${page}/`),
   getUserCollections: (address: string, page: number) =>

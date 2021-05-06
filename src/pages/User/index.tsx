@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
 import { observer } from 'mobx-react-lite';
@@ -8,18 +8,14 @@ import PreviewImg from '../../assets/img/mock/home-preview.jpg';
 import firstCard from '../../assets/img/mock/user-activity-card.png';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import ShadowImg from '../../assets/img/shadow.png';
-import { ISocialNetwork } from '../../components/atoms/SocialNetwork';
 import { PageOverview } from '../../components/molecules';
-import { IActivityCard } from '../../components/molecules/ActivityCard';
-import { IFollowCard } from '../../components/molecules/FollowCard';
 import {
   Sort,
   UserActivity,
   UserCollectibles,
   UserCollections,
   UserCreated,
-  UserFollower,
-  UserFollowing,
+  UserFollow,
   UserLiked,
   UserOnSale,
 } from '../../components/organisms';
@@ -28,15 +24,6 @@ import { useMst } from '../../store/store';
 
 import './User.scss';
 
-interface IUser {
-  avatarSrc?: string;
-  name: string;
-  wallet: string;
-  description?: string;
-  socialNetworks?: Array<ISocialNetwork>;
-  activityCards: { filters: Array<string>; activities: Array<IActivityCard> };
-  followingUsers: Array<IFollowCard>;
-}
 interface INewUser {
   id: number | string | null;
   address: string;
@@ -47,10 +34,12 @@ interface INewUser {
   twitter: string | null;
   site: string | null;
   follows: any[];
+  followsCount: number | null;
   followers: any[];
+  followersCount: number | null;
 }
 
-const mockUser: IUser = {
+const mockUser: any = {
   avatarSrc: userAvatar,
   name: "Satoshi's Mom",
   wallet: '0x3d6a89c8751a462363563723776193',
@@ -106,69 +95,52 @@ const mockUser: IUser = {
   },
   followingUsers: [
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      id: 0,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-        firstCard,
-      ],
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      id: 1,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      id: 2,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+      id: 3,
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+      id: 4,
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+      id: 5,
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+      id: 6,
     },
     {
-      img: followingUserAvatar,
-      followers: 10,
+      avatar: followingUserAvatar,
+      followersCount: 10,
       name: 'MT_004am',
-      tokens: [firstCard, firstCard, firstCard, firstCard, firstCard, firstCard],
+      id: 7,
     },
   ],
 };
@@ -193,7 +165,7 @@ const User: React.FC = observer(() => {
   const onTabChange = (tab: string) => {
     setQuery(tab);
   };
-  const loadUser = () => {
+  const loadUser = useCallback(() => {
     userApi
       .getUser({ id: userId ?? '0' })
       .then(({ data }) => {
@@ -207,19 +179,16 @@ const User: React.FC = observer(() => {
           twitter: data.twitter,
           site: data.site,
           follows: data.follows,
+          followsCount: data.follows_count,
           followers: data.followers,
+          followersCount: data.followers_count,
         });
         setFollows(!!data.followers.find((follower: any) => follower.id === user.id));
-        console.log(
-          'follows?',
-          follows,
-          !!data.followers.find((follower: any) => follower.id === user.id),
-        );
       })
       .catch((err) => {
         console.log(err, 'get user');
       });
-  };
+  }, [userId, user.id]);
   useEffect(() => {
     if (!self) {
       loadUser();
@@ -234,11 +203,12 @@ const User: React.FC = observer(() => {
         twitter: user.twitter,
         site: user.site,
         follows: user.follows,
+        followsCount: user.follows_count,
         followers: user.followers,
+        followersCount: user.followers_count,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [self, loadUser, user]);
 
   useEffect(() => {
     setFollows(!!currentUser?.followers.find((follower: any) => follower.id === user.id));
@@ -301,11 +271,33 @@ const User: React.FC = observer(() => {
             isMultipleFilterValues
           />
         </TabPane>
-        <TabPane tab={`Following ${mockUser.followingUsers.length}`} key="following">
-          <UserFollowing followingUsers={mockUser.followingUsers} />
+        <TabPane
+          tab={
+            <p>
+              Following <span className="text-gray-l">{currentUser?.followsCount}</span>
+            </p>
+          }
+          key="following"
+        >
+          <UserFollow
+            address={currentUser?.address ?? ''}
+            follows={currentUser?.follows ?? []}
+            followType="Following"
+          />
         </TabPane>
-        <TabPane tab="Follower" key="follower">
-          <UserFollower />
+        <TabPane
+          tab={
+            <p>
+              Follower <span className="text-gray-l">{currentUser?.followersCount}</span>
+            </p>
+          }
+          key="follower"
+        >
+          <UserFollow
+            address={currentUser?.address ?? ''}
+            follows={currentUser?.follows ?? []}
+            followType="Follower"
+          />
         </TabPane>
       </Tabs>
     </div>

@@ -26,4 +26,8 @@ export default {
     data: { id: number | undefined }, // TODO: remove if follow and unfollow united
   ) => axios.post(`account/self/${localStorage.dds_token}/unfollow/`, data),
   getUser: (data: { id: string }) => axios.get(`account/${data.id}/`),
+  getFollowing: (address: string, page: number) =>
+    axios.get(`account/following/${address}/${page}/`),
+  getFollowers: (address: string, page: number) =>
+    axios.get(`account/followers/${address}/${page}/`),
 };

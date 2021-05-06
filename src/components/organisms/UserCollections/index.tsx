@@ -32,20 +32,6 @@ const UserCollections: React.FC<UserCollectionsProps> = observer(({ address }) =
       .getSingleCollections(address)
       .then(({ data }) => {
         setCollectionsCards(data);
-        /* setCollectionsCards((prevCreated: any) => {
-          if (prevCreated.collections) {
-            return {
-              ...prevCreated,
-              collections: [...prevCreated.collections, ...data],
-              length: data.length,
-            };
-          }
-          return {
-            collections: data,
-            length: data.length,
-          };
-        }); */
-        console.log('success get created', data);
       })
       .catch((err: any) => {
         console.log(err, 'get created');
