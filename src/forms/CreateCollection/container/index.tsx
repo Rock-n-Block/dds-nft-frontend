@@ -52,7 +52,7 @@ export default observer(({ walletConnector, isSingle, getCollections }: any) => 
         .createCollection(formData)
         .then(({ data }) => {
           walletConnector.metamaskService
-            .sendTransaction(data.initial_tx)
+            .sendTransaction(data)
             .then((res: any) => {
               formData.append('tx_hash', res.transactionHash);
 

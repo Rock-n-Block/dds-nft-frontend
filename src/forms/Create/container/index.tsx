@@ -85,7 +85,6 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
             .then((res: any) => {
               formData.append('internal_id', data.internal_id);
               formData.append('tx_hash', res.transactionHash);
-              formData.append('media', values.img);
 
               storeApi
                 .saveToken(formData)

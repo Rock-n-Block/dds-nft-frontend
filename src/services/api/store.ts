@@ -26,7 +26,7 @@ export default {
   buyToken: (id: number | string, amount: number) =>
     axios.post(`/store/buy/${localStorage.dds_token}/`, {
       id,
-      erc20Address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
+      // erc20Address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
       tokenAmount: amount,
     }),
   getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),

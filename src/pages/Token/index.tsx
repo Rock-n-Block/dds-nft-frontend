@@ -166,7 +166,6 @@ const Token: React.FC = observer(() => {
     !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id),
   );
   const checkLike = useCallback(() => {
-    console.log('isLiked?');
     return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
   }, [user, tokenData]);
   const handleBuy = async () => {
@@ -271,7 +270,7 @@ const Token: React.FC = observer(() => {
             </div>
             <div className="token__wrapper">
               <div className="token__price">
-                <div className="text-bold text-purple-l text-xl">{mockData.price} ETH</div>
+                <div className="text-bold text-purple-l text-xl">{tokenData.price} ETH</div>
                 <div className="token__price-gray text-gray text-md">
                   <span>${tokenData.USDPrice}</span>
                 </div>
