@@ -1,565 +1,75 @@
-import React from 'react';
-import { Masonry } from 'masonic';
+import React, { useRef } from 'react';
+import { MasonryScroller, useContainerPosition, usePositioner, useResizeObserver } from 'masonic';
 
-import HotImg from '../../../assets/img/mock/hot.jpg';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 
 import './UserOnSale.scss';
+import { observer } from 'mobx-react-lite';
+import HotImg from '../../../assets/img/mock/hot.jpg';
+import { useWindowSize } from '@react-hook/window-size';
 
-const hotBids = [
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    bid: {
-      count: 100,
-      sold: 1,
-      price: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-  {
-    img: HotImg,
-    name: 'SuperPunks #21 Gamora',
-    auction: {
-      count: 200,
-      sold: 1,
-      bid: 3.33,
-    },
-    artist: {
-      name: 'DicraKiller',
-    },
-    owner: {
-      name: 'DicraKiller',
-    },
-  },
-];
+interface UserOnSaleProps {
+  cards: any;
+}
 
-const UserOnSale: React.FC = () => {
-  // const [test, setTest] = React.useState(hotBids);
-
+const UserOnSale: React.FC<UserOnSaleProps> = observer(({ cards }) => {
   const renderCard = ({ data }: any) => {
-    return <NFTCard {...data} />;
+    return (
+      <NFTCard
+        img={data.media ? `https://${data.media}` : HotImg}
+        name={data.name}
+        id={data.id}
+        bid={{
+          price: data.price,
+          sold: data.total_supply - data.available,
+          count: data.total_supply,
+        }}
+        artist={{
+          name: data.creator.name,
+          id: data.creator.id,
+          avatar: data.creator.avatar,
+        }}
+        owner={{
+          name: data.owner.name,
+          id: data.owner.id,
+          avatar: data.owner.avatar,
+        }}
+      />
+    );
   };
 
-  if (hotBids.length === 0) {
-    return <NoItemsFound />;
-  }
+  const containerRef = useRef(null);
+  const [windowWidth, windowHeight] = useWindowSize();
+  const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
+
+  const positioner = usePositioner(
+    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
+    [cards.tokens],
+  );
+  const resizeObserver = useResizeObserver(positioner);
   return (
     <div className="on-sale">
       <div className="row">
         <div className="on-sale__content">
-          <Masonry
-            items={hotBids}
-            columnGutter={10}
-            columnWidth={320}
-            overscanBy={5}
-            render={renderCard}
-          />
+          {cards.tokens && cards.tokens.length ? (
+            <MasonryScroller
+              positioner={positioner}
+              resizeObserver={resizeObserver}
+              containerRef={containerRef}
+              items={cards.tokens}
+              height={windowHeight}
+              offset={offset}
+              overscanBy={5}
+              render={renderCard}
+            />
+          ) : (
+            <NoItemsFound />
+          )}
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default UserOnSale;

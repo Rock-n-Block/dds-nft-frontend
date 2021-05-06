@@ -1,19 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Masonry, useInfiniteLoader } from 'masonic';
+import React, { useRef } from 'react';
+import { MasonryScroller, useContainerPosition, usePositioner, useResizeObserver } from 'masonic';
 import { observer } from 'mobx-react-lite';
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
-import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 
 import './UserCollectibles.scss';
+import { useWindowSize } from '@react-hook/window-size';
 
 interface UserCollectiblesProps {
-  address: string;
+  cards: any;
 }
-const UserCollectibles: React.FC<UserCollectiblesProps> = observer(({ address }) => {
-  const [collectiblesCards, setCollectiblesCards] = useState<any>({});
+const UserCollectibles: React.FC<UserCollectiblesProps> = observer(({ cards }) => {
   const renderCard = ({ data }: any) => {
     return (
       <NFTCard
@@ -39,65 +38,30 @@ const UserCollectibles: React.FC<UserCollectiblesProps> = observer(({ address })
     );
   };
 
-  const loadUserCollectibles = useCallback(
-    async (page = 1) => {
-      return storeApi
-        .getCollectibles(address, page)
-        .then(({ data }) => {
-          setCollectiblesCards((prevCreated: any) => {
-            if (prevCreated.tokens) {
-              return {
-                ...prevCreated,
-                tokens: [...prevCreated.tokens, ...data],
-                length: data.length,
-              };
-            }
-            return {
-              tokens: [...data],
-              length: data.length,
-            };
-          });
-          console.log('success get created', data);
-        })
-        .catch((err: any) => {
-          console.log(err, 'get created');
-        });
-    },
-    [address],
+  const containerRef = useRef(null);
+  const [windowWidth, windowHeight] = useWindowSize();
+  const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
+
+  const positioner = usePositioner(
+    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
+    [cards.tokens],
   );
-  let prevPage = 1;
-  const maybeLoadMore = useInfiniteLoader(
-    async () => {
-      const page = (collectiblesCards.tokens.length + 50) / 50;
-      if (prevPage !== page) {
-        prevPage = page;
-        await loadUserCollectibles(page);
-      }
-    },
-    {
-      isItemLoaded: () => {
-        if (collectiblesCards.tokens.length >= collectiblesCards.length) {
-          return true;
-        }
-        return false;
-      },
-    },
-  );
-  useEffect(() => {
-    loadUserCollectibles();
-  }, [loadUserCollectibles]);
+
+  const resizeObserver = useResizeObserver(positioner);
   return (
     <div className="user-collectibles">
       <div className="row">
         <div className="user-collectibles__content">
-          {collectiblesCards.tokens && collectiblesCards.tokens.length ? (
-            <Masonry
-              items={collectiblesCards.tokens}
-              columnGutter={10}
-              columnWidth={320}
+          {cards.tokens && cards.tokens.length ? (
+            <MasonryScroller
+              positioner={positioner}
+              resizeObserver={resizeObserver}
+              containerRef={containerRef}
+              items={cards.tokens}
+              height={windowHeight}
+              offset={offset}
               overscanBy={5}
               render={renderCard}
-              onRender={maybeLoadMore}
             />
           ) : (
             <NoItemsFound />

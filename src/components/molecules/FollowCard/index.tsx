@@ -51,7 +51,7 @@ const FollowCard: React.FC<IFollowCard> = observer(
     };
     return (
       <div className="follow-card ">
-        <Link to={`/user/${id}`}>
+        <Link to={`/user/${id}?tab=on-sale`}>
           <img src={`https://${avatar}`} className="follow-card__avatar" alt={`${name} avatar`} />
         </Link>
         <div className="follow-card__info">

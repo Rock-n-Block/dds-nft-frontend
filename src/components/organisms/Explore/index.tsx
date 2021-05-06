@@ -14,6 +14,7 @@ import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
 
 import './Explore.scss';
+import { NoItemsFound } from '../../atoms';
 
 const Explore: React.FC = () => {
   const [explore, setExplore] = useState<any>({});
@@ -51,7 +52,6 @@ const Explore: React.FC = () => {
     storeApi
       .getTags()
       .then(({ data }) => {
-        console.log('tags', data);
         setTags(data.tags);
       })
       .catch((err: any) => {
@@ -60,7 +60,7 @@ const Explore: React.FC = () => {
   }, []);
   const loadExplore = useCallback(
     async (page = 1) => {
-      return storeApi
+      storeApi
         .getExplore(page, activeFilter)
         .then(({ data }) => {
           if (page !== 1) {
@@ -152,7 +152,7 @@ const Explore: React.FC = () => {
               onRender={maybeLoadMore}
             />
           ) : (
-            ''
+            <NoItemsFound />
           )}
         </div>
       </div>
