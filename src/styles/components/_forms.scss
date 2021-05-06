@@ -83,7 +83,7 @@
         border-radius: 50%;
 
         img {
-          max-width: 100%;
+          min-width: 100%;
         }
       }
 
@@ -286,6 +286,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .input__field-create {
+      position: relative;
+    }
+
+    &__input {
+      &-error {
+        position: absolute;
+        left: 0;
+        bottom: -25px;
+
+        color: #f00f;
+      }
     }
   }
 

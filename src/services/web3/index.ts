@@ -121,6 +121,20 @@ export default class MetamaskService {
     return new this.web3Provider.eth.Contract(abi, tokenAddress);
   }
 
+  // returns eth balance in wei
+  getEthBalance() {
+    return this.web3Provider.eth.getBalance(this.walletAddress);
+  }
+
+  getWethBalance() {
+    const contractAbi = 'WETH';
+    const contract = this.getContract(
+      '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+      config[contractAbi].ABI,
+    );
+    return contract.methods.totalSupply().call();
+  }
+
   static getMethodInterface(abi: Array<any>, methodName: string) {
     return abi.filter((m) => {
       return m.name === methodName;
@@ -188,16 +202,14 @@ export default class MetamaskService {
     }
   }
 
-  static calcTransactionAmount(amount: number, tokenDecimal: number) {
-    return new BigNumber(amount)
-      .times(new BigNumber(tokenDecimal).times(tokenDecimal))
-      .toString(10);
+  static calcTransactionAmount(amount: number | string, tokenDecimal: number) {
+    return new BigNumber(amount).times(new BigNumber(10).pow(tokenDecimal)).toString(10);
   }
 
   createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'NFT' | 'TOKEN',
+    contract: 'NFT' | 'TOKEN' | 'WETH',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,
@@ -205,7 +217,10 @@ export default class MetamaskService {
   ) {
     const transactionMethod = MetamaskService.getMethodInterface(config[contract].ABI, method);
 
-    const signature = this.encodeFunctionCall(transactionMethod, data);
+    let signature;
+    if (transactionMethod.inputs.length) {
+      signature = this.encodeFunctionCall(transactionMethod, data);
+    }
 
     if (tx) {
       tx.from = walletAddress || this.walletAddress;
@@ -215,8 +230,8 @@ export default class MetamaskService {
     }
     return this.sendTransaction({
       from: walletAddress || this.walletAddress,
-      to: tokenAddress,
-      data: signature,
+      to: tokenAddress || config[contract].ADDRESS,
+      data: signature || '',
       value: value || '',
     });
   }

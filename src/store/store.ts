@@ -34,6 +34,7 @@ export const Store = RootModel.create({
     address: '',
     is_verificated: false,
     display_name: '',
+    balance: { eth: '0', weth: '0' },
   },
 });
 
