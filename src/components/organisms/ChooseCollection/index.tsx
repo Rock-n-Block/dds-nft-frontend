@@ -1,10 +1,10 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 import classNames from 'classnames';
+import { useFormikContext } from 'formik';
 import { observer } from 'mobx-react-lite';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useFormikContext } from 'formik';
 
 import LogoImg from '../../../assets/img/icons/logo-mini.svg';
 import PlusImg from '../../../assets/img/icons/plus.svg';
