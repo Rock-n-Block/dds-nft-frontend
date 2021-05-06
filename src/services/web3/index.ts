@@ -217,26 +217,10 @@ export default class MetamaskService {
   ) {
     const transactionMethod = MetamaskService.getMethodInterface(config[contract].ABI, method);
 
-    if (contract === 'WETH') {
-      const weiValue = MetamaskService.calcTransactionAmount(data[0], 18);
-      if (method === 'deposit') {
-        return this.sendTransaction({
-          to: '0xdC2fBC02197dF78643a53a39fD5F322307613127',
-          value: weiValue || '',
-        });
-      }
-      if (method === 'withdraw') {
-        const signature = this.encodeFunctionCall(transactionMethod, [weiValue]);
-
-        return this.sendTransaction({
-          to: '0xdC2fBC02197dF78643a53a39fD5F322307613127',
-          data: signature,
-          value: '',
-        });
-      }
+    let signature;
+    if (transactionMethod.inputs.length) {
+      signature = this.encodeFunctionCall(transactionMethod, data);
     }
-
-    const signature = this.encodeFunctionCall(transactionMethod, data);
 
     if (tx) {
       tx.from = walletAddress || this.walletAddress;
@@ -246,8 +230,8 @@ export default class MetamaskService {
     }
     return this.sendTransaction({
       from: walletAddress || this.walletAddress,
-      to: tokenAddress,
-      data: signature,
+      to: tokenAddress || config[contract].ADDRESS,
+      data: signature || '',
       value: value || '',
     });
   }
