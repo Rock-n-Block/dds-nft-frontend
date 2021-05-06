@@ -70,9 +70,8 @@ const Header: React.FC = observer(() => {
             )}
           </div>
         </div>
+        <BurgerMenu className="header-mobile__content" />
       </div>
-
-      <BurgerMenu className="header-mobile__content" />
     </header>
   );
 });
