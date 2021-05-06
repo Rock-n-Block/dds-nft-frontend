@@ -1,3 +1,5 @@
+@import 'src/styles/mixins/main';
+
 .swiper {
   &-navigation {
     position: absolute;
@@ -33,11 +35,38 @@
         transform: rotate(180deg);
       }
     }
+
+    @include b('mobile') {
+      top: -50px;
+
+      &-next {
+        right: 0;
+      }
+
+      &-prev {
+        right: 56px;
+        left: auto;
+      }
+    }
   }
 
   &-button {
     &-disabled {
       display: none;
+    }
+  }
+
+  &-container {
+    .swiper-slide {
+      margin-right: 20px !important;
+    }
+
+    @include b('mobile') {
+      max-width: 320px;
+
+      .swiper-slide {
+        margin-right: 0 !important;
+      }
     }
   }
 }

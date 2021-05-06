@@ -85,6 +85,9 @@
     grid-template-rows: repeat(3, 1fr);
     @include b('mobile') {
       margin-top: 9px;
+
+      display: flex;
+      flex-direction: column;
     }
   }
 
