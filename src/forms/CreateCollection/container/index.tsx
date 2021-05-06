@@ -55,7 +55,6 @@ export default observer(({ walletConnector, isSingle, getCollections }: any) => 
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
               formData.append('tx_hash', res.transactionHash);
-              formData.append('avatar', values.img);
 
               storeApi
                 .saveCollection(formData)
