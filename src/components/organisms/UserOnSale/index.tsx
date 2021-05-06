@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
+import { useWindowSize } from '@react-hook/window-size';
 import { MasonryScroller, useContainerPosition, usePositioner, useResizeObserver } from 'masonic';
+import { observer } from 'mobx-react-lite';
 
+import HotImg from '../../../assets/img/mock/hot.jpg';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 
 import './UserOnSale.scss';
-import { observer } from 'mobx-react-lite';
-import HotImg from '../../../assets/img/mock/hot.jpg';
-import { useWindowSize } from '@react-hook/window-size';
 
 interface UserOnSaleProps {
   cards: any;

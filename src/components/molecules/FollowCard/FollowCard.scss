@@ -11,6 +11,7 @@
     width: 100%;
     max-width: 92px;
     height: 100%;
+
     border-radius: 50%;
     @include b('mobile') {
       max-width: 48px;
@@ -61,20 +62,24 @@
       display: none;
     }
   }
+
   &__token-container {
     display: flex;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
+
     width: 98px;
     height: 98px;
+
     background: #f4f4f4;
     border-radius: 12px;
-    overflow: hidden;
 
     &:not(:last-child) {
       margin-right: 10px;
     }
   }
+
   &__token {
     width: 100%;
   }

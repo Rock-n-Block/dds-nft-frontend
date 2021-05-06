@@ -6,12 +6,12 @@ import { observer } from 'mobx-react-lite';
 import SwapImg from '../../../assets/img/icons/arrows-swap.svg';
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
+import MetamaskService from '../../../services/web3';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
 import { Modal } from '../../molecules';
 
 import './ConvertModal.scss';
-import MetamaskService from '../../../services/web3';
 
 const ConvertModal: React.FC = observer(() => {
   const { modals, user } = useMst();

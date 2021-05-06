@@ -10,11 +10,11 @@ import {
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
+import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
 
 import './Explore.scss';
-import { NoItemsFound } from '../../atoms';
 
 const Explore: React.FC = () => {
   const [explore, setExplore] = useState<any>({});

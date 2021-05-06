@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import nextId from 'react-id-generator';
+import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
+import { userApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
 
 import './FollowCard.scss';
-import { Link } from 'react-router-dom';
-import { userApi } from '../../../services/api';
-import { observer } from 'mobx-react-lite';
-import { useMst } from '../../../store/store';
 
 export interface IFollowCard {
   name: string;

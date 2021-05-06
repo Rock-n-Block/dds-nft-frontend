@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useWindowSize } from '@react-hook/window-size';
 import { MasonryScroller, useContainerPosition, usePositioner, useResizeObserver } from 'masonic';
 import { observer } from 'mobx-react-lite';
 
@@ -7,7 +8,6 @@ import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 
 import './UserCollectibles.scss';
-import { useWindowSize } from '@react-hook/window-size';
 
 interface UserCollectiblesProps {
   cards: any;
