@@ -7,8 +7,8 @@ import { observer } from 'mobx-react-lite';
 import { Button } from '../../../components/atoms';
 import { NFTCard } from '../../../components/molecules';
 import { ChooseCollection, Uploader } from '../../../components/organisms';
-import { validateField } from '../../../utils/validate';
 import { useMst } from '../../../store/store';
+import { validateField } from '../../../utils/validate';
 
 interface IProperti {
   size: string | number;

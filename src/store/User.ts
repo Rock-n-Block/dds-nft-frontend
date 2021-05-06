@@ -8,6 +8,11 @@ const Follower = types.model({
   his_followers: types.optional(types.number, 0),
   id: types.optional(types.union(types.number, types.string, types.null), null),
 });
+
+export const Balance = types.model({
+  eth: types.optional(types.string, '0'),
+  weth: types.optional(types.string, '0'),
+});
 /* eslint-disable no-param-reassign */
 export const User = types
   .model({
@@ -23,10 +28,15 @@ export const User = types
     likes: types.optional(types.array(types.number), []),
     site: types.optional(types.maybeNull(types.string), null),
     twitter: types.optional(types.maybeNull(types.string), null),
+    balance: types.optional(Balance, {}),
   })
   .actions((self) => {
     const setAddress = (addr: string) => {
       self.address = addr;
+    };
+    const setBalance = (value: string, currency: 'eth' | 'weth') => {
+      if (currency === 'eth') self.balance.eth = value;
+      if (currency === 'weth') self.balance.weth = value;
     };
     const update = (userData: any) => {
       applySnapshot(self, userData);
@@ -50,6 +60,7 @@ export const User = types
 
     return {
       setAddress,
+      setBalance,
       update,
       getMe,
       disconnect,
