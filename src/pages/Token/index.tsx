@@ -411,15 +411,28 @@ const Token: React.FC = observer(() => {
                     ''
                   )}
                 </div>
-                <div className="token__btns-container">
-                  <div className="token__btns-text text-gray">{`Service fee ${mockData.fee} %.`}</div>
-                  <div className="token__btns-text text-gray">{`${new BigNumber(
-                    tokenData.price,
-                  ).times(102.5)}ETH`}</div>
-                  <div className="token__btns-text text-gray">{`$${new BigNumber(
-                    tokenData.USDPrice,
-                  ).times(102.5)}`}</div>
-                </div>
+                {tokenData.price ? (
+                  <div className="token__btns-container">
+                    <div className="token__btns-text text-gray">{`Service fee ${mockData.fee} %.`}</div>
+                    <div className="token__btns-text text-gray">{`${new BigNumber(
+                      tokenData.price,
+                    ).times(102.5)}ETH`}</div>
+                    <div className="token__btns-text text-gray">{`$${new BigNumber(
+                      tokenData.USDPrice,
+                    ).times(102.5)}`}</div>
+                  </div>
+                ) : (
+                  ''
+                )}
+                {!tokenData.price && tokenData.selling ? (
+                  <div className="token__btns-container">
+                    <div className="token__btns-text text-gray">
+                      There’s no bids yet. You can put your NFT on marketplace
+                    </div>
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             )}
             <div className="token__info">
@@ -446,7 +459,7 @@ const Token: React.FC = observer(() => {
               owners={mockData.owners}
               history={mockData.history}
               details={mockData.details}
-              bids={mockData.bids}
+              bids={[]}
             />
           </div>
         </div>
