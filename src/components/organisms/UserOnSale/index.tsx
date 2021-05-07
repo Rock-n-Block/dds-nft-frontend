@@ -43,10 +43,9 @@ const UserOnSale: React.FC<UserOnSaleProps> = observer(({ cards }) => {
   const [windowWidth, windowHeight] = useWindowSize();
   const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
 
-  const positioner = usePositioner(
-    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
-    [cards.tokens],
-  );
+  const positioner = usePositioner({ width: width || 1360, columnWidth: 320, columnGutter: 10 }, [
+    cards.tokens,
+  ]);
   const resizeObserver = useResizeObserver(positioner);
   return (
     <div className="on-sale">

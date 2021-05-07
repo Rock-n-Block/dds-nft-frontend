@@ -114,10 +114,9 @@ const Explore: React.FC = () => {
   const [windowWidth, windowHeight] = useWindowSize();
   const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
 
-  const positioner = usePositioner(
-    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
-    [explore.tokens],
-  );
+  const positioner = usePositioner({ width: width || 1360, columnWidth: 320, columnGutter: 10 }, [
+    explore.tokens,
+  ]);
 
   const resizeObserver = useResizeObserver(positioner);
 
