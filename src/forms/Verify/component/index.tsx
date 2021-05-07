@@ -11,8 +11,7 @@ import { Uploader } from '../../../components/organisms';
 import { validateField } from '../../../utils/validate';
 
 export interface IVerifyForm {
-  displayName: string;
-  userType: 'creator' | 'collector';
+  role: 'creator' | 'collector';
   about: string;
   img: any;
   twitter: string;
@@ -97,48 +96,14 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">2</span>/9
-          </p>
-          <div className="m-verify__container">
-            <h2 className="m-verify__header text-bold text text-center">
-              Your Ethereum wallet address (please don&apos;t add ENS wallet name)
-            </h2>
-            <Form.Item
-              className="form-verify__input input__field"
-              validateStatus={validateField('displayName', touched, errors)}
-              help={!touched.displayName ? false : errors.displayName}
-            >
-              <div className="input__field-create box-white box-shadow">
-                <Input
-                  id="displayName"
-                  size="large"
-                  placeholder="Enter your display name"
-                  className="input__create text-bold text-smd text-center"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </div>
-            </Form.Item>
-            <Button
-              size="md"
-              colorScheme="purple"
-              className="m-verify__next-btn"
-              onClick={() => nextRef.current?.click()}
-            >
-              Next
-            </Button>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="m-verify__slide">
-          <p className="text-bold text-xl">
-            <span className="text-grad">3</span>/9
+            <span className="text-grad">2</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">You are</h2>
             <Form.Item>
               <Radio.Group
-                onChange={(value) => setFieldValue('userType', value.target.value)}
-                value={values.userType}
+                onChange={(value) => setFieldValue('role', value.target.value)}
+                value={values.role}
                 className="m-verify__radio"
               >
                 <Radio value="creator" className="text-bold text-smd">
@@ -161,7 +126,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">4</span>/9
+            <span className="text-grad">3</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">
@@ -171,6 +136,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
 
             <Form.Item
               className="form-verify__input input__field"
+              initialValue={values.about}
               validateStatus={validateField('about', touched, errors)}
               help={!touched.about ? false : errors.about}
             >
@@ -178,6 +144,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
                 <Input
                   id="about"
                   size="large"
+                  value={values.about}
                   placeholder="Tell us about yourself"
                   className=" input__create text-bold text-smd text-center"
                   onChange={handleChange}
@@ -197,7 +164,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">5</span>/9
+            <span className="text-grad">4</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">
@@ -225,7 +192,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">6</span>/9
+            <span className="text-grad">5</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">Your Twitter account</h2>
@@ -235,6 +202,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             </h3>
             <Form.Item
               className="form-verify__input input__field"
+              initialValue={values.twitter}
               validateStatus={validateField('twitter', touched, errors)}
               help={!touched.twitter ? false : errors.twitter}
             >
@@ -242,6 +210,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
                 <Input
                   id="twitter"
                   size="large"
+                  value={values.twitter}
                   placeholder="https://"
                   className=" input__create text-bold text-smd text-center"
                   onChange={handleChange}
@@ -261,7 +230,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">7</span>/9
+            <span className="text-grad">6</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">Your Instagram account</h2>
@@ -272,6 +241,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
 
             <Form.Item
               className="form-verify__input input__field"
+              initialValue={values.instagram}
               validateStatus={validateField('instagram', touched, errors)}
               help={!touched.instagram ? false : errors.instagram}
             >
@@ -280,6 +250,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
                   id="instagram"
                   size="large"
                   placeholder="https://"
+                  value={values.instagram}
                   className=" input__create text-bold text-smd text-center"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -298,7 +269,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">8</span>/9
+            <span className="text-grad">7</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">
@@ -311,6 +282,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
 
             <Form.Item
               className="form-verify__input input__field"
+              initialValue={values.website}
               validateStatus={validateField('website', touched, errors)}
               help={!touched.website ? false : errors.website}
             >
@@ -319,6 +291,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
                   id="website"
                   size="large"
                   placeholder="https://"
+                  value={values.website}
                   className=" input__create text-bold text-smd text-center"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -337,7 +310,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
         </SwiperSlide>
         <SwiperSlide className="m-verify__slide">
           <p className="text-bold text-xl">
-            <span className="text-grad">9</span>/9
+            <span className="text-grad">8</span>/8
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">Your e-mail*</h2>

@@ -50,12 +50,6 @@ export const validateForm = ({ values, notRequired }: any) => {
         errCopy.instantSalePriceEth = '"Price" must be a number';
       }
     },
-
-    displayName: (value: string): void => {
-      if (!value) {
-        errCopy.displayName = 'Enter your wallet';
-      }
-    },
     about: (value: string): void => {
       if (!value) {
         errCopy.about = 'Tell us about you';
