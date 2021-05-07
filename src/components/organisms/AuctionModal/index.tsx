@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import BigNumber from 'bignumber.js/bignumber';
 
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import PlaceBidForm from '../../../forms/PlaceBid/container';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
 import { Modal } from '../../molecules';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
 
 import './AuctionModal.scss';
 
@@ -22,17 +24,32 @@ interface AuctionModalProps {
 }
 
 const AuctionModal: React.FC<AuctionModalProps> = observer(({ token, artist }) => {
-  const { modals } = useMst();
+  const walletConnector = useWalletConnectorContext();
+  const { modals, user } = useMst();
 
   const handleClose = (): void => {
     modals.auction.close();
   };
+
+  React.useEffect(() => {
+    if (user.address) {
+      walletConnector.metamaskService.getWethBalance().then((data: any) => {
+        user.setBalance(
+          new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
+          'weth',
+        );
+        console.log(user);
+      });
+    }
+  }, [user, user.address, walletConnector.metamaskService]);
+
   return (
     <Modal
       isVisible={modals.auction.isOpen}
       className="m-auction"
       handleCancel={handleClose}
       width={380}
+      destroyOnClose
     >
       <div className="m-auction__content">
         <Button className="m-auction__close-btn" colorScheme="clear" onClick={handleClose}>
@@ -49,7 +66,12 @@ const AuctionModal: React.FC<AuctionModalProps> = observer(({ token, artist }) =
             {artist?.name}
           </Link>
         </p>
-        <PlaceBidForm />
+        <PlaceBidForm
+          balance={{
+            value: user.balance?.weth ?? 0,
+            currency: 'WETH',
+          }}
+        />
       </div>
     </Modal>
   );

@@ -7,6 +7,7 @@ interface IModal {
   handleCancel?: () => void;
   width?: number | string;
   className?: string;
+  destroyOnClose?: boolean;
 }
 
 const Modal: React.FC<IModal> = ({
@@ -15,6 +16,7 @@ const Modal: React.FC<IModal> = ({
   handleCancel,
   width = 'fit-content',
   className,
+  destroyOnClose = false,
 }) => {
   return (
     <ModalAntd
@@ -24,6 +26,7 @@ const Modal: React.FC<IModal> = ({
       closable={false}
       onCancel={handleCancel}
       centered
+      destroyOnClose={destroyOnClose}
       width={width}
       className={classNames('modal', className)}
     >

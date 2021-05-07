@@ -50,7 +50,7 @@ const useDDS: Array<string> = [
 ];
 
 const Overview: React.FC = observer(() => {
-  const { modals } = useMst();
+  const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
 
   const connectWallet = (): void => {
@@ -72,19 +72,23 @@ const Overview: React.FC = observer(() => {
       <Button size="md" colorScheme="outline" className="dds-overview__learn-more">
         Learn more about DDS token
       </Button>
-      <div className="dds-overview__connect-wallet">
-        <h3 className="dds-overview__connect-wallet__title text-bold text-black text">
-          Connect your wallet to check your eligibility
-        </h3>
-        <Button
-          colorScheme="gradient"
-          size="md"
-          onClick={connectWallet}
-          className="dds-overview__connect-wallet__connect"
-        >
-          Connect Wallet
-        </Button>
-      </div>
+      {!user.address ? (
+        <div className="dds-overview__connect-wallet">
+          <h3 className="dds-overview__connect-wallet__title text-bold text-black text">
+            Connect your wallet to check your eligibility
+          </h3>
+          <Button
+            colorScheme="gradient"
+            size="md"
+            onClick={connectWallet}
+            className="dds-overview__connect-wallet__connect"
+          >
+            Connect Wallet
+          </Button>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="dds-overview__eligibles eligibles">
         <h2 className="eligibles__title text-blue-grad text-xl text-bold">
           Who is eligible to participate in the airdrop?
