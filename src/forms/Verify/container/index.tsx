@@ -7,18 +7,21 @@ import { observer } from 'mobx-react-lite';
 
 import { validateForm } from '../../../utils/validate';
 import VerifyForm, { IVerifyForm } from '../component';
+import { useMst } from '../../../store/store';
+import { userApi } from '../../../services/api';
 
 export default observer(() => {
+  const { modals, user } = useMst();
+
   const FormWithFormik = withFormik<any, IVerifyForm>({
     enableReinitialize: true,
     mapPropsToValues: () => ({
-      displayName: '',
-      userType: 'creator',
-      about: '',
+      role: 'creator',
+      about: user.bio || '',
       img: '',
-      twitter: '',
+      twitter: user.twitter || '',
       instagram: '',
-      website: '',
+      website: user.site || '',
       email: '',
       isLoading: false,
     }),
@@ -32,14 +35,27 @@ export default observer(() => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
-      formData.append('name', values.displayName);
-      formData.append('user_type', values.userType);
-      formData.append('about', values.about);
-      formData.append('img', values.img);
+      formData.append('auth_token', localStorage.dds_token);
+      formData.append('address', user.address);
+      formData.append('role', values.role.toUpperCase());
+      formData.append('bio', values.about);
+      formData.append('media', values.img);
       formData.append('twitter', values.twitter);
       formData.append('instagram', values.instagram);
       formData.append('website', values.website);
       formData.append('email', values.email);
+
+      userApi
+        .verifyMe(formData)
+        .then(() => {
+          modals.success.setSuccessMsg(
+            'Congrats you have successfully submitted a verification request ',
+          );
+          modals.verify.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     displayName: 'VerifyUserForm',
   })(VerifyForm);
