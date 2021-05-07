@@ -1,42 +1,115 @@
-import React from 'react';
+import React, { useState } from 'react';
 import nextId from 'react-id-generator';
+import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
+import { userApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
 
 import './FollowCard.scss';
 
 export interface IFollowCard {
   name: string;
-  followers: number;
-  img: string;
-  tokens?: Array<string>;
+  id: string | number;
+  followersCount: number;
+  avatar: string;
+  follows: Array<any>;
+  tokens?: Array<IToken>;
 }
+interface IToken {
+  id: string | number;
+  media: string;
+}
+const FollowCard: React.FC<IFollowCard> = observer(
+  ({ tokens, avatar, follows, followersCount, name, id }) => {
+    const { user } = useMst();
+    const self = user.id === id;
+    const [isFollows, setIsFollows] = useState<boolean>(
+      !!follows.find((follower: any) => follower.id === id),
+    );
 
-const FollowCard: React.FC<IFollowCard> = ({ tokens, img, followers, name }) => {
-  return (
-    <div className="follow-card ">
-      <img src={img} className="follow-card__avatar" alt={`${name} avatar`} />
-      <div className="follow-card__info">
-        <div className="follow-card__info-text">
-          <p className="follow-card__info-followers text text-gray text-sm text-bold text-upper">
-            {followers} followers
-          </p>
-          <h3 className="follow-card__info-name text-purple-l text-md text-bold">{name}</h3>
+    const handleUnfollow = () => {
+      userApi
+        .unfollow({ id: +(id ?? 0) })
+        .then(() => {
+          setIsFollows(false);
+        })
+        .catch((err) => {
+          console.log(err, 'unfollow user');
+        });
+    };
+    const handleFollow = () => {
+      userApi
+        .follow({ id: +(id ?? 0) })
+        .then(() => {
+          setIsFollows(true);
+        })
+        .catch((err) => {
+          console.log(err, 'follow user');
+        });
+    };
+    return (
+      <div className="follow-card ">
+        <Link to={`/user/${id}?tab=on-sale`}>
+          <img src={`https://${avatar}`} className="follow-card__avatar" alt={`${name} avatar`} />
+        </Link>
+        <div className="follow-card__info">
+          <div className="follow-card__info-text">
+            <Link to={`/user/${id}?tab=follower`}>
+              <p className="follow-card__info-followers text text-gray text-sm text-bold text-upper">
+                {followersCount} followers
+              </p>
+            </Link>
+            <Link to={`/user/${id}`}>
+              <h3 className="follow-card__info-name text-purple-l text-md text-bold">{name}</h3>
+            </Link>
+          </div>
+          {isFollows && !self ? (
+            <Button
+              colorScheme="outline"
+              className="follow-card__info__follow-btn"
+              onClick={handleUnfollow}
+            >
+              Unfollow
+            </Button>
+          ) : (
+            <></>
+          )}
+          {!isFollows && !self ? (
+            <Button
+              colorScheme="purple"
+              className="follow-card__info__follow-btn"
+              onClick={handleFollow}
+            >
+              <span className="text text-bold">Follow</span>
+            </Button>
+          ) : (
+            <></>
+          )}
         </div>
-        <Button colorScheme="purple" className="follow-card__info__follow-btn">
-          <span className="text text-bold">Follow</span>
-        </Button>
+        <div className="follow-card__tokens">
+          {tokens ? (
+            tokens.map((token) => (
+              <Link
+                to={`/token/${token.id}`}
+                className="follow-card__token-container"
+                key={nextId()}
+              >
+                <img
+                  className="follow-card__token"
+                  src={`https://${token.media}`}
+                  alt="token"
+                  key={nextId()}
+                />
+              </Link>
+            ))
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
-      <div className="follow-card__tokens">
-        {tokens ? (
-          tokens.map((token) => (
-            <img className="follow-card__tokens__token" src={token} alt="token" key={nextId()} />
-          ))
-        ) : (
-          <></>
-        )}
-      </div>
-    </div>
-  );
-};
+    );
+  },
+);
 export default FollowCard;

@@ -44,7 +44,11 @@ const Header: React.FC = observer(() => {
               >
                 My items
               </NavLink>
-              <NavLink exact to="/2" className="header__nav-item text-bold">
+              <NavLink
+                exact
+                to={`/user/${user.id}?tab=following`}
+                className="header__nav-item text-bold"
+              >
                 Following
               </NavLink>
               <NavLink exact to="/activity" className="header__nav-item text-bold">

@@ -14,7 +14,8 @@ export default {
       msg: data.msg,
     }),
   getMsg: () => axios.get('account/get_metamask_message/'),
-  getSingleCollections: () => axios.get(`account/self/${localStorage.dds_token}/collections`),
+  getSingleCollections: (address?: string) =>
+    axios.get(`account/self/${address || localStorage.dds_token}/collections/`),
   getMe: () => axios.get(`account/self/${localStorage.dds_token}/`),
   update: (data: any) => axios.patch(`account/self/${localStorage.dds_token}/`, data),
   follow: (data: { id: number | undefined }) =>
@@ -25,4 +26,8 @@ export default {
     data: { id: number | undefined }, // TODO: remove if follow and unfollow united
   ) => axios.post(`account/self/${localStorage.dds_token}/unfollow/`, data),
   getUser: (data: { id: string }) => axios.get(`account/${data.id}/`),
+  getFollowing: (address: string, page: number) =>
+    axios.get(`account/following/${address}/${page}/`),
+  getFollowers: (address: string, page: number) =>
+    axios.get(`account/followers/${address}/${page}/`),
 };
