@@ -5,10 +5,10 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
+import { userApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import VerifyForm, { IVerifyForm } from '../component';
-import { useMst } from '../../../store/store';
-import { userApi } from '../../../services/api';
 
 export default observer(() => {
   const { modals, user } = useMst();
