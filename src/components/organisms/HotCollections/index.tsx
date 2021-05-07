@@ -29,9 +29,9 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
             <img src={ArrowImg} alt="arrow" />
           </div>
           <Swiper
-            spaceBetween={0}
-            // slidesPerView="auto"
-            // slidesPerGroup={1}
+            spaceBetween={20}
+            slidesPerView={4}
+            slidesPerGroup={1}
             navigation={{
               prevEl: prevRef.current!, // Assert non-null
               nextEl: nextRef.current!, // Assert non-null

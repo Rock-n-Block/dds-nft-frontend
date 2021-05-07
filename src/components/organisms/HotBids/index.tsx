@@ -30,9 +30,9 @@ const HotBids: React.FC<IHotBids> = ({ cards }) => {
             <img src={ArrowImg} alt="arrow" />
           </div>
           <Swiper
-            spaceBetween={0}
+            spaceBetween={20}
             slidesPerView="auto"
-            // slidesPerGroup={1}
+            slidesPerGroup={1}
             navigation={{
               prevEl: prevRef.current!, // Assert non-null
               nextEl: nextRef.current!, // Assert non-null
