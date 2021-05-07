@@ -10,6 +10,7 @@ import {
 
 import HotImg from '../../../assets/img/mock/hot.jpg';
 import { storeApi } from '../../../services/api';
+import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
 
@@ -51,7 +52,6 @@ const Explore: React.FC = () => {
     storeApi
       .getTags()
       .then(({ data }) => {
-        console.log('tags', data);
         setTags(data.tags);
       })
       .catch((err: any) => {
@@ -60,7 +60,7 @@ const Explore: React.FC = () => {
   }, []);
   const loadExplore = useCallback(
     async (page = 1) => {
-      return storeApi
+      storeApi
         .getExplore(page, activeFilter)
         .then(({ data }) => {
           if (page !== 1) {
@@ -152,7 +152,7 @@ const Explore: React.FC = () => {
               onRender={maybeLoadMore}
             />
           ) : (
-            ''
+            <NoItemsFound />
           )}
         </div>
       </div>

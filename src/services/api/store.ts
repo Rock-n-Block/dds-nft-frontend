@@ -21,7 +21,7 @@ export default {
   getTags: () => axios.get(`store/tags/`),
   getCollections: () => axios.get('store/hot_collections/'),
   getCollectionById: (id: number | string, page: number) =>
-    axios.get(`store/collections/${id}/${page}/`),
+    axios.get(`store/collection/${id}/${page}/`),
   getToken: (id: number | string) => axios.get(`store/${id}/`),
   buyToken: (id: number | string, amount: number) =>
     axios.post(`/store/buy/${localStorage.dds_token}/`, {
@@ -30,7 +30,6 @@ export default {
       tokenAmount: amount,
     }),
   getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),
-  getFollowing: (page: number) => axios.get(`store/following/${localStorage.dds_token}/${page}/`),
   getCreated: (address: string, page: number) => axios.get(`store/created/${address}/${page}/`),
   getCollectibles: (address: string, page: number) => axios.get(`store/owned/${address}/${page}/`),
   getUserCollections: (address: string, page: number) =>
