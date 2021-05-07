@@ -11,7 +11,7 @@ import { Modal } from '../../molecules';
 import './AuctionModal.scss';
 
 interface AuctionModalProps {
-  owner?: {
+  token?: {
     name: string;
     id?: number | string;
   };
@@ -21,7 +21,7 @@ interface AuctionModalProps {
   };
 }
 
-const AuctionModal: React.FC<AuctionModalProps> = observer(({ owner, artist }) => {
+const AuctionModal: React.FC<AuctionModalProps> = observer(({ token, artist }) => {
   const { modals } = useMst();
 
   const handleClose = (): void => {
@@ -41,8 +41,8 @@ const AuctionModal: React.FC<AuctionModalProps> = observer(({ owner, artist }) =
         <h2 className="text-grad text-xl text-bold">Place a bid</h2>
         <p className="m-auction__description text-gray text-bold">
           You are about to place a bid for the&nbsp;
-          <Link to={`/user/${owner?.id}`} className="text-purple">
-            {owner?.name}
+          <Link to={`/token/${token?.id}`} className="text-purple">
+            {token?.name}
           </Link>
           &nbsp;by&nbsp;
           <Link to={`/user/${artist?.id}`} className="text-purple">

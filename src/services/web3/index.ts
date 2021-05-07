@@ -38,6 +38,8 @@ export default class MetamaskService {
 
   public chainChangedObs: any;
 
+  public accountChangedObs: any;
+
   public usedNetwork: string;
 
   public usedChain: string;
@@ -60,6 +62,12 @@ export default class MetamaskService {
         } else {
           subscriber.next('');
         }
+      });
+    });
+
+    this.accountChangedObs = new Observable((subscriber) => {
+      this.wallet.on('accountsChanged', () => {
+        subscriber.next();
       });
     });
     // this.wallet.on('connect', () => {

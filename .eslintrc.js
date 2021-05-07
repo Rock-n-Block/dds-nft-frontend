@@ -48,6 +48,13 @@ module.exports = {
         },
     ],
     rules: {
+        "@typescript-eslint/no-this-alias": [
+            "error",
+            {
+                "allowDestructuring": true,
+                "allowedNames": ["self"]
+            }
+        ],
         '@typescript-eslint/no-unused-vars': 'error',
         'prettier/prettier': ['warn', prettierConfig],
         'quote-props': ['error', 'consistent-as-needed'],
@@ -72,7 +79,7 @@ module.exports = {
             "props": false
         }],
         'import/order': 'off',
-        'import/no-cycle':'warn',
+        'import/no-cycle': 'warn',
         "no-debugger": "off",
         'import/first': 'error',
         'import/newline-after-import': 'error',

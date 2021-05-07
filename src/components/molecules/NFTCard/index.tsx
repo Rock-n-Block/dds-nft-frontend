@@ -166,7 +166,7 @@ const NFTCard: React.FC<INFTCard> = observer(
             )}
           </div>
         </div>
-        <AuctionModal owner={{ name: owner?.name ?? '', id: owner?.id }} artist={artist} />
+        <AuctionModal token={{ name, id }} artist={artist} />
       </div>
     );
   },

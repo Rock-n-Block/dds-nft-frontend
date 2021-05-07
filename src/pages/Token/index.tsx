@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
-import { TokenTabs } from '../../components/organisms';
+import { TokenTabs, AuctionModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';
@@ -44,7 +44,7 @@ interface IUser {
 }
 const Token: React.FC = observer(() => {
   const connector = useWalletConnectorContext();
-  const { user } = useMst();
+  const { user, modals } = useMst();
   const { token } = useParams<ITokenId>();
   const mockData = {
     tags: ['Art', 'Games', 'Test'],
@@ -187,7 +187,8 @@ const Token: React.FC = observer(() => {
           buyTokenData.initial_tx.data.SellerBuyer,
           buyTokenData.initial_tx.data.tokenToBuy,
           buyTokenData.initial_tx.data.tokenToSell,
-          buyTokenData.initial_tx.data.fee,
+          buyTokenData.initial_tx.data.fee.feeAddresses,
+          buyTokenData.initial_tx.data.fee.feeAmounts,
           buyTokenData.initial_tx.data.signature,
         ],
         'BEP20',
@@ -221,6 +222,10 @@ const Token: React.FC = observer(() => {
       });
   };
 
+  const handleBid = (): void => {
+    modals.auction.open();
+  };
+
   const handleLike = (): void => {
     userApi
       .like({ id: tokenData.id })
@@ -235,6 +240,7 @@ const Token: React.FC = observer(() => {
         console.log(err, 'handle like');
       });
   };
+
   useEffect(() => {
     storeApi
       .getToken(token)
@@ -304,10 +310,31 @@ const Token: React.FC = observer(() => {
             </div>
             <div className="token__wrapper">
               <div className="token__price">
-                <div className="text-bold text-purple-l text-xl">{tokenData.price} ETH</div>
-                <div className="token__price-gray text-gray text-md">
-                  <span>${tokenData.USDPrice}</span>
-                </div>
+                {tokenData.price && tokenData.selling ? (
+                  <>
+                    <div className="text-bold text-purple-l text-xl">{tokenData.price} ETH</div>
+                    <div className="token__price-gray text-gray text-md">
+                      <span>${tokenData.USDPrice}</span>
+                    </div>
+                  </>
+                ) : (
+                  ''
+                )}
+                {tokenData.price && !tokenData.selling ? (
+                  <div className="text-bold text-purple-l text-xl">Not for sale</div>
+                ) : (
+                  ''
+                )}
+                {!tokenData.price && !tokenData.selling ? (
+                  <div className="text-bold text-purple-l text-xl">Not in auction</div>
+                ) : (
+                  ''
+                )}
+                {!tokenData.price && tokenData.selling ? (
+                  <div className="text-bold text-purple-l text-xl">Auction</div>
+                ) : (
+                  ''
+                )}
                 <div className="token__price-gray text-gray text-md">
                   <span>{`${tokenData.available} of ${tokenData.totalSupply}`}</span>
                 </div>
@@ -327,32 +354,62 @@ const Token: React.FC = observer(() => {
             {user.address && (
               <div className="token__btns">
                 <div className="token__btns-container">
-                  {isApproved ? (
+                  {tokenData.price && tokenData.selling ? (
+                    <div className="token__btns-wrapper">
+                      {isApproved ? (
+                        <Button
+                          colorScheme="gradient"
+                          shadow
+                          loading={isLoading}
+                          size="md"
+                          className="token__btns-item"
+                          onClick={handleBuy}
+                        >
+                          <span className="text-bold">Buy now</span>
+                        </Button>
+                      ) : (
+                        <Button
+                          colorScheme="gradient"
+                          shadow
+                          size="md"
+                          loading={isLoading}
+                          className="token__btns-item"
+                          onClick={handleApprove}
+                        >
+                          <span className="text-bold">Approve Token</span>
+                        </Button>
+                      )}
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                  {!tokenData.price && tokenData.selling ? (
                     <Button
                       colorScheme="gradient"
                       shadow
-                      loading={isLoading}
                       size="md"
                       className="token__btns-item"
-                      onClick={handleBuy}
+                      onClick={handleBid}
                     >
-                      <span className="text-bold">Buy now</span>
+                      <span className="text-white text-bold">Place a bid</span>
                     </Button>
                   ) : (
-                    <Button
-                      colorScheme="gradient"
-                      shadow
-                      size="md"
-                      loading={isLoading}
-                      className="token__btns-item"
-                      onClick={handleApprove}
-                    >
-                      <span className="text-bold">Approve Token</span>
-                    </Button>
+                    ''
                   )}
-                  <Button colorScheme="white" shadow size="md" className="token__btns-item">
-                    <span className="text-grad text-bold">Bid</span>
-                  </Button>
+                  {tokenData.price && !tokenData.selling ? (
+                    <Button className="token__btns-item" colorScheme="white" shadow size="md">
+                      Put on sale
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                  {!tokenData.price && !tokenData.selling ? (
+                    <Button className="token__btns-item" colorScheme="white" shadow size="md">
+                      Start auction
+                    </Button>
+                  ) : (
+                    ''
+                  )}
                 </div>
                 <div className="token__btns-container">
                   <div className="token__btns-text text-gray">{`Service fee ${mockData.fee} %.`}</div>
@@ -394,6 +451,10 @@ const Token: React.FC = observer(() => {
           </div>
         </div>
       </div>
+      <AuctionModal
+        token={{ name: tokenData.name ?? '', id: tokenData.id }}
+        artist={tokenData.creator}
+      />
     </div>
   );
 });

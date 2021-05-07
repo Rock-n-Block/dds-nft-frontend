@@ -22,7 +22,7 @@ const UserPopover: React.FC = observer(() => {
     modals.convert.open();
   };
   const handleDisconnect = (): void => {
-    user.disconnect();
+    walletConnector.disconnect();
   };
   useEffect(() => {
     walletConnector.metamaskService.getEthBalance().then((data: any) => {
