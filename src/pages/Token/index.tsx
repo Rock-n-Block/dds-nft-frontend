@@ -172,6 +172,7 @@ const Token: React.FC = observer(() => {
   }, [user, tokenData]);
 
   const handleBuy = async () => {
+    setLoading(true);
     try {
       const { data: buyTokenData }: any = await storeApi.buyToken(
         token,
@@ -198,8 +199,10 @@ const Token: React.FC = observer(() => {
           value: buyTokenData.initial_tx.value,
         },
       );
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
