@@ -52,7 +52,6 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
     },
 
     handleSubmit: (values, { setFieldValue }) => {
-      console.log(values);
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
@@ -85,6 +84,9 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
             .then((res: any) => {
               formData.append('internal_id', data.internal_id);
               formData.append('tx_hash', res.transactionHash);
+              if (values.putOnSale) {
+                formData.append('selling', values.putOnSale.toString());
+              }
 
               storeApi
                 .saveToken(formData)

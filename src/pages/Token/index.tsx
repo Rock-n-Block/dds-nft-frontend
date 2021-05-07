@@ -161,6 +161,8 @@ const Token: React.FC = observer(() => {
   };
 
   const [tokenData, setTokenData] = React.useState<IToken>({} as IToken);
+  const [isApproved, setApproved] = React.useState<boolean>(false);
+  const [isLoading, setLoading] = React.useState<boolean>(false);
 
   const [isLike, setIsLike] = useState<boolean>(
     !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id),
@@ -168,6 +170,7 @@ const Token: React.FC = observer(() => {
   const checkLike = useCallback(() => {
     return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
   }, [user, tokenData]);
+
   const handleBuy = async () => {
     try {
       const { data: buyTokenData }: any = await storeApi.buyToken(
@@ -180,13 +183,13 @@ const Token: React.FC = observer(() => {
         buyTokenData.initial_tx.method,
         [
           buyTokenData.initial_tx.data.idOrder,
-          buyTokenData.initial_tx.data.whoIsSelling,
+          buyTokenData.initial_tx.data.SellerBuyer,
           buyTokenData.initial_tx.data.tokenToBuy,
           buyTokenData.initial_tx.data.tokenToSell,
-          buyTokenData.initial_tx.data.feeAddresses,
-          buyTokenData.initial_tx.data.feeAmount,
+          buyTokenData.initial_tx.data.fee,
           buyTokenData.initial_tx.data.signature,
         ],
+        'BEP20',
         {
           gas: buyTokenData.initial_tx.gas,
           gasPrice: buyTokenData.initial_tx.gasPrice,
@@ -198,6 +201,21 @@ const Token: React.FC = observer(() => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleApprove = (): void => {
+    setLoading(true);
+    connector.metamaskService
+      .approveToken('WETH', 18)
+      .then(() => {
+        setLoading(false);
+        setApproved(true);
+      })
+      .catch((err: any) => {
+        console.log(err, 'err approve');
+        setLoading(false);
+        setApproved(false);
+      });
   };
 
   const handleLike = (): void => {
@@ -243,6 +261,19 @@ const Token: React.FC = observer(() => {
         console.log(err, 'get token');
       });
   }, [token]);
+
+  useEffect(() => {
+    if (user.address) {
+      connector.metamaskService
+        .checkTokenAllowance('WETH', 18)
+        .then((res: boolean) => {
+          setApproved(res);
+        })
+        .catch((err: any) => {
+          console.log(err, 'check');
+        });
+    }
+  }, [connector.metamaskService, user.address]);
   useEffect(() => {
     setIsLike(checkLike());
   }, [checkLike]);
@@ -293,15 +324,29 @@ const Token: React.FC = observer(() => {
             {user.address && (
               <div className="token__btns">
                 <div className="token__btns-container">
-                  <Button
-                    colorScheme="gradient"
-                    shadow
-                    size="md"
-                    className="token__btns-item"
-                    onClick={handleBuy}
-                  >
-                    <span className="text-bold">Buy now</span>
-                  </Button>
+                  {isApproved ? (
+                    <Button
+                      colorScheme="gradient"
+                      shadow
+                      loading={isLoading}
+                      size="md"
+                      className="token__btns-item"
+                      onClick={handleBuy}
+                    >
+                      <span className="text-bold">Buy now</span>
+                    </Button>
+                  ) : (
+                    <Button
+                      colorScheme="gradient"
+                      shadow
+                      size="md"
+                      loading={isLoading}
+                      className="token__btns-item"
+                      onClick={handleApprove}
+                    >
+                      <span className="text-bold">Approve Token</span>
+                    </Button>
+                  )}
                   <Button colorScheme="white" shadow size="md" className="token__btns-item">
                     <span className="text-grad text-bold">Bid</span>
                   </Button>

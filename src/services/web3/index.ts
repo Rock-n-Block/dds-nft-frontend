@@ -152,18 +152,17 @@ export default class MetamaskService {
     return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
-  async checkTokenAllowance(
-    tokenAddress: string,
-    contract: any,
-    abi: Array<any>,
-    tokenDecimals: number,
-    walletAddress?: string,
-  ) {
+  async checkTokenAllowance(contractName: 'WETH', tokenDecimals: number, walletAddress?: string) {
+    const contract = this.getContract(config[contractName].ADDRESS, config[contractName].ABI);
     const walletAdr = walletAddress || this.walletAddress;
 
     try {
-      let result = await contract.methods.allowance(walletAdr, tokenAddress).call();
-      const totalSupply = await this.totalSupply(tokenAddress, abi, tokenDecimals);
+      let result = await contract.methods.allowance(walletAdr, config[contractName].ADDRESS).call();
+      const totalSupply = await this.totalSupply(
+        config[contractName].ADDRESS,
+        config[contractName].ABI,
+        tokenDecimals,
+      );
 
       result = result ? result.toString(10) : result;
       result = result === '0' ? null : result;
@@ -176,25 +175,24 @@ export default class MetamaskService {
     }
   }
 
-  async approveToken(
-    tokenAddress: string,
-    abi: Array<any>,
-    tokenDecimals: number,
-    walletAddress?: string,
-  ) {
+  async approveToken(contractName: 'WETH', tokenDecimals: number, walletAddress?: string) {
     try {
-      const totalSupply = await this.totalSupply(tokenAddress, abi, tokenDecimals);
+      const totalSupply = await this.totalSupply(
+        config[contractName].ADDRESS,
+        config[contractName].ABI,
+        tokenDecimals,
+      );
 
-      const approveMethod = MetamaskService.getMethodInterface(abi, 'approve');
+      const approveMethod = MetamaskService.getMethodInterface(config[contractName].ABI, 'approve');
 
       const approveSignature = this.encodeFunctionCall(approveMethod, [
-        tokenAddress,
+        walletAddress || this.walletAddress,
         MetamaskService.calcTransactionAmount(totalSupply, tokenDecimals),
       ]);
 
       return this.sendTransaction({
         from: walletAddress || this.walletAddress,
-        to: tokenAddress,
+        to: config[contractName].ADDRESS,
         data: approveSignature,
       });
     } catch (error) {
@@ -209,7 +207,7 @@ export default class MetamaskService {
   createTransaction(
     method: string,
     data: Array<any>,
-    contract: 'NFT' | 'TOKEN' | 'WETH',
+    contract: 'NFT' | 'BEP20' | 'WETH',
     tx?: any,
     tokenAddress?: string,
     walletAddress?: string,

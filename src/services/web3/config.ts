@@ -142,7 +142,7 @@ export default {
       },
     ],
   },
-  TOKEN: {
+  BEP20: {
     ADDRESS: '',
     ABI: [
       { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
@@ -286,7 +286,7 @@ export default {
       {
         inputs: [
           { internalType: 'bytes32', name: 'idOrder', type: 'bytes32' },
-          { internalType: 'address', name: 'whoIsSelling', type: 'address' },
+          { internalType: 'address[2]', name: 'SellerBuyer', type: 'address[2]' },
           {
             components: [
               { internalType: 'address', name: 'tokenAddress', type: 'address' },
@@ -307,8 +307,15 @@ export default {
             name: 'tokenToSell',
             type: 'tuple',
           },
-          { internalType: 'address[]', name: 'feeAddresses', type: 'address[]' },
-          { internalType: 'uint256[]', name: 'feeAmounts', type: 'uint256[]' },
+          {
+            components: [
+              { internalType: 'address[]', name: 'feeAddresses', type: 'address[]' },
+              { internalType: 'uint256[]', name: 'feeAmounts', type: 'uint256[]' },
+            ],
+            internalType: 'struct Exchange.FeeAddrAm',
+            name: 'fee',
+            type: 'tuple',
+          },
           { internalType: 'bytes', name: 'signature', type: 'bytes' },
         ],
         name: 'makeExchangeERC1155',
@@ -319,7 +326,7 @@ export default {
       {
         inputs: [
           { internalType: 'bytes32', name: 'idOrder', type: 'bytes32' },
-          { internalType: 'address', name: 'whoIsSelling', type: 'address' },
+          { internalType: 'address[2]', name: 'SellerBuyer', type: 'address[2]' },
           {
             components: [
               { internalType: 'address', name: 'tokenAddress', type: 'address' },
@@ -340,8 +347,15 @@ export default {
             name: 'tokenToSell',
             type: 'tuple',
           },
-          { internalType: 'address[]', name: 'feeAddresses', type: 'address[]' },
-          { internalType: 'uint256[]', name: 'feeAmounts', type: 'uint256[]' },
+          {
+            components: [
+              { internalType: 'address[]', name: 'feeAddresses', type: 'address[]' },
+              { internalType: 'uint256[]', name: 'feeAmounts', type: 'uint256[]' },
+            ],
+            internalType: 'struct Exchange.FeeAddrAm',
+            name: 'fee',
+            type: 'tuple',
+          },
           { internalType: 'bytes', name: 'signature', type: 'bytes' },
         ],
         name: 'makeExchangeERC721',
