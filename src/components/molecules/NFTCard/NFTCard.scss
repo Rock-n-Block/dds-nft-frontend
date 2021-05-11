@@ -4,12 +4,16 @@
   background: #fff;
   border: 1px solid #e7e7e7;
   border-radius: 12px;
+
   &__name {
     white-space: nowrap;
   }
+
   &__box {
-    text-overflow: ellipsis;
     overflow: hidden;
+
+    text-overflow: ellipsis;
+
     & + & {
       margin-top: 20px;
       padding-top: 15px;

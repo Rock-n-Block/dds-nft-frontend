@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from 'react';
-import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
+import { observer } from 'mobx-react';
 
 import { rootStore } from '../../store/store';
 import { userApi } from '../api';

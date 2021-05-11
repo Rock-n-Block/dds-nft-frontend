@@ -1,8 +1,8 @@
 import React from 'react';
 import nextId from 'react-id-generator';
 
-import UserMini, { IUserMini } from '../../atoms/UserMini';
 import BellImg from '../../../assets/img/icons/bell-p.svg';
+import UserMini, { IUserMini } from '../../atoms/UserMini';
 
 import './TokenBids.scss';
 
