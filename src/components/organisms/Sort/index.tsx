@@ -7,14 +7,18 @@ import CheckImg from '../../../assets/img/icons/sort-check.svg';
 import './Sort.scss';
 
 interface ISort {
-  items: string[];
+  items: Array<ISortItem>;
   isSortShown?: boolean;
-  onChange: (sort: string) => void;
+  onChange: (sort: ISortItem) => void;
+}
+export interface ISortItem {
+  key: string;
+  value: string;
 }
 
 const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
   const [isOpen, setOpen] = React.useState(false);
-  const [activeSort, setActiveSort] = React.useState<string>(items[0]);
+  const [activeSort, setActiveSort] = React.useState<ISortItem>(items[0]);
   const [isPosTop, setPosTop] = React.useState<boolean>(false);
 
   const sortRef = React.useRef<any>();
@@ -40,7 +44,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
     }
   };
 
-  const handleChangeSort = (sort: string): void => {
+  const handleChangeSort = (sort: ISortItem): void => {
     if (sort !== activeSort) {
       onChange(sort);
       setActiveSort(sort);
@@ -76,7 +80,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
       >
         {items.map((item) => (
           <div
-            key={item}
+            key={item.key}
             className={classNames('sort__item', 'text-bold', {
               check: activeSort === item,
             })}
@@ -85,7 +89,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
             onClick={() => handleChangeSort(item)}
             onKeyDown={() => handleChangeSort(item)}
           >
-            <span>{item}</span>
+            <span>{item.value}</span>
             <img src={CheckImg} alt="check" />
           </div>
         ))}
