@@ -5,6 +5,7 @@ import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-
 import { UserMini } from '../../atoms';
 
 import './ActivityCard.scss';
+import moment from 'moment';
 
 export interface IActivityCard {
   tokenId: string | number;
@@ -47,12 +48,6 @@ const ActivityCard: React.FC<IActivityCard> = ({
   let token;
   let firstText = <></>;
   let secondText = <></>;
-  const calculateMinutes = () => {
-    const start = new Date(date.toString()).getTime();
-    const end = new Date().getTime();
-    const milliseconds = end - start;
-    return Math.floor(milliseconds / 1000 / 60);
-  };
   if (method === 'follow') {
     token = <></>;
   } else
@@ -159,7 +154,7 @@ const ActivityCard: React.FC<IActivityCard> = ({
       </div>
       <div className="activity-card__footer">
         <p className="activity-card__time text text-gray text-sm text-regular text-upper">
-          {calculateMinutes()} minutes ago
+          {moment(date).fromNow()}
         </p>
         {method !== 'follow' && (
           <Link to={`/token/${tokenId}`} className="activity-card__share">
