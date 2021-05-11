@@ -10,7 +10,6 @@ import userAvatar from '../../assets/img/mock/user-avatar.png';
 import ShadowImg from '../../assets/img/shadow.png';
 import { PageOverview } from '../../components/molecules';
 import {
-  Sort,
   UserActivity,
   UserCollectibles,
   UserCollections,
@@ -145,8 +144,6 @@ const mockUser: any = {
   ],
 };
 const { TabPane } = Tabs;
-const sortTypes = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low', 'text'];
-const sort = <Sort items={sortTypes} isSortShown onChange={() => {}} />;
 
 const User: React.FC = observer(() => {
   const [currentUser, setCurrentUser] = useState<INewUser>();
@@ -269,7 +266,6 @@ const User: React.FC = observer(() => {
         />
       </div>
       <Tabs
-        tabBarExtraContent={sort}
         className="tabs"
         activeKey={params.get('tab') ?? 'on-sale'}
         onTabClick={(tab: string) => onTabChange(tab)}
@@ -291,8 +287,7 @@ const User: React.FC = observer(() => {
         </TabPane>
         <TabPane tab="Activity" key="activity">
           <UserActivity
-            filters={mockUser.activityCards.filters}
-            activityCards={mockUser.activityCards.activities}
+            address={currentUser?.address ?? ''}
             isAllFilterItem
             isMultipleFilterValues
           />
