@@ -66,7 +66,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
       >
         <span className="text-bold text-black text">Sort</span>
         {isSortShown ? (
-          <span className="sort__current text text-gray text-bold">{activeSort}</span>
+          <span className="sort__current text text-gray text-bold">{activeSort.value}</span>
         ) : (
           <></>
         )}
@@ -81,9 +81,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
         {items.map((item) => (
           <div
             key={item.key}
-            className={classNames('sort__item', 'text-bold', {
-              check: activeSort === item,
-            })}
+            className={`sort__item text-bold ${activeSort.key === item.key ? 'check' : ''}`}
             role="button"
             tabIndex={0}
             onClick={() => handleChangeSort(item)}

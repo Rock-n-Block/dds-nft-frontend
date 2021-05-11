@@ -115,7 +115,6 @@ const Explore: React.FC = () => {
   };
   const handleSortChange = (value: ISortItem): void => {
     setActiveSort(value);
-    console.log('explore', activeSort);
   };
   const containerRef = useRef(null);
   const [windowWidth, windowHeight] = useWindowSize();
