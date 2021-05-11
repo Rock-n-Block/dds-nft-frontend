@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
 import { observer } from 'mobx-react-lite';
 
@@ -7,12 +7,13 @@ import LogoImg from '../../../assets/img/icons/logo.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
-import { BurgerMenu, UserPreview } from '../index';
+import { BurgerMenu, UserPreview, Search } from '../index';
 
 import './Header.scss';
 
 const Header: React.FC = observer(() => {
   const { modals, user } = useMst();
+  const location = useLocation();
   const walletConnector = useWalletConnectorContext();
 
   const connectWallet = (): void => {
@@ -60,6 +61,14 @@ const Header: React.FC = observer(() => {
             </div>
           </div>
           <div className="header__box">
+            {location.pathname !== '/' ? (
+              <Search
+                placeholder="Search items, collections, and accounts"
+                className="header__search"
+              />
+            ) : (
+              ''
+            )}
             {user.address ? (
               <>
                 <Button link="/create" linkClassName="header__btn">

@@ -45,6 +45,21 @@
       }
     }
   }
+  &__search {
+    width: 100%;
+    max-width: 340px;
+    width: 25.373vw !important;
+    box-shadow: none !important;
+    margin-right: 12px;
+    .input__search {
+      padding: 16px 16px 16px 0 !important;
+      font-size: 14px !important;
+      line-height: 17px !important;
+    }
+    .search__img {
+      padding: 16px 10px;
+    }
+  }
 
   &__btn {
     & + & {

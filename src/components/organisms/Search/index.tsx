@@ -26,7 +26,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, className }) => {
   };
 
   return (
-    <div className={`${className} search box-shadow`}>
+    <div className={`${className ?? ''} search box-shadow`}>
       <div
         className="search__img"
         onClick={handleSearch}
