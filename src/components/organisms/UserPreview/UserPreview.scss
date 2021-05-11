@@ -2,9 +2,11 @@
 
 .u-preview {
   margin-left: 8px;
-  min-width: max-content;
+
   display: flex;
   align-items: center;
+
+  min-width: max-content;
 
   border: 1px solid $purple;
   border-radius: 16px;

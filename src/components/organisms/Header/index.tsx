@@ -7,7 +7,7 @@ import LogoImg from '../../../assets/img/icons/logo.svg';
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
-import { BurgerMenu, UserPreview, Search } from '../index';
+import { BurgerMenu, Search, UserPreview } from '../index';
 
 import './Header.scss';
 
