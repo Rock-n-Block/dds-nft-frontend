@@ -37,22 +37,20 @@ const UserActivity: React.FC<UserActivityProps> = ({
 
   const loadActivityCards = useCallback(
     (page = 1) => {
-      return activityApi
-        .getActivity(address, page)
+      activityApi
+        .getActivity(address, page, activeFilters.join(',').toLowerCase())
         .then(({ data }) => {
           setActivityCards(data);
-          console.log('success get activity', data);
         })
         .catch((err: any) => {
           console.log(err, 'get created');
         });
     },
-    [address],
+    [address, activeFilters],
   );
   useEffect(() => {
     loadActivityCards();
   }, [loadActivityCards]);
-  console.log(activeFilters);
   const renderCard = ({ data }: any) => {
     return (
       <ActivityCard

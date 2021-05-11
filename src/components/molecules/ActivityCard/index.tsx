@@ -44,15 +44,20 @@ const ActivityCard: React.FC<IActivityCard> = ({
   date,
   price,
 }) => {
-  console.log(secondUser);
   let token;
   let firstText = <></>;
   let secondText = <></>;
+  const calculateMinutes = () => {
+    const start = new Date(date.toString()).getTime();
+    const end = new Date().getTime();
+    const milliseconds = end - start;
+    return Math.floor(milliseconds / 1000 / 60);
+  };
   if (method === 'follow') {
     token = <></>;
   } else
     token = (
-      <div className="activity-card__header">
+      <Link to={`/token/${tokenId}`} className="activity-card__header">
         <img src={`https://${tokenImg}`} alt="token" className="activity-card__header-left" />
         <div className="activity-card__header-right">
           <h3 className="activity-card__header__title text-bold text">{tokenName}</h3>
@@ -64,7 +69,7 @@ const ActivityCard: React.FC<IActivityCard> = ({
             <></>
           )}
         </div>
-      </div>
+      </Link>
     );
   switch (method) {
     case 'listing':
@@ -154,7 +159,7 @@ const ActivityCard: React.FC<IActivityCard> = ({
       </div>
       <div className="activity-card__footer">
         <p className="activity-card__time text text-gray text-sm text-regular text-upper">
-          {date} minutes ago
+          {calculateMinutes()} minutes ago
         </p>
         {method !== 'follow' && (
           <Link to={`/token/${tokenId}`} className="activity-card__share">
