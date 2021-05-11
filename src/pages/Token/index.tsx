@@ -11,6 +11,7 @@ import { TokenTabs, AuctionModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';
+import web3Config from '../../services/web3/config';
 
 import './Token.scss';
 
@@ -210,7 +211,7 @@ const Token: React.FC = observer(() => {
   const handleApprove = (): void => {
     setLoading(true);
     connector.metamaskService
-      .approveToken('WETH', 18)
+      .approveToken('WETH', 18, web3Config.EXCHANGE.ADDRESS)
       .then(() => {
         setLoading(false);
         setApproved(true);
@@ -274,7 +275,7 @@ const Token: React.FC = observer(() => {
   useEffect(() => {
     if (user.address) {
       connector.metamaskService
-        .checkTokenAllowance('WETH', 18)
+        .checkTokenAllowance('WETH', 18, web3Config.EXCHANGE.ADDRESS)
         .then((res: boolean) => {
           setApproved(res);
         })

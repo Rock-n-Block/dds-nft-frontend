@@ -160,12 +160,19 @@ export default class MetamaskService {
     return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
-  async checkTokenAllowance(contractName: 'WETH', tokenDecimals: number, walletAddress?: string) {
+  async checkTokenAllowance(
+    contractName: 'WETH',
+    tokenDecimals: number,
+    approvedAddress?: string,
+    walletAddress?: string,
+  ) {
     const contract = this.getContract(config[contractName].ADDRESS, config[contractName].ABI);
     const walletAdr = walletAddress || this.walletAddress;
 
     try {
-      let result = await contract.methods.allowance(walletAdr, config[contractName].ADDRESS).call();
+      let result = await contract.methods
+        .allowance(walletAdr, approvedAddress || config[contractName].ADDRESS)
+        .call();
       const totalSupply = await this.totalSupply(
         config[contractName].ADDRESS,
         config[contractName].ABI,
@@ -183,7 +190,12 @@ export default class MetamaskService {
     }
   }
 
-  async approveToken(contractName: 'WETH', tokenDecimals: number, walletAddress?: string) {
+  async approveToken(
+    contractName: 'WETH',
+    tokenDecimals: number,
+    approvedAddress?: string,
+    walletAddress?: string,
+  ) {
     try {
       const totalSupply = await this.totalSupply(
         config[contractName].ADDRESS,
@@ -194,7 +206,7 @@ export default class MetamaskService {
       const approveMethod = MetamaskService.getMethodInterface(config[contractName].ABI, 'approve');
 
       const approveSignature = this.encodeFunctionCall(approveMethod, [
-        walletAddress || this.walletAddress,
+        approvedAddress || walletAddress || this.walletAddress,
         MetamaskService.calcTransactionAmount(totalSupply, tokenDecimals),
       ]);
 
