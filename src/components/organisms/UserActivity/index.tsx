@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { Masonry } from 'masonic';
 
+import { activityApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { ActivityCard } from '../../molecules';
 import Filter from '../Filter';
 
 import './UserActivity.scss';
-import { activityApi } from '../../../services/api';
 
 export interface UserActivityProps {
   address: string;

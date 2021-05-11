@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
-import { TokenTabs, AuctionModal } from '../../components/organisms';
+import { AuctionModal, TokenTabs } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';

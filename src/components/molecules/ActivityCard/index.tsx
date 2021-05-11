@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
 import { UserMini } from '../../atoms';
 

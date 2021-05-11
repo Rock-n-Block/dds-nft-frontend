@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { UserActivity } from '../../components/organisms';
 
 const Activity: React.FC = () => {
