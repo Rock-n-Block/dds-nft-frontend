@@ -5,8 +5,8 @@ export default {
   createCollection: (data: any) => axios.post('store/create_collection/', data),
   saveToken: (data: any) => axios.post('store/save_token/', data),
   saveCollection: (data: any) => axios.post('store/save_collection/', data),
-  getExplore: (page: number, query: string) =>
-    axios.get(`store/hot/${page}/${query === 'all' ? '' : '?tag='}${query === 'all' ? '' : query}`),
+  getExplore: (page: number, filter: string, sort: string) =>
+    axios.get(`store/hot/${page}/?sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''}`),
   getTags: () => axios.get(`store/tags/`),
   getCollections: () => axios.get('store/hot_collections/'),
   getCollectionById: (id: number | string, page: number) =>

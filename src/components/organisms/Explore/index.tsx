@@ -15,13 +15,19 @@ import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
 
 import './Explore.scss';
+import { ISortItem } from '../Sort';
 
 const Explore: React.FC = () => {
   const [explore, setExplore] = useState<any>({});
   const [tags, setTags] = useState<Array<string>>(['all']);
-
-  const sortItems = ['Recommended', 'Most Recent', 'Popular', 'Price High', 'Price Low'];
-
+  const sortItems: Array<ISortItem> = [
+    // { key: 'recommend', value: 'Recommended' },
+    { key: 'recent', value: 'Most Recent' },
+    // { key: 'popular', value: 'Popular' },
+    { key: 'highest', value: 'Price High' },
+    { key: 'cheapest', value: 'Price Low' },
+  ];
+  const [activeSort, setActiveSort] = useState<ISortItem>(sortItems[0]);
   const [activeFilter, setActiveFilter] = useState(tags[0]);
 
   const renderCard = ({ data }: any) => {
@@ -61,7 +67,7 @@ const Explore: React.FC = () => {
   const loadExplore = useCallback(
     async (page = 1) => {
       storeApi
-        .getExplore(page, activeFilter)
+        .getExplore(page, activeFilter, activeSort.key)
         .then(({ data }) => {
           if (page !== 1) {
             setExplore((prevExplore: any) => {
@@ -83,7 +89,7 @@ const Explore: React.FC = () => {
           console.log(err, 'get tokens');
         });
     },
-    [activeFilter],
+    [activeSort, activeFilter],
   );
   let prevPage = 1;
   const maybeLoadMore = useInfiniteLoader(
@@ -107,8 +113,8 @@ const Explore: React.FC = () => {
   const handleFilterChange = (value: string[]): void => {
     setActiveFilter(value[0]);
   };
-  const handleSortChange = (value: string): void => {
-    console.log(value);
+  const handleSortChange = (value: ISortItem): void => {
+    setActiveSort(value);
   };
   const containerRef = useRef(null);
   const [windowWidth, windowHeight] = useWindowSize();

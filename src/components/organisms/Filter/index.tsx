@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import Sort from '../Sort';
+import Sort, { ISortItem } from '../Sort';
 
 import './Filter.scss';
 
@@ -11,8 +11,8 @@ interface IFilter {
   isMultipleValues?: boolean;
   onChange: (activeFilters: string[]) => void;
   showPickedSort?: boolean;
-  sortItems?: string[];
-  onChangeSort?: (sort: string) => void;
+  sortItems?: ISortItem[];
+  onChangeSort?: (sort: ISortItem) => void;
 }
 
 const Filter: React.FC<IFilter> = ({
