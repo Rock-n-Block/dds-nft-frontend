@@ -26,34 +26,28 @@ interface IUser {
   name: string;
 }
 
-const TokenTabs: React.FC<TokenTabsProps> = ({
-  artist,
-  owner,
-  collection,
-  owners,
-  history,
-  details,
-  bids,
-}) => {
-  return (
-    <Tabs className="tabs">
-      <TabPane tab="Info" key={nextId()}>
-        <TokenInfo artist={artist} owner={owner} collection={collection} />
-      </TabPane>
-      <TabPane tab="Owners" key={nextId()}>
-        <TokenOwners owners={owners} />
-      </TabPane>
-      <TabPane tab="History" key={nextId()}>
-        <TokenHistory history={history} />
-      </TabPane>
-      <TabPane tab="Details" key={nextId()}>
-        <TokenDetails details={details} />
-      </TabPane>
-      <TabPane tab="Bids" key={nextId()}>
-        <TokenBids bids={bids} />
-      </TabPane>
-    </Tabs>
-  );
-};
+const TokenTabs: React.FC<TokenTabsProps> = React.memo(
+  ({ artist, owner, collection, owners, history, details, bids }) => {
+    return (
+      <Tabs className="tabs">
+        <TabPane tab="Info" key={nextId()}>
+          <TokenInfo artist={artist} owner={owner} collection={collection} />
+        </TabPane>
+        <TabPane tab="Owners" key={nextId()}>
+          <TokenOwners owners={owners} />
+        </TabPane>
+        <TabPane tab="History" key={nextId()}>
+          <TokenHistory history={history} />
+        </TabPane>
+        <TabPane tab="Details" key={nextId()}>
+          <TokenDetails details={details} />
+        </TabPane>
+        <TabPane tab="Bids" key={nextId()}>
+          <TokenBids bids={bids} />
+        </TabPane>
+      </Tabs>
+    );
+  },
+);
 
 export default TokenTabs;

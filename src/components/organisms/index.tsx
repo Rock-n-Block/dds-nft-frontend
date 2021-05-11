@@ -26,3 +26,4 @@ export { default as AuctionModal } from './AuctionModal';
 export { default as UserPreview } from './UserPreview';
 export { default as UserPopover } from './UserPopover';
 export { default as UserCollections } from './UserCollections';
+export { default as PutOnSaleModal } from './PutOnSaleModal';

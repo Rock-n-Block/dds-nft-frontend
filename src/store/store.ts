@@ -29,6 +29,7 @@ export const Store = RootModel.create({
     auction: {
       isOpen: false,
     },
+    putOnSale: {},
   },
   user: {
     address: '',

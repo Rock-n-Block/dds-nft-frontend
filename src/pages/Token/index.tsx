@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
-import { TokenTabs, AuctionModal } from '../../components/organisms';
+import { TokenTabs, AuctionModal, PutOnSaleModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import { useMst } from '../../store/store';
@@ -397,16 +397,15 @@ const Token: React.FC = observer(() => {
                   ) : (
                     ''
                   )}
-                  {tokenData.price && !tokenData.selling ? (
-                    <Button className="token__btns-item" colorScheme="white" shadow size="md">
-                      Put on sale
-                    </Button>
-                  ) : (
-                    ''
-                  )}
                   {!tokenData.price && !tokenData.selling ? (
-                    <Button className="token__btns-item" colorScheme="white" shadow size="md">
-                      Start auction
+                    <Button
+                      className="token__btns-item"
+                      colorScheme="white"
+                      shadow
+                      size="md"
+                      onClick={modals.putOnSale.open}
+                    >
+                      Put on sale
                     </Button>
                   ) : (
                     ''
@@ -469,6 +468,7 @@ const Token: React.FC = observer(() => {
         token={{ name: tokenData.name ?? '', id: tokenData.id }}
         artist={tokenData.creator}
       />
+      <PutOnSaleModal />
     </div>
   );
 });

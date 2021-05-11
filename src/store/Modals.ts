@@ -1,5 +1,18 @@
 import { types } from 'mobx-state-tree';
 
+const PutOnSaleModal = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
+
 const TermsModal = types
   .model({
     isOpen: types.boolean,
@@ -90,4 +103,5 @@ export const Modals = types.model({
   verify: VerifyModal,
   success: SuccessModal,
   auction: AuctionModal,
+  putOnSale: PutOnSaleModal,
 });
