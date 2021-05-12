@@ -23,6 +23,13 @@ export default {
   like: (data: { id: number | undefined }) =>
     axios.post(`account/self/${localStorage.dds_token}/like/`, data),
   verifyMe: (data: any) => axios.post('/account/verification/', data),
+  setUserCover: (file: any) => {
+    const data = new FormData();
+    data.append('auth_token', localStorage.dds_token);
+    data.append('cover', file);
+    return axios.post('/account/set_user_cover/', data);
+  },
+  getRandomCover: () => axios.get('/account/get_random_cover/'),
   unfollow: (
     data: { id: number | undefined }, // TODO: remove if follow and unfollow united
   ) => axios.post(`account/self/${localStorage.dds_token}/unfollow/`, data),

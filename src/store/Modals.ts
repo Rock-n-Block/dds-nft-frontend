@@ -74,6 +74,18 @@ const AuctionModal = types
       self.isOpen = false;
     },
   }));
+const UploadCoverModal = types
+  .model({
+    isOpen: types.boolean,
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 
 const MetamaskModal = types
   .model({
@@ -103,5 +115,6 @@ export const Modals = types.model({
   verify: VerifyModal,
   success: SuccessModal,
   auction: AuctionModal,
+  uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,
 });

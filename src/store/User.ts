@@ -26,6 +26,7 @@ export const User = types
     follows: types.optional(types.array(Follower), []),
     follows_count: types.optional(types.maybeNull(types.number), null),
     id: types.optional(types.union(types.number, types.string, types.null), null),
+    cover: types.optional(types.maybeNull(types.string), null),
     is_verificated: types.boolean,
     likes: types.optional(types.array(types.number), []),
     site: types.optional(types.maybeNull(types.string), null),
@@ -39,6 +40,9 @@ export const User = types
     const setBalance = (value: string, currency: 'eth' | 'weth') => {
       if (currency === 'eth') self.balance.eth = value;
       if (currency === 'weth') self.balance.weth = value;
+    };
+    const setCover = (img: string) => {
+      self.cover = img;
     };
     const update = (userData: any) => {
       applySnapshot(self, userData);
@@ -63,6 +67,7 @@ export const User = types
     return {
       setAddress,
       setBalance,
+      setCover,
       update,
       getMe,
       disconnect,

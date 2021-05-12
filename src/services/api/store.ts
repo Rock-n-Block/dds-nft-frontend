@@ -31,4 +31,11 @@ export default {
         page: data.page,
       },
     ),
+  setCollectionCover: (file: any, id: string) => {
+    const data = new FormData();
+    data.append('id', id);
+    data.append('auth_token', localStorage.dds_token);
+    data.append('cover', file);
+    return axios.post('/store/set_cover/', data);
+  },
 };

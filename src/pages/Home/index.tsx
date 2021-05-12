@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
 import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
-import PreviewImg from '../../assets/img/mock/home-preview.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
 import { Explore, HotBids, HotCollections, Search, TopUsers } from '../../components/organisms';
-import { storeApi } from '../../services/api';
+import { storeApi, userApi } from '../../services/api';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -14,6 +13,7 @@ import './Home.scss';
 
 const Home: React.FC = () => {
   const [collections, setCollections] = useState<any>([]);
+  const [cover, setCover] = useState<any>({});
   const hotBids = [
     {
       img: HotImg,
@@ -157,20 +157,32 @@ const Home: React.FC = () => {
         console.log(err, 'get collections');
       });
   };
+  const loadRandomCover = () => {
+    userApi
+      .getRandomCover()
+      .then(({ data }) => {
+        setCover(data);
+      })
+      .catch((err) => {
+        console.log(err, 'get collections');
+      });
+  };
   React.useEffect(() => {
     loadCollections();
+    loadRandomCover();
   }, []);
   return (
     <main className="home">
       <div
         className="home__preview"
-        style={{ backgroundImage: `url(${ShadowImg}), url(${PreviewImg})` }}
+        style={{ backgroundImage: `url(${ShadowImg}), url(https://${cover.cover})` }}
       >
         <div className="home__preview-owner">
           <UserMini
-            img={PreviewOwnerImg}
+            id={cover.id}
+            img={cover.avatar}
             topText={<span className="text-gray text-mm text-upper">Owner</span>}
-            bottomText={<span className="text-purple-l">DicraKiller</span>}
+            bottomText={<span className="text-purple-l">{cover.owner}</span>}
           />
         </div>
         <div className="home__preview-search">
