@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
 import { UserMini } from '../../atoms';
 
 import './ActivityCard.scss';
-import moment from 'moment';
 
 export interface IActivityCard {
   tokenId: string | number;

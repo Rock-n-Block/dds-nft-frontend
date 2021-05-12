@@ -1,8 +1,10 @@
 import React from 'react';
-import { Modal } from '../index';
 import { observer } from 'mobx-react-lite';
+
 import { useMst } from '../../../store/store';
 import { Uploader } from '../../organisms';
+import { Modal } from '../index';
+
 import './UploadCoverModal.scss';
 
 interface UploadCoverModalProps {

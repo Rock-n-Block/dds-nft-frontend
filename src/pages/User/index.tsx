@@ -7,6 +7,7 @@ import followingUserAvatar from '../../assets/img/mock/following-user.png';
 import firstCard from '../../assets/img/mock/user-activity-card.png';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { PageOverview } from '../../components/molecules';
+import PageCover from '../../components/molecules/PageCover';
 import {
   UserActivity,
   UserCollectibles,
@@ -20,7 +21,6 @@ import { storeApi, userApi } from '../../services/api';
 import { useMst } from '../../store/store';
 
 import './User.scss';
-import PageCover from '../../components/molecules/PageCover';
 
 interface INewUser {
   id: number | string | null;

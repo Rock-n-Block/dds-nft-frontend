@@ -1,13 +1,15 @@
 .cover {
+  position: relative;
+
   min-height: 200px;
 
   background-size: cover;
-  position: relative;
-  &__edit-btn{
 
+  &__edit-btn {
     position: absolute !important;
-    bottom: -17px;
     right: 50px;
+    bottom: -17px;
+
     /*
 
     @include b('mobile') {

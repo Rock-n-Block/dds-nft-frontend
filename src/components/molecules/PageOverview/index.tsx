@@ -37,10 +37,7 @@ const PageOverview: React.FC<PageOverviewProps> = ({
   socialNetworks,
   parentComponent,
 }) => {
-
-  const [follow, setFollow] = useState<boolean>(
-    follows,
-  );
+  const [follow, setFollow] = useState<boolean>(follows);
 
   const handleUnfollow = () => {
     userApi

@@ -13,9 +13,9 @@ import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
+import { ISortItem } from '../Sort';
 
 import './Explore.scss';
-import { ISortItem } from '../Sort';
 
 const Explore: React.FC = () => {
   const [explore, setExplore] = useState<any>({});

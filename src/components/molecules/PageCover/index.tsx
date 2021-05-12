@@ -1,10 +1,12 @@
 import React from 'react';
-import './PageCover.scss';
-import ShadowImg from '../../../assets/img/shadow.png';
-import { Button } from '../../atoms';
 import { observer } from 'mobx-react-lite';
+
+import ShadowImg from '../../../assets/img/shadow.png';
 import { useMst } from '../../../store/store';
+import { Button } from '../../atoms';
 import UploadCoverModal from '../UploadCoverModal';
+
+import './PageCover.scss';
 
 interface PageCoverProps {
   img: string;

@@ -1,15 +1,17 @@
-.m-upload-cover{
-  &__content{
-
+.m-upload-cover {
+  &__content {
     padding: 40px 20px 20px;
 
     background: #fff;
   }
-  &__text{
-    margin:20px 0;
+
+  &__text {
+    margin: 20px 0;
+
     max-width: 400px;
   }
-  &__upload-btn{
+
+  &__upload-btn {
     display: flex;
     justify-content: center;
   }

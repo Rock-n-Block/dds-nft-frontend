@@ -2,16 +2,17 @@ import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
 import { Masonry, useInfiniteLoader } from 'masonic';
+import { observer } from 'mobx-react-lite';
+
 import HotImg from '../../assets/img/mock/hot.jpg';
+import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { NoItemsFound } from '../../components/atoms';
 import { NFTCard, PageOverview } from '../../components/molecules';
+import PageCover from '../../components/molecules/PageCover';
 import { storeApi } from '../../services/api';
+import { useMst } from '../../store/store';
 
 import './Collections.scss';
-import PageCover from '../../components/molecules/PageCover';
-import userAvatar from '../../assets/img/mock/user-avatar.png';
-import { observer } from 'mobx-react-lite';
-import { useMst } from '../../store/store';
 
 const { TabPane } = Tabs;
 const Collections: React.FC = observer(() => {
