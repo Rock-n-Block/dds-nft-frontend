@@ -4,23 +4,27 @@ import { observer } from 'mobx-react';
 
 import { validateForm } from '../../../utils/validate';
 import PlaceBid, { IPlaceBid } from '../component';
+import { storeApi } from '../../../services/api';
 
 interface PlaceBidFormProps {
   balance?: { value: string; currency: string };
   fee?: { value: string; currency: string };
   total?: { value: string; currency: string };
+  available?: number;
+  tokenId: string;
 }
 
-const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, total }) => {
+const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, tokenId }) => {
+  console.log(balance, 'balance');
   const FormWithFormik = withFormik<any, IPlaceBid>({
     enableReinitialize: true,
     mapPropsToValues: () => {
       return {
-        bid: { value: '', currency: '' },
+        bid: '',
         quantity: '',
         balance: balance ?? { value: '', currency: '' },
         fee: fee ?? { value: '', currency: '' },
-        total: total ?? { value: '', currency: '' },
+        available: available || 0,
       };
     },
     validate: (values) => {
@@ -28,11 +32,14 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, total }) => {
       return errors;
     },
     handleSubmit: (values) => {
-      console.log(values);
-      const formData = new FormData();
-      formData.append('bid', values.bid.value);
-      formData.append('currency', values.bid.currency);
-      formData.append('quantity', values.quantity);
+      storeApi
+        .createBid(tokenId, values.bid, available === 1 ? '1' : values.quantity)
+        .then((res: any) => {
+          console.log(res, 'bid');
+        })
+        .catch((err: any) => {
+          console.log(err, 'bid');
+        });
     },
     displayName: 'PlaceBid',
   })(PlaceBid);

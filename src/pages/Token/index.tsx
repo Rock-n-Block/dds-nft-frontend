@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
-import { AuctionModal, PutOnSaleModal, TokenTabs } from '../../components/organisms';
+import { PutOnSaleModal, TokenTabs } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
@@ -30,13 +30,14 @@ interface IToken {
   id: number;
   media: string;
   name: string;
-  owners: IUser; // TODO: array of owners
+  owners: IUser[]; // TODO: array of owners
   tags: Array<string>;
   price: number;
   royalty: number;
   selling: true;
   standart: 'ERC721';
   totalSupply: number;
+  serviceFee: number;
 }
 interface IUser {
   id: number;
@@ -164,6 +165,7 @@ const Token: React.FC = observer(() => {
   const [tokenData, setTokenData] = React.useState<IToken>({} as IToken);
   const [isApproved, setApproved] = React.useState<boolean>(false);
   const [isLoading, setLoading] = React.useState<boolean>(false);
+  const [isMyToken, setMyToken] = React.useState<boolean>(false);
 
   const [isLike, setIsLike] = useState<boolean>(
     !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id),
@@ -224,7 +226,18 @@ const Token: React.FC = observer(() => {
   };
 
   const handleBid = (): void => {
-    modals.auction.open();
+    modals.auction.open({
+      token: {
+        id: tokenData.id.toString(),
+        name: tokenData.name || '',
+      },
+      artist: {
+        id: tokenData.creator.id,
+        name: tokenData.creator.name || '',
+      },
+      available: tokenData.available,
+      fee: tokenData.serviceFee,
+    });
   };
 
   const handleLike = (): void => {
@@ -264,13 +277,21 @@ const Token: React.FC = observer(() => {
           selling: tokendata.selling,
           standart: tokendata.standart,
           totalSupply: tokendata.total_supply,
+          serviceFee: tokendata.service_fee,
         });
-        console.log(tokendata);
       })
       .catch((err: any) => {
         console.log(err, 'get token');
       });
   }, [token]);
+
+  useEffect(() => {
+    if (Object.keys(tokenData).length) {
+      if (tokenData.owners.find((owner: IUser) => owner.id === user.id)) {
+        setMyToken(true);
+      }
+    }
+  }, [tokenData, user.id]);
 
   useEffect(() => {
     if (user.address) {
@@ -352,7 +373,7 @@ const Token: React.FC = observer(() => {
                 </div>
               </div>
             </div>
-            {user.address && (
+            {user.address && !isMyToken && (
               <div className="token__btns">
                 <div className="token__btns-container">
                   {tokenData.price && tokenData.selling ? (
@@ -385,15 +406,30 @@ const Token: React.FC = observer(() => {
                     ''
                   )}
                   {!tokenData.price && tokenData.selling ? (
-                    <Button
-                      colorScheme="gradient"
-                      shadow
-                      size="md"
-                      className="token__btns-item"
-                      onClick={handleBid}
-                    >
-                      <span className="text-white text-bold">Place a bid</span>
-                    </Button>
+                    <div className="token__btns-wrapper">
+                      {isApproved ? (
+                        <Button
+                          colorScheme="gradient"
+                          shadow
+                          size="md"
+                          className="token__btns-item"
+                          onClick={handleBid}
+                        >
+                          <span className="text-white text-bold">Place a bid</span>
+                        </Button>
+                      ) : (
+                        <Button
+                          colorScheme="gradient"
+                          shadow
+                          size="md"
+                          loading={isLoading}
+                          className="token__btns-item"
+                          onClick={handleApprove}
+                        >
+                          <span className="text-bold">Approve Token</span>
+                        </Button>
+                      )}
+                    </div>
                   ) : (
                     ''
                   )}
@@ -454,9 +490,8 @@ const Token: React.FC = observer(() => {
           <div className="token__content-right">
             <TokenTabs
               artist={tokenData.creator}
-              owner={tokenData.owners} // TODO: owner later
               collection={{ col: tokenData.collection, standart: tokenData.standart }}
-              owners={mockData.owners}
+              owners={tokenData.owners}
               history={mockData.history}
               details={mockData.details}
               bids={[]}
@@ -464,10 +499,6 @@ const Token: React.FC = observer(() => {
           </div>
         </div>
       </div>
-      <AuctionModal
-        token={{ name: tokenData.name ?? '', id: tokenData.id }}
-        artist={tokenData.creator}
-      />
       <PutOnSaleModal />
     </div>
   );

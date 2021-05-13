@@ -1,15 +1,16 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 import { FormikProps } from 'formik';
+import BigNumber from 'bignumber.js/bignumber';
 
 import { Button } from '../../../components/atoms';
 
 export interface IPlaceBid {
-  bid: { value: string; currency: string };
+  bid: string;
   quantity: string;
   balance: { value: string; currency: string };
   fee: { value: string; currency: string };
-  total: { value: string; currency: string };
+  available: number;
 }
 
 const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
@@ -24,7 +25,7 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
   return (
     <Form name="form-auction" className="form-auction" layout="vertical">
       <Form.Item
-        name="bid"
+        name="bid.value"
         className="form-auction__item input__field"
         initialValue={values.bid}
         label={<span className="input__label text-bold">Your bid</span>}
@@ -32,8 +33,8 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
         <div className="input__field-create box-shadow">
           <Input
             id="bid"
-            value={values.bid.value}
-            suffix={values.bid.currency ? values.bid.currency : 'ETH'}
+            value={values.bid}
+            suffix="WETH"
             className="form-auction__input input input__create text-bold text-smd"
             size="large"
             type="text"
@@ -43,25 +44,33 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
           />
         </div>
       </Form.Item>
-      <Form.Item
-        name="quantity"
-        className="form-auction__item input__field"
-        initialValue={values.quantity}
-        label={<span className="input__label text-bold">Enter quantity (10 available)</span>}
-      >
-        <div className="input__field-create box-shadow">
-          <Input
-            id="quantity"
-            value={values.quantity}
-            className="form-auction__input input input__create text-bold text-smd"
-            size="large"
-            type="text"
-            placeholder="1"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </div>
-      </Form.Item>
+      {values.available > 1 ? (
+        <Form.Item
+          name="quantity"
+          className="form-auction__item input__field"
+          initialValue={values.quantity}
+          label={
+            <span className="input__label text-bold">
+              Enter quantity ({values.available} available)
+            </span>
+          }
+        >
+          <div className="input__field-create box-shadow">
+            <Input
+              id="quantity"
+              value={values.quantity}
+              className="form-auction__input input input__create text-bold text-smd"
+              size="large"
+              type="text"
+              placeholder="1"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </div>
+        </Form.Item>
+      ) : (
+        ''
+      )}
       <div className="form-auction__overview">
         <p className="form-auction__overview-item text text-bold">
           <span className="text-gray-l">Your balance </span>
@@ -80,8 +89,14 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
         <p className="form-auction__overview-item text text-bold">
           <span className="text-gray-l">Total bid amount </span>
           <span className="text-pink-l">
-            {values.total.value ? values.total.value : '0.0'}{' '}
-            {values.total.currency ? values.total.currency : 'ETH'}
+            {values.bid
+              ? new BigNumber(values.bid)
+                  .plus(
+                    new BigNumber(values.bid).times(new BigNumber(values.fee.value).dividedBy(100)),
+                  )
+                  .toFixed()
+              : 0}{' '}
+            WETH
           </span>
         </p>
       </div>

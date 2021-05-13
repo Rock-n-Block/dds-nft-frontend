@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
 import { Button, Like, UserMini } from '../../atoms';
-import { AuctionModal } from '../../organisms';
 
 import './NFTCard.scss';
 
@@ -35,14 +34,28 @@ export interface INFTCard {
     avatar?: string;
   };
   disableLinks?: boolean;
+
+  available?: number;
+  selling?: boolean;
+  price?: number | null;
 }
 
 const NFTCard: React.FC<INFTCard> = observer(
-  ({ img, name, id, auction, artist, owner, bid, disableLinks }) => {
+  ({ img, name, id, artist, owner, disableLinks, available, selling, price }) => {
     const { user, modals } = useMst();
 
     const handleOpenModal = (): void => {
-      modals.auction.open();
+      modals.auction.open({
+        token: {
+          id,
+          name,
+        },
+        artist: {
+          id: artist.id,
+          name: artist.name,
+        },
+        available,
+      });
     };
     const [isLike, setIsLike] = useState<boolean>(
       !!user.likes.find((likedTokenId) => likedTokenId === id),
@@ -86,19 +99,20 @@ const NFTCard: React.FC<INFTCard> = observer(
                 {name}
               </Link>
             )}
-            {auction ? (
+            {!price && selling ? (
               <>
                 <div className="nft-card__auction">
                   <div className="nft-card__auction-text text-purple-l text-bold">Auction</div>
                   <div className="nft-card__auction-text text-gray text-bold">
-                    {auction?.sold} of {auction?.count}
+                    {available} of {available}
                   </div>
                 </div>
                 <div className="nft-card__auction nft-card__auction-bid">
                   <div className="nft-card__auction-text text-gray text-bold">Highest bid</div>
                   <div className="nft-card__auction-bid-box box-shadow">
                     <span className="text-grad text-bold">
-                      {new BigNumber(auction?.bid).toFixed()} ETH
+                      bid ETH
+                      {/* {new BigNumber(auction?.bid).toFixed()} ETH */}
                     </span>
                   </div>
                 </div>
@@ -106,39 +120,49 @@ const NFTCard: React.FC<INFTCard> = observer(
             ) : (
               ''
             )}
-            {bid ? (
-              <>
-                <div className="nft-card__auction">
-                  <div className="nft-card__auction-bid-box box-shadow">
-                    {bid.price ? (
-                      <span className="text-grad text-bold">
-                        {new BigNumber(bid?.price).toFixed(5) === '0.00000'
-                          ? '0'
-                          : new BigNumber(bid?.price).toFixed()}{' '}
-                        ETH
-                      </span>
-                    ) : (
-                      <span className="text-grad text-bold">Not for sale</span>
-                    )}
-                  </div>
-                  <div className="nft-card__auction-text text-gray text-bold">
-                    {bid?.sold} of {bid?.count}
-                  </div>
+
+            {!selling ? (
+              <div className="nft-card__auction">
+                <div className="nft-card__auction-bid-box box-shadow">
+                  <span className="text-grad text-bold">Not for sale</span>
                 </div>
-                <div className="nft-card__auction">
-                  {disableLinks ? (
-                    <div className="text-bold text-purple-l">
-                      <Button colorScheme="clear" onClick={handleOpenModal}>
-                        Place a bid
-                      </Button>
-                    </div>
-                  ) : (
+              </div>
+            ) : (
+              ''
+            )}
+
+            {price && selling ? (
+              <div className="nft-card__auction">
+                <div className="nft-card__auction-bid-box box-shadow">
+                  <span className="text-grad text-bold">
+                    {new BigNumber(price).toFixed(5) === '0.00000'
+                      ? '0'
+                      : new BigNumber(price).toFixed()}
+                    ETH
+                  </span>
+                </div>
+                <div className="nft-card__auction-text text-gray text-bold">
+                  {available} of {available}
+                </div>
+              </div>
+            ) : (
+              ''
+            )}
+
+            {!price && selling ? (
+              <div className="nft-card__auction">
+                {disableLinks ? (
+                  <div className="text-bold text-purple-l">
                     <Button colorScheme="clear" onClick={handleOpenModal}>
-                      <span className="text-bold text-purple-l">Place a bid</span>
+                      Place a bid
                     </Button>
-                  )}
-                </div>
-              </>
+                  </div>
+                ) : (
+                  <Button colorScheme="clear" onClick={handleOpenModal}>
+                    <span className="text-bold text-purple-l">Place a bid</span>
+                  </Button>
+                )}
+              </div>
             ) : (
               ''
             )}
@@ -169,7 +193,6 @@ const NFTCard: React.FC<INFTCard> = observer(
             )}
           </div>
         </div>
-        <AuctionModal token={{ name, id }} artist={artist} />
       </div>
     );
   },

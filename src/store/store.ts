@@ -27,7 +27,14 @@ export const Store = RootModel.create({
       successMsg: '',
     },
     auction: {
-      isOpen: false,
+      token: {
+        id: '',
+        name: '',
+      },
+      artist: {
+        id: '',
+        name: '',
+      },
     },
     uploadCover: {
       isOpen: false,

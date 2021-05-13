@@ -12,18 +12,7 @@ import { Modal } from '../../molecules';
 
 import './AuctionModal.scss';
 
-interface AuctionModalProps {
-  token?: {
-    name: string;
-    id?: number | string;
-  };
-  artist?: {
-    name: string;
-    id?: number | string;
-  };
-}
-
-const AuctionModal: React.FC<AuctionModalProps> = observer(({ token, artist }) => {
+const AuctionModal: React.FC = observer(() => {
   const walletConnector = useWalletConnectorContext();
   const { modals, user } = useMst();
 
@@ -45,7 +34,7 @@ const AuctionModal: React.FC<AuctionModalProps> = observer(({ token, artist }) =
 
   return (
     <Modal
-      isVisible={modals.auction.isOpen}
+      isVisible={modals.auction.getIsOpen}
       className="m-auction"
       handleCancel={handleClose}
       width={380}
@@ -58,19 +47,25 @@ const AuctionModal: React.FC<AuctionModalProps> = observer(({ token, artist }) =
         <h2 className="text-grad text-xl text-bold">Place a bid</h2>
         <p className="m-auction__description text-gray text-bold">
           You are about to place a bid for the&nbsp;
-          <Link to={`/token/${token?.id}`} className="text-purple">
-            {token?.name}
+          <Link to={`/token/${modals.auction.token?.id}`} className="text-purple">
+            {modals.auction.token?.name}
           </Link>
           &nbsp;by&nbsp;
-          <Link to={`/user/${artist?.id}`} className="text-purple">
-            {artist?.name}
+          <Link to={`/user/${modals.auction.artist?.id}`} className="text-purple">
+            {modals.auction.artist?.name}
           </Link>
         </p>
         <PlaceBidForm
           balance={{
-            value: user.balance?.weth ?? 0,
+            value: user.balance?.weth,
             currency: 'WETH',
           }}
+          fee={{
+            value: modals.auction.fee.toString(),
+            currency: '%',
+          }}
+          available={modals.auction.available}
+          tokenId={modals.auction.token.id}
         />
       </div>
     </Modal>

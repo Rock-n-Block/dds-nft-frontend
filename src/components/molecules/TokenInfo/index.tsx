@@ -5,7 +5,7 @@ import { UserMini } from '../../atoms';
 import './TokenInfo.scss';
 
 interface TokenInfoProps {
-  owner: IUser;
+  owners: IUser[];
   artist: IUser;
   collection: { col: IUser; standart: string };
 }
@@ -15,16 +15,22 @@ interface IUser {
   avatar: string;
   name: string;
 }
-const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
+const TokenInfo: React.FC<TokenInfoProps> = ({ owners, artist, collection }) => {
   return (
     <div className="token-tab token-info">
-      <UserMini
-        img={owner?.avatar}
-        id={owner?.id}
-        imgSize="lg"
-        topText={<span className="text text-gray text-sm text-upper text-regular">owner</span>}
-        bottomText={<span className="text text-purple-l text-smd text-bold">{owner?.name}</span>}
-      />
+      {owners &&
+        owners.length &&
+        owners.map((owner) => (
+          <UserMini
+            img={owner?.avatar}
+            id={owner?.id}
+            imgSize="lg"
+            topText={<span className="text text-gray text-sm text-upper text-regular">owner</span>}
+            bottomText={
+              <span className="text text-purple-l text-smd text-bold">{owner?.name}</span>
+            }
+          />
+        ))}
       <UserMini
         img={artist?.avatar}
         id={artist?.id}

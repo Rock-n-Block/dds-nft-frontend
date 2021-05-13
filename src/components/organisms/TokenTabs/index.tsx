@@ -11,14 +11,13 @@ import './TokenTabs.scss';
 const { TabPane } = Tabs;
 
 interface TokenTabsProps {
-  owner: IUser;
   artist: IUser;
   collection: { col: IUser; standart: string };
   cost?: number;
   history: Array<IUserMini>;
   details: Array<IDetail>;
   bids: Array<IUserMini>;
-  owners: Array<IUserMini>;
+  owners: Array<IUser>;
 }
 interface IUser {
   id: number;
@@ -27,11 +26,11 @@ interface IUser {
 }
 
 const TokenTabs: React.FC<TokenTabsProps> = React.memo(
-  ({ artist, owner, collection, owners, history, details, bids }) => {
+  ({ artist, collection, owners, history, details, bids }) => {
     return (
       <Tabs className="tabs">
         <TabPane tab="Info" key={nextId()}>
-          <TokenInfo artist={artist} owner={owner} collection={collection} />
+          <TokenInfo artist={artist} owners={owners} collection={collection} />
         </TabPane>
         <TabPane tab="Owners" key={nextId()}>
           <TokenOwners owners={owners} />

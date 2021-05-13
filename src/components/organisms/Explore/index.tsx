@@ -51,6 +51,9 @@ const Explore: React.FC = () => {
           id: data.owner.id,
           avatar: data.owner.avatar,
         }}
+        available={data.available}
+        selling={data.selling}
+        price={data.price}
       />
     );
   };

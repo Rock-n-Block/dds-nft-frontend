@@ -1,7 +1,14 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Footer, Header, MetamaskErrModal, SuccessModal, TermsModal } from './components/organisms';
+import {
+  Footer,
+  Header,
+  MetamaskErrModal,
+  SuccessModal,
+  TermsModal,
+  AuctionModal,
+} from './components/organisms';
 import {
   ActivityPage,
   CollectionsPage,
@@ -66,6 +73,7 @@ const App: React.FC = () => {
       <TermsModal />
       <MetamaskErrModal />
       <SuccessModal />
+      <AuctionModal />
     </div>
   );
 };

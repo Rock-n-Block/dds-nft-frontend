@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
 
 const PutOnSaleModal = types
   .model({
@@ -64,16 +64,39 @@ const VerifyModal = types
   }));
 const AuctionModal = types
   .model({
-    isOpen: types.boolean,
+    token: types.model({
+      name: types.optional(types.string, ''),
+      id: types.optional(types.string, ''),
+    }),
+    artist: types.model({
+      name: types.optional(types.string, ''),
+      id: types.optional(types.union(types.string, types.number), ''),
+    }),
+    available: types.optional(types.number, 0),
+    fee: types.optional(types.number, 0),
   })
-  .actions((self) => ({
-    open() {
-      self.isOpen = true;
+  .views((self) => ({
+    get getIsOpen() {
+      if (self.token.name && self.token.id && self.artist.id) {
+        return true;
+      }
+      return false;
     },
-    close() {
-      self.isOpen = false;
-    },
-  }));
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (data: any) => {
+        applySnapshot(self, data);
+      },
+    };
+  });
 const UploadCoverModal = types
   .model({
     isOpen: types.boolean,
