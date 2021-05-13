@@ -12,23 +12,26 @@ interface PageCoverProps {
   img: string;
   self: boolean;
   handleUpload?: (file: any) => void;
+  isLoading: boolean;
 }
 
-const PageCover: React.FC<PageCoverProps> = observer(({ img, handleUpload, self = false }) => {
-  const { modals } = useMst();
-  const handleClick = () => {
-    modals.uploadCover.open();
-  };
-  return (
-    <div className="cover" style={{ backgroundImage: `url(${ShadowImg}), url(https://${img})` }}>
-      {self && (
-        <Button size="sm" colorScheme="white" className="cover__edit-btn" onClick={handleClick}>
-          Edit cover
-        </Button>
-      )}
-      <UploadCoverModal handleUpload={handleUpload} />
-    </div>
-  );
-});
+const PageCover: React.FC<PageCoverProps> = observer(
+  ({ img, handleUpload, self = false, isLoading = false }) => {
+    const { modals } = useMst();
+    const handleClick = () => {
+      modals.uploadCover.open();
+    };
+    return (
+      <div className="cover" style={{ backgroundImage: `url(${ShadowImg}), url(https://${img})` }}>
+        {self && (
+          <Button size="sm" colorScheme="white" className="cover__edit-btn" onClick={handleClick}>
+            Edit cover
+          </Button>
+        )}
+        <UploadCoverModal handleUpload={handleUpload} isLoading={isLoading} />
+      </div>
+    );
+  },
+);
 
 export default PageCover;
