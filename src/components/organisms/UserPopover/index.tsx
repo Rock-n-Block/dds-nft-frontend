@@ -63,10 +63,12 @@ const UserPopover: React.FC = observer(() => {
                 <img src={EthImg} alt="" />
               </div>
               <div className="u-popover__swap-item-content">
-                <div className="u-popover__swap-item-title text-purple text-bold">Balance</div>
+                <div className="u-popover__swap-item-title text-purple text-bold">
+                  Bidding balance
+                </div>
                 <div className="u-popover__swap-item-wrapper">
                   <div className="text-bold u-popover__swap-item-currency">
-                    {user.balance?.weth ?? 0} DETH
+                    {user.balance?.weth ?? 0} WETH
                   </div>
                   <div className="text-gray u-popover__swap-item-currency">$0.00</div>
                 </div>
