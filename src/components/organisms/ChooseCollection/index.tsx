@@ -132,7 +132,7 @@ const ChooseCollection: React.FC<IChooseCollection> = observer(({ items, isSingl
                     <img src={`https://${item.avatar}`} alt="dds" />
                   </div>
                   <div className="ch-coll__item-title text-md text-bold">{item.name}</div>
-                  <div className="text-bold text-gray-l">{isSingle ? 'ERC-721' : 'ERC-1185'}</div>
+                  <div className="text-bold text-gray-l">{isSingle ? 'ERC-721' : 'ERC-1155'}</div>
                 </div>
               </SwiperSlide>
             ))}
