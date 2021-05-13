@@ -18,6 +18,7 @@ const { TabPane } = Tabs;
 const Collections: React.FC = observer(() => {
   const [collection, setCollection] = React.useState<any>({});
   const [collectionForSale, setCollectionForSale] = React.useState<any>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { user, modals } = useMst();
   const { collectionId } = useParams<{ collectionId: string | undefined }>();
@@ -101,10 +102,13 @@ const Collections: React.FC = observer(() => {
   );
 
   const handleUpload = (file: any) => {
+    setIsLoading(true);
     storeApi
       .setCollectionCover(file, collectionId ?? '0')
       .then(({ data }) => {
+        setIsLoading(false);
         modals.uploadCover.close();
+        modals.success.setSuccessMsg('Congrats you changed collection cover!');
         setCollection((prevState: any) => {
           return {
             ...prevState,
@@ -121,7 +125,12 @@ const Collections: React.FC = observer(() => {
   }, [loadCollection]);
   return (
     <div className="collections">
-      <PageCover self={self} img={collection?.cover ?? ''} handleUpload={handleUpload} />
+      <PageCover
+        self={self}
+        img={collection?.cover ?? ''}
+        handleUpload={handleUpload}
+        isLoading={isLoading}
+      />
       <div className="row">
         <PageOverview
           id={collection?.id}

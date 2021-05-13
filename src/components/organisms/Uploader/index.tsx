@@ -12,12 +12,14 @@ interface IUploader extends IColorScheme, ISize {
   type?: 'area' | 'button';
   handleUpload?: (file: any) => void;
   className?: string;
+  isLoading?: boolean;
 }
 
 const Uploader: React.FC<IUploader> = ({
   type = 'area',
   colorScheme = 'outline',
   size = 'sm',
+  isLoading = false,
   className,
   handleUpload,
   children,
@@ -109,7 +111,7 @@ const Uploader: React.FC<IUploader> = ({
           multiple={false}
           showUploadList={false}
         >
-          <Button colorScheme={colorScheme} size={size}>
+          <Button colorScheme={colorScheme} size={size} loading={isLoading}>
             Choose file
           </Button>
         </Upload>

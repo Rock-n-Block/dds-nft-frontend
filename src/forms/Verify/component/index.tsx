@@ -336,6 +336,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
               size="md"
               className="m-verify__start-btn"
               onClick={onSubmit}
+              loading={values.isLoading}
             >
               Finish
             </Button>
