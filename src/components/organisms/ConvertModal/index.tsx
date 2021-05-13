@@ -17,8 +17,8 @@ const ConvertModal: React.FC = observer(() => {
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
   const [value, setValue] = useState<string>('0');
-  const [swappingCurrency, setSwappingCurrency] = useState<Array<'ETH' | 'dETH'>>(['ETH', 'dETH']);
-
+  const [swappingCurrency, setSwappingCurrency] = useState<Array<'ETH' | 'WETH'>>(['ETH', 'WETH']);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const loseFocus = (e: any) => {
     // TODO: change any
     if (e.key === 'Enter') {
@@ -37,18 +37,21 @@ const ConvertModal: React.FC = observer(() => {
   };
   const handleConvert = (): void => {
     if (swappingCurrency[0] === 'ETH') {
-      setSwappingCurrency(['dETH', 'ETH']);
+      setSwappingCurrency(['WETH', 'ETH']);
     } else {
-      setSwappingCurrency(['ETH', 'dETH']);
+      setSwappingCurrency(['ETH', 'WETH']);
     }
     setValue('0');
   };
   const handleSubmitConvert = (): void => {
     const weiValue = MetamaskService.calcTransactionAmount(value, 18);
+    setIsLoading(true);
     if (swappingCurrency[0] === 'ETH') {
       walletConnector.metamaskService
         .createTransaction('deposit', [], 'WETH', '', '', '', weiValue)
         .then(() => {
+          setIsLoading(false);
+
           user.setBalance(
             new BigNumber(user.balance.eth).minus(new BigNumber(value)).toString(10),
             'eth',
@@ -57,9 +60,13 @@ const ConvertModal: React.FC = observer(() => {
             new BigNumber(user.balance.weth).plus(new BigNumber(value)).toString(10),
             'weth',
           );
+          modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
+          modals.convert.close();
         });
     } else {
       walletConnector.metamaskService.createTransaction('withdraw', [weiValue], 'WETH').then(() => {
+        setIsLoading(false);
+
         user.setBalance(
           new BigNumber(user.balance.eth).plus(new BigNumber(value)).toString(10),
           'eth',
@@ -68,9 +75,10 @@ const ConvertModal: React.FC = observer(() => {
           new BigNumber(user.balance.weth).minus(new BigNumber(value)).toString(10),
           'weth',
         );
+        modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
+        modals.convert.close();
       });
     }
-    modals.convert.close();
   };
   return (
     <Modal
@@ -143,6 +151,7 @@ const ConvertModal: React.FC = observer(() => {
             colorScheme="gradient"
             className="m-convert__convert-btn"
             disabled={!checkValid(value)}
+            loading={isLoading}
           >
             Convert
           </Button>
