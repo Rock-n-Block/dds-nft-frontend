@@ -34,7 +34,7 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, royalty, collectio
         bottomText={<span className="text text-purple-l text-smd text-bold">{artist?.name}</span>}
       />
       <div className="token-info__warning text text-purple-d text-bold ">
-        {royalty}% of sales will go to creator
+        {royalty ?? 0}% of sales will go to creator
       </div>
       <UserMini
         img={collection.col?.avatar}
