@@ -71,6 +71,7 @@ const Uploader: React.FC<IUploader> = ({
   const handleClear = () => {
     setImageUrl('');
     formik.setFieldValue('img', '');
+    formik.setFieldValue('preview', '');
   };
   return (
     <div className={`${className} uploader`}>
