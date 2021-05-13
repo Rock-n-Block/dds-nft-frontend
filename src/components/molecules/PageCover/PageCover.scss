@@ -1,0 +1,21 @@
+.cover {
+  position: relative;
+
+  min-height: 200px;
+
+  background-size: cover;
+
+  &__edit-btn {
+    position: absolute !important;
+    right: 50px;
+    bottom: -17px;
+
+    /*
+
+    @include b('mobile') {
+      top: -180px;
+      right: 0;
+    }
+    */
+  }
+}

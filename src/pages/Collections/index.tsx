@@ -1,24 +1,27 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
 import { Masonry, useInfiniteLoader } from 'masonic';
+import { observer } from 'mobx-react-lite';
 
-import PreviewImg from '../../assets/img/mock/home-preview.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
-import ShadowImg from '../../assets/img/shadow.png';
 import { NoItemsFound } from '../../components/atoms';
 import { NFTCard, PageOverview } from '../../components/molecules';
+import PageCover from '../../components/molecules/PageCover';
 import { storeApi } from '../../services/api';
+import { useMst } from '../../store/store';
 
 import './Collections.scss';
 
 const { TabPane } = Tabs;
-const Collections: React.FC = () => {
+const Collections: React.FC = observer(() => {
   const [collection, setCollection] = React.useState<any>({});
   const [collectionForSale, setCollectionForSale] = React.useState<any>({});
 
+  const { user, modals } = useMst();
   const { collectionId } = useParams<{ collectionId: string | undefined }>();
+  const [self, setSelf] = useState<boolean>(false);
 
   const renderCard = ({ data }: any) => {
     return (
@@ -49,6 +52,7 @@ const Collections: React.FC = () => {
       return storeApi
         .getCollectionById(collectionId ?? 0, page)
         .then(({ data }) => {
+          setSelf(user.id === data.creator.id);
           setCollection((prevCards: any) => {
             if (prevCards.tokens) {
               return {
@@ -75,7 +79,7 @@ const Collections: React.FC = () => {
           console.log(err, 'get tokens');
         });
     },
-    [collectionId],
+    [user.id, collectionId],
   );
   let prevPage = 1;
   const maybeLoadMore = useInfiniteLoader(
@@ -96,15 +100,28 @@ const Collections: React.FC = () => {
     },
   );
 
+  const handleUpload = (file: any) => {
+    storeApi
+      .setCollectionCover(file, collectionId ?? '0')
+      .then(({ data }) => {
+        modals.uploadCover.close();
+        setCollection((prevState: any) => {
+          return {
+            ...prevState,
+            cover: data,
+          };
+        });
+      })
+      .catch((err) => {
+        console.log(err, 'set cover');
+      });
+  };
   React.useEffect(() => {
     loadCollection();
   }, [loadCollection]);
   return (
     <div className="collections">
-      <div
-        className="user__cap"
-        style={{ backgroundImage: `url(${ShadowImg}), url(${PreviewImg})` }}
-      />
+      <PageCover self={self} img={collection?.cover ?? ''} handleUpload={handleUpload} />
       <div className="row">
         <PageOverview
           id={collection?.id}
@@ -150,5 +167,5 @@ const Collections: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 export default Collections;

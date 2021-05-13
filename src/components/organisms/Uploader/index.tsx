@@ -10,6 +10,7 @@ const { Dragger } = Upload;
 
 interface IUploader extends IColorScheme, ISize {
   type?: 'area' | 'button';
+  handleUpload?: (file: any) => void;
   className?: string;
 }
 
@@ -18,6 +19,7 @@ const Uploader: React.FC<IUploader> = ({
   colorScheme = 'outline',
   size = 'sm',
   className,
+  handleUpload,
   children,
 }) => {
   const formik = useFormikContext();
@@ -50,8 +52,12 @@ const Uploader: React.FC<IUploader> = ({
     if (!isLt2M) {
       return;
     }
-    formik.setFieldValue('img', file.originFileObj);
-    getBase64(file.originFileObj, (url: any) => setImageUrl(url));
+    if (handleUpload) {
+      handleUpload(file.originFileObj);
+    } else {
+      formik.setFieldValue('img', file.originFileObj);
+      getBase64(file.originFileObj, (url: any) => setImageUrl(url));
+    }
   };
   const handleClear = () => {
     setImageUrl('');

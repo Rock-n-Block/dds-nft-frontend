@@ -29,6 +29,9 @@ export const Store = RootModel.create({
     auction: {
       isOpen: false,
     },
+    uploadCover: {
+      isOpen: false,
+    },
     putOnSale: {},
   },
   user: {

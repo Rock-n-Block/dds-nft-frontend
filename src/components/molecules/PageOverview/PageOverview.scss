@@ -22,20 +22,9 @@
     }
   }
 
-  &__edit-cover {
-    position: absolute !important;
-    top: -17px;
-    right: 50px;
-    @include b('mobile') {
-      top: -180px;
-      right: 0;
-    }
-  }
-
   &__content {
     margin-left: 220px;
-    //display: flex;
-    //flex-direction: column;
+
     &__name {
       margin-top: 24px;
       @include b('mobile') {

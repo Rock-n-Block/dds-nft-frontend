@@ -1,10 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
+import AuctionImg from '../../../assets/img/icons/auction.svg';
+import SaleImg from '../../../assets/img/icons/sale.svg';
 import { useMst } from '../../../store/store';
 import { Modal } from '../../molecules';
-import SaleImg from '../../../assets/img/icons/sale.svg';
-import AuctionImg from '../../../assets/img/icons/auction.svg';
 
 import './PutOnSaleModal.scss';
 

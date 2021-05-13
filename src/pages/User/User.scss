@@ -1,12 +1,6 @@
 @import 'src/styles/mixins/media';
 
 .user {
-  &__cap {
-    min-height: 200px;
-
-    background-size: cover;
-  }
-
   @include b('mobile') {
     .ant-tabs {
       .ant-tabs-extra-content {

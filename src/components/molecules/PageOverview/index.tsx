@@ -37,12 +37,7 @@ const PageOverview: React.FC<PageOverviewProps> = ({
   socialNetworks,
   parentComponent,
 }) => {
-  // let followBtn;
-
-  const [follow, setFollow] = useState<boolean>(
-    follows,
-    // !!user.follows.find((followsUser: any) => +(id ?? 0) === +followsUser.id),
-  );
+  const [follow, setFollow] = useState<boolean>(follows);
 
   const handleUnfollow = () => {
     userApi
@@ -73,13 +68,6 @@ const PageOverview: React.FC<PageOverviewProps> = ({
         <Avatar src={avatarSrc} className="page-overview__avatar" size={150} alt="avatar" />
       ) : (
         <Avatar icon={<UserOutlined />} className="user-overview__avatar" size={150} alt="avatar" />
-      )}
-      {self && parentComponent === 'User' ? (
-        <Button size="sm" colorScheme="white" className="page-overview__edit-cover">
-          Edit cover
-        </Button>
-      ) : (
-        <></>
       )}
       <div className="page-overview__content">
         <h3 className="page-overview__content__name text-bold text-xl">{name}</h3>

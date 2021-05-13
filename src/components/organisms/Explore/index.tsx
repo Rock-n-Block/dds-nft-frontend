@@ -13,9 +13,9 @@ import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 import Filter from '../Filter';
+import { ISortItem } from '../Sort';
 
 import './Explore.scss';
-import { ISortItem } from '../Sort';
 
 const Explore: React.FC = () => {
   const [explore, setExplore] = useState<any>({});
@@ -120,9 +120,10 @@ const Explore: React.FC = () => {
   const [windowWidth, windowHeight] = useWindowSize();
   const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
 
-  const positioner = usePositioner({ width: width || 1360, columnWidth: 320, columnGutter: 10 }, [
-    explore.tokens,
-  ]);
+  const positioner = usePositioner(
+    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
+    [explore.tokens],
+  );
 
   const resizeObserver = useResizeObserver(positioner);
 
