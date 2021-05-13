@@ -8,6 +8,7 @@ interface TokenInfoProps {
   owner: IUser;
   artist: IUser;
   collection: { col: IUser; standart: string };
+  royalty: string | number;
 }
 
 interface IUser {
@@ -15,7 +16,7 @@ interface IUser {
   avatar: string;
   name: string;
 }
-const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
+const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, royalty, collection }) => {
   return (
     <div className="token-tab token-info">
       <UserMini
@@ -33,7 +34,7 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owner, artist, collection }) => {
         bottomText={<span className="text text-purple-l text-smd text-bold">{artist?.name}</span>}
       />
       <div className="token-info__warning text text-purple-d text-bold ">
-        15% of sales will go to creator
+        {royalty}% of sales will go to creator
       </div>
       <UserMini
         img={collection.col?.avatar}
