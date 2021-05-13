@@ -14,6 +14,7 @@ interface TokenTabsProps {
   artist: IUser;
   collection: { col: IUser; standart: string };
   cost?: number;
+  royalty: string | number;
   history: Array<IUserMini>;
   details: Array<IDetail>;
   bids: Array<IUserMini>;
@@ -26,11 +27,11 @@ interface IUser {
 }
 
 const TokenTabs: React.FC<TokenTabsProps> = React.memo(
-  ({ artist, collection, owners, history, details, bids }) => {
+  ({ artist, collection, owners, history, details, bids, royalty }) => {
     return (
       <Tabs className="tabs">
         <TabPane tab="Info" key={nextId()}>
-          <TokenInfo artist={artist} owners={owners} collection={collection} />
+          <TokenInfo artist={artist} owners={owners} collection={collection} royalty={royalty} />
         </TabPane>
         <TabPane tab="Owners" key={nextId()}>
           <TokenOwners owners={owners} />

@@ -25,7 +25,10 @@ const ChangePasswordForm: React.FC = () => {
       };
     },
     validate: (values) => {
-      const errors = validateForm({ values, notRequired: ['displayName'] });
+      const errors = validateForm({
+        values,
+        notRequired: ['displayName', 'customUrl', 'bio', 'twitter', 'site', 'img', 'preview'],
+      });
 
       return errors;
     },

@@ -492,6 +492,7 @@ const Token: React.FC = observer(() => {
               artist={tokenData.creator}
               collection={{ col: tokenData.collection, standart: tokenData.standart }}
               owners={tokenData.owners}
+              royalty={tokenData.royalty}
               history={mockData.history}
               details={mockData.details}
               bids={[]}

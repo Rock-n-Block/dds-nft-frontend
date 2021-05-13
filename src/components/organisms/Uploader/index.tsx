@@ -33,22 +33,31 @@ const Uploader: React.FC<IUploader> = ({
     reader.readAsDataURL(img);
   };
   const beforeUpload = (file: any) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
+    const isValidType =
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/webp' ||
+      file.type === 'image/gif';
+    if (!isValidType) {
+      message.error('You can only upload JPG/PNG/WEBP/GIF file!');
     }
-    const isLt2M = file.size / 1024 / 1024 < 30;
+    console.log('file:', file);
+    const isLt2M = file.size / 1024 / 1024 <= 30;
     if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
+      message.error('Image must be smaller than 30MB!');
     }
-    return isJpgOrPng && isLt2M;
+    return isValidType && isLt2M;
   };
   const handleChange = ({ file }: any) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
+    const isValidType =
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/webp' ||
+      file.type === 'image/gif';
+    if (!isValidType) {
       return;
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
+    const isLt2M = file.size / 1024 / 1024 < 30;
     if (!isLt2M) {
       return;
     }
@@ -62,6 +71,7 @@ const Uploader: React.FC<IUploader> = ({
   const handleClear = () => {
     setImageUrl('');
     formik.setFieldValue('img', '');
+    formik.setFieldValue('preview', '');
   };
   return (
     <div className={`${className} uploader`}>
