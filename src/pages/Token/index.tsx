@@ -354,27 +354,6 @@ const Token: React.FC = observer(() => {
                 </div>
               </div>
             </div>
-            {tokenData.bids && (
-              <div className="token__bids">
-                <UserMini
-                  imgSize="lg"
-                  img={tokenData.bids[0].bidderavatar}
-                  id={tokenData.bids[0].bidderid}
-                  topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
-                  bottomText={
-                    <p className="text-gray text-regular text-sm">
-                      BY{' '}
-                      <span className="text text-bold text-purple-l">
-                        {tokenData.bids[0].bidder}
-                      </span>
-                    </p>
-                  }
-                />
-                <p className="token__bids-amount text-purple text-upper text-xl text-bold">
-                  {tokenData.bids[0].amount} WETH
-                </p>
-              </div>
-            )}
             <div className="token__wrapper">
               <div className="token__price">
                 {tokenData.price && tokenData.selling ? (
@@ -407,6 +386,29 @@ const Token: React.FC = observer(() => {
                 </div>
               </div>
             </div>
+            {Object.keys(tokenData?.bids ?? '').length ? (
+              <div className="token__bids">
+                <UserMini
+                  imgSize="lg"
+                  img={tokenData.bids[0].bidderavatar}
+                  id={tokenData.bids[0].bidderid}
+                  topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
+                  bottomText={
+                    <p className="text-gray text-regular text-sm">
+                      BY{' '}
+                      <span className="text text-bold text-purple-l">
+                        {tokenData.bids[0].bidder}
+                      </span>
+                    </p>
+                  }
+                />
+                <p className="token__bids-amount text-purple text-upper text-xl text-bold">
+                  {tokenData.bids[0].amount} WETH
+                </p>
+              </div>
+            ) : (
+              <></>
+            )}
             {user.address && !isMyToken && (
               <div className="token__btns">
                 <div className="token__btns-container">
@@ -467,7 +469,7 @@ const Token: React.FC = observer(() => {
                   ) : (
                     ''
                   )}
-                  {!tokenData.price && !tokenData.selling ? (
+                  {!tokenData.price && !tokenData.selling && isMyToken ? (
                     <Button
                       className="token__btns-item"
                       colorScheme="white"
@@ -494,7 +496,7 @@ const Token: React.FC = observer(() => {
                 ) : (
                   ''
                 )}
-                {!tokenData.price && tokenData.selling ? (
+                {!Object.keys(tokenData?.bids ?? '').length && isMyToken ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">
                       There’s no bids yet. You can put your NFT on marketplace
