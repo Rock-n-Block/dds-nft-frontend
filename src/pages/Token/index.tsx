@@ -39,6 +39,7 @@ interface IToken {
   media: string;
   name: string;
   owners: IUser[]; // TODO: array of owners
+  likeCount: number;
   tags: Array<string>;
   price: number;
   royalty: number;
@@ -281,6 +282,7 @@ const Token: React.FC = observer(() => {
           name: tokendata.name,
           tags: tokendata.tags,
           owners: tokendata.owners, // TODO: array of owners
+          likeCount: tokendata.like_count,
           price: tokendata.price,
           royalty: tokendata.royalty,
           selling: tokendata.selling,
@@ -376,7 +378,7 @@ const Token: React.FC = observer(() => {
                   img="bold"
                   onClick={handleLike}
                   like={isLike}
-                  likeCount={mockData.likeCount}
+                  likeCount={tokenData.likeCount}
                 />
                 <div className="token__share">
                   <img src={ShareImg} alt="" />
@@ -459,7 +461,7 @@ const Token: React.FC = observer(() => {
                 </div>
                 {tokenData.price ? (
                   <div className="token__btns-container">
-                    <div className="token__btns-text text-gray">{`Service fee ${mockData.fee} %.`}</div>
+                    <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
                     <div className="token__btns-text text-gray">{`${new BigNumber(
                       tokenData.price,
                     ).times(102.5)}ETH`}</div>
@@ -506,6 +508,7 @@ const Token: React.FC = observer(() => {
               history={mockData.history}
               details={mockData.details}
               bids={tokenData.bids}
+              isMyToken={isMyToken}
             />
           </div>
         </div>
