@@ -30,11 +30,6 @@ const Collections: React.FC = observer(() => {
         img={data.media ? `https://${data.media}` : HotImg}
         name={data.name}
         id={data.id}
-        bid={{
-          price: data.price,
-          sold: data.total_supply - data.available,
-          count: data.total_supply,
-        }}
         artist={{
           name: data.creator.name,
           id: data.creator.id,
@@ -45,6 +40,9 @@ const Collections: React.FC = observer(() => {
           id: data.owner.id,
           avatar: data.owner.avatar,
         }}
+        available={data.available}
+        selling={data.selling}
+        price={data.price}
       />
     );
   };
