@@ -1,4 +1,12 @@
 .token-bids {
+  &__bid{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn{
+      border-radius: 30px;
+    }
+  }
   &__empty {
     margin-top: 35px;
 

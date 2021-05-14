@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
-import { Button, Like } from '../../components/atoms';
+import { Button, Like, UserMini} from '../../components/atoms';
 import { PutOnSaleModal, TokenTabs, CheckoutModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
@@ -39,6 +39,7 @@ interface IToken {
   media: string;
   name: string;
   owners: IUser[]; // TODO: array of owners
+  likeCount: number;
   tags: Array<string>;
   price: number;
   royalty: number;
@@ -286,6 +287,7 @@ const Token: React.FC = observer(() => {
           name: tokendata.name,
           tags: tokendata.tags,
           owners: tokendata.owners, // TODO: array of owners
+          likeCount: tokendata.like_count,
           price: tokendata.price,
           royalty: tokendata.royalty,
           selling: tokendata.selling,
@@ -345,8 +347,20 @@ const Token: React.FC = observer(() => {
                 </Link>
               ))}
             </div>
-            <div className="token__title text-bold text-xl">
-              {`${tokenData?.collection?.name} - ${tokenData?.name}`}
+            <div className="token__title ">
+              <p className="text-bold text-xl">{`${tokenData?.collection?.name} - ${tokenData?.name}`}</p>
+
+              <div className="token__wrapper">
+                <Like
+                  img="bold"
+                  onClick={handleLike}
+                  like={isLike}
+                  likeCount={tokenData.likeCount}
+                />
+                <div className="token__share">
+                  <img src={ShareImg} alt="" />
+                </div>
+              </div>
             </div>
             <div className="token__wrapper">
               <div className="token__price">
@@ -379,18 +393,30 @@ const Token: React.FC = observer(() => {
                   <span>{`${tokenData.available} of ${tokenData.totalSupply}`}</span>
                 </div>
               </div>
-              <div className="token__wrapper">
-                <Like
-                  img="bold"
-                  onClick={handleLike}
-                  like={isLike}
-                  likeCount={mockData.likeCount}
-                />
-                <div className="token__share">
-                  <img src={ShareImg} alt="" />
-                </div>
-              </div>
             </div>
+            {Object.keys(tokenData?.bids ?? '').length ? (
+              <div className="token__bids">
+                <UserMini
+                  imgSize="lg"
+                  img={tokenData.bids[0].bidderavatar}
+                  id={tokenData.bids[0].bidderid}
+                  topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
+                  bottomText={
+                    <p className="text-gray text-regular text-sm">
+                      BY{' '}
+                      <span className="text text-bold text-purple-l">
+                        {tokenData.bids[0].bidder}
+                      </span>
+                    </p>
+                  }
+                />
+                <p className="token__bids-amount text-purple text-upper text-xl text-bold">
+                  {tokenData.bids[0].amount} WETH
+                </p>
+              </div>
+            ) : (
+              <></>
+            )}
             {user.address && !isMyToken && (
               <div className="token__btns">
                 <div className="token__btns-container">
@@ -455,7 +481,7 @@ const Token: React.FC = observer(() => {
                   ) : (
                     ''
                   )}
-                  {!tokenData.price && !tokenData.selling ? (
+                  {!tokenData.price && !tokenData.selling && isMyToken ? (
                     <Button
                       className="token__btns-item"
                       colorScheme="white"
@@ -471,7 +497,7 @@ const Token: React.FC = observer(() => {
                 </div>
                 {tokenData.price ? (
                   <div className="token__btns-container">
-                    <div className="token__btns-text text-gray">{`Service fee ${mockData.fee} %.`}</div>
+                    <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
                     <div className="token__btns-text text-gray">{`${new BigNumber(
                       tokenData.price,
                     ).times(102.5)}ETH`}</div>
@@ -482,7 +508,7 @@ const Token: React.FC = observer(() => {
                 ) : (
                   ''
                 )}
-                {!tokenData.price && tokenData.selling ? (
+                {!Object.keys(tokenData?.bids ?? '').length && isMyToken ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">
                       There’s no bids yet. You can put your NFT on marketplace
@@ -518,6 +544,7 @@ const Token: React.FC = observer(() => {
               history={mockData.history}
               details={mockData.details}
               bids={tokenData.bids}
+              isMyToken={isMyToken}
             />
           </div>
         </div>
