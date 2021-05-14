@@ -137,7 +137,7 @@ const NFTCard: React.FC<INFTCard> = observer(
                   <span className="text-grad text-bold">
                     {new BigNumber(price).toFixed(5) === '0.00000'
                       ? '0'
-                      : new BigNumber(price).toFixed()}
+                      : new BigNumber(price).toFixed()}{' '}
                     ETH
                   </span>
                 </div>

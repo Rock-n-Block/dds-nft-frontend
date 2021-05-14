@@ -36,6 +36,7 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       collectionId: '4',
     }),
     validate: (values) => {
+      console.log(values);
       const notRequired: string[] = ['tokenDescr', 'preview', 'userImg'];
       if (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth')) {
         notRequired.push('instantSalePriceEth');
@@ -57,11 +58,16 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       const formData = new FormData();
       formData.append('media', values.img);
       formData.append('name', values.tokenName);
-      formData.append('total_supply', '1');
+      formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
       formData.append('description', values.tokenDescr);
-      formData.append('price', values.instantSalePriceEth.toString());
+      if (values.putOnSale) {
+        formData.append('price', values.instantSalePriceEth.toString());
+        formData.append('available', values.numberOfCopies.toString());
+      } else {
+        formData.append('available', '0');
+      }
       formData.append('creator_royalty', values.tokenRoyalties.toString());
-      formData.append('standart', isSingle ? 'ERC721' : 'ERC1185');
+      formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
       formData.append('collection', values.collectionId);
       formData.append('currency', 'ETH');
       formData.append('creator', localStorage.dds_token);

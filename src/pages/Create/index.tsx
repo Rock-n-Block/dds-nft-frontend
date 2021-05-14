@@ -27,7 +27,7 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
             if (isSingle) {
               return coll.standart === 'ERC721';
             }
-            return coll.standart === 'ERC1185';
+            return coll.standart === 'ERC1155';
           }),
         );
       })

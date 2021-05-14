@@ -19,19 +19,21 @@ interface IUser {
 const TokenInfo: React.FC<TokenInfoProps> = ({ owners, artist, collection, royalty }) => {
   return (
     <div className="token-tab token-info">
-      {owners &&
-        owners.length &&
-        owners.map((owner) => (
-          <UserMini
-            img={owner?.avatar}
-            id={owner?.id}
-            imgSize="lg"
-            topText={<span className="text text-gray text-sm text-upper text-regular">owner</span>}
-            bottomText={
-              <span className="text text-purple-l text-smd text-bold">{owner?.name}</span>
-            }
-          />
-        ))}
+      {owners && owners.length
+        ? owners.map((owner) => (
+            <UserMini
+              img={owner?.avatar}
+              id={owner?.id}
+              imgSize="lg"
+              topText={
+                <span className="text text-gray text-sm text-upper text-regular">owner</span>
+              }
+              bottomText={
+                <span className="text text-purple-l text-smd text-bold">{owner?.name}</span>
+              }
+            />
+          ))
+        : ''}
       <UserMini
         img={artist?.avatar}
         id={artist?.id}
