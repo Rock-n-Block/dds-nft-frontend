@@ -2,8 +2,8 @@ import React from 'react';
 import nextId from 'react-id-generator';
 import { Tabs } from 'antd';
 
-import { IUserMini } from '../../atoms/UserMini';
 import { IBid } from '../../../pages/Token';
+import { IUserMini } from '../../atoms/UserMini';
 import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
 import { IDetail } from '../../molecules/TokenDetails';
 
