@@ -8,7 +8,7 @@ import { validateForm } from '../../../utils/validate';
 import Profile, { IProfile } from '../component';
 
 const ChangePasswordForm: React.FC = () => {
-  const { user } = useMst();
+  const { modals, user } = useMst();
   console.log(user.display_name, 'user name');
 
   const FormWithFormik = withFormik<any, IProfile>({
@@ -22,6 +22,7 @@ const ChangePasswordForm: React.FC = () => {
         site: user.site || '',
         img: '',
         preview: `https://${user.avatar}` || '',
+        isLoading: false,
       };
     },
     validate: (values) => {
@@ -33,9 +34,8 @@ const ChangePasswordForm: React.FC = () => {
       return errors;
     },
 
-    handleSubmit: (values) => {
-      console.log(values);
-      console.log(user);
+    handleSubmit: (values, { setFieldValue }) => {
+      setFieldValue('isLoading', true);
       const formData = new FormData();
       formData.append('avatar', values.img);
       formData.append('display_name', values.displayName ? values.displayName : '');
@@ -48,6 +48,8 @@ const ChangePasswordForm: React.FC = () => {
         .update(formData)
         .then(({ data }) => {
           user.update(data);
+          setFieldValue('isLoading', false);
+          modals.success.setSuccessMsg('Congrats you successfully changed your profile');
         })
         .catch((err) => {
           console.log(err);

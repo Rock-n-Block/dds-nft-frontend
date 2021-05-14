@@ -17,6 +17,7 @@ export interface IProfile {
   site?: string;
   img?: any;
   preview?: string;
+  isLoading: boolean;
 }
 
 // const { TextArea } = Input;
@@ -157,7 +158,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
             </Button>
             <VerifyModal />
           </div>
-          <Button colorScheme="gradient" size="md" onClick={onSubmit}>
+          <Button colorScheme="gradient" size="md" onClick={onSubmit} loading={values.isLoading}>
             Update profile
           </Button>
         </div>
