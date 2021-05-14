@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like } from '../../components/atoms';
-import { PutOnSaleModal, TokenTabs } from '../../components/organisms';
+import { PutOnSaleModal, TokenTabs, CheckoutModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
@@ -183,12 +183,13 @@ const Token: React.FC = observer(() => {
     return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
   }, [user, tokenData]);
 
-  const handleBuy = async () => {
+  const handleBuy = async (quantity = 1) => {
     setLoading(true);
     try {
       const { data: buyTokenData }: any = await storeApi.buyToken(
         token,
-        tokenData.standart === 'ERC721' ? 0 : 1,
+        tokenData.standart === 'ERC721' ? 0 : quantity,
+        web3Config.WETH.ADDRESS,
       );
 
       console.log(buyTokenData.initial_tx, 'data');
@@ -217,6 +218,10 @@ const Token: React.FC = observer(() => {
       console.log(err);
       setLoading(false);
     }
+  };
+
+  const handleOpenCheckout = (): void => {
+    modals.checkout.open();
   };
 
   const handleApprove = (): void => {
@@ -299,6 +304,8 @@ const Token: React.FC = observer(() => {
     if (Object.keys(tokenData).length) {
       if (tokenData.owners.find((owner: IUser) => owner.id === user.id)) {
         setMyToken(true);
+      } else {
+        setMyToken(false);
       }
     }
   }, [tokenData, user.id]);
@@ -315,6 +322,7 @@ const Token: React.FC = observer(() => {
         });
     }
   }, [connector.metamaskService, user.address]);
+
   useEffect(() => {
     setIsLike(checkLike());
   }, [checkLike]);
@@ -395,7 +403,11 @@ const Token: React.FC = observer(() => {
                           loading={isLoading}
                           size="md"
                           className="token__btns-item"
-                          onClick={handleBuy}
+                          onClick={() => {
+                            return tokenData.standart === 'ERC721'
+                              ? handleBuy()
+                              : handleOpenCheckout();
+                          }}
                         >
                           <span className="text-bold">Buy now</span>
                         </Button>
@@ -511,6 +523,16 @@ const Token: React.FC = observer(() => {
         </div>
       </div>
       <PutOnSaleModal />
+      <CheckoutModal
+        token={{
+          name: tokenData.name || '',
+          available: tokenData.available || 1,
+        }}
+        collection={{
+          name: tokenData.collection ? tokenData.collection.name : '',
+        }}
+        handleBuy={handleBuy}
+      />
     </div>
   );
 });
