@@ -1,7 +1,9 @@
 import React from 'react';
-import './OwnersMini.scss';
-import Dots from '../../../assets/img/icons/dots.svg';
 import { Link } from 'react-router-dom';
+
+import Dots from '../../../assets/img/icons/dots.svg';
+
+import './OwnersMini.scss';
 
 interface OwnersMiniProps {
   tokenId?: number | string;
