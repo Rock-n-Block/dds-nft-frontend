@@ -41,11 +41,7 @@ const Explore: React.FC = () => {
           id: data.creator.id,
           avatar: data.creator.avatar,
         }}
-        owner={{
-          name: data.owners[0] ? data.owners[0].name : '',
-          id: data.owners[0] ? data.owners[0].id : '',
-          avatar: data.owners[0] ? data.owners[0].avatar : '',
-        }}
+        owners={data.owners}
         available={data.available}
         selling={data.selling}
         price={data.price}

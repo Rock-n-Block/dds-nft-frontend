@@ -1,0 +1,26 @@
+.owners-mini{
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  &__owner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FAFAFA;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border:#ffffff 1px solid ;
+    &:not(:first-child){
+    margin-left:-10px;
+    }
+    &:last-child{
+
+      box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+    }
+  }
+}

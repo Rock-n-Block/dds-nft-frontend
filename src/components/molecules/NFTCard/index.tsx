@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
-import { Button, Like, UserMini } from '../../atoms';
+import { Button, Like, OwnersMini, UserMini } from '../../atoms';
 
 import './NFTCard.scss';
 
@@ -28,20 +28,41 @@ export interface INFTCard {
     id?: number | string;
     avatar?: string;
   };
-  owner?: {
+  owners?: Array<{
     name: string;
     id?: number | string;
     avatar?: string;
-  };
+  }>;
   disableLinks?: boolean;
 
   available?: number;
   selling?: boolean;
   price?: number | null;
 }
-
+/* const mockOwners = [
+  {
+    avatar: 'devdds2.rocknblock.io/media/default.jpg',
+    id: 7,
+    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
+  },
+  {
+    avatar: 'devdds2.rocknblock.io/media/default.jpg',
+    id: 7,
+    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
+  },
+  {
+    avatar: 'devdds2.rocknblock.io/media/default.jpg',
+    id: 7,
+    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
+  },
+  {
+    avatar: 'devdds2.rocknblock.io/media/default.jpg',
+    id: 7,
+    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
+  },
+]; */
 const NFTCard: React.FC<INFTCard> = observer(
-  ({ img, name, id, artist, owner, disableLinks, available, selling, price }) => {
+  ({ img, name, id, artist, owners, disableLinks, available, selling, price }) => {
     const { user, modals } = useMst();
 
     const handleOpenModal = (): void => {
@@ -179,17 +200,18 @@ const NFTCard: React.FC<INFTCard> = observer(
               shadow={false}
               id={artist.id}
             />
-            {owner ? (
+            {!!(Object.keys(owners ?? []).length === 1) && owners && (
               <UserMini
                 className="nft-card__user"
-                img={`${owner.avatar}`}
+                img={`${owners[0].avatar}`}
                 topText={<span className="text-gray text-upper text-sm text-regular">Owner</span>}
-                bottomText={<span className="text-purple-l">{owner?.name}</span>}
+                bottomText={<span className="text-purple-l">{owners[0]?.name}</span>}
                 shadow={false}
-                id={owner?.id}
+                id={owners[0]?.id}
               />
-            ) : (
-              ''
+            )}
+            {!!(Object.keys(owners ?? []).length > 1) && (
+              <OwnersMini tokenId={id} owners={owners ?? []} className="nft-card__owners" />
             )}
           </div>
         </div>
