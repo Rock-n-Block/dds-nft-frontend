@@ -124,7 +124,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             ) : (
               ''
             )}
-            {values.instantSalePrice && (
+            {values.instantSalePrice && values.putOnSale && (
               <>
                 <Form.Item
                   name="instantSalePriceEth"
@@ -383,31 +383,16 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             img={values.preview}
             name={values.tokenName}
             artist={{
-              name: user.display_name ? user.display_name : '',
+              name: user.display_name || user.address,
               avatar: user.avatar ? user.avatar : '',
             }}
             owner={{
-              name: user.display_name ? user.display_name : '',
+              name: user.display_name || user.address,
               avatar: user.avatar ? user.avatar : '',
             }}
-            auction={
-              !values.instantSalePrice
-                ? {
-                    count: isSingle ? 1 : values.numberOfCopies,
-                    sold: 0,
-                    bid: 0,
-                  }
-                : null
-            }
-            bid={
-              values.instantSalePrice
-                ? {
-                    price: values.instantSalePriceEth || 0,
-                    sold: 0,
-                    count: isSingle ? 1 : values.numberOfCopies,
-                  }
-                : null
-            }
+            price={+values.instantSalePriceEth || 0}
+            available={isSingle ? 1 : +values.numberOfCopies}
+            selling={values.putOnSale}
           />
         </div>
       </Form>

@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import LogoImg from '../../../assets/img/icons/logo-mini.svg';
 import PlusImg from '../../../assets/img/icons/plus.svg';
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 import { useMst } from '../../../store/store';
@@ -16,7 +15,7 @@ import './ChooseCollection.scss';
 SwiperCore.use([Navigation]);
 
 interface IChooseCollection {
-  items?: [
+  items: [
     {
       avatar: string;
       name: string;
@@ -27,21 +26,33 @@ interface IChooseCollection {
 }
 
 const ChooseCollection: React.FC<IChooseCollection> = observer(({ items, isSingle }) => {
-  const formik = useFormikContext();
+  const formik = useFormikContext<any>();
   const { modals } = useMst();
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
-  const [activeCollection, setActiveCollection] = React.useState('4');
+  const [activeCollection, setActiveCollection] = React.useState('');
 
   const handleOpenModal = (): void => {
     modals.createCollection.open();
   };
 
-  const changeCollection = (id: string): void => {
-    setActiveCollection(id);
+  const changeCollection = React.useCallback(
+    (id: string): void => {
+      if (formik.values.collectionId !== id) {
+        setActiveCollection(id);
 
-    formik.setFieldValue('collectionId', id);
-  };
+        formik.setFieldValue('collectionId', id);
+      }
+    },
+    [formik],
+  );
+
+  React.useEffect(() => {
+    if (items.length) {
+      changeCollection(items[0].id);
+    }
+  }, [items, changeCollection]);
+
   return (
     <div className="ch-coll">
       <div className="ch-coll__title text-grad text-lg text-bold">
@@ -99,29 +110,12 @@ const ChooseCollection: React.FC<IChooseCollection> = observer(({ items, isSingl
               <div className="text-bold text-gray-l">{isSingle ? 'ERC-721' : 'ERC-1185'}</div>
             </div>
           </SwiperSlide>
-          <SwiperSlide className="ch-coll__slide" key={nextId()}>
-            <div
-              className={classNames('ch-coll__item box-shadow', {
-                active: activeCollection === '4',
-              })}
-              onClick={() => changeCollection('4')}
-              onKeyDown={() => changeCollection('4')}
-              role="button"
-              tabIndex={0}
-            >
-              <div className="ch-coll__item-img">
-                <img src={LogoImg} alt="dds" />
-              </div>
-              <div className="ch-coll__item-title text-md text-bold">DDS</div>
-              <div className="text-bold text-gray-l">DDS</div>
-            </div>
-          </SwiperSlide>
           {items &&
             items.map((item) => (
               <SwiperSlide className="ch-coll__slide" key={nextId()}>
                 <div
                   className={classNames('ch-coll__item box-shadow', {
-                    active: activeCollection === item.id.toString(),
+                    active: activeCollection === item.id,
                   })}
                   onClick={() => changeCollection(item.id.toString())}
                   onKeyDown={() => changeCollection(item.id.toString())}
