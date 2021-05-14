@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
-import { Button, Like, UserMini} from '../../components/atoms';
+import { Button, Like, UserMini } from '../../components/atoms';
 import { PutOnSaleModal, TokenTabs, CheckoutModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
@@ -498,12 +498,16 @@ const Token: React.FC = observer(() => {
                 {tokenData.price ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
-                    <div className="token__btns-text text-gray">{`${new BigNumber(
-                      tokenData.price,
-                    ).times(102.5)}ETH`}</div>
-                    <div className="token__btns-text text-gray">{`$${new BigNumber(
+                    <div className="token__btns-text text-gray">{`${new BigNumber(tokenData.price)
+                      .times(tokenData.serviceFee)
+                      .dividedBy(100)
+                      .toFixed(5)} ETH`}</div>
+                    <div className="token__btns-text text-gray">{`$ ${new BigNumber(
                       tokenData.USDPrice,
-                    ).times(102.5)}`}</div>
+                    )
+                      .times(tokenData.serviceFee)
+                      .dividedBy(100)
+                      .toFixed(2)}`}</div>
                   </div>
                 ) : (
                   ''
