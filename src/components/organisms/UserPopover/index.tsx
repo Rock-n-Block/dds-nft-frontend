@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
 import { Switch } from 'antd';
@@ -13,8 +13,10 @@ import { Button, UserWallet } from '../../atoms';
 import { ConvertModal } from '../index';
 
 import './UserPopover.scss';
+import { ratesApi } from '../../../services/api';
 
 const UserPopover: React.FC = observer(() => {
+  const [currentRate, setCurrentRate] = useState<number>(0);
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
 
@@ -29,6 +31,9 @@ const UserPopover: React.FC = observer(() => {
       user.setBalance(new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10), 'eth');
     });
     walletConnector.metamaskService.getWethBalance().then((data: any) => {
+      ratesApi.getRates().then((response) => {
+        setCurrentRate(response.data.ETH);
+      });
       user.setBalance(
         new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
         'weth',
@@ -52,9 +57,11 @@ const UserPopover: React.FC = observer(() => {
                 <div className="u-popover__swap-item-title text-purple text-bold">Balance</div>
                 <div className="u-popover__swap-item-wrapper">
                   <div className="text-bold u-popover__swap-item-currency">
-                    {user.balance?.eth ?? 0}ETH
+                    {new BigNumber(user.balance?.eth ?? 0).toFixed(5)} ETH
                   </div>
-                  <div className="text-gray u-popover__swap-item-currency">$0.00</div>
+                  <div className="text-gray u-popover__swap-item-currency">
+                    {new BigNumber(user.balance?.eth ?? 0).multipliedBy(currentRate).toFixed(2)} $
+                  </div>
                 </div>
               </div>
             </div>
@@ -68,9 +75,11 @@ const UserPopover: React.FC = observer(() => {
                 </div>
                 <div className="u-popover__swap-item-wrapper">
                   <div className="text-bold u-popover__swap-item-currency">
-                    {user.balance?.weth ?? 0} WETH
+                    {new BigNumber(user.balance?.weth ?? 0).toFixed(5)} WETH
                   </div>
-                  <div className="text-gray u-popover__swap-item-currency">$0.00</div>
+                  <div className="text-gray u-popover__swap-item-currency">
+                    {new BigNumber(user.balance?.weth ?? 0).multipliedBy(currentRate).toFixed(2)} $
+                  </div>
                 </div>
               </div>
             </div>
