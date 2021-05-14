@@ -2,12 +2,12 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import {
+  AuctionModal,
   Footer,
   Header,
   MetamaskErrModal,
   SuccessModal,
   TermsModal,
-  AuctionModal,
 } from './components/organisms';
 import {
   ActivityPage,

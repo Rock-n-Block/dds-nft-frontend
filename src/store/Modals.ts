@@ -1,4 +1,17 @@
-import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
+import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
+
+const CheckoutModal = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 
 const PutOnSaleModal = types
   .model({
@@ -140,4 +153,5 @@ export const Modals = types.model({
   auction: AuctionModal,
   uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,
+  checkout: CheckoutModal,
 });

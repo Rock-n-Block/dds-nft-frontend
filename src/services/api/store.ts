@@ -12,10 +12,10 @@ export default {
   getCollectionById: (id: number | string, page: number) =>
     axios.get(`store/collection/${id}/${page}/`),
   getToken: (id: number | string) => axios.get(`store/${id}/`),
-  buyToken: (id: number | string, amount: number) =>
+  buyToken: (id: number | string, amount: number, tokenAddress: string) =>
     axios.post(`/store/buy/${localStorage.dds_token}/`, {
       id,
-      erc20Address: '0xaFF4481D10270F50f203E0763e2597776068CBc5',
+      erc20Address: tokenAddress,
       tokenAmount: amount,
     }),
   getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input } from 'antd';
-import { FormikProps } from 'formik';
 import BigNumber from 'bignumber.js/bignumber';
+import { FormikProps } from 'formik';
 
 import { Button } from '../../../components/atoms';
 

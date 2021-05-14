@@ -2,10 +2,10 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
 
-import { validateForm } from '../../../utils/validate';
-import PlaceBid, { IPlaceBid } from '../component';
 import { storeApi } from '../../../services/api';
 import Wep3Provider from '../../../services/web3';
+import { validateForm } from '../../../utils/validate';
+import PlaceBid, { IPlaceBid } from '../component';
 
 interface PlaceBidFormProps {
   balance?: { value: string; currency: string };
