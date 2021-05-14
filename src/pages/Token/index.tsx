@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
-import { Button, Like } from '../../components/atoms';
+import { Button, Like, UserMini } from '../../components/atoms';
 import { PutOnSaleModal, TokenTabs } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
@@ -339,9 +339,42 @@ const Token: React.FC = observer(() => {
                 </Link>
               ))}
             </div>
-            <div className="token__title text-bold text-xl">
-              {`${tokenData?.collection?.name} - ${tokenData?.name}`}
+            <div className="token__title ">
+              <p className="text-bold text-xl">{`${tokenData?.collection?.name} - ${tokenData?.name}`}</p>
+
+              <div className="token__wrapper">
+                <Like
+                  img="bold"
+                  onClick={handleLike}
+                  like={isLike}
+                  likeCount={tokenData.likeCount}
+                />
+                <div className="token__share">
+                  <img src={ShareImg} alt="" />
+                </div>
+              </div>
             </div>
+            {tokenData.bids && (
+              <div className="token__bids">
+                <UserMini
+                  imgSize="lg"
+                  img={tokenData.bids[0].bidderavatar}
+                  id={tokenData.bids[0].bidderid}
+                  topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
+                  bottomText={
+                    <p className="text-gray text-regular text-sm">
+                      BY{' '}
+                      <span className="text text-bold text-purple-l">
+                        {tokenData.bids[0].bidder}
+                      </span>
+                    </p>
+                  }
+                />
+                <p className="token__bids-amount text-purple text-upper text-xl text-bold">
+                  {tokenData.bids[0].amount} WETH
+                </p>
+              </div>
+            )}
             <div className="token__wrapper">
               <div className="token__price">
                 {tokenData.price && tokenData.selling ? (
@@ -371,17 +404,6 @@ const Token: React.FC = observer(() => {
                 )}
                 <div className="token__price-gray text-gray text-md">
                   <span>{`${tokenData.available} of ${tokenData.totalSupply}`}</span>
-                </div>
-              </div>
-              <div className="token__wrapper">
-                <Like
-                  img="bold"
-                  onClick={handleLike}
-                  like={isLike}
-                  likeCount={tokenData.likeCount}
-                />
-                <div className="token__share">
-                  <img src={ShareImg} alt="" />
                 </div>
               </div>
             </div>

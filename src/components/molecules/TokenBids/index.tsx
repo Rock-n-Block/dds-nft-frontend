@@ -31,7 +31,7 @@ const TokenBids: React.FC<TokenBidsProps> = ({ bids, isMyToken = false }) => {
                 </span>
               }
             />
-            {!isMyToken && <Button colorScheme="outline">Sell</Button>}
+            {isMyToken && <Button colorScheme="outline">Sell</Button>}
           </div>
         ))
       ) : (
