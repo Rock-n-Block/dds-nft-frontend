@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { validateForm } from '../../../utils/validate';
 import PlaceBid, { IPlaceBid } from '../component';
 import { storeApi } from '../../../services/api';
+import Wep3Provider from '../../../services/web3';
 
 interface PlaceBidFormProps {
   balance?: { value: string; currency: string };
@@ -33,7 +34,11 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
     },
     handleSubmit: (values) => {
       storeApi
-        .createBid(tokenId, values.bid, available === 1 ? '1' : values.quantity)
+        .createBid(
+          tokenId,
+          Wep3Provider.calcTransactionAmount(values.bid, 18),
+          available === 1 ? '1' : values.quantity,
+        )
         .then((res: any) => {
           console.log(res, 'bid');
         })

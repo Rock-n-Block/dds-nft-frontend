@@ -2,12 +2,13 @@ import React from 'react';
 import nextId from 'react-id-generator';
 
 import BellImg from '../../../assets/img/icons/bell-p.svg';
-import UserMini, { IUserMini } from '../../atoms/UserMini';
+import UserMini from '../../atoms/UserMini';
+import { IBid } from '../../../pages/Token';
 
 import './TokenBids.scss';
 
 interface TokenBidsProps {
-  bids: Array<IUserMini>;
+  bids: Array<IBid>;
 }
 
 const TokenBids: React.FC<TokenBidsProps> = ({ bids }) => {
@@ -16,11 +17,17 @@ const TokenBids: React.FC<TokenBidsProps> = ({ bids }) => {
       {bids.length ? (
         bids.map((bid) => (
           <UserMini
-            img={bid.img}
+            img={bid.bidderavatar}
             key={nextId()}
             imgSize="lg"
-            topText={bid.topText}
-            bottomText={bid.bottomText}
+            id={bid.bidderid}
+            topText={<span className="text-bold text-black">{`${bid.amount} WETH`}</span>}
+            bottomText={
+              <span className="">
+                <span className="text-gray">BY</span>
+                <span className="text-purple-l text-smd text-bold">{` ${bid.bidder}`}</span>
+              </span>
+            }
           />
         ))
       ) : (

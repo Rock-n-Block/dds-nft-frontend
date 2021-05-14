@@ -46,8 +46,15 @@ module.exports = {
                 '@typescript-eslint/explicit-function-return-type': 'off',
             },
         },
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "rules": {
+                "camelcase": ["off"]
+            }
+        }
     ],
     rules: {
+
         "@typescript-eslint/no-this-alias": [
             "error",
             {
@@ -58,6 +65,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'error',
         'prettier/prettier': ['warn', prettierConfig],
         'quote-props': ['error', 'consistent-as-needed'],
+
         'react/prop-types': 'off',
         'react/destructuring-assignment': 'off',
         'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],

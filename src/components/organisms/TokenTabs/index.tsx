@@ -3,6 +3,7 @@ import nextId from 'react-id-generator';
 import { Tabs } from 'antd';
 
 import { IUserMini } from '../../atoms/UserMini';
+import { IBid } from '../../../pages/Token';
 import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
 import { IDetail } from '../../molecules/TokenDetails';
 
@@ -17,7 +18,7 @@ interface TokenTabsProps {
   royalty: string | number;
   history: Array<IUserMini>;
   details: Array<IDetail>;
-  bids: Array<IUserMini>;
+  bids: Array<IBid>;
   owners: Array<IUser>;
 }
 interface IUser {

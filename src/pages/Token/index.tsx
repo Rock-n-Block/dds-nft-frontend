@@ -18,6 +18,14 @@ import './Token.scss';
 interface ITokenId {
   token: string;
 }
+
+export interface IBid {
+  amount: number;
+  bidder: string;
+  bidderavatar: string;
+  bidderid: number;
+  quantity: number;
+}
 interface IToken {
   // TODO: check optional labels
   USDPrice: number;
@@ -38,6 +46,7 @@ interface IToken {
   standart: 'ERC721';
   totalSupply: number;
   serviceFee: number;
+  bids: IBid[];
 }
 interface IUser {
   id: number;
@@ -278,6 +287,7 @@ const Token: React.FC = observer(() => {
           standart: tokendata.standart,
           totalSupply: tokendata.total_supply,
           serviceFee: tokendata.service_fee,
+          bids: tokendata.bids,
         });
       })
       .catch((err: any) => {
@@ -495,7 +505,7 @@ const Token: React.FC = observer(() => {
               royalty={tokenData.royalty}
               history={mockData.history}
               details={mockData.details}
-              bids={[]}
+              bids={tokenData.bids}
             />
           </div>
         </div>
