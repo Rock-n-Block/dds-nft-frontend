@@ -386,10 +386,12 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               name: user.display_name || user.address,
               avatar: user.avatar ? user.avatar : '',
             }}
-            owner={{
-              name: user.display_name || user.address,
-              avatar: user.avatar ? user.avatar : '',
-            }}
+            owners={[
+              {
+                name: user.display_name || user.address,
+                avatar: user.avatar ? user.avatar : '',
+              },
+            ]}
             price={+values.instantSalePriceEth || 0}
             available={isSingle ? 1 : +values.numberOfCopies}
             selling={values.putOnSale}

@@ -1,4 +1,4 @@
-import { types, getSnapshot, applySnapshot } from 'mobx-state-tree';
+import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
 
 const PutOnSaleModal = types
   .model({

@@ -23,11 +23,7 @@ const UserLiked: React.FC<UserLikedProps> = ({ address }) => {
           id: data.creator.id,
           avatar: data.creator.avatar,
         }}
-        owner={{
-          name: data.owner.name,
-          id: data.owner.id,
-          avatar: data.owner.avatar,
-        }}
+        owners={data.owners}
         available={data.available}
         selling={data.selling}
         price={data.price}

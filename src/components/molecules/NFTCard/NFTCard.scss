@@ -10,12 +10,13 @@
   }
 
   &__box {
-    text-overflow: ellipsis;
     margin-bottom: 20px;
 
+    text-overflow: ellipsis;
+
     & + & {
-      padding-top: 15px;
       margin-top: 0;
+      padding-top: 15px;
 
       border-top: 1px dashed rgba(0, 0, 0, 0.1);
     }
