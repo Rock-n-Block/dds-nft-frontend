@@ -2,12 +2,20 @@ import React from 'react';
 import nextId from 'react-id-generator';
 
 import { UserMini } from '../../atoms';
-import { IUserMini } from '../../atoms/UserMini';
 
 import './TokenHistory.scss';
+import moment from 'moment';
 
 interface TokenHistoryProps {
-  history: Array<IUserMini>;
+  history: Array<IHistoryItem>;
+}
+export interface IHistoryItem {
+  avatar: string;
+  date: string | Date;
+  id: number;
+  method: 'Mint'; // TODO: finalize when get events with other methods
+  name: string;
+  price?: string;
 }
 
 const TokenHistory: React.FC<TokenHistoryProps> = ({ history }) => {
@@ -18,10 +26,18 @@ const TokenHistory: React.FC<TokenHistoryProps> = ({ history }) => {
           <UserMini
             className="token-history__event"
             key={nextId()}
-            img={event.img}
+            img={event.avatar}
             imgSize="lg"
-            topText={event.topText}
-            bottomText={event.bottomText}
+            topText={
+              <span className="text text-gray text-sm text-upper text-regular">
+                {event.method}ed {moment(event.date).fromNow()}
+              </span>
+            }
+            bottomText={
+              <span className="text text-gray text-sm text-regular">
+                BY <b className="text-bold text-purple-d text-smd">{event.name}</b>
+              </span>
+            }
           />
         ))
       ) : (

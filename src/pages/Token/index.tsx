@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
-import { Button, Like, UserMini} from '../../components/atoms';
+import { Button, Like, UserMini } from '../../components/atoms';
 import { PutOnSaleModal, TokenTabs, CheckoutModal } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
@@ -14,6 +14,7 @@ import web3Config from '../../services/web3/config';
 import { useMst } from '../../store/store';
 
 import './Token.scss';
+import { IHistoryItem } from '../../components/molecules/TokenHistory';
 
 interface ITokenId {
   token: string;
@@ -48,6 +49,7 @@ interface IToken {
   totalSupply: number;
   serviceFee: number;
   bids: IBid[];
+  history: Array<IHistoryItem>;
 }
 interface IUser {
   id: number;
@@ -292,6 +294,7 @@ const Token: React.FC = observer(() => {
           royalty: tokendata.royalty,
           selling: tokendata.selling,
           standart: tokendata.standart,
+          history: tokendata.history,
           totalSupply: tokendata.total_supply,
           serviceFee: tokendata.service_fee,
           bids: tokendata.bids,
@@ -541,7 +544,7 @@ const Token: React.FC = observer(() => {
               collection={{ col: tokenData.collection, standart: tokenData.standart }}
               owners={tokenData.owners}
               royalty={tokenData.royalty}
-              history={mockData.history}
+              history={tokenData.history}
               details={mockData.details}
               bids={tokenData.bids}
               isMyToken={isMyToken}

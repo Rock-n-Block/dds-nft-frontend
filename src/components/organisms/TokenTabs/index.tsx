@@ -3,11 +3,11 @@ import nextId from 'react-id-generator';
 import { Tabs } from 'antd';
 
 import { IBid } from '../../../pages/Token';
-import { IUserMini } from '../../atoms/UserMini';
 import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
 import { IDetail } from '../../molecules/TokenDetails';
 
 import './TokenTabs.scss';
+import { IHistoryItem } from '../../molecules/TokenHistory';
 
 const { TabPane } = Tabs;
 
@@ -16,10 +16,10 @@ interface TokenTabsProps {
   collection: { col: IUser; standart: string };
   cost?: number;
   royalty: string | number;
-  history: Array<IUserMini>;
   details: Array<IDetail>;
   bids: Array<IBid>;
   owners: Array<IUser>;
+  history: Array<IHistoryItem>;
   isMyToken: boolean;
 }
 interface IUser {
