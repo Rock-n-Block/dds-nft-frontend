@@ -5,9 +5,9 @@ import { Tabs } from 'antd';
 import { IBid } from '../../../pages/Token';
 import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
 import { IDetail } from '../../molecules/TokenDetails';
+import { IHistoryItem } from '../../molecules/TokenHistory';
 
 import './TokenTabs.scss';
-import { IHistoryItem } from '../../molecules/TokenHistory';
 
 const { TabPane } = Tabs;
 

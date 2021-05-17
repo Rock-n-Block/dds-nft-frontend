@@ -1,6 +1,7 @@
 import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
+
 import { validateForm } from '../../../utils/validate';
 import SaleTimedAuction, { ISaleTimedAuction } from '../component';
 

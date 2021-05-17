@@ -1,8 +1,9 @@
 import React from 'react';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react';
-import SaleFixedPrice, { ISaleFixedPrice } from '../component';
+
 import { validateForm } from '../../../utils/validate';
+import SaleFixedPrice, { ISaleFixedPrice } from '../component';
 
 interface SaleFixedPriceFormProps {
   fee: number;

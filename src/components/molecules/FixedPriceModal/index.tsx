@@ -1,9 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { Modal } from '../index';
-import { useMst } from '../../../store/store';
-import './FixedPriceModal.scss';
+
 import SaleFixedPriceForm from '../../../forms/SaleFixedPrice/container';
+import { useMst } from '../../../store/store';
+import { Modal } from '../index';
+
+import './FixedPriceModal.scss';
 
 const FixedPriceModal: React.FC = observer(() => {
   const { modals } = useMst();
@@ -25,7 +27,10 @@ const FixedPriceModal: React.FC = observer(() => {
         <div className="m-fixed-price__subtitle text text-bold text-gray-l">
           Enter new price. Your NFT will be pushed in top of marketplace.
         </div>
-        <SaleFixedPriceForm fee={3} totalSupply={2} />
+        <SaleFixedPriceForm
+          fee={modals.fixedPrice.fee}
+          totalSupply={modals.fixedPrice.totalSupply}
+        />
       </div>
     </Modal>
   );

@@ -5,9 +5,9 @@ import AuctionImg from '../../../assets/img/icons/auction.svg';
 import SaleImg from '../../../assets/img/icons/sale.svg';
 import { useMst } from '../../../store/store';
 import { Modal, TimedAuctionModal } from '../../molecules';
+import FixedPriceModal from '../../molecules/FixedPriceModal';
 
 import './PutOnSaleModal.scss';
-import FixedPriceModal from '../../molecules/FixedPriceModal';
 
 const PutOnSaleModal: React.FC = observer(() => {
   const { modals } = useMst();

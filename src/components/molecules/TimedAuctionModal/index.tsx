@@ -1,9 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { Modal } from '../index';
-import { useMst } from '../../../store/store';
-import './TimedAuctionModal.scss';
+
 import SaleTimedAuctionForm from '../../../forms/SaleTimedAuction/container';
+import { useMst } from '../../../store/store';
+import { Modal } from '../index';
+
+import './TimedAuctionModal.scss';
 
 const TimedAuctionModal: React.FC = observer(() => {
   const { modals } = useMst();

@@ -18,15 +18,18 @@
 
   &__title {
     margin: 13px 0 16px;
+
     display: flex;
     justify-content: space-between;
   }
 
-  &__bids{
+  &__bids {
     padding: 20px 0 0 0;
-    border-top: rgb(230,230,230) 1px solid ;
-    &-amount{
-      margin-left:64px;
+
+    border-top: rgb(230, 230, 230) 1px solid;
+
+    &-amount {
+      margin-left: 64px;
     }
   }
 
@@ -88,7 +91,8 @@
   }
 
   &__info {
-    margin-top:20px;
+    margin-top: 20px;
+
     &-text {
       margin-bottom: 20px;
 
@@ -146,18 +150,21 @@
     justify-content: space-between;
 
     &-left {
+      padding-right: 10px;
+
       width: 100%;
       max-width: 860px;
-      padding-right: 10px;
     }
 
     &-right {
+      padding-left: 10px;
+
       width: 100%;
       max-width: 420px;
 
-      padding-left: 10px;
       .ant-tabs {
         margin-top: 14px;
+
         &-content {
           .u-mini {
             &__text > * {

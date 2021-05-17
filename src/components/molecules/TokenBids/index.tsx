@@ -3,10 +3,10 @@ import nextId from 'react-id-generator';
 
 import BellImg from '../../../assets/img/icons/bell-p.svg';
 import { IBid } from '../../../pages/Token';
+import { Button } from '../../atoms';
 import UserMini from '../../atoms/UserMini';
 
 import './TokenBids.scss';
-import { Button } from '../../atoms';
 
 interface TokenBidsProps {
   bids: Array<IBid>;

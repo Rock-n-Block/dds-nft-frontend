@@ -1,8 +1,9 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 import { FormikProps } from 'formik';
-import { Button } from '../../../components/atoms';
 import { observer } from 'mobx-react-lite';
+
+import { Button } from '../../../components/atoms';
 import { useMst } from '../../../store/store';
 
 export interface ISaleFixedPrice {

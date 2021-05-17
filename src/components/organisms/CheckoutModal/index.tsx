@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { Modal } from '../../molecules';
-import { useMst } from '../../../store/store';
 import { CheckoutForm } from '../../../forms';
+import { useMst } from '../../../store/store';
+import { Modal } from '../../molecules';
 
 import './CheckoutModal.scss';
 

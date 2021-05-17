@@ -28,6 +28,8 @@ const PutOnSaleModal = types
 const FixedPriceModal = types
   .model({
     isOpen: types.optional(types.boolean, false),
+    fee: types.optional(types.number, 0),
+    totalSupply: types.optional(types.number, 1),
   })
   .actions((self) => ({
     open() {
@@ -35,6 +37,10 @@ const FixedPriceModal = types
     },
     close() {
       self.isOpen = false;
+    },
+    setProps(fee: number, totalSupply: number) {
+      self.fee = fee;
+      self.totalSupply = totalSupply;
     },
   }));
 const TimedAuctionModal = types
