@@ -22,11 +22,16 @@
     justify-content: space-between;
   }
 
-  &__bids{
+  &__bids {
     padding: 20px 0 0 0;
-    border-top: rgb(230,230,230) 1px solid ;
-    &-amount{
-      margin-left:64px;
+    border-top: rgb(230, 230, 230) 1px solid;
+    margin-top: 20px;
+    &-amount {
+      margin-left: 64px;
+    }
+    & + & {
+      border-bottom: rgb(230, 230, 230) 1px solid;
+      padding-bottom: 20px;
     }
   }
 
@@ -88,7 +93,7 @@
   }
 
   &__info {
-    margin-top:20px;
+    margin-top: 20px;
     &-text {
       margin-bottom: 20px;
 

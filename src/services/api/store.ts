@@ -50,4 +50,5 @@ export default {
       amount: +amount,
       quantity: +quantity,
     }),
+  verificateBet: (id: number) => axios.get(`/store/verificate_bet/${id}/`),
 };

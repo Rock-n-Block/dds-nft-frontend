@@ -193,23 +193,23 @@ const Token: React.FC = observer(() => {
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [isMyToken, setMyToken] = React.useState<boolean>(false);
 
-  const [isLike, setIsLike] = useState<boolean>(!!user.likes.includes(tokenData.id));
+  const [isLike, setIsLike] = useState<boolean>(false);
 
-  const handleCheckBidAvailability = (
-    username: string,
-    userId: number,
-    avatar: string,
-    amount: number,
-  ): void => {
-    modals.checkAvailability.open({
-      isAvailable: true,
-      user: {
-        name: username,
-        id: userId,
-        avatar,
-      },
-      amount,
-    });
+  const handleCheckBidAvailability = (): void => {
+    storeApi
+      .verificateBet(tokenData.id)
+      .then(({ data }: any) => {
+        modals.checkAvailability.open({
+          isAvailable: true,
+          user: {
+            name: data.user.name || data.user.address,
+            id: data.user.id,
+            avatar: data.user.avatar,
+          },
+          amount: +new BigNumber(data.bet).dividedBy(new BigNumber(10).pow(18)).toFixed(),
+        });
+      })
+      .catch((err) => console.log(err, 'verificate bet'));
   };
 
   const handleBuy = async (quantity = 1) => {
@@ -358,9 +358,9 @@ const Token: React.FC = observer(() => {
 
   useEffect(() => {
     if (user.likes.length) {
-      setIsLike(!!user.likes.includes(tokenData.id));
+      setIsLike(user.isLiked(tokenData.id));
     }
-  }, [tokenData.id, user.id, user.likes]);
+  }, [tokenData.id, user, user.id]);
 
   return (
     <div className="token">
@@ -433,6 +433,7 @@ const Token: React.FC = observer(() => {
                 <UserMini
                   imgSize="lg"
                   img={tokenData.bids[0].bidderavatar}
+                  hideOverflowBottom={false}
                   id={tokenData.bids[0].bidderid}
                   topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
                   bottomText={
@@ -450,6 +451,21 @@ const Token: React.FC = observer(() => {
               </div>
             ) : (
               <></>
+            )}
+            {user.address && isMyToken ? (
+              <div className="token__bids">
+                <Button
+                  colorScheme="gradient"
+                  shadow
+                  size="md"
+                  className="token__btns-item"
+                  onClick={handleCheckBidAvailability}
+                >
+                  <span className="text-bold">Check top bid</span>
+                </Button>
+              </div>
+            ) : (
+              ''
             )}
             {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
             {user.address && !isMyToken && (
@@ -590,7 +606,6 @@ const Token: React.FC = observer(() => {
               details={mockData.details}
               bids={tokenData.bids}
               isMyToken={isMyToken}
-              handleCheckBidAvailability={handleCheckBidAvailability}
             />
           </div>
         </div>

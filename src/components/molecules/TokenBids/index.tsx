@@ -11,19 +11,9 @@ import { Button } from '../../atoms';
 interface TokenBidsProps {
   bids: Array<IBid>;
   isMyToken: boolean;
-  handleCheckBidAvailability: (
-    username: string,
-    userId: number,
-    avatar: string,
-    amount: number,
-  ) => void;
 }
 
-const TokenBids: React.FC<TokenBidsProps> = ({
-  bids,
-  isMyToken = false,
-  handleCheckBidAvailability,
-}) => {
+const TokenBids: React.FC<TokenBidsProps> = ({ bids, isMyToken = false }) => {
   return (
     <div className="token-tab token-info token-bids">
       {bids.length ? (
@@ -41,16 +31,7 @@ const TokenBids: React.FC<TokenBidsProps> = ({
                 </span>
               }
             />
-            {isMyToken && (
-              <Button
-                colorScheme="outline"
-                onClick={() =>
-                  handleCheckBidAvailability(bid.bidder, bid.bidderid, bid.bidderavatar, bid.amount)
-                }
-              >
-                Sell
-              </Button>
-            )}
+            {isMyToken && <Button colorScheme="outline">Sell</Button>}
           </div>
         ))
       ) : (
