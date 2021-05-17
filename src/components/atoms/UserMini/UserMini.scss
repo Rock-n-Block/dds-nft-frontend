@@ -58,7 +58,7 @@
   &__text {
     white-space: nowrap;
 
-    & > * {
+    &-overflow-hide > * {
       display: block;
       overflow: hidden;
 

@@ -10,11 +10,15 @@ export interface IUserMini {
   img?: string | null;
   topText: React.ReactElement | string;
   bottomText: React.ReactElement | string;
+  centerText?: React.ReactElement | string;
   className?: string;
   shadow?: boolean;
   id?: number | string | null;
   imgSize?: 'lg';
   isCheck?: boolean;
+  hideOverflowTop?: boolean;
+  hideOverflowCenter?: boolean;
+  hideOverflowBottom?: boolean;
 }
 
 const UserMini: React.FC<IUserMini> = ({
@@ -26,6 +30,10 @@ const UserMini: React.FC<IUserMini> = ({
   shadow,
   imgSize,
   isCheck,
+  centerText,
+  hideOverflowTop = true,
+  hideOverflowCenter = true,
+  hideOverflowBottom = true,
 }) => {
   return (
     <Link
@@ -50,8 +58,27 @@ const UserMini: React.FC<IUserMini> = ({
       </div>
 
       <div className="u-mini__box">
-        <div className="u-mini__text">{topText}</div>
-        <div className="u-mini__text">{bottomText}</div>
+        <div
+          className={classNames('u-mini__text', {
+            'u-mini__text-overflow-hide': hideOverflowTop,
+          })}
+        >
+          {topText}
+        </div>
+        <div
+          className={classNames('u-mini__text', {
+            'u-mini__text-overflow-hide': hideOverflowCenter,
+          })}
+        >
+          {centerText}
+        </div>
+        <div
+          className={classNames('u-mini__text', {
+            'u-mini__text-overflow-hide': hideOverflowBottom,
+          })}
+        >
+          {bottomText}
+        </div>
       </div>
     </Link>
   );

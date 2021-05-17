@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
@@ -12,6 +12,7 @@ import {
   TokenTabs,
   CheckoutModal,
   MultiBuyModal,
+  CheckAvailability,
 } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
@@ -192,12 +193,24 @@ const Token: React.FC = observer(() => {
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [isMyToken, setMyToken] = React.useState<boolean>(false);
 
-  const [isLike, setIsLike] = useState<boolean>(
-    !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id),
-  );
-  const checkLike = useCallback(() => {
-    return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
-  }, [user, tokenData]);
+  const [isLike, setIsLike] = useState<boolean>(!!user.likes.includes(tokenData.id));
+
+  const handleCheckBidAvailability = (
+    username: string,
+    userId: number,
+    avatar: string,
+    amount: number,
+  ): void => {
+    modals.checkAvailability.open({
+      isAvailable: true,
+      user: {
+        name: username,
+        id: userId,
+        avatar,
+      },
+      amount,
+    });
+  };
 
   const handleBuy = async (quantity = 1) => {
     setLoading(true);
@@ -209,7 +222,6 @@ const Token: React.FC = observer(() => {
         modals.checkout.sellerId,
       );
 
-      console.log(buyTokenData.initial_tx, 'data');
       await connector.metamaskService.createTransaction(
         buyTokenData.initial_tx.method,
         [
@@ -345,8 +357,11 @@ const Token: React.FC = observer(() => {
   }, [connector.metamaskService, user.address]);
 
   useEffect(() => {
-    setIsLike(checkLike());
-  }, [checkLike]);
+    if (user.likes.length) {
+      setIsLike(!!user.likes.includes(tokenData.id));
+    }
+  }, [tokenData.id, user.id, user.likes]);
+
   return (
     <div className="token">
       <div className="token__preview">
@@ -575,6 +590,7 @@ const Token: React.FC = observer(() => {
               details={mockData.details}
               bids={tokenData.bids}
               isMyToken={isMyToken}
+              handleCheckBidAvailability={handleCheckBidAvailability}
             />
           </div>
         </div>
@@ -595,6 +611,7 @@ const Token: React.FC = observer(() => {
       ) : (
         ''
       )}
+      {tokenData.bids && tokenData.bids.length ? <CheckAvailability /> : ''}
     </div>
   );
 });

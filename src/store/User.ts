@@ -46,7 +46,6 @@ export const User = types
     };
     const update = (userData: any) => {
       applySnapshot(self, userData);
-      // self.avatar = `https://${userData.avatar}`;
     };
     const disconnect = () => {
       self.address = '';

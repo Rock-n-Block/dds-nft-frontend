@@ -1,0 +1,26 @@
+.m-check-availability {
+  &__content {
+    padding: 40px 20px 30px;
+    background: white;
+  }
+  &__img {
+    margin: 0 auto;
+    display: block;
+  }
+  &__title {
+    max-width: 300px;
+    text-align: center;
+    margin: 30px auto;
+  }
+  &__box {
+    padding: 20px 10px;
+    border-radius: 30px;
+  }
+  &__btn {
+    margin: 30px auto 0;
+  }
+  .u-mini {
+    background: transparent;
+    border-color: transparent;
+  }
+}
