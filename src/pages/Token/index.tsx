@@ -7,7 +7,12 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like, UserMini } from '../../components/atoms';
-import { PutOnSaleModal, TokenTabs, CheckoutModal } from '../../components/organisms';
+import {
+  PutOnSaleModal,
+  TokenTabs,
+  CheckoutModal,
+  MultiBuyModal,
+} from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
@@ -39,22 +44,30 @@ interface IToken {
   id: number;
   media: string;
   name: string;
-  owners: IUser[]; // TODO: array of owners
+  owners: IOwner[];
   likeCount: number;
   tags: Array<string>;
   price: number;
   royalty: number;
   selling: true;
-  standart: 'ERC721';
+  standart: 'ERC721' | 'ERC1155';
   totalSupply: number;
   serviceFee: number;
   bids: IBid[];
   history: Array<IHistoryItem>;
+  sellers: ISeller[];
 }
 interface IUser {
   id: number;
   avatar: string;
   name: string;
+}
+export interface ISeller extends IUser {
+  quantity: number;
+  price: number;
+}
+export interface IOwner extends IUser {
+  quantity: number;
 }
 const Token: React.FC = observer(() => {
   const connector = useWalletConnectorContext();
@@ -193,6 +206,7 @@ const Token: React.FC = observer(() => {
         token,
         tokenData.standart === 'ERC721' ? 0 : quantity,
         web3Config.WETH.ADDRESS,
+        modals.checkout.sellerId,
       );
 
       console.log(buyTokenData.initial_tx, 'data');
@@ -224,7 +238,7 @@ const Token: React.FC = observer(() => {
   };
 
   const handleOpenCheckout = (): void => {
-    modals.checkout.open();
+    modals.multibuy.open();
   };
 
   const handleApprove = (): void => {
@@ -288,7 +302,7 @@ const Token: React.FC = observer(() => {
           media: tokendata.media,
           name: tokendata.name,
           tags: tokendata.tags,
-          owners: tokendata.owners, // TODO: array of owners
+          owners: tokendata.owners,
           likeCount: tokendata.like_count,
           price: tokendata.price,
           royalty: tokendata.royalty,
@@ -298,6 +312,7 @@ const Token: React.FC = observer(() => {
           totalSupply: tokendata.total_supply,
           serviceFee: tokendata.service_fee,
           bids: tokendata.bids,
+          sellers: tokendata.sellers,
         });
       })
       .catch((err: any) => {
@@ -323,6 +338,7 @@ const Token: React.FC = observer(() => {
           setApproved(res);
         })
         .catch((err: any) => {
+          setApproved(false);
           console.log(err, 'check');
         });
     }
@@ -420,6 +436,7 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
+            {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
             {user.address && !isMyToken && (
               <div className="token__btns">
                 <div className="token__btns-container">
@@ -501,15 +518,21 @@ const Token: React.FC = observer(() => {
                 {tokenData.price ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
-                    <div className="token__btns-text text-gray">{`${new BigNumber(tokenData.price)
-                      .times(tokenData.serviceFee)
-                      .dividedBy(100)
-                      .toFixed(5)} ETH`}</div>
-                    <div className="token__btns-text text-gray">{`$ ${new BigNumber(
+                    <div className="token__btns-text text-gray">{`${+new BigNumber(tokenData.price)
+                      .plus(
+                        new BigNumber(tokenData.price).times(
+                          new BigNumber(tokenData.serviceFee).dividedBy(100),
+                        ),
+                      )
+                      .toFixed(5)} WETH`}</div>
+                    <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
                       tokenData.USDPrice,
                     )
-                      .times(tokenData.serviceFee)
-                      .dividedBy(100)
+                      .plus(
+                        new BigNumber(tokenData.USDPrice).times(
+                          new BigNumber(tokenData.serviceFee).dividedBy(100),
+                        ),
+                      )
                       .toFixed(2)}`}</div>
                   </div>
                 ) : (
@@ -557,16 +580,21 @@ const Token: React.FC = observer(() => {
         </div>
       </div>
       <PutOnSaleModal />
-      <CheckoutModal
-        token={{
-          name: tokenData.name || '',
-          available: tokenData.available || 1,
-        }}
-        collection={{
-          name: tokenData.collection ? tokenData.collection.name : '',
-        }}
-        handleBuy={handleBuy}
-      />
+      <CheckoutModal handleBuy={handleBuy} />
+      {tokenData.standart === 'ERC1155' ? (
+        <MultiBuyModal
+          sellers={tokenData.sellers}
+          token={{
+            name: tokenData.name || '',
+            available: tokenData.available || 1,
+          }}
+          collection={{
+            name: tokenData.collection ? tokenData.collection.name : '',
+          }}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 });

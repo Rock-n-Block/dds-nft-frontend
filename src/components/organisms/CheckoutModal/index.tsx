@@ -8,17 +8,10 @@ import { CheckoutForm } from '../../../forms';
 import './CheckoutModal.scss';
 
 interface ICheckoutModal {
-  token: {
-    name: string;
-    available: number;
-  };
-  collection: {
-    name: string;
-  };
   handleBuy: (quantity: number) => {};
 }
 
-const ChecoutModal: React.FC<ICheckoutModal> = observer(({ token, collection, handleBuy }) => {
+const ChecoutModal: React.FC<ICheckoutModal> = observer(({ handleBuy }) => {
   const { modals } = useMst();
 
   const handleClose = (): void => {
@@ -27,7 +20,7 @@ const ChecoutModal: React.FC<ICheckoutModal> = observer(({ token, collection, ha
 
   return (
     <Modal
-      isVisible={modals.checkout.isOpen}
+      isVisible={modals.checkout.getIsOpen}
       className="m-checkout"
       handleCancel={handleClose}
       width={380}
@@ -37,10 +30,11 @@ const ChecoutModal: React.FC<ICheckoutModal> = observer(({ token, collection, ha
       <div className="m-checkout__content">
         <div className="text-xl text-grad text-bold m-checkout__title">Checkout</div>
         <div className="m-checkout__subtitle text-gray text-bold">
-          You are about to purchase <span className="text-purple-l">{token.name}</span> from{' '}
-          <span className="text-purple-l">{collection.name}</span>
+          You are about to purchase{' '}
+          <span className="text-purple-l">{modals.checkout.token.name}</span> from{' '}
+          <span className="text-purple-l">{modals.checkout.collectionName}</span>
         </div>
-        <CheckoutForm available={token.available} handleBuy={handleBuy} />
+        <CheckoutForm available={modals.checkout.token.available} handleBuy={handleBuy} />
       </div>
     </Modal>
   );

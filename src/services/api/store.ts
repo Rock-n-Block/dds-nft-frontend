@@ -12,12 +12,17 @@ export default {
   getCollectionById: (id: number | string, page: number) =>
     axios.get(`store/collection/${id}/${page}/`),
   getToken: (id: number | string) => axios.get(`store/${id}/`),
-  buyToken: (id: number | string, amount: number, tokenAddress: string) =>
-    axios.post(`/store/buy/${localStorage.dds_token}/`, {
+  buyToken: (id: number | string, amount: number, tokenAddress: string, sellerId?: number) => {
+    const data: any = {
       id,
       erc20Address: tokenAddress,
       tokenAmount: amount,
-    }),
+    };
+    if (sellerId) {
+      data.sellerId = sellerId;
+    }
+    return axios.post(`/store/buy/${localStorage.dds_token}/`, data);
+  },
   getLiked: (address: string, page: number) => axios.get(`store/liked/${address}/${page}/`),
   getCreated: (address: string, page: number) => axios.get(`store/created/${address}/${page}/`),
   getCollectibles: (address: string, page: number) => axios.get(`store/owned/${address}/${page}/`),

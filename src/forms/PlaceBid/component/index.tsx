@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js/bignumber';
 import { FormikProps } from 'formik';
 
 import { Button } from '../../../components/atoms';
+import { validateField } from '../../../utils/validate';
 
 export interface IPlaceBid {
   bid: string;
@@ -18,6 +19,8 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
   handleBlur,
   values,
   handleSubmit,
+  touched,
+  errors,
 }) => {
   const onSubmit = () => {
     handleSubmit();
@@ -25,9 +28,11 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
   return (
     <Form name="form-auction" className="form-auction" layout="vertical">
       <Form.Item
-        name="bid.value"
+        name="bid"
         className="form-auction__item input__field"
         initialValue={values.bid}
+        validateStatus={validateField('bid', touched, errors)}
+        help={!touched.bid ? '' : errors.bid}
         label={<span className="input__label text-bold">Your bid</span>}
       >
         <div className="input__field-create box-shadow">
@@ -49,6 +54,8 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
           name="quantity"
           className="form-auction__item input__field"
           initialValue={values.quantity}
+          validateStatus={validateField('quantity', touched, errors)}
+          help={!touched.quantity ? '' : errors.quantity}
           label={
             <span className="input__label text-bold">
               Enter quantity ({values.available} available)

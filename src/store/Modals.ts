@@ -1,6 +1,6 @@
 import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
 
-const CheckoutModal = types
+const MultiBuyModal = types
   .model({
     isOpen: types.optional(types.boolean, false),
   })
@@ -12,6 +12,38 @@ const CheckoutModal = types
       self.isOpen = false;
     },
   }));
+
+const CheckoutModal = types
+  .model({
+    token: types.model({
+      name: types.optional(types.string, ''),
+      available: types.optional(types.number, 0),
+    }),
+    collectionName: types.optional(types.string, ''),
+    sellerId: types.optional(types.number, 0),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      if (self.token.name && self.token.available && self.collectionName && self.sellerId) {
+        return true;
+      }
+      return false;
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (data: any) => {
+        applySnapshot(self, data);
+      },
+    };
+  });
 
 const PutOnSaleModal = types
   .model({
@@ -154,4 +186,5 @@ export const Modals = types.model({
   uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,
   checkout: CheckoutModal,
+  multibuy: MultiBuyModal,
 });

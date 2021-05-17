@@ -6,6 +6,7 @@ import { storeApi } from '../../../services/api';
 import Wep3Provider from '../../../services/web3';
 import { validateForm } from '../../../utils/validate';
 import PlaceBid, { IPlaceBid } from '../component';
+import { useMst } from '../../../store/store';
 
 interface PlaceBidFormProps {
   balance?: { value: string; currency: string };
@@ -16,7 +17,7 @@ interface PlaceBidFormProps {
 }
 
 const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, tokenId }) => {
-  console.log(balance, 'balance');
+  const { modals } = useMst();
   const FormWithFormik = withFormik<any, IPlaceBid>({
     enableReinitialize: true,
     mapPropsToValues: () => {
@@ -29,7 +30,11 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
       };
     },
     validate: (values) => {
-      const errors = validateForm({ values });
+      const notRequired: string[] = [];
+      if (available === 1) {
+        notRequired.push('quantity');
+      }
+      const errors = validateForm({ values, notRequired });
       return errors;
     },
     handleSubmit: (values) => {
@@ -41,6 +46,8 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
         )
         .then((res: any) => {
           console.log(res, 'bid');
+
+          modals.auction.close();
         })
         .catch((err: any) => {
           console.log(err, 'bid');

@@ -573,6 +573,6 @@ export default {
     ],
   },
   EXCHANGE: {
-    ADDRESS: '0xba22EdA6145905aA10693edF0f35631891391543',
+    ADDRESS: '0x19F8B5Df98aFBa8786e0dC3F29EAe7487a3fFb54',
   },
 };
