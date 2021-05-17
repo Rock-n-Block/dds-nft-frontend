@@ -420,7 +420,7 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
-            {user.address && !isMyToken && (
+            {user.address && (
               <div className="token__btns">
                 <div className="token__btns-container">
                   {tokenData.price && tokenData.selling ? (

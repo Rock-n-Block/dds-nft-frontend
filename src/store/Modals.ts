@@ -25,6 +25,30 @@ const PutOnSaleModal = types
       self.isOpen = false;
     },
   }));
+const FixedPriceModal = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
+const TimedAuctionModal = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 
 const TermsModal = types
   .model({
@@ -153,5 +177,7 @@ export const Modals = types.model({
   auction: AuctionModal,
   uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,
+  fixedPrice: FixedPriceModal,
+  timedAuction: TimedAuctionModal,
   checkout: CheckoutModal,
 });

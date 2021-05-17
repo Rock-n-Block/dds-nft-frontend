@@ -12,3 +12,5 @@ export { default as PageCover } from './PageCover';
 export { default as TokenInfo } from './TokenInfo';
 export { default as TokenOwners } from './TokenOwners';
 export { default as UploadCoverModal } from './UploadCoverModal';
+export { default as FixedPriceModal } from './FixedPriceModal';
+export { default as TimedAuctionModal } from './TimedAuctionModal';

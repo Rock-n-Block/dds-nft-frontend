@@ -5,3 +5,4 @@ export { default as NoItemsFound } from './NoItemsFound';
 export { default as UserWallet } from './UserWallet';
 export { default as SocialNetwork } from './SocialNetwork';
 export { default as OwnersMini } from './OwnersMini';
+export { default as Select } from './Select';
