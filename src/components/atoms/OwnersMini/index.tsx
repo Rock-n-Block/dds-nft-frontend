@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Dots from '../../../assets/img/icons/dots.svg';
 
 import './OwnersMini.scss';
+import nextId from 'react-id-generator';
 
 interface OwnersMiniProps {
   tokenId?: number | string;
