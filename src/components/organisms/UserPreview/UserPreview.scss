@@ -10,19 +10,23 @@
 
   border: 1px solid $purple;
   border-radius: 16px;
-
+  &__container {
+    display: flex;
+    align-items: center;
+  }
   &__text {
     margin-right: 7px;
     padding: 9px 0;
     padding-left: 15px;
-
+    max-width: 110px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     cursor: pointer;
   }
 
   &__img {
-    margin-top: -2px;
     margin-right: -4px;
-    margin-bottom: -2px;
 
     display: flex;
     overflow: hidden;
