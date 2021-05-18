@@ -9,7 +9,7 @@ import { ReactComponent as FbImg } from '../../../assets/img/icons/social/fb.svg
 import { ReactComponent as InstImg } from '../../../assets/img/icons/social/inst.svg';
 import { ReactComponent as TwImg } from '../../../assets/img/icons/social/tw.svg';
 import { ReactComponent as YoutubeImg } from '../../../assets/img/icons/social/youtube.svg';
-import { SubscribeNews } from '../../../forms';
+// import { SubscribeNews } from '../../../forms';
 
 import './Footer.scss';
 
@@ -18,10 +18,11 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="row">
         <div className="footer__box">
+          {/*
           <div className="footer__sub">
             <div className="footer__sub-title text-bold text-lg">Subscribe to our news</div>
             <SubscribeNews />
-          </div>
+          </div> */}
           <div className="footer__nav">
             <div className="footer__nav-box">
               <div className="text-smd text-bold text-purple">DDS</div>
