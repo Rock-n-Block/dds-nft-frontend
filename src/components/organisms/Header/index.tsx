@@ -55,9 +55,10 @@ const Header: React.FC = observer(() => {
               <NavLink exact to="/activity" className="header__nav-item text-bold">
                 Activity
               </NavLink>
+              {/*
               <NavLink exact to="/overview" className="header__nav-item text-bold">
                 How it works
-              </NavLink>
+              </NavLink> */}
             </div>
           </div>
           <div className="header__box">

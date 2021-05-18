@@ -17,7 +17,7 @@ import {
   CreatePage,
   HomePage,
   NoPageFound,
-  OverviewPage,
+  // OverviewPage,
   ProfilePage,
   SearchPage,
   TokenPage,
@@ -33,7 +33,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/connect" component={ConnectPage} />
-        <Route exact path="/overview" component={OverviewPage} />
+        {/* <Route exact path="/overview" component={OverviewPage} /> */}
         <Route exact path="/token/:token" component={TokenPage} />
         <Route exact path="/user/:userId" component={UserPage} />
         <Route exact path="/collections/:collectionId" component={CollectionsPage} />
