@@ -11,7 +11,7 @@ export interface IActivityCard {
   tokenId: string | number;
   tokenImg: string;
   tokenName: string;
-  method: 'like' | 'follow' | 'listing' | 'purchase' | 'sale' | 'transfer' | 'burn' | 'bid';
+  method: 'like' | 'follow' | 'listing' | 'buy' | 'sale' | 'transfer' | 'burn' | 'bid' | 'mint';
   firstUser: IUser;
   secondUser?: IUser | null;
   date: string | Date;
@@ -21,11 +21,12 @@ enum activityType {
   like = 'Likes',
   follow = 'Followings',
   listing = 'Listings',
-  purchase = 'Purchases',
+  buy = 'Purchases',
   sale = 'Sales',
   transfer = 'Transfers',
   burn = 'Burns',
   bid = 'Bids',
+  mint = 'Mint',
 }
 
 interface IUser {
@@ -70,7 +71,11 @@ const ActivityCard: React.FC<IActivityCard> = ({
     case 'listing':
       firstText = <span className="text-gray text text-bold">minted by</span>;
       break;
-    case 'purchase':
+    case 'mint':
+      firstText = <span className="text-gray text text-bold">minted by</span>;
+      secondText = <span className="text-gray text text-bold">minted by</span>;
+      break;
+    case 'buy':
       firstText = <span className="text-gray text text-bold">purchased by</span>;
       secondText = <span className="text-gray text text-bold">from</span>;
       break;
@@ -78,8 +83,12 @@ const ActivityCard: React.FC<IActivityCard> = ({
       firstText = <span className="text-gray text text-bold">purchased by</span>;
       secondText = <span className="text-gray text text-bold">from</span>;
       break;
+    case 'follow':
+      firstText = <span className="text-gray text text-bold">User</span>;
+      secondText = <span className="text-gray text text-bold">followed to</span>;
+      break;
     case 'transfer':
-      firstText = <span className="text-gray text text-bold">transferred from</span>;
+      firstText = <span className="text-gray text text-bold">transfer from</span>;
       secondText = <span className="text-gray text text-bold">to</span>;
       break;
     case 'burn':
@@ -103,43 +112,17 @@ const ActivityCard: React.FC<IActivityCard> = ({
       </div>
       {token}
       <div className="activity-card__body">
-        {method === 'follow' && (
-          <>
-            <UserMini
-              id={firstUser?.id}
-              imgSize="lg"
-              img={firstUser?.img}
-              topText={<span className="text-gray text text-bold">user</span>}
-              bottomText={
-                <span className="text-black text-bold">{firstUser?.name || firstUser.address}</span>
-              }
-            />
-            <UserMini
-              id={secondUser?.id}
-              imgSize="lg"
-              img={secondUser?.img}
-              topText={<span className="text-gray text text-bold">followed to</span>}
-              bottomText={
-                <span className="text-black text-bold">
-                  {secondUser?.name || secondUser?.address}
-                </span>
-              }
-            />
-          </>
-        )}
-        {method !== 'follow' && (
+        {firstUser?.id && (
           <UserMini
-            id={firstUser?.id}
+            id={firstUser.id}
             img={firstUser?.img}
             topText={firstText}
             bottomText={
-              <span className="text-black text-bold text-bold">
-                {firstUser?.name || firstUser.address}
-              </span>
+              <span className="text-black text-bold">{firstUser?.name || firstUser?.address}</span>
             }
           />
         )}
-        {method !== 'follow' && secondUser?.id && (
+        {secondUser?.id && (
           <UserMini
             id={secondUser.id}
             img={secondUser?.img}
