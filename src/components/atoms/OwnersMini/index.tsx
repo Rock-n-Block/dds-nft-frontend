@@ -21,6 +21,7 @@ const OwnersMini: React.FC<OwnersMiniProps> = ({ tokenId, owners, className }) =
     <Link to={`/token/${tokenId}`} className={`${className} owners-mini`}>
       {owners.slice(0, 3).map((owner) => (
         <img
+          key={nextId()}
           className="owners-mini__owner"
           src={`https://${owner.avatar}`}
           alt={`${owner.name} avatar`}
