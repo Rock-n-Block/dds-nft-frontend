@@ -383,11 +383,13 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             img={values.preview}
             name={values.tokenName}
             artist={{
+              id: user.id ?? 0,
               name: user.display_name || user.address,
               avatar: user.avatar ? user.avatar : '',
             }}
             owners={[
               {
+                id: user.id ?? 0,
                 name: user.display_name || user.address,
                 avatar: user.avatar ? user.avatar : '',
               },
