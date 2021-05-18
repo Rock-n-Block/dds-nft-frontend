@@ -19,6 +19,7 @@ const ChangePasswordForm: React.FC = () => {
         customUrl: user.custom_url || '',
         bio: user.bio || '',
         twitter: user.twitter || '',
+        instagram: user.instagram || '',
         site: user.site || '',
         img: '',
         preview: `https://${user.avatar}` || '',
@@ -28,7 +29,16 @@ const ChangePasswordForm: React.FC = () => {
     validate: (values) => {
       const errors = validateForm({
         values,
-        notRequired: ['displayName', 'customUrl', 'bio', 'twitter', 'site', 'img', 'preview'],
+        notRequired: [
+          'displayName',
+          'customUrl',
+          'bio',
+          'twitter',
+          'instagram',
+          'site',
+          'img',
+          'preview',
+        ],
       });
 
       return errors;
@@ -42,6 +52,7 @@ const ChangePasswordForm: React.FC = () => {
       formData.append('bio', values.bio ? values.bio : '');
       formData.append('custom_url', values.customUrl ? values.customUrl : '');
       formData.append('twitter', values.twitter ? values.twitter : '');
+      formData.append('instagram', values.instagram ? values.instagram : '');
       formData.append('site', values.site ? values.site : '');
 
       userApi

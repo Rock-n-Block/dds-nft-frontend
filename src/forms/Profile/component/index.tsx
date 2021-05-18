@@ -14,6 +14,7 @@ export interface IProfile {
   customUrl?: string;
   bio?: string;
   twitter?: string;
+  instagram?: string;
   site?: string;
   img?: any;
   preview?: string;
@@ -119,6 +120,33 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                 size="large"
                 type="text"
                 value={values.twitter}
+                placeholder="@"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <div className="text-purple-l text-bold text-md">Link</div>
+            </div>
+          </Form.Item>
+          <Form.Item
+            name="instagram"
+            className="form-profile__item input__field"
+            initialValue={values.instagram}
+            label={
+              <>
+                <div className="input__label text-bold">Instagram Username</div>
+                <div className="text-bold text-gray-l">
+                  Link your Instagram account in order to get the verification badge
+                </div>
+              </>
+            }
+          >
+            <div className="input__field-create box-shadow">
+              <Input
+                id="instagram"
+                className="form-profile__input input input__create text-bold text-smd"
+                size="large"
+                type="text"
+                value={values.instagram}
                 placeholder="@"
                 onChange={handleChange}
                 onBlur={handleBlur}
