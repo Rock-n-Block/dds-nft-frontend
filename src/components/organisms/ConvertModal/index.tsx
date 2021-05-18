@@ -62,22 +62,32 @@ const ConvertModal: React.FC = observer(() => {
           );
           modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
           modals.convert.close();
+        })
+        .catch((err: any) => {
+          setIsLoading(false);
+          console.log('error', err);
         });
     } else {
-      walletConnector.metamaskService.createTransaction('withdraw', [weiValue], 'WETH').then(() => {
-        setIsLoading(false);
+      walletConnector.metamaskService
+        .createTransaction('withdraw', [weiValue], 'WETH')
+        .then(() => {
+          setIsLoading(false);
 
-        user.setBalance(
-          new BigNumber(user.balance.eth).plus(new BigNumber(value)).toString(10),
-          'eth',
-        );
-        user.setBalance(
-          new BigNumber(user.balance.weth).minus(new BigNumber(value)).toString(10),
-          'weth',
-        );
-        modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
-        modals.convert.close();
-      });
+          user.setBalance(
+            new BigNumber(user.balance.eth).plus(new BigNumber(value)).toString(10),
+            'eth',
+          );
+          user.setBalance(
+            new BigNumber(user.balance.weth).minus(new BigNumber(value)).toString(10),
+            'weth',
+          );
+          modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
+          modals.convert.close();
+        })
+        .catch((err: any) => {
+          setIsLoading(false);
+          console.log('error', err);
+        });
     }
   };
   return (
