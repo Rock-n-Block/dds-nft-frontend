@@ -139,6 +139,9 @@
     background: $purple-grad;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    &::selection {
+      -webkit-text-fill-color: #fff;
+    }
   }
 
   &-blue-grad {
@@ -147,6 +150,9 @@
     background: $blue-grad;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    &::selection {
+      -webkit-text-fill-color: #fff;
+    }
   }
 
   &-hover {
