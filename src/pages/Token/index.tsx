@@ -405,7 +405,7 @@ const Token: React.FC = observer(() => {
                   <>
                     <div className="text-bold text-purple-l text-xl">{tokenData.price} ETH</div>
                     <div className="token__price-gray text-gray text-md">
-                      <span>${tokenData.USDPrice}</span>
+                      <span>${tokenData.USDPrice / 100}</span>
                     </div>
                   </>
                 ) : (
@@ -554,17 +554,18 @@ const Token: React.FC = observer(() => {
                     <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
                     <div className="token__btns-text text-gray">{`${+new BigNumber(tokenData.price)
                       .plus(
-                        new BigNumber(tokenData.price).times(
-                          new BigNumber(tokenData.serviceFee).dividedBy(100),
-                        ),
+                        new BigNumber(tokenData.price)
+                          .dividedBy(100)
+                          .times(new BigNumber(tokenData.serviceFee)),
                       )
                       .toFixed(5)} WETH`}</div>
                     <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
                       tokenData.USDPrice,
                     )
+                      .dividedBy(100)
                       .plus(
                         new BigNumber(tokenData.USDPrice).times(
-                          new BigNumber(tokenData.serviceFee).dividedBy(100),
+                          new BigNumber(tokenData.serviceFee).dividedBy(100).dividedBy(100),
                         ),
                       )
                       .toFixed(2)}`}</div>
