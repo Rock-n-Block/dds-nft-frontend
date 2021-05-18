@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
+// import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
-import { Explore, HotBids, HotCollections, Search, TopUsers } from '../../components/organisms';
+import { Explore, HotBids, HotCollections, Search } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 
 import 'swiper/swiper.scss';
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
       },
     },
   ];
-  const topUsers = [
+  /* const topUsers = [
     {
       img: PreviewOwnerImg,
       id: 1,
@@ -53,7 +53,7 @@ const Home: React.FC = () => {
       topText: 'DicraKiller',
       bottomText: '355 EHT',
     },
-  ];
+  ]; */
   const loadCollections = () => {
     storeApi
       .getCollections()
@@ -110,9 +110,10 @@ const Home: React.FC = () => {
       <div className="home__hot">
         <HotBids cards={hotBids} />
       </div>
+      {/*
       <div className="home__top">
         <TopUsers users={topUsers} />
-      </div>
+      </div> */}
       {collections.length ? (
         <div className="home__collections">
           <HotCollections items={collections} />
