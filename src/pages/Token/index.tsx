@@ -338,14 +338,14 @@ const Token: React.FC = observer(() => {
   }, [token]);
 
   useEffect(() => {
-    if (Object.keys(tokenData).length) {
+    if (Object.keys(tokenData).length && user.id) {
       if (tokenData.owners.find((owner: IUser) => owner.id === user.id)) {
         setMyToken(true);
       } else {
         setMyToken(false);
       }
     }
-  }, [tokenData, user.id]);
+  }, [tokenData, user.id, user]);
 
   useEffect(() => {
     if (user.address) {
@@ -457,7 +457,7 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
-            {user.address && isMyToken ? (
+            {user.address && isMyToken && tokenData.selling && !tokenData.price ? (
               <div className="token__bids">
                 <Button
                   colorScheme="gradient"
@@ -467,6 +467,21 @@ const Token: React.FC = observer(() => {
                   onClick={handleCheckBidAvailability}
                 >
                   <span className="text-bold">Check top bid</span>
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            {!tokenData.price && !tokenData.selling && isMyToken ? (
+              <div className="token__btns">
+                <Button
+                  className="token__btns-item"
+                  colorScheme="white"
+                  shadow
+                  size="md"
+                  onClick={handlePutOnSaleClick}
+                >
+                  Put on sale
                 </Button>
               </div>
             ) : (
@@ -534,19 +549,6 @@ const Token: React.FC = observer(() => {
                         </Button>
                       )}
                     </div>
-                  ) : (
-                    ''
-                  )}
-                  {!tokenData.price && !tokenData.selling && isMyToken ? (
-                    <Button
-                      className="token__btns-item"
-                      colorScheme="white"
-                      shadow
-                      size="md"
-                      onClick={handlePutOnSaleClick}
-                    >
-                      Put on sale
-                    </Button>
                   ) : (
                     ''
                   )}
