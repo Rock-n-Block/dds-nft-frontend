@@ -43,9 +43,13 @@ const UserPopover: React.FC = observer(() => {
   return (
     <div className="u-popover">
       <UserWallet className="u-popover__copy" address={user.address} />
-      <Link to="/profile" className="text-purple">
-        Set display name
-      </Link>
+      {user.display_name ? (
+        <p className="text-purple">{user.display_name}</p>
+      ) : (
+        <Link to="/profile" className="text-purple">
+          Set display name
+        </Link>
+      )}
       <div className="u-popover__swap">
         <div className="u-popover__swap-content">
           <div className="">
