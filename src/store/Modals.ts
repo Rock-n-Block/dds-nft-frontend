@@ -1,6 +1,39 @@
 import { applySnapshot, getSnapshot, types } from 'mobx-state-tree';
 
-const CheckoutModal = types
+const CheckAvailability = types
+  .model({
+    isAvailable: types.optional(types.boolean, true),
+    user: types.model({
+      name: types.optional(types.string, ''),
+      avatar: types.optional(types.string, ''),
+      id: types.optional(types.number, 0),
+    }),
+    amount: types.optional(types.number, 0),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      if (self.user.name && self.user.id && self.amount) {
+        return true;
+      }
+      return false;
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (data: any) => {
+        applySnapshot(self, data);
+      },
+    };
+  });
+
+const MultiBuyModal = types
   .model({
     isOpen: types.optional(types.boolean, false),
   })
@@ -12,6 +45,38 @@ const CheckoutModal = types
       self.isOpen = false;
     },
   }));
+
+const CheckoutModal = types
+  .model({
+    token: types.model({
+      name: types.optional(types.string, ''),
+      available: types.optional(types.number, 0),
+    }),
+    collectionName: types.optional(types.string, ''),
+    sellerId: types.optional(types.number, 0),
+  })
+  .views((self) => ({
+    get getIsOpen() {
+      if (self.token.name && self.token.available && self.collectionName && self.sellerId) {
+        return true;
+      }
+      return false;
+    },
+  }))
+  .actions((self) => {
+    let initialState = {};
+    return {
+      afterCreate: () => {
+        initialState = getSnapshot(self);
+      },
+      close: () => {
+        applySnapshot(self, initialState);
+      },
+      open: (data: any) => {
+        applySnapshot(self, data);
+      },
+    };
+  });
 
 const PutOnSaleModal = types
   .model({
@@ -186,4 +251,6 @@ export const Modals = types.model({
   fixedPrice: FixedPriceModal,
   timedAuction: TimedAuctionModal,
   checkout: CheckoutModal,
+  multibuy: MultiBuyModal,
+  checkAvailability: CheckAvailability,
 });

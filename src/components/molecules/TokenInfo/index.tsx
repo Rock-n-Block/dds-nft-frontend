@@ -23,6 +23,7 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owners, artist, collection, royal
         ? owners.map((owner) => (
             <UserMini
               img={owner?.avatar}
+              key={owner?.id}
               id={owner?.id}
               imgSize="lg"
               topText={

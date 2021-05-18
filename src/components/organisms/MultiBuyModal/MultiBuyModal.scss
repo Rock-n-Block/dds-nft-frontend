@@ -1,0 +1,35 @@
+.m-multibuy {
+  &__content {
+    padding: 40px 20px 30px;
+    background: white;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    span + span {
+      margin-left: 9px;
+    }
+  }
+  &__item {
+    font-size: 12px;
+    line-height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-price {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 15px;
+    }
+    &-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__box {
+    max-height: 480px;
+    height: fit-content;
+  }
+}

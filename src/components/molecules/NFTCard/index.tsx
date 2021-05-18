@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
@@ -78,12 +78,7 @@ const NFTCard: React.FC<INFTCard> = observer(
         available,
       });
     };
-    const [isLike, setIsLike] = useState<boolean>(
-      !!user.likes.find((likedTokenId) => likedTokenId === id),
-    );
-    const checkLike = useCallback(() => {
-      return !!user.likes.find((likedTokenId) => likedTokenId === id);
-    }, [user, id]);
+    const [isLike, setIsLike] = useState<boolean>(false);
     const handleLike = (): void => {
       userApi
         .like({ id })
@@ -99,8 +94,10 @@ const NFTCard: React.FC<INFTCard> = observer(
         });
     };
     useEffect(() => {
-      setIsLike(checkLike());
-    }, [checkLike]);
+      if (user.likes.length && id) {
+        setIsLike(user.isLiked(id));
+      }
+    }, [id, user, user.id]);
 
     return (
       <div className="nft-card">

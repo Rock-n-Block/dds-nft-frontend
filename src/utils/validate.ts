@@ -50,6 +50,11 @@ export const validateForm = ({ values, notRequired }: any) => {
         errCopy.instantSalePriceEth = '"Price" must be a number';
       }
     },
+    bid: (value: string): void => {
+      if (!value) {
+        errCopy.bid = 'Enter bid value';
+      }
+    },
     quantity: (value: string): void => {
       if (!value) {
         errCopy.quantity = 'Enter quantity';

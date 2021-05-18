@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { Link, useParams } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
@@ -8,7 +8,13 @@ import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like, UserMini } from '../../components/atoms';
 import { IHistoryItem } from '../../components/molecules/TokenHistory';
-import { CheckoutModal, PutOnSaleModal, TokenTabs } from '../../components/organisms';
+import {
+  PutOnSaleModal,
+  TokenTabs,
+  CheckoutModal,
+  MultiBuyModal,
+  CheckAvailability,
+} from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
@@ -39,22 +45,30 @@ interface IToken {
   id: number;
   media: string;
   name: string;
-  owners: IUser[]; // TODO: array of owners
+  owners: IOwner[];
   likeCount: number;
   tags: Array<string>;
   price: number;
   royalty: number;
   selling: true;
-  standart: 'ERC721';
+  standart: 'ERC721' | 'ERC1155';
   totalSupply: number;
   serviceFee: number;
   bids: IBid[];
   history: Array<IHistoryItem>;
+  sellers: ISeller[];
 }
 interface IUser {
   id: number;
   avatar: string;
   name: string;
+}
+export interface ISeller extends IUser {
+  quantity: number;
+  price: number;
+}
+export interface IOwner extends IUser {
+  quantity: number;
 }
 const Token: React.FC = observer(() => {
   const connector = useWalletConnectorContext();
@@ -179,12 +193,24 @@ const Token: React.FC = observer(() => {
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [isMyToken, setMyToken] = React.useState<boolean>(false);
 
-  const [isLike, setIsLike] = useState<boolean>(
-    !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id),
-  );
-  const checkLike = useCallback(() => {
-    return !!user.likes.find((likedTokenId) => likedTokenId === tokenData.id);
-  }, [user, tokenData]);
+  const [isLike, setIsLike] = useState<boolean>(false);
+
+  const handleCheckBidAvailability = (): void => {
+    storeApi
+      .verificateBet(tokenData.id)
+      .then(({ data }: any) => {
+        modals.checkAvailability.open({
+          isAvailable: true,
+          user: {
+            name: data.user.name || data.user.address,
+            id: data.user.id,
+            avatar: data.user.avatar,
+          },
+          amount: +new BigNumber(data.bet).dividedBy(new BigNumber(10).pow(18)).toFixed(),
+        });
+      })
+      .catch((err) => console.log(err, 'verificate bet'));
+  };
 
   const handleBuy = async (quantity = 1) => {
     setLoading(true);
@@ -193,9 +219,9 @@ const Token: React.FC = observer(() => {
         token,
         tokenData.standart === 'ERC721' ? 0 : quantity,
         web3Config.WETH.ADDRESS,
+        modals.checkout.sellerId,
       );
 
-      console.log(buyTokenData.initial_tx, 'data');
       await connector.metamaskService.createTransaction(
         buyTokenData.initial_tx.method,
         [
@@ -224,7 +250,7 @@ const Token: React.FC = observer(() => {
   };
 
   const handleOpenCheckout = (): void => {
-    modals.checkout.open();
+    modals.multibuy.open();
   };
   const handlePutOnSaleClick = (): void => {
     modals.putOnSale.open();
@@ -291,7 +317,7 @@ const Token: React.FC = observer(() => {
           media: tokendata.media,
           name: tokendata.name,
           tags: tokendata.tags,
-          owners: tokendata.owners, // TODO: array of owners
+          owners: tokendata.owners,
           likeCount: tokendata.like_count,
           price: tokendata.price,
           royalty: tokendata.royalty,
@@ -301,6 +327,7 @@ const Token: React.FC = observer(() => {
           totalSupply: tokendata.total_supply,
           serviceFee: tokendata.service_fee,
           bids: tokendata.bids,
+          sellers: tokendata.sellers,
         });
       })
       .catch((err: any) => {
@@ -326,14 +353,18 @@ const Token: React.FC = observer(() => {
           setApproved(res);
         })
         .catch((err: any) => {
+          setApproved(false);
           console.log(err, 'check');
         });
     }
   }, [connector.metamaskService, user.address]);
 
   useEffect(() => {
-    setIsLike(checkLike());
-  }, [checkLike]);
+    if (user.likes.length) {
+      setIsLike(user.isLiked(tokenData.id));
+    }
+  }, [tokenData.id, user, user.id]);
+
   return (
     <div className="token">
       <div className="token__preview">
@@ -405,6 +436,7 @@ const Token: React.FC = observer(() => {
                 <UserMini
                   imgSize="lg"
                   img={tokenData.bids[0].bidderavatar}
+                  hideOverflowBottom={false}
                   id={tokenData.bids[0].bidderid}
                   topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
                   bottomText={
@@ -423,7 +455,23 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
-            {user.address && (
+            {user.address && isMyToken ? (
+              <div className="token__bids">
+                <Button
+                  colorScheme="gradient"
+                  shadow
+                  size="md"
+                  className="token__btns-item"
+                  onClick={handleCheckBidAvailability}
+                >
+                  <span className="text-bold">Check top bid</span>
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
+            {user.address && !isMyToken && (
               <div className="token__btns">
                 <div className="token__btns-container">
                   {tokenData.price && tokenData.selling ? (
@@ -504,15 +552,21 @@ const Token: React.FC = observer(() => {
                 {tokenData.price ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
-                    <div className="token__btns-text text-gray">{`${new BigNumber(tokenData.price)
-                      .times(tokenData.serviceFee)
-                      .dividedBy(100)
-                      .toFixed(5)} ETH`}</div>
-                    <div className="token__btns-text text-gray">{`$ ${new BigNumber(
+                    <div className="token__btns-text text-gray">{`${+new BigNumber(tokenData.price)
+                      .plus(
+                        new BigNumber(tokenData.price).times(
+                          new BigNumber(tokenData.serviceFee).dividedBy(100),
+                        ),
+                      )
+                      .toFixed(5)} WETH`}</div>
+                    <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
                       tokenData.USDPrice,
                     )
-                      .times(tokenData.serviceFee)
-                      .dividedBy(100)
+                      .plus(
+                        new BigNumber(tokenData.USDPrice).times(
+                          new BigNumber(tokenData.serviceFee).dividedBy(100),
+                        ),
+                      )
                       .toFixed(2)}`}</div>
                   </div>
                 ) : (
@@ -560,16 +614,22 @@ const Token: React.FC = observer(() => {
         </div>
       </div>
       <PutOnSaleModal />
-      <CheckoutModal
-        token={{
-          name: tokenData.name || '',
-          available: tokenData.available || 1,
-        }}
-        collection={{
-          name: tokenData.collection ? tokenData.collection.name : '',
-        }}
-        handleBuy={handleBuy}
-      />
+      <CheckoutModal handleBuy={handleBuy} />
+      {tokenData.standart === 'ERC1155' ? (
+        <MultiBuyModal
+          sellers={tokenData.sellers}
+          token={{
+            name: tokenData.name || '',
+            available: tokenData.available || 1,
+          }}
+          collection={{
+            name: tokenData.collection ? tokenData.collection.name : '',
+          }}
+        />
+      ) : (
+        ''
+      )}
+      {tokenData.bids && tokenData.bids.length ? <CheckAvailability /> : ''}
     </div>
   );
 });

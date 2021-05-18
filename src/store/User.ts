@@ -33,6 +33,11 @@ export const User = types
     twitter: types.optional(types.maybeNull(types.string), null),
     balance: types.optional(Balance, {}),
   })
+  .views((self) => ({
+    isLiked(id: number) {
+      return !!self.likes.includes(id);
+    },
+  }))
   .actions((self) => {
     const setAddress = (addr: string) => {
       self.address = addr;
@@ -46,7 +51,6 @@ export const User = types
     };
     const update = (userData: any) => {
       applySnapshot(self, userData);
-      // self.avatar = `https://${userData.avatar}`;
     };
     const disconnect = () => {
       self.address = '';

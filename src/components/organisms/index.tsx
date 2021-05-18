@@ -28,3 +28,5 @@ export { default as UserPopover } from './UserPopover';
 export { default as UserCollections } from './UserCollections';
 export { default as PutOnSaleModal } from './PutOnSaleModal';
 export { default as CheckoutModal } from './CheckoutModal';
+export { default as MultiBuyModal } from './MultiBuyModal';
+export { default as CheckAvailability } from './CheckAvailability';

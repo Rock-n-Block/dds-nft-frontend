@@ -117,7 +117,7 @@ class ChooseCollection extends React.Component<any, any, any> {
                 </div>
                 <div className="ch-coll__item-title text-md text-bold">Create</div>
                 <div className="text-bold text-gray-l">
-                  {this.props.isSingle ? 'ERC-721' : 'ERC-1185'}
+                  {this.props.isSingle ? 'ERC-721' : 'ERC-1155'}
                 </div>
               </div>
             </SwiperSlide>

@@ -46,7 +46,13 @@ export const Store = RootModel.create({
       isOpen: false,
     },
     putOnSale: {},
-    checkout: {},
+    checkout: {
+      token: {},
+    },
+    multibuy: {},
+    checkAvailability: {
+      user: {},
+    },
   },
   user: {
     address: '',
