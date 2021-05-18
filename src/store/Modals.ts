@@ -90,6 +90,36 @@ const PutOnSaleModal = types
       self.isOpen = false;
     },
   }));
+const FixedPriceModal = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+    fee: types.optional(types.number, 0),
+    totalSupply: types.optional(types.number, 1),
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+    setProps(fee: number, totalSupply: number) {
+      self.fee = fee;
+      self.totalSupply = totalSupply;
+    },
+  }));
+const TimedAuctionModal = types
+  .model({
+    isOpen: types.optional(types.boolean, false),
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 
 const TermsModal = types
   .model({
@@ -218,6 +248,8 @@ export const Modals = types.model({
   auction: AuctionModal,
   uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,
+  fixedPrice: FixedPriceModal,
+  timedAuction: TimedAuctionModal,
   checkout: CheckoutModal,
   multibuy: MultiBuyModal,
   checkAvailability: CheckAvailability,

@@ -23,6 +23,12 @@ export const Store = RootModel.create({
     verify: {
       isOpen: false,
     },
+    fixedPrice: {
+      isOpen: false,
+      fee: 0,
+      totalSupply: 1,
+    },
+    timedAuction: { isOpen: false },
     success: {
       successMsg: '',
     },

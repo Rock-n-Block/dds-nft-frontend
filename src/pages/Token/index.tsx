@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import ShareImg from '../../assets/img/icons/share.svg';
 import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like, UserMini } from '../../components/atoms';
+import { IHistoryItem } from '../../components/molecules/TokenHistory';
 import {
   PutOnSaleModal,
   TokenTabs,
@@ -20,7 +21,6 @@ import web3Config from '../../services/web3/config';
 import { useMst } from '../../store/store';
 
 import './Token.scss';
-import { IHistoryItem } from '../../components/molecules/TokenHistory';
 
 interface ITokenId {
   token: string;
@@ -252,7 +252,10 @@ const Token: React.FC = observer(() => {
   const handleOpenCheckout = (): void => {
     modals.multibuy.open();
   };
-
+  const handlePutOnSaleClick = (): void => {
+    modals.putOnSale.open();
+    modals.fixedPrice.setProps(tokenData.serviceFee, tokenData.totalSupply);
+  };
   const handleApprove = (): void => {
     setLoading(true);
     connector.metamaskService
@@ -538,7 +541,7 @@ const Token: React.FC = observer(() => {
                       colorScheme="white"
                       shadow
                       size="md"
-                      onClick={modals.putOnSale.open}
+                      onClick={handlePutOnSaleClick}
                     >
                       Put on sale
                     </Button>

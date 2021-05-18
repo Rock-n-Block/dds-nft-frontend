@@ -1,10 +1,10 @@
 import React from 'react';
 import nextId from 'react-id-generator';
+import moment from 'moment';
 
 import { UserMini } from '../../atoms';
 
 import './TokenHistory.scss';
-import moment from 'moment';
 
 interface TokenHistoryProps {
   history: Array<IHistoryItem>;
