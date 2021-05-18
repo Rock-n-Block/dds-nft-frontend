@@ -136,11 +136,8 @@ export default class MetamaskService {
 
   getWethBalance() {
     const contractAbi = 'WETH';
-    const contract = this.getContract(
-      '0xdC2fBC02197dF78643a53a39fD5F322307613127',
-      config[contractAbi].ABI,
-    );
-    return contract.methods.totalSupply().call();
+    const contract = this.getContract(config[contractAbi].ADDRESS, config[contractAbi].ABI);
+    return contract.methods.balanceOf(this.walletAddress).call();
   }
 
   static getMethodInterface(abi: Array<any>, methodName: string) {
