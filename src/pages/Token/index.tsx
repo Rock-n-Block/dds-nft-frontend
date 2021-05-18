@@ -206,7 +206,7 @@ const Token: React.FC = observer(() => {
             id: data.user.id,
             avatar: data.user.avatar,
           },
-          amount: +new BigNumber(data.bet).dividedBy(new BigNumber(10).pow(18)).toFixed(),
+          amount: +new BigNumber(data.amount).dividedBy(new BigNumber(10).pow(18)).toFixed(),
         });
       })
       .catch((err) => console.log(err, 'verificate bet'));
@@ -252,10 +252,12 @@ const Token: React.FC = observer(() => {
   const handleOpenCheckout = (): void => {
     modals.multibuy.open();
   };
+
   const handlePutOnSaleClick = (): void => {
     modals.putOnSale.open();
     modals.fixedPrice.setProps(tokenData.serviceFee, tokenData.totalSupply);
   };
+
   const handleApprove = (): void => {
     setLoading(true);
     connector.metamaskService
