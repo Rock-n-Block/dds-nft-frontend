@@ -195,33 +195,8 @@ const Token: React.FC = observer(() => {
 
   const [isLike, setIsLike] = useState<boolean>(false);
 
-  const handleCheckBidAvailability = (): void => {
-    storeApi
-      .verificateBet(tokenData.id)
-      .then(({ data }: any) => {
-        modals.checkAvailability.open({
-          isAvailable: true,
-          user: {
-            name: data.user.name || data.user.address,
-            id: data.user.id,
-            avatar: data.user.avatar,
-          },
-          amount: +new BigNumber(data.amount).dividedBy(new BigNumber(10).pow(18)).toFixed(),
-        });
-      })
-      .catch((err) => console.log(err, 'verificate bet'));
-  };
-
-  const handleBuy = async (quantity = 1) => {
-    setLoading(true);
+  const createBuyTransaction = async (buyTokenData: any) => {
     try {
-      const { data: buyTokenData }: any = await storeApi.buyToken(
-        token,
-        tokenData.standart === 'ERC721' ? 0 : quantity,
-        web3Config.WETH.ADDRESS,
-        modals.checkout.sellerId,
-      );
-
       await connector.metamaskService.createTransaction(
         buyTokenData.initial_tx.method,
         [
@@ -242,6 +217,58 @@ const Token: React.FC = observer(() => {
           value: buyTokenData.initial_tx.value,
         },
       );
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  const handleEndAuction = async () => {
+    try {
+      setLoading(true);
+      const { data: buyTokenData }: any = await storeApi.endAuction(tokenData.id);
+
+      await createBuyTransaction(buyTokenData);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  const handleCheckBidAvailability = (): void => {
+    setLoading(true);
+    storeApi
+      .verificateBet(tokenData.id)
+      .then(({ data }: any) => {
+        setLoading(false);
+        modals.checkAvailability.open({
+          isAvailable: true,
+          user: {
+            name: data.user.name || data.user.address,
+            id: data.user.id,
+            avatar: data.user.avatar,
+          },
+          amount: +new BigNumber(data.amount).dividedBy(new BigNumber(10).pow(18)).toFixed(),
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err, 'verificate bet');
+      });
+  };
+
+  const handleBuy = async (quantity = 1) => {
+    setLoading(true);
+    try {
+      const { data: buyTokenData }: any = await storeApi.buyToken(
+        token,
+        tokenData.standart === 'ERC721' ? 0 : quantity,
+        web3Config.WETH.ADDRESS,
+        modals.checkout.sellerId,
+      );
+
+      await createBuyTransaction(buyTokenData);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -413,13 +440,8 @@ const Token: React.FC = observer(() => {
                 ) : (
                   ''
                 )}
-                {tokenData.price && !tokenData.selling ? (
-                  <div className="text-bold text-purple-l text-xl">Not for sale</div>
-                ) : (
-                  ''
-                )}
                 {!tokenData.price && !tokenData.selling ? (
-                  <div className="text-bold text-purple-l text-xl">Not in auction</div>
+                  <div className="text-bold text-purple-l text-xl">Not for sale</div>
                 ) : (
                   ''
                 )}
@@ -463,6 +485,7 @@ const Token: React.FC = observer(() => {
                   colorScheme="gradient"
                   shadow
                   size="md"
+                  loading={isLoading}
                   className="token__btns-item"
                   onClick={handleCheckBidAvailability}
                 >
@@ -488,10 +511,10 @@ const Token: React.FC = observer(() => {
               ''
             )}
             {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
-            {user.address && !isMyToken && (
+            {user.address && !isMyToken && tokenData.selling && (
               <div className="token__btns">
                 <div className="token__btns-container">
-                  {tokenData.price && tokenData.selling ? (
+                  {tokenData.price ? (
                     <div className="token__btns-wrapper">
                       {isApproved ? (
                         <Button
@@ -524,7 +547,7 @@ const Token: React.FC = observer(() => {
                   ) : (
                     ''
                   )}
-                  {!tokenData.price && tokenData.selling ? (
+                  {!tokenData.price ? (
                     <div className="token__btns-wrapper">
                       {isApproved ? (
                         <Button
@@ -634,7 +657,11 @@ const Token: React.FC = observer(() => {
       ) : (
         ''
       )}
-      {tokenData.bids && tokenData.bids.length ? <CheckAvailability /> : ''}
+      {tokenData.bids && tokenData.bids.length ? (
+        <CheckAvailability isLoading={isLoading} handleEndAuction={handleEndAuction} />
+      ) : (
+        ''
+      )}
     </div>
   );
 });

@@ -51,4 +51,8 @@ export default {
       quantity: +quantity,
     }),
   verificateBet: (id: number) => axios.get(`/store/verificate_bet/${id}/`),
+  endAuction: (id: number) =>
+    axios.post(`/store/end_auction/${id}/`, {
+      token: localStorage.dds_token,
+    }),
 };
