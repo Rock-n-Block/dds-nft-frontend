@@ -172,11 +172,7 @@ const NFTCard: React.FC<INFTCard> = observer(
             {!price && selling ? (
               <div className="nft-card__auction">
                 {disableLinks ? (
-                  <div className="text-bold text-purple-l">
-                    <Button colorScheme="clear" onClick={handleOpenModal}>
-                      Place a bid
-                    </Button>
-                  </div>
+                  <></>
                 ) : (
                   <Button colorScheme="clear" onClick={handleOpenModal}>
                     <span className="text-bold text-purple-l">Place a bid</span>

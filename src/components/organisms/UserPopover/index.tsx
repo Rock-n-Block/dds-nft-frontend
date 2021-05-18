@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
-import { Switch } from 'antd';
+// import { Switch } from 'antd';
 import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
 
@@ -43,9 +43,6 @@ const UserPopover: React.FC = observer(() => {
   return (
     <div className="u-popover">
       <UserWallet className="u-popover__copy" address={user.address} />
-      <Link to="/profile" className="text-purple">
-        Set display name
-      </Link>
       <div className="u-popover__swap">
         <div className="u-popover__swap-content">
           <div className="">
@@ -104,10 +101,11 @@ const UserPopover: React.FC = observer(() => {
         <Link to="/profile" className="u-popover__nav-item text-bold text-black">
           Edit profile
         </Link>
+        {/*
         <div className="u-popover__nav-item text-bold text-black">
           <span>Autoplay</span>
           <Switch />
-        </div>
+        </div> */}
         <div
           className="u-popover__nav-item text-bold text-black text-hover"
           onClick={handleDisconnect}

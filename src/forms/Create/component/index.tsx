@@ -9,6 +9,10 @@ import { NFTCard } from '../../../components/molecules';
 import { ChooseCollection, Uploader } from '../../../components/organisms';
 import { useMst } from '../../../store/store';
 import { validateField } from '../../../utils/validate';
+import {
+  handlePositiveFloatInputChange,
+  handlePositiveIntegerInputChange,
+} from '../../../utils/helpers';
 
 interface IProperti {
   size: string | number;
@@ -137,10 +141,11 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     <Input
                       id="instantSalePriceEth"
                       className="form-create__input input__create text-bold text-smd"
+                      value={values.instantSalePriceEth}
                       size="large"
-                      type="number"
+                      type="text"
                       placeholder="10"
-                      onChange={handleChange}
+                      onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
                       onBlur={handleBlur}
                     />
                     <span className="text-purple text-bold text-upper">eth</span>
@@ -260,9 +265,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   id="tokenRoyalties"
                   className="form-create__input input__create text-bold text-smd"
                   size="large"
-                  type="number"
+                  value={values.tokenRoyalties}
+                  type="text"
                   placeholder="10"
-                  onChange={handleChange}
+                  onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
                   onBlur={handleBlur}
                 />
                 <span className="text-md text-gray-l text-bold">%</span>
@@ -284,8 +290,10 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                     id="numberOfCopies"
                     className="form-create__input input__create text-bold text-smd"
                     size="large"
+                    value={values.numberOfCopies}
+                    type="text"
                     placeholder="e. g. 10"
-                    onChange={handleChange}
+                    onChange={(e) => handlePositiveIntegerInputChange(e, handleChange)}
                     onBlur={handleBlur}
                   />
                 </div>
@@ -383,11 +391,13 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             img={values.preview}
             name={values.tokenName}
             artist={{
+              id: user.id ?? 0,
               name: user.display_name || user.address,
               avatar: user.avatar ? user.avatar : '',
             }}
             owners={[
               {
+                id: user.id ?? 0,
                 name: user.display_name || user.address,
                 avatar: user.avatar ? user.avatar : '',
               },

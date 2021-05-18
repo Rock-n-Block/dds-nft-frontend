@@ -29,6 +29,7 @@ const UserActivity: React.FC<UserActivityProps> = ({
     'Bids',
     'Likes',
     'Followings',
+    'Mint',
   ];
   const [activeFilters, setActiveFilters] = useState<string[]>(
     isAllFilterItem ? ['all'] : [filters[0]],
@@ -57,7 +58,7 @@ const UserActivity: React.FC<UserActivityProps> = ({
         tokenId={data.token_id}
         tokenImg={data.token_image}
         tokenName={data.token_name}
-        method={data.method}
+        method={data.method.toLowerCase()}
         firstUser={{
           id: data.from_id,
           img: data.from_image,
