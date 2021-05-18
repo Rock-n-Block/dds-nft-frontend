@@ -46,6 +46,12 @@ export const User = types
       if (currency === 'eth') self.balance.eth = value;
       if (currency === 'weth') self.balance.weth = value;
     };
+    const addLike = (tokenId: number) => {
+      self.likes.push(tokenId);
+    };
+    const removeLike = (tokenId: number) => {
+      self.likes.replace(self.likes.filter((like) => like !== tokenId));
+    };
     const setCover = (img: string) => {
       self.cover = img;
     };
@@ -72,6 +78,8 @@ export const User = types
       setAddress,
       setBalance,
       setCover,
+      addLike,
+      removeLike,
       update,
       getMe,
       disconnect,

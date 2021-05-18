@@ -85,8 +85,10 @@ const NFTCard: React.FC<INFTCard> = observer(
         .then(({ data }) => {
           if (data === 'liked') {
             setIsLike(true);
+            user.addLike(id ?? 0);
           } else {
             setIsLike(false);
+            user.removeLike(id ?? 0);
           }
         })
         .catch((err) => {
