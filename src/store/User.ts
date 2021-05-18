@@ -31,6 +31,7 @@ export const User = types
     likes: types.optional(types.array(types.number), []),
     site: types.optional(types.maybeNull(types.string), null),
     twitter: types.optional(types.maybeNull(types.string), null),
+    instagram: types.optional(types.maybeNull(types.string), null),
     balance: types.optional(Balance, {}),
   })
   .views((self) => ({

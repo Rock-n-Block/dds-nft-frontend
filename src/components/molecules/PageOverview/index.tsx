@@ -6,7 +6,6 @@ import { Avatar, Popover } from 'antd';
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
 import { userApi } from '../../../services/api';
 import { Button, SocialNetwork, UserWallet } from '../../atoms';
-import { ISocialNetwork } from '../../atoms/SocialNetwork';
 import PopoverUserLinks, { PopoverUserLinksProps } from '../PopoverUserLinks';
 
 import './PageOverview.scss';
@@ -19,7 +18,8 @@ export interface PageOverviewProps {
   description?: string;
   self?: boolean;
   follows?: boolean;
-  socialNetworks?: Array<ISocialNetwork>;
+  twitter?: string;
+  instagram?: string;
   parentComponent: 'User' | 'Collections';
 }
 
@@ -32,9 +32,10 @@ const PageOverview: React.FC<PageOverviewProps> = ({
   name,
   wallet,
   description,
+  twitter,
+  instagram,
   self = false,
   follows = false,
-  socialNetworks,
   parentComponent,
 }) => {
   const [follow, setFollow] = useState<boolean>(follows);
@@ -74,16 +75,21 @@ const PageOverview: React.FC<PageOverviewProps> = ({
         <div className="page-overview__content_container">
           <UserWallet address={wallet} className="page-overview__content__wallet" />
           <div className="page-overview__content__social-networks social-networks">
-            {socialNetworks && parentComponent === 'User' ? (
-              socialNetworks.map((network) => (
-                <SocialNetwork
-                  socialNetwork={network}
-                  className="social-networks__network text text-purple text-bold"
-                  key={nextId()}
-                />
-              ))
-            ) : (
-              <></>
+            {twitter && parentComponent === 'User' && (
+              <SocialNetwork
+                networkType="Twitter"
+                name={twitter}
+                className="social-networks__network text text-purple text-bold"
+                key={nextId()}
+              />
+            )}
+            {instagram && parentComponent === 'User' && (
+              <SocialNetwork
+                networkType="Instagram"
+                name={instagram}
+                className="social-networks__network text text-purple text-bold"
+                key={nextId()}
+              />
             )}
           </div>
         </div>
