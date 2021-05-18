@@ -43,7 +43,7 @@ export default {
     data.append('cover', file);
     return axios.post('/store/set_cover/', data);
   },
-  createBid: (id: string, amount: string, quantity: string) =>
+  createBid: (id: string | number, amount: string, quantity: string) =>
     axios.post('/store/bids/make_bid/', {
       auth_token: localStorage.dds_token,
       token_id: id,
@@ -55,4 +55,19 @@ export default {
     axios.post(`/store/end_auction/${id}/`, {
       token: localStorage.dds_token,
     }),
+  putOnSale: (tokenId: number, price?: number, minimalBid?: number) => {
+    const data: any = {
+      AuthToken: localStorage.dds_token,
+      selling: true,
+      currency: 'ETH',
+    };
+    if (price) {
+      data.price = price;
+    }
+    if (minimalBid) {
+      data.minimalBid = minimalBid;
+    }
+
+    return axios.patch(`/store/${tokenId}/`, data);
+  },
 };

@@ -4,17 +4,19 @@ import { FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 
 import { Button } from '../../../components/atoms';
+import { validateField } from '../../../utils/validate';
 import { useMst } from '../../../store/store';
 
 export interface ISaleFixedPrice {
-  bid: string;
+  instantSalePriceEth: string;
   fee: number;
-  copies: number;
+  // copies: number;
   totalSupply: number;
+  isLoading: boolean;
 }
 
 const SaleFixedPrice: React.FC<FormikProps<ISaleFixedPrice>> = observer(
-  ({ handleChange, handleBlur, values, handleSubmit }) => {
+  ({ handleChange, handleBlur, values, handleSubmit, touched, errors }) => {
     const { modals } = useMst();
     const onSubmit = () => {
       handleSubmit();
@@ -25,20 +27,22 @@ const SaleFixedPrice: React.FC<FormikProps<ISaleFixedPrice>> = observer(
     return (
       <Form name="form-sale-fixed-price" className="form-sale-fixed-price" layout="vertical">
         <Form.Item
-          name="bid value"
+          name="instantSalePriceEth"
           className="form-sale-fixed-price__item input__field"
-          initialValue={values.bid}
+          initialValue={values.instantSalePriceEth}
           label={<span className="input__label text-bold">Enter price for one piece</span>}
+          validateStatus={validateField('instantSalePriceEth', touched, errors)}
+          help={!touched.instantSalePriceEth ? '' : errors.instantSalePriceEth}
         >
           <div className="input__field-create box-shadow">
             <Input
-              id="fixed-bid"
-              value={values.bid}
+              id="instantSalePriceEth"
+              value={values.instantSalePriceEth}
               suffix="WETH"
               className="form-sale-fixed-price__input input input__create text-bold text-smd"
               size="large"
               type="text"
-              placeholder="Enter bid"
+              placeholder="Enter price"
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -53,7 +57,7 @@ const SaleFixedPrice: React.FC<FormikProps<ISaleFixedPrice>> = observer(
             You will receive <span className="text-pink-l">0 ETH </span>$0.00
           </p>
         </section>
-        <Form.Item
+        {/* <Form.Item
           name="number of copies"
           className="form-sale-fixed-price__item input__field"
           initialValue={values.copies}
@@ -71,10 +75,10 @@ const SaleFixedPrice: React.FC<FormikProps<ISaleFixedPrice>> = observer(
               onBlur={handleBlur}
             />
           </div>
-        </Form.Item>
-        <p className="form-sale-fixed-price__ammount text text-bold text-gray-l">
+        </Form.Item> */}
+        {/* <p className="form-sale-fixed-price__ammount text text-bold text-gray-l">
           Amount of tokens <span className="text-pink-l">{values.totalSupply}</span>
-        </p>
+        </p> */}
         <div className="form-sale-fixed-price__btns">
           <Button
             colorScheme="gradient"
@@ -82,6 +86,7 @@ const SaleFixedPrice: React.FC<FormikProps<ISaleFixedPrice>> = observer(
             size="md"
             onClick={onSubmit}
             className="form-sale-fixed-price__submit-btn"
+            loading={values.isLoading}
           >
             Put on sale
           </Button>

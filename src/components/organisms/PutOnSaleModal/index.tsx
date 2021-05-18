@@ -4,8 +4,7 @@ import { observer } from 'mobx-react-lite';
 import AuctionImg from '../../../assets/img/icons/auction.svg';
 import SaleImg from '../../../assets/img/icons/sale.svg';
 import { useMst } from '../../../store/store';
-import { Modal, TimedAuctionModal } from '../../molecules';
-import FixedPriceModal from '../../molecules/FixedPriceModal';
+import { Modal } from '../../molecules';
 
 import './PutOnSaleModal.scss';
 
@@ -45,7 +44,6 @@ const PutOnSaleModal: React.FC = observer(() => {
             </div>
             <div className="m-put-on-sale__item-text text-bold">Fixed price</div>
           </div>
-          <FixedPriceModal />
           <div
             className="m-put-on-sale__item box-shadow"
             onClick={handleTimedAuctionModalOpen}
@@ -58,7 +56,6 @@ const PutOnSaleModal: React.FC = observer(() => {
             </div>
             <div className="m-put-on-sale__item-text text-bold">Unlimited auction</div>
           </div>
-          <TimedAuctionModal />
         </div>
       </div>
     </Modal>

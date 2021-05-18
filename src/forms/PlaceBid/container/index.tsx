@@ -13,7 +13,7 @@ interface PlaceBidFormProps {
   fee?: { value: string; currency: string };
   total?: { value: string; currency: string };
   available?: number;
-  tokenId: string;
+  tokenId: string | number;
 }
 
 const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, tokenId }) => {

@@ -174,7 +174,7 @@ const AuctionModal = types
   .model({
     token: types.model({
       name: types.optional(types.string, ''),
-      id: types.optional(types.string, ''),
+      id: types.optional(types.union(types.string, types.number), ''),
     }),
     artist: types.model({
       name: types.optional(types.string, ''),

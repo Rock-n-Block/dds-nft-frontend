@@ -51,7 +51,7 @@ export const validateForm = ({ values, notRequired }: any) => {
       }
     },
     bid: (value: string): void => {
-      if (!value) {
+      if (!value || !+value) {
         errCopy.bid = 'Enter bid value';
       }
     },

@@ -7,29 +7,36 @@ import { Modal } from '../index';
 
 import './TimedAuctionModal.scss';
 
-const TimedAuctionModal: React.FC = observer(() => {
-  const { modals } = useMst();
+interface ITimedAuctionModal {
+  tokenId: number;
+  handleSetTokenData: (data: any) => void;
+}
 
-  const handleClose = (): void => {
-    modals.timedAuction.close();
-  };
+const TimedAuctionModal: React.FC<ITimedAuctionModal> = observer(
+  ({ tokenId, handleSetTokenData }) => {
+    const { modals } = useMst();
 
-  return (
-    <Modal
-      isVisible={!!modals.timedAuction.isOpen}
-      handleCancel={handleClose}
-      className="m-timed-auction"
-      closeIcon
-      width={380}
-    >
-      <div className="m-timed-auction__content">
-        <div className="m-timed-auction__title text-xl text-grad text-bold">Timed auction</div>
-        <div className="m-timed-auction__subtitle text text-bold text-gray-l">
-          Enter new price. Your NFT will be pushed in top of marketplace.
+    const handleClose = (): void => {
+      modals.timedAuction.close();
+    };
+
+    return (
+      <Modal
+        isVisible={!!modals.timedAuction.isOpen}
+        handleCancel={handleClose}
+        className="m-timed-auction"
+        closeIcon
+        width={380}
+      >
+        <div className="m-timed-auction__content">
+          <div className="m-timed-auction__title text-xl text-grad text-bold">Timed auction</div>
+          <div className="m-timed-auction__subtitle text text-bold text-gray-l">
+            Enter new price. Your NFT will be pushed in top of marketplace.
+          </div>
+          <SaleTimedAuctionForm tokenId={tokenId} handleSetTokenData={handleSetTokenData} />
         </div>
-        <SaleTimedAuctionForm />
-      </div>
-    </Modal>
-  );
-});
+      </Modal>
+    );
+  },
+);
 export default TimedAuctionModal;
