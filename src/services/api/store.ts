@@ -43,7 +43,7 @@ export default {
     data.append('cover', file);
     return axios.post('/store/set_cover/', data);
   },
-  createBid: (id: string, amount: string, quantity: string) =>
+  createBid: (id: string | number, amount: string, quantity: string) =>
     axios.post('/store/bids/make_bid/', {
       auth_token: localStorage.dds_token,
       token_id: id,
