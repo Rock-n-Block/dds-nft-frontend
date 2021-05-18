@@ -47,6 +47,7 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owners, artist, collection, royal
       </div>
       <UserMini
         img={collection.col?.avatar}
+        id={collection.col?.id}
         imgSize="lg"
         isCheck
         topText={
