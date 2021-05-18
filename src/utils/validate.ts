@@ -46,12 +46,12 @@ export const validateForm = ({ values, notRequired }: any) => {
       }
     },
     instantSalePriceEth: (value: string): void => {
-      if (!value) {
+      if (!value || !+value) {
         errCopy.instantSalePriceEth = '"Price" must be a number';
       }
     },
     bid: (value: string): void => {
-      if (!value) {
+      if (!value || !+value) {
         errCopy.bid = 'Enter bid value';
       }
     },

@@ -3,9 +3,11 @@ import { Form, Input } from 'antd';
 import { FormikProps } from 'formik';
 
 import { Button } from '../../../components/atoms';
+import { validateField } from '../../../utils/validate';
 
 export interface ISaleTimedAuction {
-  minimumBid: string;
+  bid: string;
+  isLoading: boolean;
 }
 
 const SaleTimedAuction: React.FC<FormikProps<ISaleTimedAuction>> = ({
@@ -13,6 +15,8 @@ const SaleTimedAuction: React.FC<FormikProps<ISaleTimedAuction>> = ({
   handleBlur,
   values,
   handleSubmit,
+  touched,
+  errors,
 }) => {
   const onSubmit = () => {
     handleSubmit();
@@ -20,15 +24,17 @@ const SaleTimedAuction: React.FC<FormikProps<ISaleTimedAuction>> = ({
   return (
     <Form name="form-sale-timed-auction" className="form-sale-timed-auction" layout="vertical">
       <Form.Item
-        name="bid value"
+        name="bid"
         className="form-sale-timed-auction__item input__field"
-        initialValue={values.minimumBid}
+        initialValue={values.bid}
         label={<span className="input__label text-bold">Enter price for one piece</span>}
+        validateStatus={validateField('bid', touched, errors)}
+        help={!touched.bid ? '' : errors.bid}
       >
         <div className="input__field-create box-shadow">
           <Input
-            id="minimum-bid"
-            value={values.minimumBid}
+            id="bid"
+            value={values.bid}
             suffix="WETH"
             className="form-sale-timed-auction__input input input__create text-bold text-smd"
             size="large"
@@ -51,6 +57,7 @@ const SaleTimedAuction: React.FC<FormikProps<ISaleTimedAuction>> = ({
       <Button
         colorScheme="gradient"
         shadow
+        loading={values.isLoading}
         size="md"
         onClick={onSubmit}
         className="form-sale-timed-auction__submit-btn"

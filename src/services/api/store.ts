@@ -55,4 +55,19 @@ export default {
     axios.post(`/store/end_auction/${id}/`, {
       token: localStorage.dds_token,
     }),
+  putOnSale: (tokenId: number, price?: number, minimalBid?: number) => {
+    const data: any = {
+      AuthToken: localStorage.dds_token,
+      selling: true,
+      currency: 'ETH',
+    };
+    if (price) {
+      data.price = price;
+    }
+    if (minimalBid) {
+      data.minimalBid = minimalBid;
+    }
+
+    return axios.patch(`/store/${tokenId}/`, data);
+  },
 };

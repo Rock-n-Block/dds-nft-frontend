@@ -7,7 +7,12 @@ import { Modal } from '../index';
 
 import './FixedPriceModal.scss';
 
-const FixedPriceModal: React.FC = observer(() => {
+interface IFixedPriceModal {
+  tokenId: number;
+  handleSetTokenData: (data: any) => void;
+}
+
+const FixedPriceModal: React.FC<IFixedPriceModal> = observer(({ tokenId, handleSetTokenData }) => {
   const { modals } = useMst();
 
   const handleClose = (): void => {
@@ -30,6 +35,8 @@ const FixedPriceModal: React.FC = observer(() => {
         <SaleFixedPriceForm
           fee={modals.fixedPrice.fee}
           totalSupply={modals.fixedPrice.totalSupply}
+          tokenId={tokenId}
+          handleSetTokenData={handleSetTokenData}
         />
       </div>
     </Modal>

@@ -15,6 +15,7 @@ import {
   MultiBuyModal,
   CheckAvailability,
 } from '../../components/organisms';
+import { TimedAuctionModal, FixedPriceModal } from '../../components/molecules';
 import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
@@ -280,7 +281,7 @@ const Token: React.FC = observer(() => {
     modals.multibuy.open();
   };
 
-  const handlePutOnSaleClick = (): void => {
+  const handlePutOnSale = (): void => {
     modals.putOnSale.open();
     modals.fixedPrice.setProps(tokenData.serviceFee, tokenData.totalSupply);
   };
@@ -338,34 +339,38 @@ const Token: React.FC = observer(() => {
       });
   };
 
+  const handleSetTokenData = (data: any): void => {
+    setTokenData({
+      USDPrice: data.USD_price,
+      available: data.available,
+      collection: data.collection,
+      creator: data.creator,
+      currency: data.currency,
+      description: data.description,
+      details: data.details,
+      id: data.id,
+      media: data.media,
+      name: data.name,
+      tags: data.tags,
+      owners: data.owners,
+      likeCount: data.like_count,
+      price: data.price,
+      royalty: data.royalty,
+      selling: data.selling,
+      standart: data.standart,
+      history: data.history,
+      totalSupply: data.total_supply,
+      serviceFee: data.service_fee,
+      bids: data.bids,
+      sellers: data.sellers,
+    });
+  };
+
   useEffect(() => {
     storeApi
       .getToken(token)
       .then(({ data: tokendata }: any) => {
-        setTokenData({
-          USDPrice: tokendata.USD_price,
-          available: tokendata.available,
-          collection: tokendata.collection,
-          creator: tokendata.creator,
-          currency: tokendata.currency,
-          description: tokendata.description,
-          details: tokendata.details,
-          id: tokendata.id,
-          media: tokendata.media,
-          name: tokendata.name,
-          tags: tokendata.tags,
-          owners: tokendata.owners,
-          likeCount: tokendata.like_count,
-          price: tokendata.price,
-          royalty: tokendata.royalty,
-          selling: tokendata.selling,
-          standart: tokendata.standart,
-          history: tokendata.history,
-          totalSupply: tokendata.total_supply,
-          serviceFee: tokendata.service_fee,
-          bids: tokendata.bids,
-          sellers: tokendata.sellers,
-        });
+        handleSetTokenData(tokendata);
       })
       .catch((err: any) => {
         console.log(err, 'get token');
@@ -487,7 +492,11 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
-            {user.address && isMyToken && tokenData.selling && !tokenData.price ? (
+            {user.address &&
+            isMyToken &&
+            tokenData.selling &&
+            !tokenData.price &&
+            tokenData.bids.length ? (
               <div className="token__bids">
                 <Button
                   colorScheme="gradient"
@@ -510,7 +519,7 @@ const Token: React.FC = observer(() => {
                   colorScheme="white"
                   shadow
                   size="md"
-                  onClick={handlePutOnSaleClick}
+                  onClick={handlePutOnSale}
                 >
                   Put on sale
                 </Button>
@@ -649,7 +658,15 @@ const Token: React.FC = observer(() => {
           </div>
         </div>
       </div>
-      <PutOnSaleModal />
+      {isMyToken && !tokenData.selling ? (
+        <>
+          <PutOnSaleModal />
+          <TimedAuctionModal tokenId={tokenData.id} handleSetTokenData={handleSetTokenData} />
+          <FixedPriceModal tokenId={tokenData.id} handleSetTokenData={handleSetTokenData} />
+        </>
+      ) : (
+        ''
+      )}
       <CheckoutModal handleBuy={handleBuy} />
       {tokenData.standart === 'ERC1155' ? (
         <MultiBuyModal
