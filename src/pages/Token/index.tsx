@@ -294,8 +294,16 @@ const Token: React.FC = observer(() => {
       .then(({ data }) => {
         if (data === 'liked') {
           setIsLike(true);
+          user.addLike(tokenData.id);
+          setTokenData((prevState) => {
+            return { ...prevState, likeCount: prevState.likeCount + 1 };
+          });
         } else {
           setIsLike(false);
+          user.removeLike(tokenData.id);
+          setTokenData((prevState) => {
+            return { ...prevState, likeCount: prevState.likeCount - 1 };
+          });
         }
       })
       .catch((err) => {
