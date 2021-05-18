@@ -5,6 +5,7 @@ import { FormikProps } from 'formik';
 
 import { Button } from '../../../components/atoms';
 import { validateField } from '../../../utils/validate';
+import { handlePositiveNumberInputChange } from '../../../utils/helpers';
 
 export interface IPlaceBid {
   bid: string;
@@ -44,7 +45,7 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
             size="large"
             type="text"
             placeholder="Enter bid"
-            onChange={handleChange}
+            onChange={(e) => handlePositiveNumberInputChange(e, handleChange)}
             onBlur={handleBlur}
           />
         </div>
@@ -70,7 +71,7 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
               size="large"
               type="text"
               placeholder="1"
-              onChange={handleChange}
+              onChange={(e) => handlePositiveNumberInputChange(e, handleChange)}
               onBlur={handleBlur}
             />
           </div>
