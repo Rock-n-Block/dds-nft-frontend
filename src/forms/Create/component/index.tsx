@@ -408,7 +408,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 avatar: user.avatar ? user.avatar : '',
               },
             ]}
-            price={+values.instantSalePriceEth || 0}
+            price={values.instantSalePrice ? +values.instantSalePriceEth || 0 : null}
             available={isSingle ? 1 : +values.numberOfCopies}
             selling={values.putOnSale}
           />
