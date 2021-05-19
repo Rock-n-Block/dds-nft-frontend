@@ -641,18 +641,15 @@ const Token: React.FC = observer(() => {
               </div>
             )}
             <div className="token__info">
+              <div className="token__info-text text-md">{tokenData.collection?.name}</div>
+              <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
+              <br />
               {tokenData.description ? (
                 <div className="token__info-text text-md">{tokenData.description}</div>
               ) : (
-                <>
-                  <div className="token__info-text text-md">{tokenData.collection?.name}</div>
-                  <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
-                </>
+                ''
               )}
             </div>
-            <Button colorScheme="white" shadow className="token__info-btn">
-              <span className="text-grad text-smd">Read more</span>
-            </Button>
           </div>
           <div className="token__content-right">
             <TokenTabs

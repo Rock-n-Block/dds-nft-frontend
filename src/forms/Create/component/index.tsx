@@ -253,7 +253,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 className="form-create__input input__create text-bold text-smd"
                 size="large"
                 placeholder='e. g. "After purchasing you’ll be able to get the real T-Shirt"'
-                onChange={handleChange}
+                onChange={(e: any) => setFieldValue('tokenDescr', e.target.value)}
                 onBlur={handleBlur}
               />
             </div>
