@@ -13,16 +13,6 @@ export interface INFTCard {
   img: string;
   name: string;
   id?: number;
-  auction?: {
-    count: number | string;
-    sold: number | string;
-    bid: number | string;
-  } | null;
-  bid?: {
-    price: number | string;
-    sold: number | string;
-    count: number | string;
-  } | null;
   artist: {
     name: string;
     id?: number | string;
@@ -38,31 +28,11 @@ export interface INFTCard {
   available?: number;
   selling?: boolean;
   price?: number | null;
+  service_fee?: number;
 }
-/* const mockOwners = [
-  {
-    avatar: 'devdds2.rocknblock.io/media/default.jpg',
-    id: 7,
-    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
-  },
-  {
-    avatar: 'devdds2.rocknblock.io/media/default.jpg',
-    id: 7,
-    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
-  },
-  {
-    avatar: 'devdds2.rocknblock.io/media/default.jpg',
-    id: 7,
-    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
-  },
-  {
-    avatar: 'devdds2.rocknblock.io/media/default.jpg',
-    id: 7,
-    name: '0xbdc0389aa5f6a7e858434c29d5eda973dfdea166',
-  },
-]; */
+
 const NFTCard: React.FC<INFTCard> = observer(
-  ({ img, name, id, artist, owners, disableLinks, available, selling, price }) => {
+  ({ img, name, id, artist, owners, disableLinks, available, selling, price, service_fee }) => {
     const { user, modals } = useMst();
 
     const handleOpenModal = (): void => {
@@ -76,6 +46,7 @@ const NFTCard: React.FC<INFTCard> = observer(
           name: artist.name,
         },
         available,
+        fee: service_fee,
       });
     };
     const [isLike, setIsLike] = useState<boolean>(false);

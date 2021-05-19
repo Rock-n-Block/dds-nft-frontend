@@ -12,6 +12,11 @@ export const validateForm = ({ values, notRequired }: any) => {
         errCopy.email = 'Incorrect address';
       }
     },
+    img: (value: string): void => {
+      if (!value) {
+        errCopy.img = 'Please choose token preview';
+      }
+    },
     tokenProperties: (value: any): void => {
       errCopy.tokenProperties = [{}];
       let err = false;
@@ -83,7 +88,7 @@ export const validateForm = ({ values, notRequired }: any) => {
     },
 
     numberOfCopies: (value: string): void => {
-      if (!value) {
+      if (!value || !+value || +value <= 0) {
         errCopy.numberOfCopies = '"Number of copies" must be a number';
       }
     },

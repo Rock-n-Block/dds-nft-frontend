@@ -137,7 +137,7 @@ const User: React.FC = observer(() => {
         setIsLoading(false);
         modals.uploadCover.close();
         user.setCover(data);
-        modals.success.setSuccessMsg('Congrats you changed the cover!');
+        modals.info.setMsg('Congrats you changed the cover!', 'success');
         setCurrentUser((prevState: any) => {
           return {
             ...prevState,

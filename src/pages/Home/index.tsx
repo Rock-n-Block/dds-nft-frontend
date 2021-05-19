@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 
 // import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
 import HotImg from '../../assets/img/mock/hot.jpg';
@@ -6,12 +7,14 @@ import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
 import { Explore, HotBids, HotCollections, Search } from '../../components/organisms';
 import { storeApi, userApi } from '../../services/api';
+import { useMst } from '../../store/store';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import './Home.scss';
 
-const Home: React.FC = () => {
+const Home: React.FC = observer(() => {
+  const { user } = useMst();
   const [collections, setCollections] = useState<any>([]);
   const [cover, setCover] = useState<any>({});
   const hotBids = [
@@ -174,9 +177,13 @@ const Home: React.FC = () => {
           <p className="home__preview-text text-xl text-white text-center">
             Buy, sell, and discover rare digital items
           </p>
-          <Button size="lg" colorScheme="white" link="/create" linkClassName="home__preview-btn">
-            Create
-          </Button>
+          {user.address ? (
+            <Button size="lg" colorScheme="white" link="/create" linkClassName="home__preview-btn">
+              Create
+            </Button>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       <div className="home__hot">
@@ -198,6 +205,6 @@ const Home: React.FC = () => {
       </div>
     </main>
   );
-};
+});
 
 export default Home;

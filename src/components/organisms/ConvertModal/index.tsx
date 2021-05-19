@@ -60,7 +60,7 @@ const ConvertModal: React.FC = observer(() => {
             new BigNumber(user.balance.weth).plus(new BigNumber(value)).toString(10),
             'weth',
           );
-          modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
+          modals.info.setMsg('Congrats you successfully swapped your eth to weth', 'success');
           modals.convert.close();
         })
         .catch((err: any) => {
@@ -81,7 +81,7 @@ const ConvertModal: React.FC = observer(() => {
             new BigNumber(user.balance.weth).minus(new BigNumber(value)).toString(10),
             'weth',
           );
-          modals.success.setSuccessMsg('Congrats you successfully swapped your eth to weth');
+          modals.info.setMsg('Congrats you successfully swapped your eth to weth', 'success');
           modals.convert.close();
         })
         .catch((err: any) => {

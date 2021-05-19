@@ -39,6 +39,7 @@ const Collections: React.FC = observer(() => {
         available={data.available}
         selling={data.selling}
         price={data.price}
+        service_fee={data.service_fee}
       />
     );
   };
@@ -102,7 +103,7 @@ const Collections: React.FC = observer(() => {
       .then(({ data }) => {
         setIsLoading(false);
         modals.uploadCover.close();
-        modals.success.setSuccessMsg('Congrats you changed collection cover!');
+        modals.info.setMsg('Congrats you changed collection cover!', 'success');
         setCollection((prevState: any) => {
           return {
             ...prevState,

@@ -62,7 +62,7 @@ export default observer(({ walletConnector, isSingle, getCollections }: any) => 
                   console.log(result, 'create collection');
                   setFieldValue('isLoading', false);
                   modals.createCollection.close();
-                  modals.success.setSuccessMsg('Congrats you create your own NFT collection!');
+                  modals.info.setMsg('Congrats you create your own NFT collection!', 'success');
                   getCollections();
                 })
                 .catch((err: any) => {

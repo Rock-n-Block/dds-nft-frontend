@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
 
@@ -72,6 +72,7 @@ export interface IOwner extends IUser {
   quantity: number;
 }
 const Token: React.FC = observer(() => {
+  const history = useHistory();
   const connector = useWalletConnectorContext();
   const { user, modals } = useMst();
   const { token } = useParams<ITokenId>();
@@ -219,9 +220,11 @@ const Token: React.FC = observer(() => {
         },
       );
       setLoading(false);
+      modals.info.setMsg('Congratulations', 'success');
     } catch (err) {
       console.log(err);
       setLoading(false);
+      modals.info.setMsg('Something went wrong', 'error');
     }
   };
 
@@ -231,9 +234,11 @@ const Token: React.FC = observer(() => {
       const { data: buyTokenData }: any = await storeApi.endAuction(tokenData.id);
 
       await createBuyTransaction(buyTokenData);
+      modals.checkAvailability.close();
     } catch (err) {
       console.log(err);
       setLoading(false);
+      modals.info.setMsg('Something went wrong', 'error');
     }
   };
 
@@ -256,6 +261,7 @@ const Token: React.FC = observer(() => {
       .catch((err) => {
         setLoading(false);
         console.log(err, 'verificate bet');
+        modals.info.setMsg('Something went wrong', 'error');
       });
   };
 
@@ -274,6 +280,7 @@ const Token: React.FC = observer(() => {
     } catch (err) {
       console.log(err);
       setLoading(false);
+      modals.info.setMsg('Something went wrong', 'error');
     }
   };
 
@@ -298,6 +305,7 @@ const Token: React.FC = observer(() => {
         console.log(err, 'err approve');
         setLoading(false);
         setApproved(false);
+        modals.info.setMsg('Something went wrong', 'error');
       });
   };
 
@@ -336,6 +344,7 @@ const Token: React.FC = observer(() => {
       })
       .catch((err) => {
         console.log(err, 'handle like');
+        modals.info.setMsg('Something went wrong', 'error');
       });
   };
 
@@ -374,8 +383,10 @@ const Token: React.FC = observer(() => {
       })
       .catch((err: any) => {
         console.log(err, 'get token');
+        history.push('/');
+        modals.info.setMsg('Something went wrong', 'error');
       });
-  }, [token]);
+  }, [token, history, modals.info]);
 
   useEffect(() => {
     if (Object.keys(tokenData).length && user.id) {
@@ -635,8 +646,6 @@ const Token: React.FC = observer(() => {
                 <>
                   <div className="token__info-text text-md">{tokenData.collection?.name}</div>
                   <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
-                  <div className="token__info-text text-md">{`Series: ${mockData.series}`}</div>
-                  <div className="token__info-text text-md">{`Number: ${mockData.number}`}</div>
                 </>
               )}
             </div>

@@ -84,11 +84,18 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
           <div className="form-create__upload">
             <div className="form-create__upload-title text-bold text-lg">Upload file</div>
             <div className="form-create__upload-item">
-              <Uploader>
-                <span className="text-gray-l text-smd text-bold">
-                  PNG, GIF, WEBP, MP4 or MP3. Max 30mb.
-                </span>
-              </Uploader>
+              <Form.Item
+                name="img"
+                className="form-create__item input__field"
+                validateStatus={validateField('img', touched, errors)}
+                help={!touched.img ? false : errors.img}
+              >
+                <Uploader>
+                  <span className="text-gray-l text-smd text-bold">
+                    PNG, GIF, WEBP, MP4 or MP3. Max 30mb.
+                  </span>
+                </Uploader>
+              </Form.Item>
             </div>
           </div>
           <div className="form-create__box box-outline">
@@ -402,7 +409,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 avatar: user.avatar ? user.avatar : '',
               },
             ]}
-            price={values.instantSalePrice ? +values.instantSalePriceEth : 0}
+            price={values.instantSalePrice ? +values.instantSalePriceEth || 0 : null}
             available={isSingle ? 1 : +values.numberOfCopies}
             selling={values.putOnSale}
           />

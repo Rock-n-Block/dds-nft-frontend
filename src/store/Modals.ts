@@ -170,6 +170,18 @@ const VerifyModal = types
       self.isOpen = false;
     },
   }));
+const ReportModal = types
+  .model({
+    isOpen: types.boolean,
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 const AuctionModal = types
   .model({
     token: types.model({
@@ -228,13 +240,19 @@ const MetamaskModal = types
     },
   }));
 
-const SuccessModal = types
+const InfoModal = types
   .model({
-    successMsg: types.optional(types.string, ''),
+    msg: types.optional(types.string, ''),
+    type: types.optional(types.string, ''),
   })
   .actions((self) => ({
-    setSuccessMsg(msg: string) {
-      self.successMsg = msg;
+    setMsg(msg: string, type: 'success' | 'error') {
+      self.msg = msg;
+      self.type = type;
+    },
+    close() {
+      self.msg = '';
+      self.type = '';
     },
   }));
 
@@ -244,7 +262,8 @@ export const Modals = types.model({
   createCollection: CreateCollectionModal,
   convert: ConvertModal,
   verify: VerifyModal,
-  success: SuccessModal,
+  report: ReportModal,
+  info: InfoModal,
   auction: AuctionModal,
   uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,

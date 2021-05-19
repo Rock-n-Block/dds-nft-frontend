@@ -13,6 +13,7 @@ export interface IPlaceBid {
   balance: { value: string; currency: string };
   fee: { value: string; currency: string };
   available: number;
+  isLoading: boolean;
 }
 
 const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
@@ -113,6 +114,7 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
         size="md"
         onClick={onSubmit}
         className="form-auction__submit-btn"
+        loading={values.isLoading}
       >
         Place a bid
       </Button>
