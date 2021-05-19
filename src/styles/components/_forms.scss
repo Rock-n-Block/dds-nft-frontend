@@ -55,14 +55,16 @@
       }
 
       &-name {
-        margin-bottom: 60px;
+        margin-bottom: 30px;
       }
 
       &-short {
         margin-bottom: 60px;
       }
     }
-
+    &__description {
+      margin-top: 10px;
+    }
     &__upload {
       margin-bottom: 25px;
 
@@ -86,12 +88,20 @@
           min-width: 100%;
         }
       }
+      &-item {
+        .input__field {
+          margin-top: 0;
+        }
+      }
 
       p {
         margin-bottom: 10px;
 
         max-width: 220px;
       }
+    }
+    &__submit-btn {
+      margin: 0 auto;
     }
   }
 

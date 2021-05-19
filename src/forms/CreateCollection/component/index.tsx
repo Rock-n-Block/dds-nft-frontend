@@ -33,11 +33,18 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
         <div className="form-create-coll__upload-img">
           <img src={values.preview} alt="" />
         </div>
-        <div className="form-create-coll__upload-wrapper">
-          <p className="text-gray text-bold">
-            We recommend an image of at least 400x400. Gift work too.
-          </p>
-          <Uploader type="button" />
+        <div className="form-create-coll__upload-item">
+          <Form.Item
+            name="img"
+            className="form-create__item input__field"
+            validateStatus={validateField('img', touched, errors)}
+            help={!touched.img ? false : errors.img}
+          >
+            <p className="text-gray text-bold">
+              We recommend an image of at least 400x400. Gift work too.
+            </p>
+            <Uploader type="button" />
+          </Form.Item>
         </div>
       </div>
       <Form.Item
@@ -91,7 +98,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
             className="form-create-coll__input input input__create text-bold text-smd"
             size="large"
             type="text"
-            placeholder="AAR"
+            placeholder="Describe your collection"
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -101,7 +108,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
         name="shortUrl"
         className="form-create-coll__item form-create-coll__item-short input__field"
         validateStatus={validateField('shortUrl', touched, errors)}
-        help={!touched.shortUrl ? 'Will be used as public URL' : errors.shortUrl}
+        help={!touched.shortUrl ? false : errors.shortUrl}
         label={<span className="input__label text-bold">Short url</span>}
       >
         <div className="input__field-create box-shadow">
@@ -110,13 +117,22 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
             className="form-create-coll__input input input__create text-bold text-smd"
             size="large"
             type="text"
-            placeholder="AAR"
+            placeholder="Dds.store/your_url"
             onChange={handleChange}
             onBlur={handleBlur}
           />
         </div>
+        <p className="form-create-coll__description text-bold text text-gray-l">
+          Will be used as public URL
+        </p>
       </Form.Item>
-      <Button loading={values.isLoading} colorScheme="gradient" size="md" onClick={onSubmit}>
+      <Button
+        className="form-create-coll__submit-btn"
+        loading={values.isLoading}
+        colorScheme="gradient"
+        size="md"
+        onClick={onSubmit}
+      >
         Create collection
       </Button>
     </Form>

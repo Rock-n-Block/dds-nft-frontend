@@ -10,7 +10,7 @@ import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import CreateCollection, { ICreateCollection } from '../component';
 
-export default observer(({ walletConnector, isSingle, getCollections }: any) => {
+export default observer(({ walletConnector, isSingle }: any) => {
   const { modals } = useMst();
   const FormWithFormik = withFormik<any, ICreateCollection>({
     enableReinitialize: true,
@@ -60,31 +60,30 @@ export default observer(({ walletConnector, isSingle, getCollections }: any) => 
                 .saveCollection(formData)
                 .then((result) => {
                   console.log(result, 'create collection');
-                  setFieldValue('isLoading', false);
-                  modals.createCollection.close();
-                  modals.info.setMsg('Congrats you create your own NFT collection!', 'success');
-                  getCollections();
+                  modals.info.setMsg(
+                    'Congrats you created your own NFT collection! It will be added soon.',
+                    'success',
+                  );
                 })
                 .catch((err: any) => {
-                  setFieldValue('isLoading', false);
-                  modals.createCollection.close();
+                  modals.info.setMsg('An error occurred while creating the collection', 'error');
                   console.log(err, 'err');
                 });
             })
             .catch((err: any) => {
-              setFieldValue('isLoading', false);
-              modals.createCollection.close();
               console.log(err, 'err');
             });
         })
-        .catch((err) => {
+        .catch((err: any) => {
+          console.log(err, 'err');
+        })
+        .finally(() => {
           setFieldValue('isLoading', false);
           modals.createCollection.close();
-          console.log(err, 'err');
         });
     },
 
-    displayName: 'ChangePasswordForm',
+    displayName: 'CreateCollectionForm',
   })(CreateCollection);
   return <FormWithFormik />;
 });
