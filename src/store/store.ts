@@ -23,6 +23,9 @@ export const Store = RootModel.create({
     verify: {
       isOpen: false,
     },
+    report: {
+      isOpen: false,
+    },
     fixedPrice: {
       isOpen: false,
       fee: 0,

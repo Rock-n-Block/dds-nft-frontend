@@ -70,4 +70,6 @@ export default {
 
     return axios.patch(`/store/${tokenId}/`, data);
   },
+  reportPage: (page: string, reportMessage: string) =>
+    axios.post('/store/report/', { page, reportMessage }),
 };

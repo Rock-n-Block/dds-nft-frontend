@@ -170,6 +170,18 @@ const VerifyModal = types
       self.isOpen = false;
     },
   }));
+const ReportModal = types
+  .model({
+    isOpen: types.boolean,
+  })
+  .actions((self) => ({
+    open() {
+      self.isOpen = true;
+    },
+    close() {
+      self.isOpen = false;
+    },
+  }));
 const AuctionModal = types
   .model({
     token: types.model({
@@ -244,6 +256,7 @@ export const Modals = types.model({
   createCollection: CreateCollectionModal,
   convert: ConvertModal,
   verify: VerifyModal,
+  report: ReportModal,
   success: SuccessModal,
   auction: AuctionModal,
   uploadCover: UploadCoverModal,

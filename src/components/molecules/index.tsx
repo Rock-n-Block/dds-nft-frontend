@@ -14,3 +14,4 @@ export { default as TokenOwners } from './TokenOwners';
 export { default as UploadCoverModal } from './UploadCoverModal';
 export { default as FixedPriceModal } from './FixedPriceModal';
 export { default as TimedAuctionModal } from './TimedAuctionModal';
+export { default as ReportModal } from './ReportModal';
