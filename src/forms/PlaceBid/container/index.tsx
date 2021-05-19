@@ -7,6 +7,7 @@ import Wep3Provider from '../../../services/web3';
 import { validateForm } from '../../../utils/validate';
 import PlaceBid, { IPlaceBid } from '../component';
 import { useMst } from '../../../store/store';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
 
 interface PlaceBidFormProps {
   balance?: { value: string; currency: string };
@@ -18,6 +19,7 @@ interface PlaceBidFormProps {
 
 const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, tokenId }) => {
   const { modals } = useMst();
+  const connector = useWalletConnectorContext();
   const FormWithFormik = withFormik<any, IPlaceBid>({
     enableReinitialize: true,
     mapPropsToValues: () => {
@@ -27,6 +29,7 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
         balance: balance ?? { value: '', currency: '' },
         fee: fee ?? { value: '', currency: '' },
         available: available || 0,
+        isLoading: false,
       };
     },
     validate: (values) => {
@@ -37,21 +40,25 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
       const errors = validateForm({ values, notRequired });
       return errors;
     },
-    handleSubmit: (values) => {
-      storeApi
-        .createBid(
+    handleSubmit: async (values, { setFieldValue }) => {
+      try {
+        setFieldValue('isLoading', true);
+        const { data }: any = await storeApi.createBid(
           tokenId,
           Wep3Provider.calcTransactionAmount(values.bid, 18),
           available === 1 ? '1' : values.quantity,
-        )
-        .then((res: any) => {
-          console.log(res, 'bid');
-
+        );
+        if (data.initial_tx) {
+          await connector.metamaskService.sendTransaction(data.initial_tx);
           modals.auction.close();
-        })
-        .catch((err: any) => {
-          console.log(err, 'bid');
-        });
+          modals.info.setMsg('Congratulations', 'success');
+        }
+        setFieldValue('isLoading', false);
+      } catch (err) {
+        setFieldValue('isLoading', false);
+        modals.auction.close();
+        modals.info.setMsg('Something went wrong', 'error');
+      }
     },
     displayName: 'PlaceBid',
   })(PlaceBid);
