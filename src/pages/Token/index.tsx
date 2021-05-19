@@ -234,6 +234,7 @@ const Token: React.FC = observer(() => {
       const { data: buyTokenData }: any = await storeApi.endAuction(tokenData.id);
 
       await createBuyTransaction(buyTokenData);
+      modals.checkAvailability.close();
     } catch (err) {
       console.log(err);
       setLoading(false);

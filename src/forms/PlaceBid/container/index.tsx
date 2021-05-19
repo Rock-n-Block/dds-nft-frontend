@@ -50,9 +50,9 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
         );
         if (data.initial_tx) {
           await connector.metamaskService.sendTransaction(data.initial_tx);
-          modals.auction.close();
-          modals.info.setMsg('Congratulations', 'success');
         }
+        modals.auction.close();
+        modals.info.setMsg('Congratulations', 'success');
         setFieldValue('isLoading', false);
       } catch (err) {
         setFieldValue('isLoading', false);
