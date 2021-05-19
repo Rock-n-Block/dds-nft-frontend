@@ -102,7 +102,7 @@ const NFTCard: React.FC<INFTCard> = observer(
                   <div className="nft-card__auction-text text-gray text-bold">Highest bid</div>
                   <div className="nft-card__auction-bid-box box-shadow">
                     <span className="text-grad text-bold">
-                      bid ETH
+                      bid WETH
                       {/* {new BigNumber(auction?.bid).toFixed()} ETH */}
                     </span>
                   </div>
@@ -129,7 +129,7 @@ const NFTCard: React.FC<INFTCard> = observer(
                     {new BigNumber(price).toFixed(5) === '0.00000'
                       ? '0'
                       : new BigNumber(price).toFixed()}{' '}
-                    ETH
+                    WETH
                   </span>
                 </div>
                 <div className="nft-card__auction-text text-gray text-bold">
