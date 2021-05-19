@@ -27,6 +27,78 @@ const Home: React.FC = () => {
         name: 'DicraKiller',
       },
     },
+    {
+      img: HotImg,
+      name: 'SuperPunks #21 Gamora',
+      selling: true,
+      price: null,
+      artist: {
+        name: 'DicraKiller',
+      },
+      owner: {
+        name: 'DicraKiller',
+      },
+    },
+    {
+      img: HotImg,
+      name: 'SuperPunks #21 Gamora',
+      selling: true,
+      price: null,
+      artist: {
+        name: 'DicraKiller',
+      },
+      owner: {
+        name: 'DicraKiller',
+      },
+    },
+    {
+      img: HotImg,
+      name: 'SuperPunks #21 Gamora',
+      selling: true,
+      price: null,
+      artist: {
+        name: 'DicraKiller',
+      },
+      owner: {
+        name: 'DicraKiller',
+      },
+    },
+    {
+      img: HotImg,
+      name: 'SuperPunks #21 Gamora',
+      selling: true,
+      price: null,
+      artist: {
+        name: 'DicraKiller',
+      },
+      owner: {
+        name: 'DicraKiller',
+      },
+    },
+    {
+      img: HotImg,
+      name: 'SuperPunks #21 Gamora',
+      selling: true,
+      price: null,
+      artist: {
+        name: 'DicraKiller',
+      },
+      owner: {
+        name: 'DicraKiller',
+      },
+    },
+    {
+      img: HotImg,
+      name: 'SuperPunks #21 Gamora',
+      selling: true,
+      price: null,
+      artist: {
+        name: 'DicraKiller',
+      },
+      owner: {
+        name: 'DicraKiller',
+      },
+    },
   ];
   /* const topUsers = [
     {

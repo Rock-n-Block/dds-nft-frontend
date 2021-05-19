@@ -30,8 +30,8 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
           </div>
           <Swiper
             spaceBetween={20}
-            slidesPerView={4}
-            slidesPerGroup={1}
+            slidesPerView={1}
+            // slidesPerGroup={1}
             navigation={{
               prevEl: prevRef.current!, // Assert non-null
               nextEl: nextRef.current!, // Assert non-null
@@ -46,6 +46,20 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
               // eslint-disable-next-line no-param-reassign
               swiper.params.navigation.nextEl = nextRef.current;
               swiper.navigation.update();
+            }}
+            breakpoints={{
+              550: {
+                slidesPerView: 1,
+              },
+              761: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1360: {
+                slidesPerView: 4,
+              },
             }}
           >
             {items.map((item: any) => (
