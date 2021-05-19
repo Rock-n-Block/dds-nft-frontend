@@ -114,9 +114,10 @@ const Explore: React.FC = () => {
   const containerRef = useRef(null);
   const [windowWidth, windowHeight] = useWindowSize();
   const { offset, width } = useContainerPosition(containerRef, [windowWidth, windowHeight]);
+  const boxWidth = window.innerWidth < 1360 ? windowWidth - 40 : 1340;
 
   const positioner = usePositioner(
-    { width: width || windowWidth, columnWidth: 320, columnGutter: 10 },
+    { width: width || boxWidth, columnWidth: 320, columnGutter: 10 },
     [explore.tokens],
   );
 
