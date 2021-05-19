@@ -48,6 +48,7 @@ const Sort: React.FC<ISort> = ({ items, isSortShown = false, onChange }) => {
     if (sort !== activeSort) {
       onChange(sort);
       setActiveSort(sort);
+      setOpen(false);
     }
   };
   return (

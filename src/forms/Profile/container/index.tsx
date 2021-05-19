@@ -9,7 +9,7 @@ import Profile, { IProfile } from '../component';
 
 const ChangePasswordForm: React.FC = () => {
   const { modals, user } = useMst();
-  console.log(user.display_name, 'user name');
+  console.log(user.site, 'user name');
 
   const FormWithFormik = withFormik<any, IProfile>({
     enableReinitialize: true,
