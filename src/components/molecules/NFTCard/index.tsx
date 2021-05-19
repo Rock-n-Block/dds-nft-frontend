@@ -34,6 +34,7 @@ export interface INFTCard {
 const NFTCard: React.FC<INFTCard> = observer(
   ({ img, name, id, artist, owners, disableLinks, available, selling, price, service_fee }) => {
     const { user, modals } = useMst();
+    const [isMyToken, setMyToken] = React.useState(false);
 
     const handleOpenModal = (): void => {
       modals.auction.open({
@@ -71,6 +72,16 @@ const NFTCard: React.FC<INFTCard> = observer(
         setIsLike(user.isLiked(id));
       }
     }, [id, user, user.id]);
+
+    useEffect(() => {
+      if (user.id && owners?.length) {
+        if (owners.find((owner: any) => owner.id === user.id)) {
+          setMyToken(true);
+        } else {
+          setMyToken(false);
+        }
+      }
+    }, [user, user.id, owners]);
 
     return (
       <div className="nft-card">
@@ -140,7 +151,7 @@ const NFTCard: React.FC<INFTCard> = observer(
               ''
             )}
 
-            {!price && selling ? (
+            {user.address && !isMyToken && !price && selling ? (
               <div className="nft-card__auction">
                 {disableLinks ? (
                   <></>
