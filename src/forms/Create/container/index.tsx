@@ -61,10 +61,12 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       formData.append('total_supply', isSingle ? '1' : values.numberOfCopies.toString());
       formData.append('description', values.tokenDescr);
       if (values.putOnSale) {
-        formData.append('price', values.instantSalePriceEth.toString());
         formData.append('available', values.numberOfCopies.toString());
       } else {
         formData.append('available', '0');
+      }
+      if (values.instantSalePrice) {
+        formData.append('price', values.instantSalePriceEth.toString());
       }
       formData.append('creator_royalty', values.tokenRoyalties.toString());
       formData.append('standart', isSingle ? 'ERC721' : 'ERC1155');
