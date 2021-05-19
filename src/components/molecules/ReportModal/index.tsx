@@ -32,7 +32,7 @@ const ReportModal: React.FC = observer(() => {
       .reportPage(link.toString(), reportMessage)
       .then(() => {
         setIsLoading(false);
-        modals.success.setSuccessMsg('Report submitted');
+        modals.info.setMsg('Report submitted', 'success');
       })
       .catch((error) => {
         setIsLoading(false);
