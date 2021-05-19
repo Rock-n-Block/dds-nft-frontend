@@ -88,7 +88,7 @@ export const validateForm = ({ values, notRequired }: any) => {
     },
 
     numberOfCopies: (value: string): void => {
-      if (!value) {
+      if (!value || !+value || +value <= 0) {
         errCopy.numberOfCopies = '"Number of copies" must be a number';
       }
     },
