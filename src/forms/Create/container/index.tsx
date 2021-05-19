@@ -19,9 +19,9 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       preview: '',
       putOnSale: true,
       instantSalePrice: false,
-      unlockOncePurchased: false,
+      // unlockOncePurchased: false,
       instantSalePriceEth: '',
-      digitalKey: '',
+      // digitalKey: '',
       tokenName: '',
       tokenDescr: '',
       tokenRoyalties: '',
@@ -40,10 +40,10 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       const notRequired: string[] = ['tokenDescr', 'preview', 'userImg'];
       if (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth')) {
         notRequired.push('instantSalePriceEth');
-      }
+      } /*
       if (!values.unlockOncePurchased && !notRequired.includes('digitalKey')) {
         notRequired.push('digitalKey');
-      }
+      } */
       if (isSingle) {
         notRequired.push('numberOfCopies');
       }

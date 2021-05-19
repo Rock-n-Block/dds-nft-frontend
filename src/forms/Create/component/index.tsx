@@ -24,9 +24,9 @@ export interface ICreateForm {
   preview: string;
   putOnSale: boolean;
   instantSalePrice: boolean;
-  unlockOncePurchased: boolean;
+  // unlockOncePurchased: boolean;
   instantSalePriceEth: number | string;
-  digitalKey: string;
+  // digitalKey: string;
   tokenName: string;
   tokenDescr: string;
   tokenRoyalties: number | string;
@@ -167,7 +167,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               </>
             )}
           </div>
-          <div className="form-create__box box-outline">
+          {/*  <div className="form-create__box box-outline">
             <div className="form-create__switch">
               <div className="form-create__switch-box">
                 <div className="form-create__switch-title text-bold text-md">
@@ -211,7 +211,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 </div>
               </>
             )}
-          </div>
+          </div> */}
           <div className="form-create__choose">
             <ChooseCollection items={collections} isSingle={isSingle} />
           </div>
