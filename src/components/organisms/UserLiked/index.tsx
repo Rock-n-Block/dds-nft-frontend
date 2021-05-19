@@ -27,6 +27,7 @@ const UserLiked: React.FC<UserLikedProps> = ({ address }) => {
         available={data.available}
         selling={data.selling}
         price={data.price}
+        service_fee={data.service_fee}
       />
     );
   };

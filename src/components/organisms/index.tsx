@@ -21,7 +21,7 @@ export { default as UserLiked } from './UserLiked';
 export { default as MetamaskErrModal } from './MetamaskErrModal';
 export { default as TokenTabs } from './TokenTabs';
 export { default as CreateCollectionModal } from './CreateCollectionModal';
-export { default as SuccessModal } from './SuccessModal';
+export { default as InfoModal } from './InfoModal';
 export { default as AuctionModal } from './AuctionModal';
 export { default as UserPreview } from './UserPreview';
 export { default as UserPopover } from './UserPopover';

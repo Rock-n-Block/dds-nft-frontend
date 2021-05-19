@@ -12,6 +12,11 @@ export const validateForm = ({ values, notRequired }: any) => {
         errCopy.email = 'Incorrect address';
       }
     },
+    img: (value: string): void => {
+      if (!value) {
+        errCopy.img = 'Please choose token preview';
+      }
+    },
     tokenProperties: (value: any): void => {
       errCopy.tokenProperties = [{}];
       let err = false;

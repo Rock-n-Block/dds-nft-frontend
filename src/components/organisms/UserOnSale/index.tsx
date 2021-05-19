@@ -28,6 +28,7 @@ const UserOnSale: React.FC<UserOnSaleProps> = observer(({ cards }) => {
         owners={data.owners}
         available={data.available}
         selling={data.selling}
+        service_fee={data.service_fee}
         price={data.price}
       />
     );

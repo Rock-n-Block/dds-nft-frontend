@@ -6,7 +6,7 @@ import {
   Footer,
   Header,
   MetamaskErrModal,
-  SuccessModal,
+  InfoModal,
   TermsModal,
 } from './components/organisms';
 import {
@@ -72,7 +72,7 @@ const App: React.FC = () => {
       <Footer />
       <TermsModal />
       <MetamaskErrModal />
-      <SuccessModal />
+      <InfoModal />
       <AuctionModal />
     </div>
   );

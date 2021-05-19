@@ -49,15 +49,16 @@ export default observer(() => {
         .verifyMe(formData)
         .then(() => {
           setFieldValue('isLoading', false);
-          modals.success.setSuccessMsg(
+          modals.info.setMsg(
             'Congrats you have successfully submitted a verification request ',
+            'success',
           );
           modals.verify.close();
         })
         .catch((err) => {
           if (err.message === 'Request failed with status code 400') {
             setFieldValue('isLoading', false);
-            modals.success.setSuccessMsg(`Your verification already in progress`);
+            modals.info.setMsg(`Your verification already in progress`, 'success');
           }
           console.log(err.message);
           modals.verify.close();

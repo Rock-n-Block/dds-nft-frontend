@@ -2,6 +2,7 @@
 // @ts-ignore
 // eslint-disable-next-line no-param-reassign
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { withFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 
@@ -12,6 +13,7 @@ import CreateForm, { ICreateForm } from '../component';
 
 export default observer(({ isSingle, walletConnector, collections }: any) => {
   const { modals } = useMst();
+  const history = useHistory();
   const FormWithFormik = withFormik<any, ICreateForm>({
     enableReinitialize: true,
     mapPropsToValues: () => ({
@@ -36,8 +38,7 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       collectionId: '4',
     }),
     validate: (values) => {
-      console.log(values);
-      const notRequired: string[] = ['tokenDescr', 'preview', 'userImg'];
+      const notRequired: string[] = ['tokenDescr', 'preview'];
       if (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth')) {
         notRequired.push('instantSalePriceEth');
       }
@@ -52,7 +53,7 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       return errors;
     },
 
-    handleSubmit: (values, { setFieldValue }) => {
+    handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
@@ -96,10 +97,11 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
 
               storeApi
                 .saveToken(formData)
-                .then((result) => {
-                  console.log(result, 'create');
+                .then(({ data: tokendata }) => {
+                  console.log(tokendata, 'create');
                   setFieldValue('isLoading', false);
-                  modals.success.setSuccessMsg('Congrats you create your own NFT!');
+                  history.push(`/token/${tokendata.id}`);
+                  modals.info.setMsg('Congrats you create your own NFT!', 'success');
                 })
                 .catch((err: any) => {
                   setFieldValue('isLoading', false);
@@ -111,9 +113,14 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
               console.log(err, 'err');
             });
         })
-        .catch((err) => {
+        .catch(({ response }) => {
           setFieldValue('isLoading', false);
-          console.log(err, 'err');
+          if (response.data && response.data.name) {
+            setFieldError('tokenName', response.data.name);
+          }
+          if (response.data) {
+            modals.info.setMsg(Object.values(response.data).join(', '), 'error');
+          }
         });
     },
 

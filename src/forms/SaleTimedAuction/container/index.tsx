@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { validateForm } from '../../../utils/validate';
 import SaleTimedAuction, { ISaleTimedAuction } from '../component';
 import { storeApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 
 interface SaleTimedAuctionFormProps {
   tokenId: number;
@@ -15,6 +16,7 @@ const SaleTimedAuctionForm: React.FC<SaleTimedAuctionFormProps> = ({
   tokenId,
   handleSetTokenData,
 }) => {
+  const { modals } = useMst();
   const FormWithFormik = withFormik<any, ISaleTimedAuction>({
     enableReinitialize: true,
     mapPropsToValues: () => {
@@ -34,10 +36,12 @@ const SaleTimedAuctionForm: React.FC<SaleTimedAuctionFormProps> = ({
         .putOnSale(tokenId, 0, +values.bid)
         .then(({ data }) => {
           handleSetTokenData(data);
+          modals.info.setMsg('Congratulations', 'success');
           setFieldValue('isLoading', false);
         })
         .catch((err) => {
           console.log(err, 'put on sale fixed price');
+          modals.info.setMsg('Something went wrong', 'error');
           setFieldValue('isLoading', false);
         });
     },

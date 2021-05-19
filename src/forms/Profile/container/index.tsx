@@ -60,7 +60,7 @@ const ChangePasswordForm: React.FC = () => {
         .then(({ data }) => {
           user.update(data);
           setFieldValue('isLoading', false);
-          modals.success.setSuccessMsg('Congrats you successfully changed your profile');
+          modals.info.setMsg('Congrats you successfully changed your profile', 'success');
         })
         .catch((err) => {
           console.log(err);

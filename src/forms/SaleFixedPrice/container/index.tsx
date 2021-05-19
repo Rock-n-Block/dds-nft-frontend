@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { validateForm } from '../../../utils/validate';
 import SaleFixedPrice, { ISaleFixedPrice } from '../component';
 import { storeApi } from '../../../services/api';
+import { useMst } from '../../../store/store';
 
 interface SaleFixedPriceFormProps {
   fee: number;
@@ -19,6 +20,7 @@ const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
   tokenId,
   handleSetTokenData,
 }) => {
+  const { modals } = useMst();
   const FormWithFormik = withFormik<any, ISaleFixedPrice>({
     enableReinitialize: true,
     mapPropsToValues: () => {
@@ -41,9 +43,11 @@ const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
         .putOnSale(tokenId, +values.instantSalePriceEth)
         .then(({ data }) => {
           handleSetTokenData(data);
+          modals.info.setMsg('Congratulations', 'success');
           setFieldValue('isLoading', false);
         })
         .catch((err) => {
+          modals.info.setMsg('Something went wrong', 'error');
           console.log(err, 'put on sale fixed price');
           setFieldValue('isLoading', false);
         });

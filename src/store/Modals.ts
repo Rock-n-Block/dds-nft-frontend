@@ -228,13 +228,19 @@ const MetamaskModal = types
     },
   }));
 
-const SuccessModal = types
+const InfoModal = types
   .model({
-    successMsg: types.optional(types.string, ''),
+    msg: types.optional(types.string, ''),
+    type: types.optional(types.string, ''),
   })
   .actions((self) => ({
-    setSuccessMsg(msg: string) {
-      self.successMsg = msg;
+    setMsg(msg: string, type: 'success' | 'error') {
+      self.msg = msg;
+      self.type = type;
+    },
+    close() {
+      self.msg = '';
+      self.type = '';
     },
   }));
 
@@ -244,7 +250,7 @@ export const Modals = types.model({
   createCollection: CreateCollectionModal,
   convert: ConvertModal,
   verify: VerifyModal,
-  success: SuccessModal,
+  info: InfoModal,
   auction: AuctionModal,
   uploadCover: UploadCoverModal,
   putOnSale: PutOnSaleModal,

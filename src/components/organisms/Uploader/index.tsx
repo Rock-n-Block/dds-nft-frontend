@@ -76,7 +76,7 @@ const Uploader: React.FC<IUploader> = ({
     formik.setFieldValue('preview', '');
   };
   return (
-    <div className={`${className} uploader`}>
+    <div className={`${className || ''} uploader`}>
       {type === 'area' ? (
         <>
           <Dragger

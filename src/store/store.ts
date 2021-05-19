@@ -29,8 +29,8 @@ export const Store = RootModel.create({
       totalSupply: 1,
     },
     timedAuction: { isOpen: false },
-    success: {
-      successMsg: '',
+    info: {
+      msg: '',
     },
     auction: {
       token: {
