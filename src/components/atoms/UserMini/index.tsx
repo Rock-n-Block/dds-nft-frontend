@@ -16,6 +16,7 @@ export interface IUserMini {
   id?: number | string | null;
   imgSize?: 'lg';
   isCheck?: boolean;
+  isCollection?: boolean;
   hideOverflowTop?: boolean;
   hideOverflowCenter?: boolean;
   hideOverflowBottom?: boolean;
@@ -31,6 +32,7 @@ const UserMini: React.FC<IUserMini> = ({
   imgSize,
   isCheck,
   centerText,
+  isCollection = false,
   hideOverflowTop = true,
   hideOverflowCenter = true,
   hideOverflowBottom = true,
@@ -40,7 +42,7 @@ const UserMini: React.FC<IUserMini> = ({
       className={classNames('u-mini', className, {
         'u-mini__no-shadow': !shadow,
       })}
-      to={`/user/${id}`}
+      to={`${!isCollection ? '/user/' : '/collections/'}${id}`}
     >
       <div
         className={classNames('u-mini__wrapper', {
