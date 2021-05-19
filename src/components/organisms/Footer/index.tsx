@@ -35,9 +35,9 @@ const Footer: React.FC = () => {
                   Explore
                 </NavHashLink>
               </Link>
-              <Link to="/" className="text-smd text-bold text-black footer__nav-item">
+              {/* <Link to="/" className="text-smd text-bold text-black footer__nav-item">
                 How it works
-              </Link>
+              </Link> */}
               <Link to="/create" className="text-smd text-bold text-black footer__nav-item">
                 Create
               </Link>

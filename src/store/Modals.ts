@@ -194,6 +194,7 @@ const AuctionModal = types
     }),
     available: types.optional(types.number, 0),
     fee: types.optional(types.number, 0),
+    isRefreshPage: types.optional(types.boolean, false),
   })
   .views((self) => ({
     get getIsOpen() {

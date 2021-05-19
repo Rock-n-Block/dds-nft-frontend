@@ -106,11 +106,13 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
                   modals.info.setMsg('Congrats you create your own NFT!', 'success');
                 })
                 .catch((err: any) => {
+                  modals.info.setMsg('Something went wrong', 'error');
                   setFieldValue('isLoading', false);
                   console.log(err, 'err');
                 });
             })
             .catch((err: any) => {
+              modals.info.setMsg('Something went wrong', 'error');
               setFieldValue('isLoading', false);
               console.log(err, 'err');
             });

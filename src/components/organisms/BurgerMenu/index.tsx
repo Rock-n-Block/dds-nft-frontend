@@ -54,9 +54,9 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
           <NavLink exact to="/" className="header-mobile__nav-item text-xl text-bold text-grad">
             Explore
           </NavLink>
-          <NavLink exact to="/1" className="header-mobile__nav-item text-xl text-bold text-grad">
+          {/* <NavLink exact to="/1" className="header-mobile__nav-item text-xl text-bold text-grad">
             How it works
-          </NavLink>
+          </NavLink> */}
           <NavLink exact to="/2" className="header-mobile__nav-item text-xl text-bold text-grad">
             Create
           </NavLink>

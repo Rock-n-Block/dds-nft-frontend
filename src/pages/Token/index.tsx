@@ -321,6 +321,7 @@ const Token: React.FC = observer(() => {
       },
       available: tokenData.available,
       fee: tokenData.serviceFee,
+      isRefreshPage: true,
     });
   };
 
