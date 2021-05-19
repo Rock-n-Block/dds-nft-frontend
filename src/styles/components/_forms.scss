@@ -146,11 +146,12 @@
     }
 
     &__choose {
-      margin: 60px 0;
+      margin: 0 0 60px 0;
     }
 
     &__field {
       margin-bottom: 40px;
+      margin-top: 40px;
     }
 
     &__wrapper {
@@ -158,11 +159,11 @@
       justify-content: space-between;
 
       .input__field {
+        margin-top: 0;
         width: 100%;
       }
 
       .input__field + .input__field {
-        margin-top: 0;
         margin-left: 40px;
         @include b('mobile') {
           margin-left: 0;

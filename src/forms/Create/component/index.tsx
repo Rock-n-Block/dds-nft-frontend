@@ -81,6 +81,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     return (
       <Form name="form-create" className="form-create" layout="vertical">
         <div className="form-create__content">
+          <div className="form-create__choose">
+            <ChooseCollection items={collections} isSingle={isSingle} />
+          </div>
           <div className="form-create__upload">
             <div className="form-create__upload-title text-bold text-lg">Upload file</div>
             <div className="form-create__upload-item">
@@ -219,9 +222,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               </>
             )}
           </div> */}
-          <div className="form-create__choose">
-            <ChooseCollection items={collections} isSingle={isSingle} />
-          </div>
           <Form.Item
             name="tokenName"
             className="form-create__field input__field"
