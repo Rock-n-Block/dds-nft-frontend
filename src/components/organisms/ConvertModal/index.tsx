@@ -16,7 +16,8 @@ import './ConvertModal.scss';
 const ConvertModal: React.FC = observer(() => {
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
-  const [value, setValue] = useState<string>('0');
+  const [value, setValue] = useState<string>('');
+  const [touched, setTouched] = useState<boolean>(false);
   const [swappingCurrency, setSwappingCurrency] = useState<Array<'ETH' | 'WETH'>>(['ETH', 'WETH']);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const loseFocus = (e: any) => {
@@ -29,6 +30,9 @@ const ConvertModal: React.FC = observer(() => {
     modals.convert.close();
   };
   const checkValid = (checkedValue: string): boolean => {
+    if (!+checkedValue || +checkedValue <= 0) {
+      return false;
+    }
     const val = new BigNumber(checkedValue);
     const maxVal = new BigNumber(
       swappingCurrency[0] === 'ETH' ? user.balance?.eth : user.balance?.weth,
@@ -122,13 +126,19 @@ const ConvertModal: React.FC = observer(() => {
                 placeholder="Enter an amount"
                 value={value}
                 suffix={swappingCurrency[0]}
-                onBlur={(e) => setValue(e.target.value)}
-                onChange={(e) => setValue(e.target.value)}
+                onBlur={(e) => {
+                  setValue(e.target.value);
+                  setTouched(true);
+                }}
+                onChange={(e) => {
+                  setValue(e.target.value);
+                  setTouched(true);
+                }}
                 onKeyDown={(e) => loseFocus(e)}
               />
-              {!checkValid(value) && (
+              {touched && !checkValid(value) && (
                 <span className="form-convert__input-error text">
-                  {value
+                  {+value !== 0 && +value
                     ? `You don't have enough ${swappingCurrency[0]}`
                     : `Enter ${swappingCurrency[0]} amount to swap`}
                 </span>
@@ -149,8 +159,14 @@ const ConvertModal: React.FC = observer(() => {
                 placeholder="Amount you will receive"
                 value={value}
                 suffix={swappingCurrency[1]}
-                onBlur={(e) => setValue(e.target.value)}
-                onChange={(e) => setValue(e.target.value)}
+                onBlur={(e) => {
+                  setValue(e.target.value);
+                  setTouched(true);
+                }}
+                onChange={(e) => {
+                  setValue(e.target.value);
+                  setTouched(true);
+                }}
                 onKeyDown={(e) => loseFocus(e)}
               />
             </div>
