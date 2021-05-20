@@ -30,9 +30,7 @@ const HotBids: React.FC<IHotBids> = ({ cards }) => {
             <img src={ArrowImg} alt="arrow" />
           </div>
           <Swiper
-            spaceBetween={20}
             slidesPerView="auto"
-            slidesPerGroup={1}
             navigation={{
               prevEl: prevRef.current!, // Assert non-null
               nextEl: nextRef.current!, // Assert non-null
@@ -49,6 +47,20 @@ const HotBids: React.FC<IHotBids> = ({ cards }) => {
               swiper.navigation.update();
             }}
             className="h-bids__slider"
+            breakpoints={{
+              550: {
+                slidesPerView: 1,
+              },
+              761: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1360: {
+                slidesPerView: 4,
+              },
+            }}
           >
             {cards.map((card) => (
               <SwiperSlide key={nextId()} className="h-bids__slide">

@@ -66,28 +66,22 @@ class ChooseCollection extends React.Component<any, any, any> {
       <div className="ch-coll">
         <div className="ch-coll__title text-grad text-lg text-bold">
           <span>Choose collection</span>
-          <div
-            className={classNames('ch-coll__nav-prev', {
-              hidden: !this.props.items?.length,
-            })}
-            ref={this.prevRef}
-          >
-            <img src={ArrowImg} alt="" />
-          </div>
-          <div
-            className={classNames('ch-coll__nav-next', {
-              hidden: !this.props.items?.length,
-            })}
-            ref={this.nextRef}
-          >
-            <img src={ArrowImg} alt="" />
-          </div>
         </div>
-        <div className="ch-coll__content">
+        <div className="ch-coll__slider">
+          <div
+            ref={this.prevRef}
+            className={classNames('swiper-navigation swiper-navigation-prev', {
+              hidden: !this.props.items?.length,
+            })}
+          >
+            <img src={ArrowImg} alt="arrow" />
+          </div>
+          <div ref={this.nextRef} className="swiper-navigation swiper-navigation-next">
+            <img src={ArrowImg} alt="arrow" />
+          </div>
           <Swiper
-            className="ch-coll__slider"
-            spaceBetween={20}
-            slidesPerView={3}
+            spaceBetween={10}
+            slidesPerView={2}
             navigation={{
               prevEl: this.prevRef.current!, // Assert non-null
               nextEl: this.nextRef.current!, // Assert non-null
@@ -102,6 +96,16 @@ class ChooseCollection extends React.Component<any, any, any> {
               // eslint-disable-next-line no-param-reassign
               swiper.params.navigation.nextEl = this.nextRef.current;
               swiper.navigation.update();
+            }}
+            breakpoints={{
+              605: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+              1360: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
             }}
           >
             <SwiperSlide className="ch-coll__slide" key={nextId()}>

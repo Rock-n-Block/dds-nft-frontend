@@ -50,7 +50,6 @@ const TokenInfo: React.FC<TokenInfoProps> = ({ owners, artist, collection, royal
         id={collection.col?.id}
         isCollection
         imgSize="lg"
-        isCheck
         topText={
           <span className="text text-gray text-sm text-upper text-regular">
             Collection {collection.standart}

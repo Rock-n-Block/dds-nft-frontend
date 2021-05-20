@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Switch } from 'antd';
 import BigNumber from 'bignumber.js/bignumber';
 import { FieldArray, FormikProps } from 'formik';
@@ -13,6 +13,7 @@ import {
   handlePositiveFloatInputChange,
   handlePositiveIntegerInputChange,
 } from '../../../utils/helpers';
+import { ratesApi } from '../../../services/api';
 
 interface IProperti {
   size: string | number;
@@ -24,9 +25,9 @@ export interface ICreateForm {
   preview: string;
   putOnSale: boolean;
   instantSalePrice: boolean;
-  unlockOncePurchased: boolean;
+  // unlockOncePurchased: boolean;
   instantSalePriceEth: number | string;
-  digitalKey: string;
+  // digitalKey: string;
   tokenName: string;
   tokenDescr: string;
   tokenRoyalties: number | string;
@@ -53,6 +54,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     collections,
   }) => {
     const { user } = useMst();
+    const [currentRate, setCurrentRate] = useState<number>(0);
+    const serviceFee = 2.5; // TODO: remove after get service fee request
     const onSubmit = () => {
       handleSubmit();
     };
@@ -77,9 +80,23 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       setFieldValue('tokenProperties', localProperties);
       handleChange(e);
     };
+    console.log(collections, 'collections');
+    useEffect(() => {
+      ratesApi
+        .getRates()
+        .then((response) => {
+          setCurrentRate(response.data.ETH);
+        })
+        .catch((error: any) => {
+          console.log(error, 'at get rates');
+        });
+    }, []);
     return (
       <Form name="form-create" className="form-create" layout="vertical">
         <div className="form-create__content">
+          <div className="form-create__choose">
+            <ChooseCollection items={collections} isSingle={isSingle} />
+          </div>
           <div className="form-create__upload">
             <div className="form-create__upload-title text-bold text-lg">Upload file</div>
             <div className="form-create__upload-item">
@@ -154,26 +171,41 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
                       onBlur={handleBlur}
                     />
-                    <span className="text-purple text-bold text-upper">eth</span>
+                    <span className="text-purple text-bold text-upper">weth</span>
                   </div>
                 </Form.Item>
-                <div className="text-gray-l text-bold form-create__item-text">Service fee 2.5%</div>
+                <div className="text-gray-l text-bold form-create__item-text">
+                  Service fee {serviceFee}%
+                </div>
                 <div className="form-create__item-text">
                   <div className="text-gray-l text-bold">You will receive</div>
                   <div className="box-shadow form-create__item-eth">
-                    <span className="text-grad text-bold">0.0 ETH</span>
+                    <span className="text-grad text-bold">
+                      {new BigNumber(+values.instantSalePriceEth)
+                        .multipliedBy(new BigNumber(100 - serviceFee))
+                        .dividedBy(100)
+                        .toFixed(5) === '0.00000'
+                        ? '0'
+                        : new BigNumber(+values.instantSalePriceEth)
+                            .multipliedBy(new BigNumber(100 - serviceFee))
+                            .dividedBy(100)
+                            .toFixed()}{' '}
+                      WETH
+                    </span>
                   </div>
                   <div className="text-gray-l text-bold">
-                    $
-                    {values.instantSalePriceEth
-                      ? +new BigNumber(values.instantSalePriceEth).multipliedBy(0.975).toFixed(18)
-                      : '0.00'}
+                    ${' '}
+                    {new BigNumber(+values.instantSalePriceEth)
+                      .multipliedBy(new BigNumber(100 - serviceFee))
+                      .dividedBy(100)
+                      .multipliedBy(currentRate)
+                      .toFixed(2)}
                   </div>
                 </div>
               </>
             )}
           </div>
-          <div className="form-create__box box-outline">
+          {/*  <div className="form-create__box box-outline">
             <div className="form-create__switch">
               <div className="form-create__switch-box">
                 <div className="form-create__switch-title text-bold text-md">
@@ -217,10 +249,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 </div>
               </>
             )}
-          </div>
-          <div className="form-create__choose">
-            <ChooseCollection items={collections} isSingle={isSingle} />
-          </div>
+          </div> */}
           <Form.Item
             name="tokenName"
             className="form-create__field input__field"
