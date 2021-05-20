@@ -45,7 +45,7 @@ const ConvertModal: React.FC = observer(() => {
     } else {
       setSwappingCurrency(['ETH', 'WETH']);
     }
-    setValue('0');
+    setValue('');
   };
   const handleSubmitConvert = (): void => {
     const weiValue = MetamaskService.calcTransactionAmount(value, 18);
