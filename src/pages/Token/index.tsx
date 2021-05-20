@@ -266,7 +266,12 @@ const Token: React.FC = observer(() => {
   };
 
   const handleBuy = async (quantity = 1) => {
+    if (+user.balance.weth < +tokenData.price) {
+      modals.info.setMsg("You don't have enough weth", 'error');
+      return;
+    }
     setLoading(true);
+
     try {
       const { data: buyTokenData }: any = await storeApi.buyToken(
         token,
