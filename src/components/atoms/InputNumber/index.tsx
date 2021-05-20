@@ -14,7 +14,7 @@ interface InputNumberProps {
   integer?: boolean;
   positiveOnly?: boolean;
   max?: number;
-  // min?: number;
+  min?: number;
 }
 
 const InputNumber: React.FC<InputNumberProps> = ({
@@ -29,7 +29,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
   placeholder,
   onChange,
   max,
-  // min,
+  min,
 }) => {
   const getRegex = () => {
     if (integer) {
@@ -38,26 +38,27 @@ const InputNumber: React.FC<InputNumberProps> = ({
     return positiveOnly ? /^[+]?([.]\d+|\d+[.]?\d*)$/ : /^[-+]?([.]\d+|\d+[.]?\d*)$/;
   };
 
-  /*  const checkMin = (comparingValue: string) => {
+  const checkMin = (comparingValue: string) => {
     const arrayedComparingValue = Array.from(String(comparingValue), Number);
     const arrayedMin = Array.from(String(min), Number);
-    let index = 0;
-    for (const elem of arrayedComparingValue) {
-      if (new BigNumber(arrayedMin[index]).isLessThan(new BigNumber(elem))) return true;
+    if (new BigNumber(min ?? 0).isLessThanOrEqualTo(comparingValue)) return true;
+    for (let i = 0; i < arrayedComparingValue.length; i += 1) {
       if (
         !(
           (
-            new BigNumber(arrayedMin[index]).isLessThanOrEqualTo(new BigNumber(elem)) || // every symbol should be more or equal to min value
-            (isNaN(elem) && isNaN(arrayedMin[index])) || // '.' elements
-            (elem !== undefined && arrayedMin[index] === undefined)
+            new BigNumber(arrayedMin[i]).isLessThanOrEqualTo(
+              new BigNumber(arrayedComparingValue[i]),
+            ) || // every symbol should be more or equal to min value
+            (Number.isNaN(arrayedMin[i]) && Number.isNaN(arrayedComparingValue[i])) || // '.' elements
+            (arrayedComparingValue[i] !== undefined && arrayedMin[i] === undefined)
           ) // if arrayedComparingValue longer than arrayedMin
         )
       ) {
         return false;
       }
-      index += 1;
     }
-  }; */
+    return true;
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const reg = getRegex();
@@ -67,16 +68,16 @@ const InputNumber: React.FC<InputNumberProps> = ({
       inputValue === '' ||
       (!positiveOnly && inputValue === '-')
     ) {
-      /* if (max && min) {
+      if (max && min) {
         if (checkMin(inputValue) && new BigNumber(inputValue) <= new BigNumber(max)) onChange(e);
       } else if (max) {
         if (new BigNumber(inputValue) <= new BigNumber(max)) onChange(e);
       } else if (min) {
         if (checkMin(inputValue)) onChange(e);
-      } else onChange(e); */
-      if (max) {
-        if (new BigNumber(inputValue) <= new BigNumber(max)) onChange(e);
       } else onChange(e);
+      // if (max) {
+      //   if (new BigNumber(inputValue) <= new BigNumber(max)) onChange(e);
+      // } else onChange(e);
     }
   };
   return (
