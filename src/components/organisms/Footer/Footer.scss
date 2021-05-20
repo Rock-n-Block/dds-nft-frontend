@@ -2,7 +2,7 @@
 @import 'src/styles/mixins/media';
 
 .footer {
-  padding: 65px 0 45px;
+  padding: 45px 0;
 
   background: #fafafa;
 
@@ -35,9 +35,13 @@
 
   &__nav {
     display: flex;
+    align-items: center;
 
     &-item {
-      margin-top: 20px;
+      height: fit-content;
+      & + & {
+        margin-left: 20px;
+      }
 
       display: block;
       @include b('mobile') {
@@ -61,7 +65,7 @@
     justify-content: space-between;
 
     & + & {
-      margin-top: 90px;
+      margin-top: 40px;
     }
 
     &-bottom {

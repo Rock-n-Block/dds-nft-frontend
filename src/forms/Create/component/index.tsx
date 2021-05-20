@@ -80,7 +80,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       setFieldValue('tokenProperties', localProperties);
       handleChange(e);
     };
-    console.log(collections, 'collections');
     useEffect(() => {
       ratesApi
         .getRates()

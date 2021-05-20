@@ -24,27 +24,22 @@ const Footer: React.FC = () => {
             <SubscribeNews />
           </div> */}
           <div className="footer__nav">
-            <div className="footer__nav-box">
-              <div className="text-smd text-bold text-purple">DDS</div>
-              <Link to="/">
-                <NavHashLink
-                  to="/#explore"
-                  smooth
-                  className="text-smd text-bold text-black footer__nav-item"
-                >
-                  Explore
-                </NavHashLink>
-              </Link>
-              {/* <Link to="/" className="text-smd text-bold text-black footer__nav-item">
+            <NavHashLink
+              to="/#explore"
+              smooth
+              className="text-smd text-bold text-black footer__nav-item"
+            >
+              Explore
+            </NavHashLink>
+            {/* <Link to="/" className="text-smd text-bold text-black footer__nav-item">
                 How it works
               </Link> */}
-              <Link to="/create" className="text-smd text-bold text-black footer__nav-item">
-                Create
-              </Link>
-              <Link to="/" className="text-smd text-bold text-black footer__nav-item">
-                Support
-              </Link>
-            </div>
+            <Link to="/create" className="text-smd text-bold text-black footer__nav-item">
+              Create
+            </Link>
+            <Link to="/" className="text-smd text-bold text-black footer__nav-item">
+              Support
+            </Link>
             {/* <div className="footer__nav-box">
               <div className="text-smd text-bold text-purple">Community</div>
               <Link to="/" className="text-smd text-bold text-black footer__nav-item">

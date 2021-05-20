@@ -30,7 +30,6 @@ export default observer(({ walletConnector, isSingle }: any) => {
     },
 
     handleSubmit: (values, { setFieldValue }) => {
-      console.log(values);
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
