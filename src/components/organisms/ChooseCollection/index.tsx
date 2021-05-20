@@ -98,6 +98,10 @@ class ChooseCollection extends React.Component<any, any, any> {
               swiper.navigation.update();
             }}
             breakpoints={{
+              420: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
               605: {
                 slidesPerView: 3,
                 spaceBetween: 20,
