@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ArrowImg from '../../assets/img/icons/arrow-full.svg';
 import { CreateCollectionModal } from '../../components/organisms';
 import { CreateForm } from '../../forms';
-import { userApi } from '../../services/api';
+import { userApi, ratesApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import './Create.scss';
@@ -16,12 +16,12 @@ interface ICreate {
 const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) => {
   const walletConnector = useWalletConnectorContext();
   const [collections, setCollections] = React.useState([]);
+  const [ethRate, setEthRate] = React.useState<number>(0);
 
   const getCollections = React.useCallback((): void => {
     userApi
       .getSingleCollections()
       .then(({ data }) => {
-        console.log(data, 'single coll');
         setCollections(
           data.collections.filter((coll: any) => {
             if (isSingle) {
@@ -33,6 +33,17 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
       })
       .catch((err) => console.log(err, 'get single'));
   }, [isSingle]);
+
+  React.useEffect(() => {
+    ratesApi
+      .getRates()
+      .then(({ data }) => {
+        setEthRate(data.ETH);
+      })
+      .catch((error: any) => {
+        console.log(error, 'at get rates');
+      });
+  }, []);
 
   React.useEffect(() => {
     getCollections();
@@ -60,6 +71,8 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
             isSingle={isSingle}
             collections={collections}
             walletConnector={walletConnector}
+            getCollections={getCollections}
+            ethRate={ethRate}
           />
         </div>
       </div>

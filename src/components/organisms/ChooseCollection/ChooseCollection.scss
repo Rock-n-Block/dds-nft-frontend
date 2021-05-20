@@ -9,6 +9,18 @@
     align-items: center;
   }
 
+  &__refresh {
+    margin-left: 17px;
+    margin-bottom: -3px;
+    cursor: pointer;
+    transition: 0.6s;
+    height: 24px;
+    &:focus {
+      transform: rotate(360deg);
+      transform-origin: center center;
+    }
+  }
+
   &__nav {
     &-prev {
       margin: 0 19px -1px 15px;

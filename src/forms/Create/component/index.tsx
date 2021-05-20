@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Form, Input, Switch } from 'antd';
 import BigNumber from 'bignumber.js/bignumber';
 import { FieldArray, FormikProps } from 'formik';
@@ -13,7 +13,6 @@ import {
   handlePositiveFloatInputChange,
   handlePositiveIntegerInputChange,
 } from '../../../utils/helpers';
-import { ratesApi } from '../../../services/api';
 
 interface IProperti {
   size: string | number;
@@ -37,6 +36,8 @@ export interface ICreateForm {
   isLoading: boolean;
   collections?: any;
   collectionId: string;
+  getCollections?: () => void;
+  ethRate?: number;
 }
 
 const { TextArea } = Input;
@@ -52,9 +53,9 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     handleSubmit,
     isSingle,
     collections,
+    getCollections,
   }) => {
     const { user } = useMst();
-    const [currentRate, setCurrentRate] = useState<number>(0);
     const serviceFee = 2.5; // TODO: remove after get service fee request
     const onSubmit = () => {
       handleSubmit();
@@ -80,21 +81,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       setFieldValue('tokenProperties', localProperties);
       handleChange(e);
     };
-    useEffect(() => {
-      ratesApi
-        .getRates()
-        .then((response) => {
-          setCurrentRate(response.data.ETH);
-        })
-        .catch((error: any) => {
-          console.log(error, 'at get rates');
-        });
-    }, []);
     return (
       <Form name="form-create" className="form-create" layout="vertical">
         <div className="form-create__content">
           <div className="form-create__choose">
-            <ChooseCollection items={collections} isSingle={isSingle} />
+            <ChooseCollection
+              items={collections}
+              isSingle={isSingle}
+              getCollections={getCollections}
+            />
           </div>
           <div className="form-create__upload">
             <div className="form-create__upload-title text-bold text-lg">Upload file</div>
@@ -192,14 +187,18 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                       WETH
                     </span>
                   </div>
-                  <div className="text-gray-l text-bold">
-                    ${' '}
-                    {new BigNumber(+values.instantSalePriceEth)
-                      .multipliedBy(new BigNumber(100 - serviceFee))
-                      .dividedBy(100)
-                      .multipliedBy(currentRate)
-                      .toFixed(2)}
-                  </div>
+                  {values.ethRate ? (
+                    <div className="text-gray-l text-bold">
+                      ${' '}
+                      {new BigNumber(+values.instantSalePriceEth)
+                        .multipliedBy(new BigNumber(100 - serviceFee))
+                        .dividedBy(100)
+                        .multipliedBy(values.ethRate)
+                        .toFixed(2)}
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </>
             )}

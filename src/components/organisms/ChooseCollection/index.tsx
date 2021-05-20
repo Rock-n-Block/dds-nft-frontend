@@ -7,6 +7,7 @@ import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import PlusImg from '../../../assets/img/icons/plus.svg';
+import RefreshImg from '../../../assets/img/icons/refresh.svg';
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 import { rootStore } from '../../../store/store';
 
@@ -66,6 +67,15 @@ class ChooseCollection extends React.Component<any, any, any> {
       <div className="ch-coll">
         <div className="ch-coll__title text-grad text-lg text-bold">
           <span>Choose collection</span>
+          <div
+            className="ch-coll__refresh"
+            onClick={this.props.getCollections}
+            onKeyDown={this.props.getCollections}
+            tabIndex={0}
+            role="button"
+          >
+            <img src={RefreshImg} alt="refresh" />
+          </div>
         </div>
         <div className="ch-coll__slider">
           <div
