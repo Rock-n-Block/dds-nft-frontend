@@ -220,6 +220,7 @@ const Token: React.FC = observer(() => {
         },
       );
       setLoading(false);
+      modals.closeAll();
       modals.info.setMsg('Congratulations', 'success');
     } catch (err) {
       console.log(err);

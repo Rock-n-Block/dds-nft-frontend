@@ -239,6 +239,9 @@ const MetamaskModal = types
     setErr(err: string) {
       self.errMsg = err;
     },
+    close() {
+      self.errMsg = '';
+    },
   }));
 
 const InfoModal = types
@@ -257,20 +260,32 @@ const InfoModal = types
     },
   }));
 
-export const Modals = types.model({
-  terms: TermsModal,
-  metamask: MetamaskModal,
-  createCollection: CreateCollectionModal,
-  convert: ConvertModal,
-  verify: VerifyModal,
-  report: ReportModal,
-  info: InfoModal,
-  auction: AuctionModal,
-  uploadCover: UploadCoverModal,
-  putOnSale: PutOnSaleModal,
-  fixedPrice: FixedPriceModal,
-  timedAuction: TimedAuctionModal,
-  checkout: CheckoutModal,
-  multibuy: MultiBuyModal,
-  checkAvailability: CheckAvailability,
-});
+export const Modals = types
+  .model({
+    terms: TermsModal,
+    metamask: MetamaskModal,
+    createCollection: CreateCollectionModal,
+    convert: ConvertModal,
+    verify: VerifyModal,
+    report: ReportModal,
+    info: InfoModal,
+    auction: AuctionModal,
+    uploadCover: UploadCoverModal,
+    putOnSale: PutOnSaleModal,
+    fixedPrice: FixedPriceModal,
+    timedAuction: TimedAuctionModal,
+    checkout: CheckoutModal,
+    multibuy: MultiBuyModal,
+    checkAvailability: CheckAvailability,
+  })
+  .actions((self) => ({
+    closeAll() {
+      self.auction.close();
+      self.putOnSale.close();
+      self.fixedPrice.close();
+      self.timedAuction.close();
+      self.checkout.close();
+      self.multibuy.close();
+      self.checkAvailability.close();
+    },
+  }));
