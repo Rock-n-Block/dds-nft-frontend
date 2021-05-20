@@ -65,7 +65,7 @@ export default {
       data.price = price;
     }
     if (minimalBid) {
-      data.minimalBid = minimalBid;
+      data.minimal_bid = minimalBid;
     }
 
     return axios.patch(`/store/${tokenId}/`, data);
