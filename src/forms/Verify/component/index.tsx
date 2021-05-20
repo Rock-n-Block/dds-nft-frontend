@@ -172,14 +172,24 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
               of your choice (e.g. Photoshop, Illustrator, etc), or other backstage process. This
               question is required. *<br /> Choose file or drag here Size limit: 10MB
             </h2>
-            <Uploader className="m-verify__uploader">
-              <>
-                <h4 className="text-black text-bold text-smd">
-                  <span className="text-grad ">Choose file </span>or drag here
-                </h4>
-                <p className="uploader__size-limit text-sm">Size limit: 10 mb</p>
-              </>
-            </Uploader>
+
+            <div className="form-profile__upload">
+              <Form.Item
+                name="img"
+                className="form-profile__item input__field"
+                validateStatus={validateField('img', touched, errors)}
+                help={!touched.img ? false : errors.img}
+              >
+                <Uploader className="m-verify__uploader">
+                  <>
+                    <h4 className="text-black text-bold text-smd">
+                      <span className="text-grad ">Choose file </span>or drag here
+                    </h4>
+                    <p className="uploader__size-limit text-sm">Size limit: 10 mb</p>
+                  </>
+                </Uploader>
+              </Form.Item>
+            </div>
             <Button
               size="md"
               colorScheme="purple"
