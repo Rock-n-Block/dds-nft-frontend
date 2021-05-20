@@ -110,17 +110,17 @@ const Token: React.FC = observer(() => {
     owners: [
       {
         img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 ETH'),
+        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
         bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
       },
       {
         img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 ETH'),
+        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
         bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
       },
       {
         img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 ETH'),
+        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
         bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
       },
     ],
@@ -140,7 +140,7 @@ const Token: React.FC = observer(() => {
         img: userAvatar,
         topText: (
           <span className="text text-gray text-sm text-upper">
-            Put on sale for <b className="text-bold text-black"> 2 ETH </b> 6 hours ago
+            Put on sale for <b className="text-bold text-black"> 2 WETH </b> 6 hours ago
           </span>
         ),
         bottomText: (
@@ -457,7 +457,7 @@ const Token: React.FC = observer(() => {
               <div className="token__price">
                 {tokenData.price && tokenData.selling ? (
                   <>
-                    <div className="text-bold text-purple-l text-xl">{tokenData.price} ETH</div>
+                    <div className="text-bold text-purple-l text-xl">{tokenData.price} WETH</div>
                     <div className="token__price-gray text-gray text-md">
                       <span>${tokenData.USDPrice / 100}</span>
                     </div>
