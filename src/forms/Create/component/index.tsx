@@ -34,9 +34,7 @@ export interface ICreateForm {
   tokenProperties: IProperti[];
   isSingle?: boolean;
   isLoading: boolean;
-  collections?: any;
   collectionId: string;
-  getCollections?: () => void;
   ethRate?: number;
 }
 
@@ -52,8 +50,6 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
     handleChange,
     handleSubmit,
     isSingle,
-    collections,
-    getCollections,
   }) => {
     const { user } = useMst();
     const serviceFee = 2.5; // TODO: remove after get service fee request
@@ -85,11 +81,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
       <Form name="form-create" className="form-create" layout="vertical">
         <div className="form-create__content">
           <div className="form-create__choose">
-            <ChooseCollection
-              items={collections}
-              isSingle={isSingle}
-              getCollections={getCollections}
-            />
+            <ChooseCollection isSingle={isSingle} />
           </div>
           <div className="form-create__upload">
             <div className="form-create__upload-title text-bold text-lg">Upload file</div>
