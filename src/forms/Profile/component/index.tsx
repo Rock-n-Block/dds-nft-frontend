@@ -7,7 +7,7 @@ import { Button } from '../../../components/atoms';
 import { Uploader } from '../../../components/organisms';
 import VerifyModal from '../../../components/organisms/VerifyModal';
 import { useMst } from '../../../store/store';
-// import { validateField } from '../../../utils/validate';
+import { validateField } from '../../../utils/validate';
 
 export interface IProfile {
   displayName?: string;
@@ -23,14 +23,7 @@ export interface IProfile {
 // const { TextArea } = Input;
 
 const Profile: React.FC<FormikProps<IProfile>> = observer(
-  ({
-    // touched,
-    // errors,
-    handleChange,
-    handleBlur,
-    values,
-    handleSubmit,
-  }) => {
+  ({ touched, errors, handleChange, handleBlur, values, handleSubmit }) => {
     const { modals } = useMst();
 
     const handleOpenModal = (): void => {
@@ -171,13 +164,20 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
           </Button>
         </div>
         <div className="form-profile__upload">
-          <div className="form-profile__upload-img">
-            <img src={values.preview} alt={values.displayName} />
-          </div>
-          <div className="form-profile__upload-text text-bold">
-            We recommend an image of at least 400x400. Gifs work too.
-          </div>
-          <Uploader type="button" colorScheme="white" size="smd" />
+          <Form.Item
+            name="img"
+            className="form-profile__item input__field"
+            validateStatus={validateField('img', touched, errors)}
+            help={!touched.img ? false : errors.img}
+          >
+            <div className="form-profile__upload-img">
+              <img src={values.preview} alt={values.displayName} />
+            </div>
+            <div className="form-profile__upload-text text-bold">
+              We recommend an image of at least 400x400. Gifs work too.
+            </div>
+            <Uploader type="button" colorScheme="white" size="smd" />
+          </Form.Item>
         </div>
       </Form>
     );
