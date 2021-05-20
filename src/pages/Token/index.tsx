@@ -614,7 +614,7 @@ const Token: React.FC = observer(() => {
                           .dividedBy(100)
                           .times(new BigNumber(tokenData.serviceFee)),
                       )
-                      .toFixed(5)} WETH`}</div>
+                      .toFixed(3)} WETH`}</div>
                     <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
                       tokenData.USDPrice,
                     )
