@@ -48,19 +48,21 @@ export default observer(() => {
       userApi
         .verifyMe(formData)
         .then(() => {
-          setFieldValue('isLoading', false);
           modals.info.setMsg(
             'Congrats you have successfully submitted a verification request ',
             'success',
           );
-          modals.verify.close();
         })
-        .catch((err) => {
+        .catch((err: any) => {
           if (err.message === 'Request failed with status code 400') {
-            setFieldValue('isLoading', false);
-            modals.info.setMsg(`Your verification already in progress`, 'success');
+            modals.info.setMsg(`Your verification already in progress`, 'error');
+          } else {
+            modals.info.setMsg(err.message, 'error');
           }
           console.log(err.message);
+        })
+        .finally(() => {
+          setFieldValue('isLoading', false);
           modals.verify.close();
         });
     },
