@@ -65,7 +65,6 @@ const InputNumber: React.FC<InputNumberProps> = ({
     const inputValue = e.target.value;
     if (
       (!Number.isNaN(inputValue) && reg.test(inputValue)) ||
-      inputValue === '' ||
       (!positiveOnly && inputValue === '-')
     ) {
       if (max && min) {
@@ -79,6 +78,7 @@ const InputNumber: React.FC<InputNumberProps> = ({
       //   if (new BigNumber(inputValue) <= new BigNumber(max)) onChange(e);
       // } else onChange(e);
     }
+    if (inputValue === '') onChange(e);
   };
   return (
     <Input

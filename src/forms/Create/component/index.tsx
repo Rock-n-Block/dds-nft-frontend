@@ -4,15 +4,11 @@ import BigNumber from 'bignumber.js/bignumber';
 import { FieldArray, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-import { Button } from '../../../components/atoms';
+import { Button, InputNumber } from '../../../components/atoms';
 import { NFTCard } from '../../../components/molecules';
 import { ChooseCollection, Uploader } from '../../../components/organisms';
 import { useMst } from '../../../store/store';
 import { validateField } from '../../../utils/validate';
-import {
-  handlePositiveFloatInputChange,
-  handlePositiveIntegerInputChange,
-} from '../../../utils/helpers';
 
 interface IProperti {
   size: string | number;
@@ -147,15 +143,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   label={<span className="input__label text-bold">Enter price for one piece</span>}
                 >
                   <div className="input__field-create box-shadow">
-                    <Input
+                    <InputNumber
                       id="instantSalePriceEth"
                       className="form-create__input input__create text-bold text-smd"
                       value={values.instantSalePriceEth}
                       size="large"
-                      type="text"
                       placeholder="10"
-                      onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+                      onChange={handleChange}
                       onBlur={handleBlur}
+                      positiveOnly
                     />
                     <span className="text-purple text-bold text-upper">weth</span>
                   </div>
@@ -286,15 +282,16 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               label={<span className="input__label text-bold">Royalties</span>}
             >
               <div className="input__field-create box-shadow">
-                <Input
+                <InputNumber
                   id="tokenRoyalties"
                   className="form-create__input input__create text-bold text-smd"
                   size="large"
                   value={values.tokenRoyalties}
-                  type="text"
                   placeholder="10"
-                  onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+                  onChange={handleChange}
                   onBlur={handleBlur}
+                  positiveOnly
+                  max={99}
                 />
                 <span className="text-md text-gray-l text-bold">%</span>
               </div>
@@ -311,15 +308,16 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 label={<span className="input__label text-bold">Number of copies</span>}
               >
                 <div className="input__field-create box-shadow">
-                  <Input
+                  <InputNumber
                     id="numberOfCopies"
                     className="form-create__input input__create text-bold text-smd"
                     size="large"
                     value={values.numberOfCopies}
-                    type="text"
                     placeholder="e. g. 10"
-                    onChange={(e) => handlePositiveIntegerInputChange(e, handleChange)}
+                    onChange={handleChange}
                     onBlur={handleBlur}
+                    positiveOnly
+                    integer
                   />
                 </div>
                 <div className="text-gray-l text-bold form-create__item-text">Amount of tokens</div>
