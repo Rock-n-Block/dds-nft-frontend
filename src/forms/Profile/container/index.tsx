@@ -47,11 +47,14 @@ const ChangePasswordForm: React.FC = () => {
         .update(formData)
         .then(({ data }) => {
           user.update(data);
-          setFieldValue('isLoading', false);
           modals.info.setMsg('Congrats you successfully changed your profile', 'success');
         })
         .catch((err) => {
+          modals.info.setMsg('Something went wrong', 'error');
           console.log(err);
+        })
+        .finally(() => {
+          setFieldValue('isLoading', false);
         });
     },
 
