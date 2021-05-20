@@ -9,7 +9,6 @@ import Profile, { IProfile } from '../component';
 
 const ChangePasswordForm: React.FC = () => {
   const { modals, user } = useMst();
-  console.log(user.site, 'user name');
 
   const FormWithFormik = withFormik<any, IProfile>({
     enableReinitialize: true,
@@ -20,7 +19,6 @@ const ChangePasswordForm: React.FC = () => {
         bio: user.bio || '',
         twitter: user.twitter || '',
         instagram: user.instagram || '',
-        site: user.site || '',
         img: '',
         preview: `https://${user.avatar}` || '',
         isLoading: false,
@@ -29,16 +27,7 @@ const ChangePasswordForm: React.FC = () => {
     validate: (values) => {
       const errors = validateForm({
         values,
-        notRequired: [
-          'displayName',
-          'customUrl',
-          'bio',
-          'twitter',
-          'instagram',
-          'site',
-          'img',
-          'preview',
-        ],
+        notRequired: ['displayName', 'customUrl', 'bio', 'twitter', 'instagram', 'img', 'preview'],
       });
 
       return errors;
@@ -53,7 +42,6 @@ const ChangePasswordForm: React.FC = () => {
       formData.append('custom_url', values.customUrl ? values.customUrl : '');
       formData.append('twitter', values.twitter ? values.twitter : '');
       formData.append('instagram', values.instagram ? values.instagram : '');
-      formData.append('site', values.site ? values.site : '');
 
       userApi
         .update(formData)

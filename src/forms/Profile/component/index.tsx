@@ -15,7 +15,6 @@ export interface IProfile {
   bio?: string;
   twitter?: string;
   instagram?: string;
-  site?: string;
   img?: any;
   preview?: string;
   isLoading: boolean;
@@ -152,25 +151,6 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                 onBlur={handleBlur}
               />
               <div className="text-purple-l text-bold text-md">Link</div>
-            </div>
-          </Form.Item>
-          <Form.Item
-            name="site"
-            className="form-profile__item input__field"
-            initialValue={values.site}
-            label={<span className="input__label text-bold">Personal site or portfolio</span>}
-          >
-            <div className="input__field-create box-shadow">
-              <Input
-                id="site"
-                className="form-profile__input input input__create text-bold text-smd"
-                size="large"
-                value={values.site}
-                type="text"
-                placeholder="https://"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
             </div>
           </Form.Item>
           <div className="form-profile__verify">
