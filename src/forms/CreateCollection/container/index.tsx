@@ -24,7 +24,7 @@ export default observer(({ walletConnector, isSingle }: any) => {
       isLoading: false,
     }),
     validate: (values) => {
-      const errors = validateForm({ values, notRequired: ['description', 'shortUrl'] });
+      const errors = validateForm({ values, notRequired: ['description', 'shortUrl', 'img'] });
 
       return errors;
     },
