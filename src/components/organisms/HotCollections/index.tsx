@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,16 +7,27 @@ import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 import HotCollectionCard from '../../molecules/HotCollectionCard';
 
 import './HotCollections.scss';
+import { storeApi } from '../../../services/api';
 
 SwiperCore.use([Navigation]);
 
-interface IHotCollections {
-  items: any;
-}
-
-const HotCollections: React.FC<IHotCollections> = ({ items }) => {
+const HotCollections: React.FC = () => {
+  const [collections, setCollections] = useState<any>([]);
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
+  const loadCollections = () => {
+    storeApi
+      .getCollections()
+      .then(({ data }) => {
+        setCollections((prevCollections: any) => [...prevCollections, ...data]);
+      })
+      .catch((err) => {
+        console.log(err, 'get collections');
+      });
+  };
+  useEffect(() => {
+    loadCollections();
+  }, []);
   return (
     <div className="h-collections">
       <div className="row">
@@ -62,7 +73,7 @@ const HotCollections: React.FC<IHotCollections> = ({ items }) => {
               },
             }}
           >
-            {items.map((item: any) => (
+            {collections.map((item: any) => (
               <SwiperSlide className="h-collections__slide" key={nextId()}>
                 <HotCollectionCard
                   name={item.name}
