@@ -22,6 +22,10 @@ import web3Config from '../../services/web3/config';
 import { useMst } from '../../store/store';
 
 import './Token.scss';
+import { Popover } from 'antd';
+import PopoverUserLinks, {
+  PopoverUserLinksProps,
+} from '../../components/molecules/PopoverUserLinks';
 
 interface ITokenId {
   token: string;
@@ -197,6 +201,9 @@ const Token: React.FC = observer(() => {
 
   const [isLike, setIsLike] = useState<boolean>(false);
 
+  const shareContent = (props: PopoverUserLinksProps) => {
+    return <PopoverUserLinks {...props} />;
+  };
   const createBuyTransaction = async (buyTokenData: any) => {
     try {
       await connector.metamaskService.createTransaction(
@@ -449,7 +456,19 @@ const Token: React.FC = observer(() => {
                   likeCount={tokenData.likeCount}
                 />
                 <div className="token__share">
-                  <img src={ShareImg} alt="" />
+                  <Popover
+                    content={shareContent({ name: tokenData.name, text: `Share token` })}
+                    trigger="click"
+                    placement="top"
+                  >
+                    <Button
+                      size="sm"
+                      colorScheme="clear"
+                      className="page-overview__content__buttons_share"
+                    >
+                      <img src={ShareImg} alt="" />
+                    </Button>
+                  </Popover>
                 </div>
               </div>
             </div>

@@ -67,6 +67,10 @@ export default observer(({ walletConnector, isSingle }: any) => {
                 .catch((err: any) => {
                   modals.info.setMsg('An error occurred while creating the collection', 'error');
                   console.log(err, 'err');
+                })
+                .finally(() => {
+                  setFieldValue('isLoading', false);
+                  modals.createCollection.close();
                 });
             })
             .catch((err: any) => {
@@ -75,10 +79,6 @@ export default observer(({ walletConnector, isSingle }: any) => {
         })
         .catch((err: any) => {
           console.log(err, 'err');
-        })
-        .finally(() => {
-          setFieldValue('isLoading', false);
-          modals.createCollection.close();
         });
     },
 
