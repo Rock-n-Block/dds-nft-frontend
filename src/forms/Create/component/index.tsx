@@ -124,14 +124,14 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   label={<span className="input__label text-bold">Minimum bid</span>}
                 >
                   <div className="input__field-create box-shadow">
-                    <Input
+                    <InputNumber
                       id="bid"
                       className="form-create__input input__create text-bold text-smd"
                       value={values.bid}
                       size="large"
-                      type="text"
                       placeholder="Enter minimun bid"
-                      onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+                      positiveOnly
+                      onChange={handleChange}
                       onBlur={handleBlur}
                     />
                     <span className="text-purple text-bold text-upper">weth</span>
