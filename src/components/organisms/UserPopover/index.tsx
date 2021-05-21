@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { NavHashLink } from 'react-router-hash-link';
 // import { Switch } from 'antd';
 import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
@@ -95,9 +94,6 @@ const UserPopover: React.FC = observer(() => {
         </Button>
       </div>
       <div className="u-popover__nav">
-        <NavHashLink to="/#explore" smooth className="u-popover__nav-item text-bold text-black">
-          Explore
-        </NavHashLink>
         <Link to="/profile" className="u-popover__nav-item text-bold text-black">
           Edit profile
         </Link>
