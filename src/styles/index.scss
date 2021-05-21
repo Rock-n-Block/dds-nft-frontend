@@ -45,7 +45,9 @@ main {
   padding: 0 10px;
 
   max-width: 1360px;
-  @include b('mobile') {
+
+  @include b('tablet') {
+    max-width: 900px;
     padding: 0 20px;
   }
 }
