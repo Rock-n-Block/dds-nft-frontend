@@ -15,9 +15,10 @@ interface PlaceBidFormProps {
   total?: { value: string; currency: string };
   available?: number;
   tokenId: string | number;
+  min?: number;
 }
 
-const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, tokenId }) => {
+const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, tokenId, min }) => {
   const { modals } = useMst();
   const connector = useWalletConnectorContext();
   const FormWithFormik = withFormik<any, IPlaceBid>({
@@ -29,6 +30,7 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
         balance: balance ?? { value: '', currency: '' },
         fee: fee ?? { value: '', currency: '' },
         available: available || 0,
+        min: min || 0,
         isLoading: false,
       };
     },

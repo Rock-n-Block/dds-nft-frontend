@@ -4,15 +4,11 @@ import BigNumber from 'bignumber.js/bignumber';
 import { FieldArray, FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-import { Button } from '../../../components/atoms';
+import { Button, InputNumber } from '../../../components/atoms';
 import { NFTCard } from '../../../components/molecules';
 import { ChooseCollection, Uploader } from '../../../components/organisms';
 import { useMst } from '../../../store/store';
 import { validateField } from '../../../utils/validate';
-import {
-  handlePositiveFloatInputChange,
-  handlePositiveIntegerInputChange,
-} from '../../../utils/helpers';
 
 interface IProperti {
   size: string | number;
@@ -36,6 +32,7 @@ export interface ICreateForm {
   isLoading: boolean;
   collectionId: string;
   ethRate?: number;
+  bid: string;
 }
 
 const { TextArea } = Input;
@@ -116,8 +113,39 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 />
               </div>
             </div>
+
+            {values.putOnSale && !values.instantSalePrice ? (
+              <>
+                <Form.Item
+                  name="bid"
+                  className="form-create__item input__field"
+                  validateStatus={validateField('bid', touched, errors)}
+                  help={!touched.bid ? false : errors.bid}
+                  label={<span className="input__label text-bold">Minimum bid</span>}
+                >
+                  <div className="input__field-create box-shadow">
+                    <InputNumber
+                      id="bid"
+                      className="form-create__input input__create text-bold text-smd"
+                      value={values.bid}
+                      size="large"
+                      placeholder="Enter minimun bid"
+                      positiveOnly
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <span className="text-purple text-bold text-upper">weth</span>
+                  </div>
+                </Form.Item>
+                <div className="text-gray-l text-bold form-create__item-text">
+                  Bids below this amount won’t be accepted.
+                </div>{' '}
+              </>
+            ) : (
+              ''
+            )}
             {values.putOnSale ? (
-              <div className="form-create__switch">
+              <div className="form-create__switch form-create__switch-instant-sale">
                 <div className="form-create__switch-box">
                   <div className="form-create__switch-title text-bold text-md">
                     Instant sale price
@@ -147,15 +175,15 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   label={<span className="input__label text-bold">Enter price for one piece</span>}
                 >
                   <div className="input__field-create box-shadow">
-                    <Input
+                    <InputNumber
                       id="instantSalePriceEth"
                       className="form-create__input input__create text-bold text-smd"
                       value={values.instantSalePriceEth}
                       size="large"
-                      type="text"
                       placeholder="10"
-                      onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+                      onChange={handleChange}
                       onBlur={handleBlur}
+                      positiveOnly
                     />
                     <span className="text-purple text-bold text-upper">weth</span>
                   </div>
@@ -286,15 +314,16 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
               label={<span className="input__label text-bold">Royalties</span>}
             >
               <div className="input__field-create box-shadow">
-                <Input
+                <InputNumber
                   id="tokenRoyalties"
                   className="form-create__input input__create text-bold text-smd"
                   size="large"
                   value={values.tokenRoyalties}
-                  type="text"
                   placeholder="10"
-                  onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+                  onChange={handleChange}
                   onBlur={handleBlur}
+                  positiveOnly
+                  max={99}
                 />
                 <span className="text-md text-gray-l text-bold">%</span>
               </div>
@@ -311,15 +340,16 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 label={<span className="input__label text-bold">Number of copies</span>}
               >
                 <div className="input__field-create box-shadow">
-                  <Input
+                  <InputNumber
                     id="numberOfCopies"
                     className="form-create__input input__create text-bold text-smd"
                     size="large"
                     value={values.numberOfCopies}
-                    type="text"
                     placeholder="e. g. 10"
-                    onChange={(e) => handlePositiveIntegerInputChange(e, handleChange)}
+                    onChange={handleChange}
                     onBlur={handleBlur}
+                    positiveOnly
+                    integer
                   />
                 </div>
                 <div className="text-gray-l text-bold form-create__item-text">Amount of tokens</div>

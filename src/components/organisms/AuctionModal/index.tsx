@@ -56,6 +56,7 @@ const AuctionModal: React.FC = observer(() => {
           </Link>
         </p>
         <PlaceBidForm
+          min={modals.auction.minimalBid}
           balance={{
             value: user.balance?.weth,
             currency: 'WETH',

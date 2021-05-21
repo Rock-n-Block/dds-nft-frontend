@@ -46,6 +46,8 @@ const Explore: React.FC = () => {
         selling={data.selling}
         price={data.price}
         service_fee={data.service_fee}
+        minimal_bid={data.minimal_bid}
+        highest_bid={data.highest_bid}
       />
     );
   };
