@@ -55,10 +55,15 @@ export default {
     axios.post(`/store/end_auction/${id}/`, {
       token: localStorage.dds_token,
     }),
-  putOnSale: (tokenId: number, price?: number, minimalBid?: number) => {
+  putOnSale: (
+    tokenId: number,
+    price?: number | null,
+    minimalBid?: number | null,
+    remove?: boolean,
+  ) => {
     const data: any = {
       AuthToken: localStorage.dds_token,
-      selling: true,
+      selling: !remove,
       currency: 'ETH',
     };
     if (price) {
