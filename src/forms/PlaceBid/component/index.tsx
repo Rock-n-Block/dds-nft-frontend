@@ -1,11 +1,10 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import BigNumber from 'bignumber.js/bignumber';
 import { FormikProps } from 'formik';
 
-import { Button } from '../../../components/atoms';
+import { Button, InputNumber } from '../../../components/atoms';
 import { validateField } from '../../../utils/validate';
-import { handlePositiveFloatInputChange } from '../../../utils/helpers';
 
 export interface IPlaceBid {
   bid: string;
@@ -38,16 +37,17 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
         label={<span className="input__label text-bold">Your bid</span>}
       >
         <div className="input__field-create box-shadow">
-          <Input
+          <InputNumber
             id="bid"
             value={values.bid}
             suffix="WETH"
             className="form-auction__input input input__create text-bold text-smd"
             size="large"
-            type="text"
             placeholder="Enter bid"
-            onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+            onChange={handleChange}
             onBlur={handleBlur}
+            positiveOnly
+            max={+values.balance.value}
           />
         </div>
       </Form.Item>
@@ -65,15 +65,16 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
           }
         >
           <div className="input__field-create box-shadow">
-            <Input
+            <InputNumber
               id="quantity"
               value={values.quantity}
               className="form-auction__input input input__create text-bold text-smd"
               size="large"
-              type="text"
               placeholder="1"
-              onChange={(e) => handlePositiveFloatInputChange(e, handleChange)}
+              onChange={handleChange}
               onBlur={handleBlur}
+              positiveOnly
+              max={values.available}
             />
           </div>
         </Form.Item>
