@@ -50,6 +50,9 @@ export default observer(({ isSingle, walletConnector, ethRate }: any) => {
       if (isSingle) {
         notRequired.push('numberOfCopies');
       }
+      if (!values.putOnSale || values.instantSalePrice) {
+        notRequired.push('bid');
+      }
       const errors = validateForm({ values, notRequired });
 
       return errors;
