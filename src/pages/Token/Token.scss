@@ -90,6 +90,11 @@
         margin-left: 15px;
       }
     }
+    &-wrapper {
+      & + & {
+        margin-left: 15px;
+      }
+    }
   }
 
   &__info {
