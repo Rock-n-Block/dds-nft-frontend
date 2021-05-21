@@ -99,7 +99,6 @@ export default observer(({ isSingle, walletConnector, ethRate }: any) => {
           walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
-              formData.append('internal_id', data.internal_id);
               formData.append('tx_hash', res.transactionHash);
               if (values.putOnSale) {
                 formData.append('selling', values.putOnSale.toString());

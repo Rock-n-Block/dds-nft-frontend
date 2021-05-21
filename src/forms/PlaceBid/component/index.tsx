@@ -13,6 +13,7 @@ export interface IPlaceBid {
   fee: { value: string; currency: string };
   available: number;
   isLoading: boolean;
+  min: number;
 }
 
 const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
@@ -83,6 +84,10 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
       )}
       <div className="form-auction__overview">
         <p className="form-auction__overview-item text text-bold">
+          <span className="text-gray-l">Minimal bid</span>
+          <span className="text-pink-l">{values.min} WETH</span>
+        </p>
+        <p className="form-auction__overview-item text text-bold">
           <span className="text-gray-l">Your balance </span>
           <span className="text-pink-l">
             {values.balance.value ? values.balance.value : '0.0'}{' '}
@@ -114,6 +119,7 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
         colorScheme="gradient"
         size="md"
         onClick={onSubmit}
+        disabled={+values.bid > values.min}
         className="form-auction__submit-btn"
         loading={values.isLoading}
       >

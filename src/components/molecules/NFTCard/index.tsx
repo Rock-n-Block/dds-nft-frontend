@@ -29,10 +29,25 @@ export interface INFTCard {
   selling?: boolean;
   price?: number | null;
   service_fee?: number;
+  minimal_bid?: number;
+  highest_bid?: number;
 }
 
 const NFTCard: React.FC<INFTCard> = observer(
-  ({ img, name, id, artist, owners, disableLinks, available, selling, price, service_fee }) => {
+  ({
+    img,
+    name,
+    id,
+    artist,
+    owners,
+    disableLinks,
+    available,
+    selling,
+    price,
+    service_fee,
+    minimal_bid,
+    highest_bid,
+  }) => {
     const { user, modals } = useMst();
     const [isMyToken, setMyToken] = React.useState(false);
 
@@ -48,6 +63,7 @@ const NFTCard: React.FC<INFTCard> = observer(
         },
         available,
         fee: service_fee,
+        minimalBid: minimal_bid,
       });
     };
     const [isLike, setIsLike] = useState<boolean>(false);
@@ -113,7 +129,7 @@ const NFTCard: React.FC<INFTCard> = observer(
                   <div className="nft-card__auction-text text-gray text-bold">Highest bid</div>
                   <div className="nft-card__auction-bid-box box-shadow">
                     <span className="text-grad text-bold">
-                      bid WETH
+                      {highest_bid || 0} WETH
                       {/* {new BigNumber(auction?.bid).toFixed()} ETH */}
                     </span>
                   </div>

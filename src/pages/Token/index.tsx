@@ -58,6 +58,7 @@ interface IToken {
   bids: IBid[];
   history: Array<IHistoryItem>;
   sellers: ISeller[];
+  minimalBid: number;
 }
 interface IUser {
   id: number;
@@ -328,6 +329,7 @@ const Token: React.FC = observer(() => {
       available: tokenData.available,
       fee: tokenData.serviceFee,
       isRefreshPage: true,
+      minimalBid: tokenData.minimalBid,
     });
   };
 
@@ -379,6 +381,7 @@ const Token: React.FC = observer(() => {
       serviceFee: data.service_fee,
       bids: data.bids,
       sellers: data.sellers,
+      minimalBid: data.minimal_bid,
     });
   };
 
