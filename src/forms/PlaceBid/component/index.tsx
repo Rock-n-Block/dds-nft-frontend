@@ -115,7 +115,6 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
           </span>
         </p>
       </div>
-      {console.log(+values.bid, values.min, +values.bid > values.min)}
       <Button
         colorScheme="gradient"
         size="md"

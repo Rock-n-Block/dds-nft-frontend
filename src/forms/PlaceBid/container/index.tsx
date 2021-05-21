@@ -40,6 +40,7 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
         notRequired.push('quantity');
       }
       const errors = validateForm({ values, notRequired });
+      console.log(errors);
       return errors;
     },
     handleSubmit: async (values, { setFieldValue }) => {

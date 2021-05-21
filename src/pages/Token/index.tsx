@@ -325,7 +325,7 @@ const Token: React.FC = observer(() => {
         id: tokenData.creator.id,
         name: tokenData.creator.name || '',
       },
-      available: tokenData.available,
+      available: tokenData.available || 1,
       fee: tokenData.serviceFee,
       isRefreshPage: true,
       minimalBid: tokenData.minimalBid,
@@ -532,11 +532,7 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
-            {user.address &&
-            isMyToken &&
-            tokenData.selling &&
-            !tokenData.price &&
-            tokenData.bids.length ? (
+            {user.address && isMyToken && tokenData.bids.length ? (
               <div className="token__bids">
                 <Button
                   colorScheme="gradient"
@@ -601,10 +597,10 @@ const Token: React.FC = observer(() => {
             )}
 
             {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
-            {user.address && !isMyToken && tokenData.selling && (
+            {user.address && !isMyToken && (
               <div className="token__btns">
                 <div className="token__btns-container">
-                  {tokenData.price ? (
+                  {tokenData.price && tokenData.selling ? (
                     <div className="token__btns-wrapper">
                       {isApproved ? (
                         <Button
@@ -637,34 +633,30 @@ const Token: React.FC = observer(() => {
                   ) : (
                     ''
                   )}
-                  {!tokenData.price ? (
-                    <div className="token__btns-wrapper">
-                      {isApproved ? (
-                        <Button
-                          colorScheme="gradient"
-                          shadow
-                          size="md"
-                          className="token__btns-item"
-                          onClick={handleBid}
-                        >
-                          <span className="text-white text-bold">Place a bid</span>
-                        </Button>
-                      ) : (
-                        <Button
-                          colorScheme="gradient"
-                          shadow
-                          size="md"
-                          loading={isLoading}
-                          className="token__btns-item"
-                          onClick={handleApprove}
-                        >
-                          <span className="text-bold">Approve Token</span>
-                        </Button>
-                      )}
-                    </div>
-                  ) : (
-                    ''
-                  )}
+                  <div className="token__btns-wrapper">
+                    {isApproved ? (
+                      <Button
+                        colorScheme="gradient"
+                        shadow
+                        size="md"
+                        className="token__btns-item"
+                        onClick={handleBid}
+                      >
+                        <span className="text-white text-bold">Place a bid</span>
+                      </Button>
+                    ) : (
+                      <Button
+                        colorScheme="gradient"
+                        shadow
+                        size="md"
+                        loading={isLoading}
+                        className="token__btns-item"
+                        onClick={handleApprove}
+                      >
+                        <span className="text-bold">Approve Token</span>
+                      </Button>
+                    )}
+                  </div>
                 </div>
                 {tokenData.price ? (
                   <div className="token__btns-container">
@@ -721,7 +713,6 @@ const Token: React.FC = observer(() => {
               history={tokenData.history}
               details={mockData.details}
               bids={tokenData.bids}
-              isMyToken={isMyToken}
             />
           </div>
         </div>
