@@ -8,9 +8,10 @@ import Checkout, { ICheckout } from '../component';
 interface CheckoutFormProps {
   available?: number;
   handleBuy: (quantity: number) => {};
+  isLoading: boolean;
 }
 
-const CheckoutForm: React.FC<CheckoutFormProps> = ({ available, handleBuy }) => {
+const CheckoutForm: React.FC<CheckoutFormProps> = ({ available, handleBuy, isLoading }) => {
   const FormWithFormik = withFormik<any, ICheckout>({
     enableReinitialize: true,
     mapPropsToValues: () => {
@@ -28,7 +29,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ available, handleBuy }) => 
     },
     displayName: 'Checkout',
   })(Checkout);
-  return <FormWithFormik />;
+  return <FormWithFormik isLoading={isLoading} />;
 };
 
 export default observer(CheckoutForm);

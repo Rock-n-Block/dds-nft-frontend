@@ -484,9 +484,13 @@ const Token: React.FC = observer(() => {
                 ) : (
                   ''
                 )}
-                <div className="token__price-gray text-gray text-md">
-                  <span>{`${tokenData.available} of ${tokenData.totalSupply}`}</span>
-                </div>
+                {tokenData.standart === 'ERC1155' ? (
+                  <div className="token__price-gray text-gray text-md">
+                    <span>{`${tokenData.available} of ${tokenData.totalSupply}`}</span>
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
             {Object.keys(tokenData?.bids ?? '').length ? (
@@ -683,7 +687,7 @@ const Token: React.FC = observer(() => {
       ) : (
         ''
       )}
-      <CheckoutModal handleBuy={handleBuy} />
+      <CheckoutModal handleBuy={handleBuy} isLoading={isLoading} />
       {tokenData.standart === 'ERC1155' ? (
         <MultiBuyModal
           sellers={tokenData.sellers}

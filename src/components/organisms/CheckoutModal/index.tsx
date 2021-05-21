@@ -9,9 +9,10 @@ import './CheckoutModal.scss';
 
 interface ICheckoutModal {
   handleBuy: (quantity: number) => {};
+  isLoading: boolean;
 }
 
-const ChecoutModal: React.FC<ICheckoutModal> = observer(({ handleBuy }) => {
+const ChecoutModal: React.FC<ICheckoutModal> = observer(({ handleBuy, isLoading }) => {
   const { modals } = useMst();
 
   const handleClose = (): void => {
@@ -34,7 +35,11 @@ const ChecoutModal: React.FC<ICheckoutModal> = observer(({ handleBuy }) => {
           <span className="text-purple-l">{modals.checkout.token.name}</span> from{' '}
           <span className="text-purple-l">{modals.checkout.collectionName}</span>
         </div>
-        <CheckoutForm available={modals.checkout.token.available} handleBuy={handleBuy} />
+        <CheckoutForm
+          available={modals.checkout.token.available}
+          handleBuy={handleBuy}
+          isLoading={isLoading}
+        />
       </div>
     </Modal>
   );

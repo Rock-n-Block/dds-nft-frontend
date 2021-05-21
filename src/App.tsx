@@ -72,8 +72,8 @@ const App: React.FC = () => {
       <Footer />
       <TermsModal />
       <MetamaskErrModal />
-      <InfoModal />
       <AuctionModal />
+      <InfoModal />
     </div>
   );
 };

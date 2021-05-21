@@ -10,13 +10,14 @@ export interface ICheckout {
   available: number;
 }
 
-const Checkout: React.FC<FormikProps<ICheckout>> = ({
+const Checkout: React.FC<FormikProps<ICheckout> | any> = ({
   handleChange,
   handleBlur,
   values,
   handleSubmit,
   touched,
   errors,
+  isLoading,
 }) => {
   const onSubmit = () => {
     handleSubmit();
@@ -55,6 +56,7 @@ const Checkout: React.FC<FormikProps<ICheckout>> = ({
         size="md"
         disabled={values.quantity > values.available || !values.quantity}
         onClick={onSubmit}
+        loading={isLoading}
         className="form-auction__submit-btn"
       >
         Proceed to payment
