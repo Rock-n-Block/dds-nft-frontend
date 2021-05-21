@@ -59,7 +59,7 @@ const ActivityCard: React.FC<IActivityCard> = ({
           <h3 className="activity-card__header__title text-bold text">{tokenName}</h3>
           {price ? (
             <span className="activity-card__header__cost text text-grad text-bold">
-              {price} ETH
+              {price} WETH
             </span>
           ) : (
             <></>
