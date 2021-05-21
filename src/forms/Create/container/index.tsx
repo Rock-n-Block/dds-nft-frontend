@@ -37,6 +37,7 @@ export default observer(({ isSingle, walletConnector, ethRate }: any) => {
       isLoading: false,
       collectionId: '4',
       ethRate: ethRate || 0,
+      bid: '',
     }),
     validate: (values) => {
       const notRequired: string[] = ['tokenDescr', 'preview'];
@@ -64,6 +65,9 @@ export default observer(({ isSingle, walletConnector, ethRate }: any) => {
       formData.append('description', values.tokenDescr);
       if (values.instantSalePrice && values.putOnSale) {
         formData.append('price', values.instantSalePriceEth.toString());
+      }
+      if (!values.instantSalePrice && values.putOnSale) {
+        formData.append('minimal_bid', values.bid.toString());
       }
       if (values.putOnSale) {
         formData.append('available', values.numberOfCopies.toString());

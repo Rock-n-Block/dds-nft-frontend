@@ -133,7 +133,7 @@ class ChooseCollection extends React.Component<any, any, any> {
                 spaceBetween: 20,
               },
               1360: {
-                slidesPerView: 4,
+                slidesPerView: 3,
                 spaceBetween: 20,
               },
             }}
