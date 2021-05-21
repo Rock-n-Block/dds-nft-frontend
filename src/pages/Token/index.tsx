@@ -457,7 +457,7 @@ const Token: React.FC = observer(() => {
                 />
                 <div className="token__share">
                   <Popover
-                    content={shareContent({ name: tokenData.name, text: `Share token` })}
+                    content={shareContent({ name: tokenData.name })}
                     trigger="click"
                     placement="top"
                   >
