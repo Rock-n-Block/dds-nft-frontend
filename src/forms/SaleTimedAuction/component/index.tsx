@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import { FormikProps } from 'formik';
 
-import { Button } from '../../../components/atoms';
+import { Button, InputNumber } from '../../../components/atoms';
 import { validateField } from '../../../utils/validate';
 
 export interface ISaleTimedAuction {
@@ -32,16 +32,17 @@ const SaleTimedAuction: React.FC<FormikProps<ISaleTimedAuction>> = ({
         help={!touched.bid ? '' : errors.bid}
       >
         <div className="input__field-create box-shadow">
-          <Input
+          <InputNumber
             id="bid"
             value={values.bid}
             suffix="WETH"
             className="form-sale-timed-auction__input input input__create text-bold text-smd"
             size="large"
-            type="text"
             placeholder="Enter minimum bid"
             onChange={handleChange}
             onBlur={handleBlur}
+            min={0.001}
+            positiveOnly
           />
         </div>
       </Form.Item>

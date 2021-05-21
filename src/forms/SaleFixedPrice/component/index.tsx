@@ -1,9 +1,9 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import { FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 
-import { Button } from '../../../components/atoms';
+import { Button, InputNumber } from '../../../components/atoms';
 import { validateField } from '../../../utils/validate';
 import { useMst } from '../../../store/store';
 
@@ -35,16 +35,16 @@ const SaleFixedPrice: React.FC<FormikProps<ISaleFixedPrice>> = observer(
           help={!touched.instantSalePriceEth ? '' : errors.instantSalePriceEth}
         >
           <div className="input__field-create box-shadow">
-            <Input
+            <InputNumber
               id="instantSalePriceEth"
               value={values.instantSalePriceEth}
               suffix="WETH"
               className="form-sale-fixed-price__input input input__create text-bold text-smd"
               size="large"
-              type="text"
               placeholder="Enter price"
               onChange={handleChange}
               onBlur={handleBlur}
+              positiveOnly
             />
           </div>
         </Form.Item>

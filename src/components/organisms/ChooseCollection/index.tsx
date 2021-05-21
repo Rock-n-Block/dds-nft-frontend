@@ -7,7 +7,9 @@ import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import PlusImg from '../../../assets/img/icons/plus.svg';
+import RefreshImg from '../../../assets/img/icons/refresh.svg';
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
+import { userApi } from '../../../services/api';
 import { rootStore } from '../../../store/store';
 
 import './ChooseCollection.scss';
@@ -36,19 +38,40 @@ class ChooseCollection extends React.Component<any, any, any> {
 
     this.state = {
       activeCollection: '',
+      collections: [],
     };
 
     this.changeCollection = this.changeCollection.bind(this);
+    this.getCollections = this.getCollections.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.items.length) {
-      this.changeCollection(this.props.items[0].id);
+    if (!this.state.collections.length) {
+      this.getCollections();
     }
   }
 
   static handleOpenModal() {
     rootStore.modals.createCollection.open();
+  }
+
+  getCollections() {
+    userApi
+      .getSingleCollections()
+      .then(({ data }) => {
+        const collections = data.collections.filter((coll: any) => {
+          if (this.props.isSingle) {
+            return coll.standart === 'ERC721';
+          }
+          return coll.standart === 'ERC1155';
+        });
+
+        this.setState({
+          collections,
+        });
+        this.changeCollection(collections[0].id);
+      })
+      .catch((err) => console.log(err, 'get single'));
   }
 
   changeCollection(id: string) {
@@ -66,13 +89,20 @@ class ChooseCollection extends React.Component<any, any, any> {
       <div className="ch-coll">
         <div className="ch-coll__title text-grad text-lg text-bold">
           <span>Choose collection</span>
+          <div
+            className="ch-coll__refresh"
+            onClick={this.getCollections}
+            onKeyDown={this.getCollections}
+            tabIndex={0}
+            role="button"
+          >
+            <img src={RefreshImg} alt="refresh" />
+          </div>
         </div>
         <div className="ch-coll__slider">
           <div
             ref={this.prevRef}
-            className={classNames('swiper-navigation swiper-navigation-prev', {
-              hidden: !this.props.items?.length,
-            })}
+            className={classNames('swiper-navigation swiper-navigation-prev')}
           >
             <img src={ArrowImg} alt="arrow" />
           </div>
@@ -125,8 +155,8 @@ class ChooseCollection extends React.Component<any, any, any> {
                 </div>
               </div>
             </SwiperSlide>
-            {this.props.items &&
-              this.props.items.map((item: any) => (
+            {this.state.collections &&
+              this.state.collections.map((item: any) => (
                 <SwiperSlide className="ch-coll__slide" key={nextId()}>
                   <div
                     className={classNames('ch-coll__item box-shadow', {

@@ -9,6 +9,7 @@ export default {
     axios.get(`store/hot/${page}/?sort=${sort}${filter !== 'all' ? `&tag=${filter}` : ''}`),
   getTags: () => axios.get(`store/tags/`),
   getCollections: () => axios.get('store/hot_collections/'),
+  getHotBids: () => axios.get('store/hot_bids/'),
   getCollectionById: (id: number | string, page: number) =>
     axios.get(`store/collection/${id}/${page}/`),
   getToken: (id: number | string) => axios.get(`store/${id}/`),
@@ -55,21 +56,29 @@ export default {
     axios.post(`/store/end_auction/${id}/`, {
       token: localStorage.dds_token,
     }),
-  putOnSale: (tokenId: number, price?: number, minimalBid?: number) => {
+  putOnSale: (
+    tokenId: number,
+    price?: number | null,
+    minimalBid?: number | null,
+    remove?: boolean,
+  ) => {
     const data: any = {
       AuthToken: localStorage.dds_token,
-      selling: true,
+      selling: !remove,
       currency: 'ETH',
+      price: null,
+      minimal_bid: null,
     };
     if (price) {
       data.price = price;
     }
     if (minimalBid) {
-      data.minimalBid = minimalBid;
+      data.minimal_bid = minimalBid;
     }
 
     return axios.patch(`/store/${tokenId}/`, data);
   },
   reportPage: (page: string, reportMessage: string) =>
     axios.post('/store/report/', { page, reportMessage }),
+  support: (email: string, message: string) => axios.post('/store/support/', { email, message }),
 };

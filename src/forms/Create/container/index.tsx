@@ -11,7 +11,7 @@ import { useMst } from '../../../store/store';
 import { validateForm } from '../../../utils/validate';
 import CreateForm, { ICreateForm } from '../component';
 
-export default observer(({ isSingle, walletConnector, collections }: any) => {
+export default observer(({ isSingle, walletConnector, ethRate }: any) => {
   const { modals } = useMst();
   const history = useHistory();
   const FormWithFormik = withFormik<any, ICreateForm>({
@@ -36,6 +36,8 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       ],
       isLoading: false,
       collectionId: '4',
+      ethRate: ethRate || 0,
+      bid: '',
     }),
     validate: (values) => {
       const notRequired: string[] = ['tokenDescr', 'preview'];
@@ -47,6 +49,9 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       } */
       if (isSingle) {
         notRequired.push('numberOfCopies');
+      }
+      if (!values.putOnSale || values.instantSalePrice) {
+        notRequired.push('bid');
       }
       const errors = validateForm({ values, notRequired });
 
@@ -63,6 +68,9 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
       formData.append('description', values.tokenDescr);
       if (values.instantSalePrice && values.putOnSale) {
         formData.append('price', values.instantSalePriceEth.toString());
+      }
+      if (!values.instantSalePrice && values.putOnSale) {
+        formData.append('minimal_bid', values.bid.toString());
       }
       if (values.putOnSale) {
         formData.append('available', values.numberOfCopies.toString());
@@ -91,7 +99,6 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
           walletConnector.metamaskService
             .sendTransaction(data.initial_tx)
             .then((res: any) => {
-              formData.append('internal_id', data.internal_id);
               formData.append('tx_hash', res.transactionHash);
               if (values.putOnSale) {
                 formData.append('selling', values.putOnSale.toString());
@@ -130,5 +137,5 @@ export default observer(({ isSingle, walletConnector, collections }: any) => {
 
     displayName: 'ChangePasswordForm',
   })(CreateForm);
-  return <FormWithFormik isSingle={isSingle} collections={collections} />;
+  return <FormWithFormik isSingle={isSingle} />;
 });

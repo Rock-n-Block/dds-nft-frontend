@@ -58,6 +58,7 @@ export default observer(({ walletConnector, isSingle }: any) => {
               storeApi
                 .saveCollection(formData)
                 .then((result) => {
+                  modals.createCollection.close();
                   console.log(result, 'create collection');
                   modals.info.setMsg(
                     'Congrats you created your own NFT collection! It will be added soon.',
@@ -70,15 +71,20 @@ export default observer(({ walletConnector, isSingle }: any) => {
                 })
                 .finally(() => {
                   setFieldValue('isLoading', false);
-                  modals.createCollection.close();
                 });
             })
             .catch((err: any) => {
               console.log(err, 'err');
+            })
+            .finally(() => {
+              setFieldValue('isLoading', false);
             });
         })
         .catch((err: any) => {
           console.log(err, 'err');
+        })
+        .finally(() => {
+          setFieldValue('isLoading', false);
         });
     },
 

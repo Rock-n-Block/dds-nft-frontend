@@ -97,6 +97,9 @@ export const validateForm = ({ values, notRequired }: any) => {
       if (!value) {
         errCopy.tokenRoyalties = '"Royalties" must be a number';
       }
+      if (+value > 99) {
+        errCopy.tokenRoyalties = '"Royalties" must be a less than 99%';
+      }
     },
     symbol: (value: string): void => {
       if (!value) {

@@ -131,6 +131,9 @@
       & + & {
         margin-top: 30px;
       }
+      &-instant-sale {
+        margin-top: 30px;
+      }
     }
 
     &__item {
@@ -393,6 +396,15 @@
 
     &__submit-btn {
       margin: 30px auto 0;
+    }
+  }
+  &-feedback{
+    margin-top:80px;
+    max-width: 600px;
+    width: 100%;
+
+    &__submit-btn{
+      margin:30px auto 0;
     }
   }
 }

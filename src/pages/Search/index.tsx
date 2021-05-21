@@ -5,16 +5,19 @@ import { Masonry } from 'masonic';
 
 import HotImg from '../../assets/img/mock/hot.jpg';
 import { NoItemsFound } from '../../components/atoms';
-import UserMini from '../../components/atoms/UserMini';
 import { NFTCard } from '../../components/molecules';
 import HotCollectionCard from '../../components/molecules/HotCollectionCard';
 import { storeApi } from '../../services/api';
 
 import './Search.scss';
+import nextId from 'react-id-generator';
+import FollowCard from '../../components/molecules/FollowCard';
+import { useMst } from '../../store/store';
 
 const { TabPane } = Tabs;
 
 const Search: React.FC = () => {
+  const { user } = useMst();
   const params = new URLSearchParams(useLocation().search);
   const searchQuery: string = params.get('to_search') ?? '';
 
@@ -46,17 +49,6 @@ const Search: React.FC = () => {
         selling={data.selling}
         price={data.price}
         service_fee={data.service_fee}
-      />
-    );
-  };
-  const renderUserCard = ({ data }: any) => {
-    return (
-      <UserMini
-        img={data.avatar}
-        imgSize="lg"
-        id={data.id}
-        topText={<span className="text-bold t-users__user-name" />}
-        bottomText={<span className="text-grad text-bold text-md text-bold">{data.name}</span>}
       />
     );
   };
@@ -116,14 +108,17 @@ const Search: React.FC = () => {
           <TabPane tab="Users" key="users">
             <div className="search-page__content">
               {searchResults.users && Object.keys(searchResults.users).length ? (
-                <Masonry
-                  items={searchResults.users}
-                  columnGutter={10}
-                  columnWidth={320}
-                  overscanBy={5}
-                  render={renderUserCard}
-                  // onRender={maybeLoadMoreTokens}
-                />
+                searchResults.users.map((currentUser: any) => (
+                  <FollowCard
+                    tokens={currentUser.tokens}
+                    id={currentUser.id}
+                    followersCount={currentUser.followers_count}
+                    name={currentUser.name}
+                    avatar={currentUser.avatar}
+                    follows={user.follows}
+                    key={nextId()}
+                  />
+                ))
               ) : (
                 <NoItemsFound />
               )}

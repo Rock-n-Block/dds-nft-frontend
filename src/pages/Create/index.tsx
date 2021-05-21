@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ArrowImg from '../../assets/img/icons/arrow-full.svg';
 import { CreateCollectionModal } from '../../components/organisms';
 import { CreateForm } from '../../forms';
-import { userApi } from '../../services/api';
+import { ratesApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 
 import './Create.scss';
@@ -15,28 +15,19 @@ interface ICreate {
 
 const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) => {
   const walletConnector = useWalletConnectorContext();
-  const [collections, setCollections] = React.useState([]);
-
-  const getCollections = React.useCallback((): void => {
-    userApi
-      .getSingleCollections()
-      .then(({ data }) => {
-        console.log(data, 'single coll');
-        setCollections(
-          data.collections.filter((coll: any) => {
-            if (isSingle) {
-              return coll.standart === 'ERC721';
-            }
-            return coll.standart === 'ERC1155';
-          }),
-        );
-      })
-      .catch((err) => console.log(err, 'get single'));
-  }, [isSingle]);
+  const [ethRate, setEthRate] = React.useState<number>(0);
 
   React.useEffect(() => {
-    getCollections();
-  }, [isSingle, getCollections]);
+    ratesApi
+      .getRates()
+      .then(({ data }) => {
+        setEthRate(data.ETH);
+      })
+      .catch((error: any) => {
+        console.log(error, 'at get rates');
+      });
+  }, []);
+
   return (
     <div className="create">
       <div className="row">
@@ -56,14 +47,10 @@ const Create: React.FC<RouteComponentProps & ICreate> = ({ isSingle, history }) 
             <span className="text-grad">{isSingle ? 'single' : 'multiple'}</span>
             <span> collectible</span>
           </h1>
-          <CreateForm
-            isSingle={isSingle}
-            collections={collections}
-            walletConnector={walletConnector}
-          />
+          <CreateForm isSingle={isSingle} walletConnector={walletConnector} ethRate={ethRate} />
         </div>
       </div>
-      <CreateCollectionModal isSingle={isSingle} getCollections={getCollections} />
+      <CreateCollectionModal isSingle={isSingle} />
     </div>
   );
 };

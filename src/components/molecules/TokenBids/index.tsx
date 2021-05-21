@@ -3,17 +3,15 @@ import nextId from 'react-id-generator';
 
 import BellImg from '../../../assets/img/icons/bell-p.svg';
 import { IBid } from '../../../pages/Token';
-import { Button } from '../../atoms';
 import UserMini from '../../atoms/UserMini';
 
 import './TokenBids.scss';
 
 interface TokenBidsProps {
   bids: Array<IBid>;
-  isMyToken: boolean;
 }
 
-const TokenBids: React.FC<TokenBidsProps> = ({ bids, isMyToken = false }) => {
+const TokenBids: React.FC<TokenBidsProps> = ({ bids }) => {
   return (
     <div className="token-tab token-info token-bids">
       {bids.length ? (
@@ -31,7 +29,7 @@ const TokenBids: React.FC<TokenBidsProps> = ({ bids, isMyToken = false }) => {
                 </span>
               }
             />
-            {isMyToken && <Button colorScheme="outline">Sell</Button>}
+            {/* {isMyToken && <Button colorScheme="outline">Sell</Button>} */}
           </div>
         ))
       ) : (

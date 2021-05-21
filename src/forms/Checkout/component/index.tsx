@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import { FormikProps } from 'formik';
 
-import { Button } from '../../../components/atoms';
+import { Button, InputNumber } from '../../../components/atoms';
 import { validateField } from '../../../utils/validate';
 
 export interface ICheckout {
@@ -10,13 +10,14 @@ export interface ICheckout {
   available: number;
 }
 
-const Checkout: React.FC<FormikProps<ICheckout>> = ({
+const Checkout: React.FC<FormikProps<ICheckout> | any> = ({
   handleChange,
   handleBlur,
   values,
   handleSubmit,
   touched,
   errors,
+  isLoading,
 }) => {
   const onSubmit = () => {
     handleSubmit();
@@ -36,15 +37,17 @@ const Checkout: React.FC<FormikProps<ICheckout>> = ({
         }
       >
         <div className="input__field-create box-shadow">
-          <Input
+          <InputNumber
             id="quantity"
             value={values.quantity}
             className="form-auction__input input input__create text-bold text-smd"
             size="large"
-            type="text"
             placeholder="1"
             onChange={handleChange}
             onBlur={handleBlur}
+            integer
+            positiveOnly
+            max={values.available}
           />
         </div>
       </Form.Item>
@@ -53,6 +56,7 @@ const Checkout: React.FC<FormikProps<ICheckout>> = ({
         size="md"
         disabled={values.quantity > values.available || !values.quantity}
         onClick={onSubmit}
+        loading={isLoading}
         className="form-auction__submit-btn"
       >
         Proceed to payment

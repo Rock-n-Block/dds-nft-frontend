@@ -29,7 +29,7 @@ const TimedAuctionModal: React.FC<ITimedAuctionModal> = observer(
         width={380}
       >
         <div className="m-timed-auction__content">
-          <div className="m-timed-auction__title text-xl text-grad text-bold">Timed auction</div>
+          <div className="m-timed-auction__title text-xl text-grad text-bold">Auction</div>
           <div className="m-timed-auction__subtitle text text-bold text-gray-l">
             Enter new price. Your NFT will be pushed in top of marketplace.
           </div>
