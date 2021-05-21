@@ -298,7 +298,6 @@ const Token: React.FC = observer(() => {
     modals.putOnSale.open();
     modals.fixedPrice.setProps(tokenData.serviceFee, tokenData.totalSupply);
   };
-
   const handleApprove = (): void => {
     setLoading(true);
     connector.metamaskService
@@ -380,6 +379,22 @@ const Token: React.FC = observer(() => {
       bids: data.bids,
       sellers: data.sellers,
     });
+  };
+  const handleRemoveFromSale = (): void => {
+    setLoading(true);
+    storeApi
+      .putOnSale(+token, null, null, true)
+      .then(({ data }) => {
+        handleSetTokenData(data);
+        modals.info.setMsg('Congratulations', 'success');
+      })
+      .catch((err) => {
+        modals.info.setMsg('Something went wrong', 'error');
+        console.log(err, 'put on sale fixed price');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -545,6 +560,39 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
+            {tokenData.price && tokenData.selling && isMyToken ? (
+              <div className="token__btns">
+                <Button
+                  className="token__btns-item"
+                  colorScheme="white"
+                  shadow
+                  size="md"
+                  onClick={handleRemoveFromSale}
+                  loading={isLoading}
+                >
+                  Remove From Sale
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+            {tokenData.price === null && tokenData.selling && isMyToken ? (
+              <div className="token__btns">
+                <Button
+                  className="token__btns-item"
+                  colorScheme="white"
+                  shadow
+                  size="md"
+                  onClick={handleRemoveFromSale}
+                  loading={isLoading}
+                >
+                  Remove From Auction
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+
             {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
             {user.address && !isMyToken && tokenData.selling && (
               <div className="token__btns">
