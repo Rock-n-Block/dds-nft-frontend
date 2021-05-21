@@ -18,7 +18,12 @@ const InfoModal: React.FC = observer(() => {
   };
 
   return (
-    <Modal isVisible={!!modals.info.msg} handleCancel={handleClose} className="m-success">
+    <Modal
+      isVisible={!!modals.info.msg}
+      handleCancel={handleClose}
+      destroyOnClose
+      className="m-success"
+    >
       <div className="m-success__content">
         <div
           className="m-success__close"
