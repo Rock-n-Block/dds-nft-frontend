@@ -389,7 +389,7 @@ const Token: React.FC = observer(() => {
       .putOnSale(+token, null, null, true)
       .then(({ data }) => {
         handleSetTokenData(data);
-        modals.info.setMsg('Congratulations', 'success');
+        modals.info.setMsg('Congratulations you succefully removed token from sale', 'success');
       })
       .catch((err) => {
         modals.info.setMsg('Something went wrong', 'error');
@@ -548,7 +548,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {!tokenData.price && !tokenData.selling && isMyToken ? (
+            {((tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
+              (tokenData.standart === 'ERC1155' &&
+                !tokenData.sellers.find((seller) => seller.id === user.id))) &&
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -563,7 +566,11 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price && tokenData.selling && isMyToken ? (
+            {tokenData.price &&
+            ((tokenData.selling && tokenData.standart === 'ERC721') ||
+              (tokenData.standart === 'ERC1155' &&
+                tokenData.sellers.find((seller) => seller.id === user.id))) &&
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -579,7 +586,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price === null && tokenData.selling && isMyToken ? (
+            {tokenData.price === null &&
+            tokenData.selling &&
+            tokenData.standart === 'ERC721' &&
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"

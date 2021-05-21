@@ -65,6 +65,8 @@ export default {
       AuthToken: localStorage.dds_token,
       selling: !remove,
       currency: 'ETH',
+      price: null,
+      minimal_bid: null,
     };
     if (price) {
       data.price = price;
