@@ -136,10 +136,6 @@ class ChooseCollection extends React.Component<any, any, any> {
                 slidesPerView: 3,
                 spaceBetween: 20,
               },
-              1360: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
             }}
           >
             <SwiperSlide className="ch-coll__slide" key={nextId()}>
