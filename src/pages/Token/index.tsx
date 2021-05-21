@@ -328,7 +328,7 @@ const Token: React.FC = observer(() => {
       available: tokenData.available || 1,
       fee: tokenData.serviceFee,
       isRefreshPage: true,
-      minimalBid: tokenData.minimalBid,
+      minimalBid: tokenData.minimalBid || 0,
     });
   };
 
