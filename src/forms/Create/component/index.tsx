@@ -323,6 +323,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                   onChange={handleChange}
                   onBlur={handleBlur}
                   positiveOnly
+                  integer
                   max={99}
                 />
                 <span className="text-md text-gray-l text-bold">%</span>
