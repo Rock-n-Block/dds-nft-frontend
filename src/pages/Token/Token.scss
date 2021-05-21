@@ -24,15 +24,17 @@
   }
 
   &__bids {
-    padding: 20px 0 0 0;
-    border-top: rgb(230, 230, 230) 1px solid;
+    //padding: 20px 0 0 0;
+    //border-top: rgb(230, 230, 230) 1px solid;
+    padding: 0 0 20px 0;
     margin-top: 20px;
     &-amount {
       margin-left: 64px;
-    }
+    }/*
     &:last-child() {
-      border-bottom: none;
-    }
+      border-bottom: rgb(230, 230, 230) 1px solid;
+    }*/
+    border-bottom: rgb(230, 230, 230) 1px solid;
   }
 
   &__share {
@@ -40,14 +42,17 @@
   }
 
   &__btns {
-    margin: 20px 0;
-    padding: 20px 0 30px;
+    //margin: 20px 0;
+    //padding: 20px 0 30px;
 
     display: flex;
     align-items: center;
 
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0 0 20px 0;
+    margin-top: 20px;
+    border-bottom: rgb(230, 230, 230) 1px solid;
+    //border-top: 1px solid rgba(0, 0, 0, 0.1);
+    //border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     &-container {
       display: flex;
@@ -142,6 +147,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: rgb(230, 230, 230) 1px solid;
+    padding: 0 0 20px 0;
     @include b('mobile') {
       .token__wrapper {
         display: none;
