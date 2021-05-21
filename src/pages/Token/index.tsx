@@ -421,7 +421,7 @@ const Token: React.FC = observer(() => {
         setMyToken(false);
       }
     }
-  }, [tokenData, user.id, user]);
+  }, [tokenData, user.id, user.address, user]);
 
   useEffect(() => {
     if (user.address) {
