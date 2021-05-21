@@ -15,6 +15,7 @@ import {
   ConnectPage,
   CreateChoosePage,
   CreatePage,
+  FeedbackPage,
   HomePage,
   NoPageFound,
   // OverviewPage,
@@ -39,6 +40,7 @@ const App: React.FC = () => {
         <Route exact path="/collections/:collectionId" component={CollectionsPage} />
         <Route exact path="/activity" component={ActivityPage} />
         <Route exact path="/search" component={SearchPage} />
+        <Route exact path="/feedback" component={FeedbackPage} />
         <Route
           exact
           path="/create"

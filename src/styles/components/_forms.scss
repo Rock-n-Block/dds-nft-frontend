@@ -398,6 +398,15 @@
       margin: 30px auto 0;
     }
   }
+  &-feedback{
+    margin-top:80px;
+    max-width: 600px;
+    width: 100%;
+
+    &__submit-btn{
+      margin:30px auto 0;
+    }
+  }
 }
 
 .ant-form-item-control {
