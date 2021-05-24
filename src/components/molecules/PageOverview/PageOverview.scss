@@ -18,7 +18,9 @@
     border: #fff 5px solid;
     border-radius: 50%;
     @include b('mobile') {
-      left: calc(50% - 75px);
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 
