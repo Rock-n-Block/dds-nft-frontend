@@ -136,7 +136,11 @@ const Token: React.FC = observer(() => {
     } catch (err) {
       console.log(err);
       setLoading(false);
-      modals.info.setMsg('Something went wrong', 'error');
+      if (err.response.message) {
+        modals.info.setMsg(err.response.message, 'error');
+      } else {
+        modals.info.setMsg('Something went wrong', 'error');
+      }
     }
   };
 
@@ -541,14 +545,15 @@ const Token: React.FC = observer(() => {
             {(isMyToken &&
               tokenData.standart === 'ERC1155' &&
               tokenData.available !== 0 &&
-              tokenData.sellers.length > 1) ||
+              ((tokenData.sellers.length === 1 && tokenData.sellers[0].id !== user.id) ||
+                tokenData.sellers.length > 1)) ||
             (user.address && !isMyToken) ? (
               <div className="token__btns">
                 <div className="token__btns-container">
-                  {tokenData.price && tokenData.selling ? (
-                    <div className="token__btns-wrapper">
-                      {isApproved ? (
-                        <>
+                  <div className="token__btns-wrapper">
+                    {isApproved ? (
+                      <>
+                        {tokenData.price && tokenData.selling ? (
                           <Button
                             colorScheme="gradient"
                             shadow
@@ -563,33 +568,33 @@ const Token: React.FC = observer(() => {
                           >
                             <span className="text-bold">Buy now</span>
                           </Button>
+                        ) : (
+                          ''
+                        )}
 
-                          <Button
-                            colorScheme="gradient"
-                            shadow
-                            size="md"
-                            className="token__btns-item"
-                            onClick={handleBid}
-                          >
-                            <span className="text-white text-bold">Place a bid</span>
-                          </Button>
-                        </>
-                      ) : (
                         <Button
                           colorScheme="gradient"
                           shadow
                           size="md"
-                          loading={isLoading}
                           className="token__btns-item"
-                          onClick={handleApprove}
+                          onClick={handleBid}
                         >
-                          <span className="text-bold">Approve Token</span>
+                          <span className="text-white text-bold">Place a bid</span>
                         </Button>
-                      )}
-                    </div>
-                  ) : (
-                    ''
-                  )}
+                      </>
+                    ) : (
+                      <Button
+                        colorScheme="gradient"
+                        shadow
+                        size="md"
+                        loading={isLoading}
+                        className="token__btns-item"
+                        onClick={handleApprove}
+                      >
+                        <span className="text-bold">Approve Token</span>
+                      </Button>
+                    )}
+                  </div>
                 </div>
                 {tokenData.price ? (
                   <div className="token__btns-container">
