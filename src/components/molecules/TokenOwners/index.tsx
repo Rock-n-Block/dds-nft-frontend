@@ -11,6 +11,7 @@ interface IUser {
   avatar: string;
   name: string;
   price?: number;
+  quantity?: number;
 }
 interface TokenOwnersProps {
   owners: Array<IUser>;
@@ -31,10 +32,10 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
               <span className="text text-gray text-sm text-upper text-regular">
                 {/* is selling for {owner.topText} */}
                 {owner.price
-                  ? `is selling for ${+new BigNumber(owner.price)
+                  ? `${owner.quantity} is selling for ${+new BigNumber(owner.price)
                       .dividedBy(new BigNumber(10).pow(18))
                       .toFixed()}`
-                  : 'not for sale'}
+                  : `${owner.quantity} not for sale`}
               </span>
             }
             bottomText={
