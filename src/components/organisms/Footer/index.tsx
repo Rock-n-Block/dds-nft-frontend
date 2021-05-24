@@ -37,9 +37,9 @@ const Footer: React.FC = () => {
             <Link to="/create" className="text-smd text-bold text-black footer__nav-item">
               Create
             </Link>
-            {/* <Link to="/" className="text-smd text-bold text-black footer__nav-item">
+            <Link to="/feedback" className="text-smd text-bold text-black footer__nav-item">
               Support
-            </Link> */}
+            </Link>
             {/* <div className="footer__nav-box">
               <div className="text-smd text-bold text-purple">Community</div>
               <Link to="/" className="text-smd text-bold text-black footer__nav-item">

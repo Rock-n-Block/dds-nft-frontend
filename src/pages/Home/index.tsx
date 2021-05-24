@@ -6,7 +6,7 @@ import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
 import { Explore, HotBids, HotCollections, Search } from '../../components/organisms';
-import { storeApi, userApi } from '../../services/api';
+import { userApi } from '../../services/api';
 import { useMst } from '../../store/store';
 
 import 'swiper/swiper.scss';
@@ -15,7 +15,6 @@ import './Home.scss';
 
 const Home: React.FC = observer(() => {
   const { user } = useMst();
-  const [collections, setCollections] = useState<any>([]);
   const [cover, setCover] = useState<any>({});
   const hotBids = [
     {
@@ -129,16 +128,6 @@ const Home: React.FC = observer(() => {
       bottomText: '355 EHT',
     },
   ]; */
-  const loadCollections = () => {
-    storeApi
-      .getCollections()
-      .then(({ data }) => {
-        setCollections((prevCollections: any) => [...prevCollections, ...data]);
-      })
-      .catch((err) => {
-        console.log(err, 'get collections');
-      });
-  };
   const loadRandomCover = () => {
     userApi
       .getRandomCover()
@@ -150,7 +139,6 @@ const Home: React.FC = observer(() => {
       });
   };
   React.useEffect(() => {
-    loadCollections();
     loadRandomCover();
   }, []);
   return (
@@ -193,13 +181,9 @@ const Home: React.FC = observer(() => {
       <div className="home__top">
         <TopUsers users={topUsers} />
       </div> */}
-      {collections.length ? (
-        <div className="home__collections">
-          <HotCollections items={collections} />
-        </div>
-      ) : (
-        ''
-      )}
+      <div className="home__collections">
+        <HotCollections />
+      </div>
       <div className="home__explore" id="explore">
         <Explore />
       </div>

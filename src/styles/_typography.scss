@@ -154,8 +154,9 @@
     background: $blue-grad;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    &::selection {
-      -webkit-text-fill-color: #fff;
+    &::selection,
+    ::selection {
+      -webkit-text-fill-color: #fff !important;
     }
   }
 

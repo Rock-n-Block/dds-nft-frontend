@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,6 +8,8 @@ import { NFTCard } from '../../molecules';
 import { INFTCard } from '../../molecules/NFTCard';
 
 import './HotBids.scss';
+import { storeApi } from '../../../services/api';
+import HotImg from '../../../assets/img/mock/hot.jpg';
 
 SwiperCore.use([Navigation]);
 
@@ -15,9 +17,47 @@ interface IHotBids {
   cards: INFTCard[];
 }
 
-const HotBids: React.FC<IHotBids> = ({ cards }) => {
+const HotBids: React.FC<IHotBids> = () => {
+  const [hotBids, setHotBids] = useState<any>([]);
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);
+
+  const renderCard = (data: any) => {
+    if (data === undefined) return <></>;
+    return (
+      <NFTCard
+        img={data.media ? `https://${data.media}` : HotImg}
+        name={data.name}
+        id={data.id}
+        artist={{
+          name: data.creator.name,
+          id: data.creator.id,
+          avatar: data.creator.avatar,
+        }}
+        owners={data.owners}
+        available={data.available}
+        selling={data.selling}
+        price={data.price}
+        service_fee={data.service_fee}
+        minimal_bid={data.minimal_bid}
+        highest_bid={data.highest_bid}
+      />
+    );
+  };
+  const loadHotBids = () => {
+    storeApi
+      .getHotBids()
+      .then(({ data }) => {
+        setHotBids(data);
+        console.log(data, 'get hot bids');
+      })
+      .catch((err) => {
+        console.log(err, 'get hot bids');
+      });
+  };
+  useEffect(() => {
+    loadHotBids();
+  }, []);
   return (
     <div className="h-bids">
       <div className="row">
@@ -62,9 +102,9 @@ const HotBids: React.FC<IHotBids> = ({ cards }) => {
               },
             }}
           >
-            {cards.map((card) => (
+            {hotBids.map((card: any) => (
               <SwiperSlide key={nextId()} className="h-bids__slide">
-                <NFTCard {...card} />
+                {renderCard(card)}
               </SwiperSlide>
             ))}
           </Swiper>

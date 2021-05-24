@@ -44,12 +44,14 @@ const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
         .then(({ data }) => {
           handleSetTokenData(data);
           modals.info.setMsg('Congratulations', 'success');
-          setFieldValue('isLoading', false);
         })
         .catch((err) => {
           modals.info.setMsg('Something went wrong', 'error');
           console.log(err, 'put on sale fixed price');
+        })
+        .finally(() => {
           setFieldValue('isLoading', false);
+          modals.putOnSale.close();
         });
     },
     displayName: 'SaleFixedPrice',

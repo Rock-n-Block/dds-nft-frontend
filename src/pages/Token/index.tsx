@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
-import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like, UserMini } from '../../components/atoms';
 import { IHistoryItem } from '../../components/molecules/TokenHistory';
 import {
@@ -22,6 +21,10 @@ import web3Config from '../../services/web3/config';
 import { useMst } from '../../store/store';
 
 import './Token.scss';
+import { Popover } from 'antd';
+import PopoverUserLinks, {
+  PopoverUserLinksProps,
+} from '../../components/molecules/PopoverUserLinks';
 
 interface ITokenId {
   token: string;
@@ -78,79 +81,6 @@ const Token: React.FC = observer(() => {
   const { user, modals } = useMst();
   const { token } = useParams<ITokenId>();
   const mockData = {
-    tags: ['Art', 'Games', 'Test'],
-    name: 'Skweebo',
-    collection: 'CryptoCrawlerz',
-    series: '01',
-    number: '002',
-    Strengths: ['Body Length', 'Attack', 'Grip', 'Burrowing'],
-    price_eth: 0.4,
-    price: 713.6,
-    sold: 1,
-    count: 30,
-    like: true,
-    likeCount: 24,
-    fee: 2.5,
-    price_fee_eth: 348.5,
-    price_fee_dol: 621721.7,
-    owner: {
-      img: userAvatar,
-      topText: <span className="text text-gray text-sm text-upper text-regular">owner</span>,
-      bottomText: <span className="text text-purple-l text-smd text-bold">MT_004am...</span>,
-    },
-    artist: {
-      img: userAvatar,
-      topText: <span className="text text-gray text-sm text-upper text-regular">artist</span>,
-      bottomText: <span className="text text-purple-l text-smd text-bold">DicraKiller</span>,
-    },
-    tabCollection: {
-      img: userAvatar,
-      topText: 'Collection (ERC1155)',
-      bottomText: 'Quan Selection',
-    },
-    owners: [
-      {
-        img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
-        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
-      },
-      {
-        img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
-        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
-      },
-      {
-        img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
-        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
-      },
-    ],
-    history: [
-      {
-        img: userAvatar,
-        topText: (
-          <span className="text text-gray text-sm text-upper text-regular">Minted 1 hours ago</span>
-        ),
-        bottomText: (
-          <span className="text text-gray text-sm text-regular">
-            BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
-          </span>
-        ),
-      },
-      {
-        img: userAvatar,
-        topText: (
-          <span className="text text-gray text-sm text-upper">
-            Put on sale for <b className="text-bold text-black"> 2 WETH </b> 6 hours ago
-          </span>
-        ),
-        bottomText: (
-          <span className="text text-gray text-sm ">
-            BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
-          </span>
-        ),
-      },
-    ],
     details: [
       {
         topText: 'StyleGAN II',
@@ -165,30 +95,6 @@ const Token: React.FC = observer(() => {
         bottomText: 'Generative Adversarial Network',
       },
     ],
-    bids: [
-      {
-        img: userAvatar,
-        topText: <span className="text-sm text-bold text-black">1.1 WETH</span>,
-        bottomText: (
-          <span className="text-sm text-gray text-regular">
-            BY <b className="text-bold text-purple-l text-smd">Lance</b>
-          </span>
-        ),
-      },
-      {
-        img: userAvatar,
-        topText: (
-          <span className="text-sm text-bold text-gray">
-            <span className="text-line-through">1.0 WETH</span> Expired
-          </span>
-        ),
-        bottomText: (
-          <span className="text-sm text-gray ">
-            BY <b className="text-bold text-purple-l text-smd">Lance</b>
-          </span>
-        ),
-      },
-    ],
   };
 
   const [tokenData, setTokenData] = React.useState<IToken>({} as IToken);
@@ -198,6 +104,9 @@ const Token: React.FC = observer(() => {
 
   const [isLike, setIsLike] = useState<boolean>(false);
 
+  const shareContent = (props: PopoverUserLinksProps) => {
+    return <PopoverUserLinks {...props} />;
+  };
   const createBuyTransaction = async (buyTokenData: any) => {
     try {
       await connector.metamaskService.createTransaction(
@@ -236,6 +145,9 @@ const Token: React.FC = observer(() => {
       const { data: buyTokenData }: any = await storeApi.endAuction(tokenData.id);
 
       await createBuyTransaction(buyTokenData);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
       modals.checkAvailability.close();
     } catch (err) {
       console.log(err);
@@ -389,7 +301,7 @@ const Token: React.FC = observer(() => {
       .putOnSale(+token, null, null, true)
       .then(({ data }) => {
         handleSetTokenData(data);
-        modals.info.setMsg('Congratulations', 'success');
+        modals.info.setMsg('Congratulations you succefully removed token from sale', 'success');
       })
       .catch((err) => {
         modals.info.setMsg('Something went wrong', 'error');
@@ -473,7 +385,19 @@ const Token: React.FC = observer(() => {
                   likeCount={tokenData.likeCount}
                 />
                 <div className="token__share">
-                  <img src={ShareImg} alt="" />
+                  <Popover
+                    content={shareContent({ name: tokenData.name })}
+                    trigger="click"
+                    placement="top"
+                  >
+                    <Button
+                      size="sm"
+                      colorScheme="clear"
+                      className="page-overview__content__buttons_share"
+                    >
+                      <img src={ShareImg} alt="" />
+                    </Button>
+                  </Popover>
                 </div>
               </div>
             </div>
@@ -548,7 +472,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {!tokenData.price && !tokenData.selling && isMyToken ? (
+            {((tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
+              (tokenData.standart === 'ERC1155' &&
+                !tokenData.sellers.find((seller) => seller.id === user.id))) &&
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -563,7 +490,11 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price && tokenData.selling && isMyToken ? (
+            {tokenData.price &&
+            ((tokenData.selling && tokenData.standart === 'ERC721') ||
+              (tokenData.standart === 'ERC1155' &&
+                tokenData.sellers.find((seller) => seller.id === user.id))) &&
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -579,7 +510,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price === null && tokenData.selling && isMyToken ? (
+            {tokenData.price === null &&
+            tokenData.selling &&
+            tokenData.standart === 'ERC721' &&
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -596,26 +530,53 @@ const Token: React.FC = observer(() => {
               ''
             )}
 
-            {/* {user.address && (!isMyToken || (isMyToken && tokenData.standart === 'ERC1155')) && ( */}
-            {user.address && !isMyToken && (
-              <div className="token__btns">
-                <div className="token__btns-container">
-                  {tokenData.price && tokenData.selling ? (
+            {(user.address && !isMyToken) ||
+              (isMyToken && tokenData.standart === 'ERC1155' && tokenData.available !== 0 && (
+                <div className="token__btns">
+                  <div className="token__btns-container">
+                    {tokenData.price && tokenData.selling ? (
+                      <div className="token__btns-wrapper">
+                        {isApproved ? (
+                          <Button
+                            colorScheme="gradient"
+                            shadow
+                            loading={isLoading}
+                            size="md"
+                            className="token__btns-item"
+                            onClick={() => {
+                              return tokenData.standart === 'ERC721'
+                                ? handleBuy()
+                                : handleOpenCheckout();
+                            }}
+                          >
+                            <span className="text-bold">Buy now</span>
+                          </Button>
+                        ) : (
+                          <Button
+                            colorScheme="gradient"
+                            shadow
+                            size="md"
+                            loading={isLoading}
+                            className="token__btns-item"
+                            onClick={handleApprove}
+                          >
+                            <span className="text-bold">Approve Token</span>
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      ''
+                    )}
                     <div className="token__btns-wrapper">
                       {isApproved ? (
                         <Button
                           colorScheme="gradient"
                           shadow
-                          loading={isLoading}
                           size="md"
                           className="token__btns-item"
-                          onClick={() => {
-                            return tokenData.standart === 'ERC721'
-                              ? handleBuy()
-                              : handleOpenCheckout();
-                          }}
+                          onClick={handleBid}
                         >
-                          <span className="text-bold">Buy now</span>
+                          <span className="text-white text-bold">Place a bid</span>
                         </Button>
                       ) : (
                         <Button
@@ -630,69 +591,44 @@ const Token: React.FC = observer(() => {
                         </Button>
                       )}
                     </div>
+                  </div>
+                  {tokenData.price ? (
+                    <div className="token__btns-container">
+                      <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
+                      <div className="token__btns-text text-gray">{`${+new BigNumber(
+                        tokenData.price,
+                      )
+                        .plus(
+                          new BigNumber(tokenData.price)
+                            .dividedBy(100)
+                            .times(new BigNumber(tokenData.serviceFee)),
+                        )
+                        .toFixed(3)} WETH`}</div>
+                      <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
+                        tokenData.USDPrice,
+                      )
+                        .dividedBy(100)
+                        .plus(
+                          new BigNumber(tokenData.USDPrice).times(
+                            new BigNumber(tokenData.serviceFee).dividedBy(100).dividedBy(100),
+                          ),
+                        )
+                        .toFixed(2)}`}</div>
+                    </div>
                   ) : (
                     ''
                   )}
-                  <div className="token__btns-wrapper">
-                    {isApproved ? (
-                      <Button
-                        colorScheme="gradient"
-                        shadow
-                        size="md"
-                        className="token__btns-item"
-                        onClick={handleBid}
-                      >
-                        <span className="text-white text-bold">Place a bid</span>
-                      </Button>
-                    ) : (
-                      <Button
-                        colorScheme="gradient"
-                        shadow
-                        size="md"
-                        loading={isLoading}
-                        className="token__btns-item"
-                        onClick={handleApprove}
-                      >
-                        <span className="text-bold">Approve Token</span>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-                {tokenData.price ? (
-                  <div className="token__btns-container">
-                    <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
-                    <div className="token__btns-text text-gray">{`${+new BigNumber(tokenData.price)
-                      .plus(
-                        new BigNumber(tokenData.price)
-                          .dividedBy(100)
-                          .times(new BigNumber(tokenData.serviceFee)),
-                      )
-                      .toFixed(3)} WETH`}</div>
-                    <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
-                      tokenData.USDPrice,
-                    )
-                      .dividedBy(100)
-                      .plus(
-                        new BigNumber(tokenData.USDPrice).times(
-                          new BigNumber(tokenData.serviceFee).dividedBy(100).dividedBy(100),
-                        ),
-                      )
-                      .toFixed(2)}`}</div>
-                  </div>
-                ) : (
-                  ''
-                )}
-                {!Object.keys(tokenData?.bids ?? '').length && isMyToken ? (
-                  <div className="token__btns-container">
-                    <div className="token__btns-text text-gray">
-                      There’s no bids yet. You can put your NFT on marketplace
+                  {!Object.keys(tokenData?.bids ?? '').length && isMyToken ? (
+                    <div className="token__btns-container">
+                      <div className="token__btns-text text-gray">
+                        There’s no bids yet. You can put your NFT on marketplace
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  ''
-                )}
-              </div>
-            )}
+                  ) : (
+                    ''
+                  )}
+                </div>
+              ))}
             <div className="token__info">
               <div className="token__info-text text-md">{tokenData.collection?.name}</div>
               <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
@@ -717,7 +653,10 @@ const Token: React.FC = observer(() => {
           </div>
         </div>
       </div>
-      {isMyToken && !tokenData.selling ? (
+      {(isMyToken && !tokenData.selling) ||
+      (tokenData.standart === 'ERC1155' &&
+        !tokenData.sellers.find((seller) => seller.id === user.id) &&
+        isMyToken) ? (
         <>
           <PutOnSaleModal />
           <TimedAuctionModal tokenId={tokenData.id} handleSetTokenData={handleSetTokenData} />
