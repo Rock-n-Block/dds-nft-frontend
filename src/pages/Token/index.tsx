@@ -301,6 +301,7 @@ const Token: React.FC = observer(() => {
       .putOnSale(+token, null, null, true)
       .then(({ data }) => {
         handleSetTokenData(data);
+        modals.fixedPrice.close();
         modals.info.setMsg('Congratulations you succefully removed token from sale', 'success');
       })
       .catch((err) => {
