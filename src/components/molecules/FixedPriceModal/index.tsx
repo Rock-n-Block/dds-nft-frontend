@@ -23,6 +23,7 @@ const FixedPriceModal: React.FC<IFixedPriceModal> = observer(({ tokenId, handleS
     <Modal
       isVisible={!!modals.fixedPrice.isOpen}
       handleCancel={handleClose}
+      destroyOnClose
       className="m-fixed-price"
       closeIcon
       width={380}
