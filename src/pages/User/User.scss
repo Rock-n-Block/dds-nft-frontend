@@ -3,6 +3,9 @@
 .user {
   @include b('mobile') {
     .ant-tabs {
+      .ant-tabs-nav{
+        padding: 0 10px;
+      }
       .ant-tabs-extra-content {
         display: none;
       }
