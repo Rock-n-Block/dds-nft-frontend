@@ -75,17 +75,20 @@ export default observer(({ walletConnector, isSingle }: any) => {
             })
             .catch((err: any) => {
               console.log(err, 'err');
-            })
-            .finally(() => {
               setFieldValue('isLoading', false);
             });
         })
         .catch(({ response }) => {
           if (response.data.name) {
-            setFieldError('tokenName', response.data.name);
+            setTimeout(() => {
+              setFieldError('tokenName', response.data.name);
+            }, 100);
           }
-        })
-        .finally(() => {
+          if (response.data.symbol) {
+            setTimeout(() => {
+              setFieldError('symbol', response.data.symbol);
+            }, 100);
+          }
           setFieldValue('isLoading', false);
         });
     },

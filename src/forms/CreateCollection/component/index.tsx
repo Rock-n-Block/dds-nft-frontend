@@ -27,6 +27,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
   const onSubmit = () => {
     handleSubmit();
   };
+  console.log('renderes');
   return (
     <Form name="form-create-coll" className="form-create-coll" layout="vertical">
       <div className="form-create-coll__upload">
