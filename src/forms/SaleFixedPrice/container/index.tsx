@@ -12,6 +12,7 @@ interface SaleFixedPriceFormProps {
   totalSupply: number;
   tokenId: number;
   handleSetTokenData: (data: any) => void;
+  handleApproveNft: () => {};
 }
 
 const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
@@ -19,6 +20,7 @@ const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
   totalSupply,
   tokenId,
   handleSetTokenData,
+  handleApproveNft,
 }) => {
   const { modals } = useMst();
   const FormWithFormik = withFormik<any, ISaleFixedPrice>({
@@ -37,8 +39,9 @@ const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
       const errors = validateForm({ values, notRequired });
       return errors;
     },
-    handleSubmit: (values, { setFieldValue }) => {
+    handleSubmit: async (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
+      await handleApproveNft();
       storeApi
         .putOnSale(tokenId, +values.instantSalePriceEth)
         .then(({ data }) => {

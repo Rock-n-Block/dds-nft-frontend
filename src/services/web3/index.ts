@@ -157,6 +157,16 @@ export default class MetamaskService {
     return +new BigNumber(totalSupply).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
   }
 
+  async checkNftTokenAllowance(tokenAddress: string) {
+    const contract = this.getContract(tokenAddress, config.NFT.ABI);
+
+    const result = await contract.methods
+      .isApprovedForAll(this.walletAddress, config.EXCHANGE.ADDRESS)
+      .call();
+
+    return result;
+  }
+
   async checkTokenAllowance(
     contractName: 'WETH',
     tokenDecimals: number,
@@ -170,6 +180,7 @@ export default class MetamaskService {
       let result = await contract.methods
         .allowance(walletAdr, approvedAddress || config[contractName].ADDRESS)
         .call();
+
       const totalSupply = await this.totalSupply(
         config[contractName].ADDRESS,
         config[contractName].ABI,

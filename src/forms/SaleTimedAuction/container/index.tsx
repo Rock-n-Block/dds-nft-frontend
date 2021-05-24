@@ -10,11 +10,13 @@ import { useMst } from '../../../store/store';
 interface SaleTimedAuctionFormProps {
   tokenId: number;
   handleSetTokenData: (data: any) => void;
+  handleApproveNft: () => {};
 }
 
 const SaleTimedAuctionForm: React.FC<SaleTimedAuctionFormProps> = ({
   tokenId,
   handleSetTokenData,
+  handleApproveNft,
 }) => {
   const { modals } = useMst();
   const FormWithFormik = withFormik<any, ISaleTimedAuction>({
@@ -30,8 +32,9 @@ const SaleTimedAuctionForm: React.FC<SaleTimedAuctionFormProps> = ({
       const errors = validateForm({ values, notRequired });
       return errors;
     },
-    handleSubmit: (values, { setFieldValue }) => {
+    handleSubmit: async (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
+      await handleApproveNft();
       storeApi
         .putOnSale(tokenId, 0, +values.bid)
         .then(({ data }) => {

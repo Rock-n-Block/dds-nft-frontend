@@ -41,7 +41,7 @@ interface IToken {
   // TODO: check optional labels
   USDPrice: number;
   available: number;
-  collection: IUser;
+  collection: ICollection;
   creator: IUser;
   currency: string;
   description?: string;
@@ -67,6 +67,9 @@ interface IUser {
   id: number;
   avatar: string;
   name: string;
+}
+export interface ICollection extends IUser {
+  address: string;
 }
 export interface ISeller extends IUser {
   quantity: number;
@@ -322,6 +325,35 @@ const Token: React.FC = observer(() => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const handleCheckApproveNft = async () => {
+    try {
+      const result = await connector.metamaskService.checkNftTokenAllowance(
+        tokenData.collection.address,
+      );
+      return result;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  };
+
+  const handleApproveNft = async () => {
+    try {
+      const isAppr = await handleCheckApproveNft();
+      if (!isAppr) {
+        await connector.metamaskService.createTransaction(
+          'setApprovalForAll',
+          [web3Config.EXCHANGE.ADDRESS, true],
+          'NFT',
+          false,
+          tokenData.collection.address,
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -660,8 +692,16 @@ const Token: React.FC = observer(() => {
         isMyToken) ? (
         <>
           <PutOnSaleModal />
-          <TimedAuctionModal tokenId={tokenData.id} handleSetTokenData={handleSetTokenData} />
-          <FixedPriceModal tokenId={tokenData.id} handleSetTokenData={handleSetTokenData} />
+          <TimedAuctionModal
+            tokenId={tokenData.id}
+            handleSetTokenData={handleSetTokenData}
+            handleApproveNft={handleApproveNft}
+          />
+          <FixedPriceModal
+            tokenId={tokenData.id}
+            handleSetTokenData={handleSetTokenData}
+            handleApproveNft={handleApproveNft}
+          />
         </>
       ) : (
         ''

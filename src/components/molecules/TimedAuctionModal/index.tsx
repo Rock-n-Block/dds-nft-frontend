@@ -10,10 +10,11 @@ import './TimedAuctionModal.scss';
 interface ITimedAuctionModal {
   tokenId: number;
   handleSetTokenData: (data: any) => void;
+  handleApproveNft: () => {};
 }
 
 const TimedAuctionModal: React.FC<ITimedAuctionModal> = observer(
-  ({ tokenId, handleSetTokenData }) => {
+  ({ tokenId, handleSetTokenData, handleApproveNft }) => {
     const { modals } = useMst();
 
     const handleClose = (): void => {
@@ -34,7 +35,11 @@ const TimedAuctionModal: React.FC<ITimedAuctionModal> = observer(
           <div className="m-timed-auction__subtitle text text-bold text-gray-l">
             Enter new price. Your NFT will be pushed in top of marketplace.
           </div>
-          <SaleTimedAuctionForm tokenId={tokenId} handleSetTokenData={handleSetTokenData} />
+          <SaleTimedAuctionForm
+            tokenId={tokenId}
+            handleSetTokenData={handleSetTokenData}
+            handleApproveNft={handleApproveNft}
+          />
         </div>
       </Modal>
     );

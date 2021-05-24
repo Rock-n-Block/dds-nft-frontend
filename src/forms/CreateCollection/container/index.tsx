@@ -29,7 +29,7 @@ export default observer(({ walletConnector, isSingle }: any) => {
       return errors;
     },
 
-    handleSubmit: (values, { setFieldValue }) => {
+    handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
 
       const formData = new FormData();
@@ -80,8 +80,10 @@ export default observer(({ walletConnector, isSingle }: any) => {
               setFieldValue('isLoading', false);
             });
         })
-        .catch((err: any) => {
-          console.log(err, 'err');
+        .catch(({ response }) => {
+          if (response.data.name) {
+            setFieldError('tokenName', response.data.name);
+          }
         })
         .finally(() => {
           setFieldValue('isLoading', false);
