@@ -41,10 +41,10 @@ const UserPopover: React.FC = observer(() => {
   }, [user, walletConnector.metamaskService]);
   return (
     <div className="u-popover">
-      <UserWallet className="u-popover__copy" address={user.address} />
+      <UserWallet color="black" className="u-popover__copy" address={user.address} />
       <div className="u-popover__swap">
         <div className="u-popover__swap-content">
-          <div className="">
+          <div className="u-popover__swap-info">
             <div className="u-popover__swap-item">
               <div className="u-popover__swap-item-img box-shadow">
                 <img src={EthImg} alt="" />
@@ -61,6 +61,9 @@ const UserPopover: React.FC = observer(() => {
                 </div>
               </div>
             </div>
+            <Button colorScheme="purple" className="u-popover__swap-img" onClick={handleOpenModal}>
+              <img src={SwapImg} alt="swap" />
+            </Button>
             <div className="u-popover__swap-item">
               <div className="u-popover__swap-item-img box-shadow">
                 <img src={EthImg} alt="" />
@@ -80,17 +83,12 @@ const UserPopover: React.FC = observer(() => {
               </div>
             </div>
           </div>
-          <Button colorScheme="purple" className="u-popover__swap-img" onClick={handleOpenModal}>
-            <img src={SwapImg} alt="swap" />
-          </Button>
           <ConvertModal />
         </div>
         <Button colorScheme="white" size="smd">
-          <div className="text">
-            <a href="https://zerion.io/" target="_blank" rel="noreferrer noopener">
-              Manage funds in Zerion
-            </a>
-          </div>
+          <a href="https://zerion.io/" target="_blank" rel="noreferrer noopener" className="text">
+            Manage funds in Zerion
+          </a>
         </Button>
       </div>
       <div className="u-popover__nav">

@@ -19,6 +19,19 @@
 
     &__box {
       margin-left: auto;
+      @include b('mobile'){
+        .ant-popover{
+          width: 100vw;
+          height: 100vh;
+          &-content{
+            height: 100%;
+          }
+          &-inner{
+            height: 100%;
+            border-radius: 0 ;
+          }
+        }
+      }
     }
 
     &__menu {
@@ -26,6 +39,7 @@
       margin-left: 15px;
 
       &-items {
+        margin-top: 13px;
         display: flex;
         flex-direction: column;
         position: fixed;
@@ -85,9 +99,6 @@
         .btn {
           width: 100%;
           max-width: 165px;
-        }
-        .btn-link+.btn{
-          margin-left: 20px;
         }
       }
 
