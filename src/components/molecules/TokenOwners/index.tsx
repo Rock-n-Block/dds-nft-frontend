@@ -1,5 +1,6 @@
 import React from 'react';
 import nextId from 'react-id-generator';
+import BigNumber from 'bignumber.js/bignumber';
 
 import { UserMini } from '../../atoms';
 
@@ -9,6 +10,7 @@ interface IUser {
   id: number;
   avatar: string;
   name: string;
+  price?: number;
 }
 interface TokenOwnersProps {
   owners: Array<IUser>;
@@ -27,7 +29,11 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
             topText={
               <span className="text text-gray text-sm text-upper text-regular">
                 {/* is selling for {owner.topText} */}
-                is selling for 2
+                {owner.price
+                  ? `is selling for ${+new BigNumber(owner.price)
+                      .dividedBy(new BigNumber(10).pow(18))
+                      .toFixed()}`
+                  : 'not for sale'}
               </span>
             }
             bottomText={

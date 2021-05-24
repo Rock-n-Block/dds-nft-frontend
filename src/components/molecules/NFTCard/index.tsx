@@ -26,6 +26,7 @@ export interface INFTCard {
   disableLinks?: boolean;
 
   available?: number;
+  total_supply?: number;
   selling?: boolean;
   price?: number | null;
   service_fee?: number;
@@ -47,6 +48,7 @@ const NFTCard: React.FC<INFTCard> = observer(
     service_fee,
     minimal_bid,
     highest_bid,
+    total_supply,
   }) => {
     const { user, modals } = useMst();
     const [isMyToken, setMyToken] = React.useState(false);
@@ -122,7 +124,7 @@ const NFTCard: React.FC<INFTCard> = observer(
                 <div className="nft-card__auction">
                   <div className="nft-card__auction-text text-purple-l text-bold">Auction</div>
                   <div className="nft-card__auction-text text-gray text-bold">
-                    {available} of {available}
+                    {available} of {total_supply}
                   </div>
                 </div>
                 <div className="nft-card__auction nft-card__auction-bid">

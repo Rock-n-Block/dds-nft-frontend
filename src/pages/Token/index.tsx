@@ -74,6 +74,7 @@ export interface ISeller extends IUser {
 }
 export interface IOwner extends IUser {
   quantity: number;
+  price?: number;
 }
 const Token: React.FC = observer(() => {
   const history = useHistory();
@@ -269,6 +270,13 @@ const Token: React.FC = observer(() => {
   };
 
   const handleSetTokenData = (data: any): void => {
+    const owners = data.owners.map((owner: any) => {
+      const sellerObj = data.sellers.find((seller: any) => seller.id === owner.id);
+      return {
+        ...owner,
+        price: sellerObj ? sellerObj.price : null,
+      };
+    });
     setTokenData({
       USDPrice: data.USD_price,
       available: data.available,
@@ -281,7 +289,7 @@ const Token: React.FC = observer(() => {
       media: data.media,
       name: data.name,
       tags: data.tags,
-      owners: data.owners,
+      owners,
       likeCount: data.like_count,
       price: data.price,
       royalty: data.royalty,
