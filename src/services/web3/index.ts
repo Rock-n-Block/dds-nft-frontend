@@ -176,8 +176,10 @@ export default class MetamaskService {
         tokenDecimals,
       );
 
-      result = result ? result.toString(10) : result;
-      result = result === '0' ? null : result;
+      result =
+        result === '0'
+          ? null
+          : +new BigNumber(result).dividedBy(new BigNumber(10).pow(tokenDecimals)).toString(10);
       if (result && new BigNumber(result).minus(totalSupply).isPositive()) {
         return true;
       }
