@@ -522,10 +522,7 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price === null &&
-            tokenData.selling &&
-            tokenData.standart === 'ERC721' &&
-            isMyToken ? (
+            {tokenData.price === null && tokenData.selling && isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
