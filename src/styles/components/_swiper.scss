@@ -37,15 +37,13 @@
     }
 
     @include b('mobile') {
-      top: -50px;
 
       &-next {
         right: 0;
       }
 
       &-prev {
-        right: 56px;
-        left: auto;
+        left: 0;
       }
     }
   }
