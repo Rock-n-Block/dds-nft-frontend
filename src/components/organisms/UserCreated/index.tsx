@@ -29,6 +29,7 @@ const UserCreated: React.FC<UserCreatedProps> = ({ address }) => {
         selling={data.selling}
         price={data.price}
         service_fee={data.service_fee}
+        total_supply={data.total_supply}
       />
     );
   };

@@ -29,6 +29,7 @@ const UserCollectibles: React.FC<UserCollectiblesProps> = observer(({ cards }) =
         selling={data.selling}
         price={data.price}
         service_fee={data.service_fee}
+        total_supply={data.total_supply}
       />
     );
   };
