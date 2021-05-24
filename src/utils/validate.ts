@@ -54,7 +54,7 @@ export const validateForm = ({ values, notRequired }: any) => {
       if (!value) {
         errCopy.instantSalePriceEth = 'Enter price';
       }
-      if (+value < 0.00001) {
+      if (+value <= 0.001) {
         errCopy.instantSalePriceEth = 'Price should be more than 0.00001';
       }
     },

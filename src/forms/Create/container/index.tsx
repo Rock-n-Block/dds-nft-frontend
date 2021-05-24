@@ -41,7 +41,10 @@ export default observer(({ isSingle, walletConnector, ethRate }: any) => {
     }),
     validate: (values) => {
       const notRequired: string[] = ['tokenDescr', 'preview'];
-      if (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth')) {
+      if (
+        !values.putOnSale ||
+        (!values.instantSalePrice && !notRequired.includes('instantSalePriceEth'))
+      ) {
         notRequired.push('instantSalePriceEth');
       } /*
       if (!values.unlockOncePurchased && !notRequired.includes('digitalKey')) {
