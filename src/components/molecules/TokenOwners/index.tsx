@@ -26,6 +26,7 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
             key={nextId()}
             img={owner.avatar}
             imgSize="lg"
+            id={owner.id}
             topText={
               <span className="text text-gray text-sm text-upper text-regular">
                 {/* is selling for {owner.topText} */}
