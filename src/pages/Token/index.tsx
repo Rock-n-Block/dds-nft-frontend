@@ -139,11 +139,7 @@ const Token: React.FC = observer(() => {
     } catch (err) {
       console.log(err);
       setLoading(false);
-      if (err.response.message) {
-        modals.info.setMsg(err.response.message, 'error');
-      } else {
-        modals.info.setMsg('Something went wrong', 'error');
-      }
+      modals.info.setMsg('Something went wrong', 'error');
     }
   };
 
@@ -204,10 +200,13 @@ const Token: React.FC = observer(() => {
 
       await createBuyTransaction(buyTokenData);
       setLoading(false);
-    } catch (err) {
-      console.log(err);
+    } catch ({ response }) {
+      if (response.data) {
+        modals.info.setMsg(response.data, 'error');
+      } else {
+        modals.info.setMsg('Something went wrong', 'error');
+      }
       setLoading(false);
-      modals.info.setMsg('Something went wrong', 'error');
     }
   };
 

@@ -60,10 +60,14 @@ const PlaceBidForm: React.FC<PlaceBidFormProps> = ({ balance, fee, available, to
         modals.auction.close();
         modals.info.setMsg('Congratulations', 'success');
         setFieldValue('isLoading', false);
-      } catch (err) {
+      } catch ({ response }) {
+        if (response.data) {
+          modals.info.setMsg(response.data, 'error');
+        } else {
+          modals.info.setMsg('Something went wrong', 'error');
+        }
         setFieldValue('isLoading', false);
         modals.auction.close();
-        modals.info.setMsg('Something went wrong', 'error');
       }
     },
     displayName: 'PlaceBid',
