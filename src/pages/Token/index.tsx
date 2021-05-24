@@ -5,7 +5,6 @@ import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
 
 import ShareImg from '../../assets/img/icons/share.svg';
-import userAvatar from '../../assets/img/mock/user-avatar.png';
 import { Button, Like, UserMini } from '../../components/atoms';
 import { IHistoryItem } from '../../components/molecules/TokenHistory';
 import {
@@ -78,79 +77,6 @@ const Token: React.FC = observer(() => {
   const { user, modals } = useMst();
   const { token } = useParams<ITokenId>();
   const mockData = {
-    tags: ['Art', 'Games', 'Test'],
-    name: 'Skweebo',
-    collection: 'CryptoCrawlerz',
-    series: '01',
-    number: '002',
-    Strengths: ['Body Length', 'Attack', 'Grip', 'Burrowing'],
-    price_eth: 0.4,
-    price: 713.6,
-    sold: 1,
-    count: 30,
-    like: true,
-    likeCount: 24,
-    fee: 2.5,
-    price_fee_eth: 348.5,
-    price_fee_dol: 621721.7,
-    owner: {
-      img: userAvatar,
-      topText: <span className="text text-gray text-sm text-upper text-regular">owner</span>,
-      bottomText: <span className="text text-purple-l text-smd text-bold">MT_004am...</span>,
-    },
-    artist: {
-      img: userAvatar,
-      topText: <span className="text text-gray text-sm text-upper text-regular">artist</span>,
-      bottomText: <span className="text text-purple-l text-smd text-bold">DicraKiller</span>,
-    },
-    tabCollection: {
-      img: userAvatar,
-      topText: 'Collection (ERC1155)',
-      bottomText: 'Quan Selection',
-    },
-    owners: [
-      {
-        img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
-        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
-      },
-      {
-        img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
-        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
-      },
-      {
-        img: userAvatar,
-        topText: React.createElement('b', { className: 'text-bold text-black' }, '2 WETH'),
-        bottomText: React.createElement('b', { className: 'text-bold text-purple-l' }, 'MT_004am'),
-      },
-    ],
-    history: [
-      {
-        img: userAvatar,
-        topText: (
-          <span className="text text-gray text-sm text-upper text-regular">Minted 1 hours ago</span>
-        ),
-        bottomText: (
-          <span className="text text-gray text-sm text-regular">
-            BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
-          </span>
-        ),
-      },
-      {
-        img: userAvatar,
-        topText: (
-          <span className="text text-gray text-sm text-upper">
-            Put on sale for <b className="text-bold text-black"> 2 WETH </b> 6 hours ago
-          </span>
-        ),
-        bottomText: (
-          <span className="text text-gray text-sm ">
-            BY <b className="text-bold text-purple-d text-smd">MT_004am</b>
-          </span>
-        ),
-      },
-    ],
     details: [
       {
         topText: 'StyleGAN II',
@@ -163,30 +89,6 @@ const Token: React.FC = observer(() => {
       {
         topText: 'Machine Learning',
         bottomText: 'Generative Adversarial Network',
-      },
-    ],
-    bids: [
-      {
-        img: userAvatar,
-        topText: <span className="text-sm text-bold text-black">1.1 WETH</span>,
-        bottomText: (
-          <span className="text-sm text-gray text-regular">
-            BY <b className="text-bold text-purple-l text-smd">Lance</b>
-          </span>
-        ),
-      },
-      {
-        img: userAvatar,
-        topText: (
-          <span className="text-sm text-bold text-gray">
-            <span className="text-line-through">1.0 WETH</span> Expired
-          </span>
-        ),
-        bottomText: (
-          <span className="text-sm text-gray ">
-            BY <b className="text-bold text-purple-l text-smd">Lance</b>
-          </span>
-        ),
       },
     ],
   };
@@ -236,6 +138,9 @@ const Token: React.FC = observer(() => {
       const { data: buyTokenData }: any = await storeApi.endAuction(tokenData.id);
 
       await createBuyTransaction(buyTokenData);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
       modals.checkAvailability.close();
     } catch (err) {
       console.log(err);
