@@ -30,6 +30,7 @@ const UserOnSale: React.FC<UserOnSaleProps> = observer(({ cards }) => {
         selling={data.selling}
         service_fee={data.service_fee}
         price={data.price}
+        total_supply={data.total_supply}
       />
     );
   };
