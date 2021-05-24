@@ -352,7 +352,7 @@ const Token: React.FC = observer(() => {
         );
       }
     } catch (err) {
-      console.log(err);
+      throw Error;
     }
   };
 

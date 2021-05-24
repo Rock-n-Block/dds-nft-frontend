@@ -34,7 +34,13 @@ const SaleTimedAuctionForm: React.FC<SaleTimedAuctionFormProps> = ({
     },
     handleSubmit: async (values, { setFieldValue }) => {
       setFieldValue('isLoading', true);
-      await handleApproveNft();
+      try {
+        await handleApproveNft();
+      } catch (err) {
+        modals.info.setMsg('Something went wrong', 'error');
+        setFieldValue('isLoading', false);
+        return;
+      }
       storeApi
         .putOnSale(tokenId, 0, +values.bid)
         .then(({ data }) => {
