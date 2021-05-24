@@ -25,6 +25,7 @@ const PutOnSaleModal: React.FC = observer(() => {
     <Modal
       isVisible={!!modals.putOnSale.isOpen}
       handleCancel={handleClose}
+      destroyOnClose
       className="m-put-on-sale"
       closeIcon
     >

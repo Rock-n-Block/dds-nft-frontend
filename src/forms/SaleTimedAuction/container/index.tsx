@@ -36,6 +36,7 @@ const SaleTimedAuctionForm: React.FC<SaleTimedAuctionFormProps> = ({
         .putOnSale(tokenId, 0, +values.bid)
         .then(({ data }) => {
           handleSetTokenData(data);
+          modals.closeAll();
           modals.info.setMsg('Congratulations', 'success');
           setFieldValue('isLoading', false);
         })

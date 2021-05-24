@@ -74,6 +74,7 @@ export interface ISeller extends IUser {
 }
 export interface IOwner extends IUser {
   quantity: number;
+  price?: number;
 }
 const Token: React.FC = observer(() => {
   const history = useHistory();
@@ -269,6 +270,13 @@ const Token: React.FC = observer(() => {
   };
 
   const handleSetTokenData = (data: any): void => {
+    const owners = data.owners.map((owner: any) => {
+      const sellerObj = data.sellers.find((seller: any) => seller.id === owner.id);
+      return {
+        ...owner,
+        price: sellerObj ? sellerObj.price : null,
+      };
+    });
     setTokenData({
       USDPrice: data.USD_price,
       available: data.available,
@@ -281,7 +289,7 @@ const Token: React.FC = observer(() => {
       media: data.media,
       name: data.name,
       tags: data.tags,
-      owners: data.owners,
+      owners,
       likeCount: data.like_count,
       price: data.price,
       royalty: data.royalty,
@@ -530,13 +538,17 @@ const Token: React.FC = observer(() => {
               ''
             )}
 
-            {(user.address && !isMyToken) ||
-              (isMyToken && tokenData.standart === 'ERC1155' && tokenData.available !== 0 && (
-                <div className="token__btns">
-                  <div className="token__btns-container">
-                    {tokenData.price && tokenData.selling ? (
-                      <div className="token__btns-wrapper">
-                        {isApproved ? (
+            {(isMyToken &&
+              tokenData.standart === 'ERC1155' &&
+              tokenData.available !== 0 &&
+              tokenData.sellers.length > 1) ||
+            (user.address && !isMyToken) ? (
+              <div className="token__btns">
+                <div className="token__btns-container">
+                  {tokenData.price && tokenData.selling ? (
+                    <div className="token__btns-wrapper">
+                      {isApproved ? (
+                        <>
                           <Button
                             colorScheme="gradient"
                             shadow
@@ -551,33 +563,17 @@ const Token: React.FC = observer(() => {
                           >
                             <span className="text-bold">Buy now</span>
                           </Button>
-                        ) : (
+
                           <Button
                             colorScheme="gradient"
                             shadow
                             size="md"
-                            loading={isLoading}
                             className="token__btns-item"
-                            onClick={handleApprove}
+                            onClick={handleBid}
                           >
-                            <span className="text-bold">Approve Token</span>
+                            <span className="text-white text-bold">Place a bid</span>
                           </Button>
-                        )}
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                    <div className="token__btns-wrapper">
-                      {isApproved ? (
-                        <Button
-                          colorScheme="gradient"
-                          shadow
-                          size="md"
-                          className="token__btns-item"
-                          onClick={handleBid}
-                        >
-                          <span className="text-white text-bold">Place a bid</span>
-                        </Button>
+                        </>
                       ) : (
                         <Button
                           colorScheme="gradient"
@@ -591,44 +587,47 @@ const Token: React.FC = observer(() => {
                         </Button>
                       )}
                     </div>
-                  </div>
-                  {tokenData.price ? (
-                    <div className="token__btns-container">
-                      <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
-                      <div className="token__btns-text text-gray">{`${+new BigNumber(
-                        tokenData.price,
-                      )
-                        .plus(
-                          new BigNumber(tokenData.price)
-                            .dividedBy(100)
-                            .times(new BigNumber(tokenData.serviceFee)),
-                        )
-                        .toFixed(3)} WETH`}</div>
-                      <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
-                        tokenData.USDPrice,
-                      )
-                        .dividedBy(100)
-                        .plus(
-                          new BigNumber(tokenData.USDPrice).times(
-                            new BigNumber(tokenData.serviceFee).dividedBy(100).dividedBy(100),
-                          ),
-                        )
-                        .toFixed(2)}`}</div>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                  {!Object.keys(tokenData?.bids ?? '').length && isMyToken ? (
-                    <div className="token__btns-container">
-                      <div className="token__btns-text text-gray">
-                        There’s no bids yet. You can put your NFT on marketplace
-                      </div>
-                    </div>
                   ) : (
                     ''
                   )}
                 </div>
-              ))}
+                {tokenData.price ? (
+                  <div className="token__btns-container">
+                    <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
+                    <div className="token__btns-text text-gray">{`${+new BigNumber(tokenData.price)
+                      .plus(
+                        new BigNumber(tokenData.price)
+                          .dividedBy(100)
+                          .times(new BigNumber(tokenData.serviceFee)),
+                      )
+                      .toFixed(3)} WETH`}</div>
+                    <div className="token__btns-text text-gray">{`$ ${+new BigNumber(
+                      tokenData.USDPrice,
+                    )
+                      .dividedBy(100)
+                      .plus(
+                        new BigNumber(tokenData.USDPrice).times(
+                          new BigNumber(tokenData.serviceFee).dividedBy(100).dividedBy(100),
+                        ),
+                      )
+                      .toFixed(2)}`}</div>
+                  </div>
+                ) : (
+                  ''
+                )}
+                {!Object.keys(tokenData?.bids ?? '').length && isMyToken ? (
+                  <div className="token__btns-container">
+                    <div className="token__btns-text text-gray">
+                      There’s no bids yet. You can put your NFT on marketplace
+                    </div>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </div>
+            ) : (
+              ''
+            )}
             <div className="token__info">
               <div className="token__info-text text-md">{tokenData.collection?.name}</div>
               <div className="token__info-text text-md">{`Name: ${tokenData.name}`}</div>
@@ -668,7 +667,7 @@ const Token: React.FC = observer(() => {
       <CheckoutModal handleBuy={handleBuy} isLoading={isLoading} />
       {tokenData.standart === 'ERC1155' ? (
         <MultiBuyModal
-          sellers={tokenData.sellers}
+          sellers={tokenData.sellers.filter((seller) => seller.id !== user.id)}
           token={{
             name: tokenData.name || '',
             available: tokenData.available || 1,
