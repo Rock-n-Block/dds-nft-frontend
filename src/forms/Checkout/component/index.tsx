@@ -47,7 +47,6 @@ const Checkout: React.FC<FormikProps<ICheckout> | any> = ({
             onBlur={handleBlur}
             integer
             positiveOnly
-            max={values.available}
           />
         </div>
       </Form.Item>
