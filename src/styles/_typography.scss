@@ -14,6 +14,8 @@
   &-md {
     font-size: 40px;
     line-height: 49px;
+    @include b('tablet') {text-align: center;
+    }
     @include b('mobile') {
       font-size: 30px;
       line-height: 37px;
@@ -28,6 +30,7 @@
       line-height: 30px;
     }
   }
+
 }
 
 .text {

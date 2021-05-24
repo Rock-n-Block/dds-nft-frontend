@@ -8,10 +8,13 @@
   justify-content: space-between;
   align-items: center;
 
+  @include b('tablet') {
+    justify-content: center;
+  }
   &__box {
     display: flex;
     align-items: center;
-    @include b('mobile') {
+    @include b('tablet') {
       flex-wrap: wrap;
     }
   }
@@ -28,7 +31,7 @@
 
     & + & {
       margin-left: 10px;
-      @include b('mobile') {
+      @include b('tablet') {
         margin-left: 0;
       }
     }
@@ -38,12 +41,12 @@
       background: $purple;
     }
 
-    @include b('mobile') {
+    @include b('tablet') {
       margin: 0 10px 5px 0;
     }
   }
 
-  @include b('mobile') {
+  @include b('tablet') {
     padding-right: 0;
   }
 }

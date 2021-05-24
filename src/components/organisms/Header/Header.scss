@@ -73,12 +73,12 @@
     }
   }
 
-  @include b('mobile') {
+  @include b('tablet') {
     padding: 13px 0;
   }
 }
 
-@include b('mobile') {
+@include b('tablet') {
   .header__content {
     display: none;
   }
