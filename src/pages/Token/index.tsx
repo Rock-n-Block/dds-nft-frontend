@@ -121,7 +121,10 @@ const Token: React.FC = observer(() => {
           buyTokenData.initial_tx.data.tokenToBuy,
           buyTokenData.initial_tx.data.tokenToSell,
           buyTokenData.initial_tx.data.fee.feeAddresses,
-          buyTokenData.initial_tx.data.fee.feeAmounts,
+          [
+            buyTokenData.initial_tx.data.fee.feeAmounts[0].toString(),
+            buyTokenData.initial_tx.data.fee.feeAmounts[1].toString(),
+          ],
           buyTokenData.initial_tx.data.signature,
         ],
         'BEP20',
