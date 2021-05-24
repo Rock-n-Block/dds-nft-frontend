@@ -4,7 +4,7 @@
   display: none;
 }
 
-@include b('mobile') {
+@include b('tablet') {
   .header-mobile {
     position: relative;
 
@@ -26,6 +26,8 @@
       margin-left: 15px;
 
       &-items {
+        display: flex;
+        flex-direction: column;
         position: fixed;
         z-index: 999;
         top: 51px;
@@ -64,15 +66,14 @@
     }
 
     .footer {
+      margin-top: auto;
       &__nav {
         margin-top: 0;
       }
 
       &__btns {
-        margin-top: 137px;
-
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
 
         width: 100%;
 
@@ -83,6 +84,10 @@
 
         .btn {
           width: 100%;
+          max-width: 165px;
+        }
+        .btn-link+.btn{
+          margin-left: 20px;
         }
       }
 
@@ -92,6 +97,11 @@
 
       &__box-bottom {
         margin-top: 41px;
+      }
+      &__social{
+        margin-left: auto;
+        margin-right: auto;
+
       }
     }
   }

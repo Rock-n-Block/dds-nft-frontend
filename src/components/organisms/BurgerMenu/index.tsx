@@ -24,10 +24,10 @@ interface BurgerMenuProps {
 const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
-  const [isMenuItemsVisible, setIsModalVisible] = useState(false);
+  const [isMenuItemsVisible, setIsMenuItemsVisible] = useState(false);
 
   const showModal = () => {
-    setIsModalVisible(!isMenuItemsVisible);
+    setIsMenuItemsVisible(!isMenuItemsVisible);
   };
 
   const connectWallet = (): void => {
@@ -42,57 +42,61 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
       <Link to="/">
         <img src={LogoImg} alt="dds" className="header-mobile__logo" />
       </Link>
-      <div className="header-mobile__box">
-        <UserPreview />
-      </div>
+      <div className="header-mobile__box">{user.address ? <UserPreview /> : <></>}</div>
       <Button colorScheme="clear" onClick={showModal} className="header-mobile__menu">
         <Menu />
       </Button>
       <div className={isMenuItemsVisible ? 'header-mobile__menu-items' : 'visually-hidden'}>
         <Search placeholder="Search items" className="header-mobile__search" />
         <nav className="header-mobile__nav">
-          <NavLink exact to="/" className="header-mobile__nav-item text-xl text-bold text-grad">
+          <NavLink
+            exact
+            to="/"
+            className="header-mobile__nav-item text-xl text-bold text-grad"
+            onClick={() => setIsMenuItemsVisible(false)}
+          >
             Explore
           </NavLink>
           {/* <NavLink exact to="/1" className="header-mobile__nav-item text-xl text-bold text-grad">
             How it works
           </NavLink> */}
-          <NavLink exact to="/2" className="header-mobile__nav-item text-xl text-bold text-grad">
+          <NavLink
+            exact
+            to="/create"
+            className="header-mobile__nav-item text-xl text-bold text-grad"
+            onClick={() => setIsMenuItemsVisible(false)}
+          >
             Create
           </NavLink>
-          <NavLink exact to="/3" className="header-mobile__nav-item text-xl text-bold text-grad">
+          <NavLink
+            exact
+            to="/feedback"
+            className="header-mobile__nav-item text-xl text-bold text-grad"
+            onClick={() => setIsMenuItemsVisible(false)}
+          >
             Support
           </NavLink>
         </nav>
         <section className="footer">
-          <div className="footer__box">
-            <div className="footer__nav">
-              <div className="footer__nav-box">
-                <div className="text-smd text-bold text-purple">Community</div>
-                <Link to="/" className="text-smd text-bold text-black footer__nav-item">
-                  DDS Token
-                </Link>
-                <Link to="/" className="text-smd text-bold text-black footer__nav-item">
-                  Discussion
-                </Link>
-                <Link to="/" className="text-smd text-bold text-black footer__nav-item">
-                  Voting
-                </Link>
-                <Link to="/" className="text-smd text-bold text-black footer__nav-item">
-                  Suggest feature
-                </Link>
-              </div>
-            </div>
-          </div>
           {user.address ? (
             <div className="footer__btns flex-center">
-              <Button colorScheme="gradient" size="md" link="/create">
+              <Button
+                colorScheme="gradient"
+                size="md"
+                link="/create"
+                onClick={() => setIsMenuItemsVisible(false)}
+              >
                 Create
               </Button>
             </div>
           ) : (
             <div className="footer__btns ">
-              <Button colorScheme="gradient" size="md" link="/create">
+              <Button
+                colorScheme="gradient"
+                size="md"
+                link="/create"
+                onClick={() => setIsMenuItemsVisible(false)}
+              >
                 Create
               </Button>
               <Button
@@ -101,7 +105,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
                 onClick={connectWallet}
                 className="header__btn"
               >
-                Connect wallet
+                Connect
               </Button>
             </div>
           )}
