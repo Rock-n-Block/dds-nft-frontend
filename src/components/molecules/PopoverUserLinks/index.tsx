@@ -9,10 +9,9 @@ import './PopoverUserLinks.scss';
 
 export interface PopoverUserLinksProps {
   name: string;
-  text?: string;
 }
 
-const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name, text }) => {
+const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name }) => {
   const link = window.location;
   return (
     <div className="popover">
@@ -20,7 +19,7 @@ const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name, text }) => {
       <div className="popover__social-links">
         <div className="popover__social-links__social">
           <a
-            href={`https://twitter.com/intent/tweet?url=${link}&text=${text}`}
+            href={`https://twitter.com/intent/tweet?url=${link}`}
             target="_blank"
             rel="noreferrer"
             className="popover__social-links__social-link"
@@ -47,7 +46,7 @@ const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name, text }) => {
         </div>
         <div className="popover__social-links__social">
           <a
-            href={`https://t.me/share/url?url=${link}&text=${text}`}
+            href={`https://t.me/share/url?url=${link}`}
             target="_blank"
             rel="noreferrer"
             className="popover__social-links__social-link"
@@ -60,7 +59,7 @@ const PopoverUserLinks: React.FC<PopoverUserLinksProps> = ({ name, text }) => {
         </div>
         <div className="popover__social-links__social">
           <a
-            href={`mailto:info@example.com?&subject=&cc=&bcc=&body=${text} ${link}%0A`}
+            href={`mailto:info@example.com?&subject=&cc=&bcc=&body= ${link}%0A`}
             target="_blank"
             rel="noreferrer"
             className="popover__social-links__social-link"

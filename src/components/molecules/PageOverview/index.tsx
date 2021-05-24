@@ -127,11 +127,7 @@ const PageOverview: React.FC<PageOverviewProps> = observer(
             ) : (
               <></>
             )}
-            <Popover
-              content={content({ name, text: `Share ${parentComponent}` })}
-              trigger="click"
-              placement="bottomLeft"
-            >
+            <Popover content={content({ name })} trigger="click" placement="bottomLeft">
               <Button
                 size="sm"
                 colorScheme="white"

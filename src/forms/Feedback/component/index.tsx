@@ -26,7 +26,7 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
   return (
     <Form name="form-feedback" className="form-feedback" layout="vertical">
       <Form.Item
-        name="bid"
+        name="email"
         className="form-feedback__item input__field"
         validateStatus={validateField('email', touched, errors)}
         help={!touched.email ? '' : errors.email}
@@ -46,7 +46,7 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
         </div>
       </Form.Item>
       <Form.Item
-        name="bid"
+        name="message"
         className="form-feedback__item input__field"
         label={<span className="input__label text-bold">Message</span>}
       >
