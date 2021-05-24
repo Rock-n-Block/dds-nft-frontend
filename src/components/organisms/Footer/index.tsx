@@ -12,8 +12,24 @@ import { ReactComponent as YoutubeImg } from '../../../assets/img/icons/social/y
 // import { SubscribeNews } from '../../../forms';
 
 import './Footer.scss';
+import { observer } from 'mobx-react-lite';
+import { useMst } from '../../../store/store';
+import { Button } from '../../atoms';
+import { useWalletConnectorContext } from '../../../services/walletConnect';
 
-const Footer: React.FC = () => {
+const Footer: React.FC = observer(() => {
+  const { user, modals } = useMst();
+
+  const walletConnector = useWalletConnectorContext();
+
+  const connectWallet = (): void => {
+    if (!localStorage.ddsTerms) {
+      modals.terms.open();
+    } else {
+      walletConnector.connect();
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="row">
@@ -34,9 +50,15 @@ const Footer: React.FC = () => {
             {/* <Link to="/" className="text-smd text-bold text-black footer__nav-item">
                 How it works
               </Link> */}
-            <Link to="/create" className="text-smd text-bold text-black footer__nav-item">
-              Create
-            </Link>
+            {user.address ? (
+              <Link to="/create" className="text-smd text-bold text-black footer__nav-item">
+                Create
+              </Link>
+            ) : (
+              <Button colorScheme="clear" onClick={connectWallet} className="footer__nav-item">
+                <span className="text-smd text-bold text-black ">Connect wallet</span>
+              </Button>
+            )}
             <Link to="/feedback" className="text-smd text-bold text-black footer__nav-item">
               Support
             </Link>
@@ -92,6 +114,6 @@ const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
+});
 
 export default Footer;
