@@ -8,6 +8,9 @@
   justify-content: space-between;
   align-items: center;
 
+  @include b('tablet') {
+    justify-content: center;
+  }
   &__box {
     display: flex;
     align-items: center;
