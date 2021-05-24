@@ -42,6 +42,7 @@ const SaleFixedPriceForm: React.FC<SaleFixedPriceFormProps> = ({
       storeApi
         .putOnSale(tokenId, +values.instantSalePriceEth)
         .then(({ data }) => {
+          modals.closeAll();
           handleSetTokenData(data);
           modals.info.setMsg('Congratulations', 'success');
         })

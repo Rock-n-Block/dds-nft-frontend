@@ -24,6 +24,7 @@ const TimedAuctionModal: React.FC<ITimedAuctionModal> = observer(
       <Modal
         isVisible={!!modals.timedAuction.isOpen}
         handleCancel={handleClose}
+        destroyOnClose
         className="m-timed-auction"
         closeIcon
         width={380}
