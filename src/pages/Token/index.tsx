@@ -19,6 +19,7 @@ import { storeApi, userApi } from '../../services/api';
 import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
 import { useMst } from '../../store/store';
+import metamaskService from '../../services/web3';
 
 import './Token.scss';
 import { Popover } from 'antd';
@@ -279,13 +280,21 @@ const Token: React.FC = observer(() => {
   };
 
   const handleSetTokenData = (data: any): void => {
-    const owners = data.owners.map((owner: any) => {
-      const sellerObj = data.sellers.find((seller: any) => seller.id === owner.id);
-      return {
-        ...owner,
-        price: sellerObj ? sellerObj.price : null,
-      };
-    });
+    let owners = [];
+    if (data.standart === 'ERC1155') {
+      owners = data.owners.map((owner: any) => {
+        const sellerObj = data.sellers.find((seller: any) => seller.id === owner.id);
+        return {
+          ...owner,
+          price: sellerObj ? sellerObj.price : null,
+        };
+      });
+    } else {
+      owners.push({
+        ...data.owners[0],
+        price: metamaskService.calcTransactionAmount(+data.price, 18),
+      });
+    }
     setTokenData({
       USDPrice: data.USD_price,
       available: data.available,
