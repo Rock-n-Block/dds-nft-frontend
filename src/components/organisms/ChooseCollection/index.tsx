@@ -111,6 +111,7 @@ class ChooseCollection extends React.Component<any, any, any> {
           </div>
           <Swiper
             slidesPerView={2}
+            spaceBetween={0}
             navigation={{
               prevEl: this.prevRef.current!, // Assert non-null
               nextEl: this.nextRef.current!, // Assert non-null
@@ -129,6 +130,7 @@ class ChooseCollection extends React.Component<any, any, any> {
             breakpoints={{
               605: {
                 slidesPerView: 3,
+                spaceBetween: 20,
               },
             }}
           >
