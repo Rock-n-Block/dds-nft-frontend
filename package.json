@@ -58,6 +58,7 @@
     "pre-commit": "^1.2.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-google-recaptcha-v3": "^1.9.4",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.0",
     "react-scripts": "4.0.3",
