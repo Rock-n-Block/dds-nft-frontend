@@ -35,6 +35,7 @@ interface INewUser {
   followsCount: number | null;
   followers: any[];
   followersCount: number | null;
+  isVerificated: boolean;
 }
 
 const { TabPane } = Tabs;
@@ -99,6 +100,7 @@ const User: React.FC = observer(() => {
           followsCount: data.follows_count,
           followers: data.followers,
           followersCount: data.followers_count,
+          isVerificated: data.is_verificated,
         });
         setFollows(!!data.followers.find((follower: any) => follower.id === user.id));
       })
@@ -126,6 +128,7 @@ const User: React.FC = observer(() => {
         followsCount: user.follows_count,
         followers: user.followers,
         followersCount: user.followers_count,
+        isVerificated: user.is_verificated,
       });
     }
   }, [self, loadUser, user]);
@@ -184,6 +187,7 @@ const User: React.FC = observer(() => {
           follows={follows}
           twitter={currentUser?.twitter ?? ''}
           instagram={currentUser?.instagram ?? ''}
+          isVerificated={currentUser?.isVerificated || false}
           parentComponent="User"
         />
       </div>

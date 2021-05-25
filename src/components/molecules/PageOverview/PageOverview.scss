@@ -11,9 +11,17 @@
   min-height: 220px;
 
   &__avatar {
-    position: absolute !important;
-    top: -84px;
-    left: 45px;
+    &-box {
+      position: absolute !important;
+      top: -84px;
+      left: 45px;
+    }
+    &-check {
+      position: absolute;
+      width: 35px;
+      bottom: 5px;
+      right: 5px;
+    }
 
     border: #fff 5px solid;
     border-radius: 50%;
@@ -116,7 +124,7 @@
           }
         }
       }
-      @include b('mobile'){
+      @include b('mobile') {
         flex-wrap: wrap;
         justify-content: center;
       }

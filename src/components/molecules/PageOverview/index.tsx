@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Popover } from 'antd';
 
 import { ReactComponent as ShareLinkSvg } from '../../../assets/img/icons/share-link.svg';
+import CheckImg from '../../../assets/img/icons/user-check.svg';
 import { userApi } from '../../../services/api';
 import { Button, SocialNetwork, UserWallet } from '../../atoms';
 import PopoverUserLinks, { PopoverUserLinksProps } from '../PopoverUserLinks';
@@ -24,6 +25,7 @@ export interface PageOverviewProps {
   twitter?: string;
   instagram?: string;
   parentComponent: 'User' | 'Collections';
+  isVerificated?: boolean;
 }
 
 const content = (props: PopoverUserLinksProps) => {
@@ -41,6 +43,7 @@ const PageOverview: React.FC<PageOverviewProps> = observer(
     self = false,
     follows = false,
     parentComponent,
+    isVerificated,
   }) => {
     const { modals } = useMst();
     const [follow, setFollow] = useState<boolean>(follows);
@@ -74,14 +77,28 @@ const PageOverview: React.FC<PageOverviewProps> = observer(
     return (
       <div className="page-overview">
         {avatarSrc ? (
-          <Avatar src={avatarSrc} className="page-overview__avatar" size={150} alt="avatar" />
+          <div className="page-overview__avatar-box">
+            <Avatar src={avatarSrc} className="page-overview__avatar" size={150} alt="avatar" />
+            {isVerificated ? (
+              <img className="page-overview__avatar-check" src={CheckImg} alt="" />
+            ) : (
+              ''
+            )}
+          </div>
         ) : (
-          <Avatar
-            icon={<UserOutlined />}
-            className="user-overview__avatar"
-            size={150}
-            alt="avatar"
-          />
+          <div className="page-overview__avatar-box">
+            <Avatar
+              icon={<UserOutlined />}
+              className="user-overview__avatar"
+              size={150}
+              alt="avatar"
+            />
+            {isVerificated ? (
+              <img className="page-overview__avatar-check" src={CheckImg} alt="" />
+            ) : (
+              ''
+            )}
+          </div>
         )}
         <div className="page-overview__content">
           <h3 className="page-overview__content__name text-bold text-xl">{name}</h3>
