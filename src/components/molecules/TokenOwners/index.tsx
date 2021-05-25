@@ -31,7 +31,6 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners, isAuction }) => {
             id={owner.id}
             topText={
               <span className="text text-gray text-sm text-upper text-regular">
-                {/* is selling for {owner.topText} */}
                 {owner.price && !isAuction
                   ? `${owner.quantity || ''} is selling for ${+new BigNumber(owner.price)
                       .dividedBy(new BigNumber(10).pow(18))

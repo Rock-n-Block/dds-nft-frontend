@@ -13,18 +13,20 @@ import VerifyForm, { IVerifyForm } from '../component';
 export default observer(() => {
   const { modals, user } = useMst();
 
+  const props: IVerifyForm = {
+    role: 'creator',
+    about: user.bio || '',
+    videoLink: '',
+    twitter: user.twitter || '',
+    instagram: '',
+    website: user.site || '',
+    email: '',
+    isLoading: false,
+  };
+
   const FormWithFormik = withFormik<any, IVerifyForm>({
     enableReinitialize: true,
-    mapPropsToValues: () => ({
-      role: 'creator',
-      about: user.bio || '',
-      videoLink: '',
-      twitter: user.twitter || '',
-      instagram: '',
-      website: user.site || '',
-      email: '',
-      isLoading: false,
-    }),
+    mapPropsToValues: () => props,
     validate: (values) => {
       const notRequired: string[] = ['twitter', 'instagram', 'website'];
       const errors = validateForm({ values, notRequired });

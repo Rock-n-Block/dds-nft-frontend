@@ -10,20 +10,19 @@ import Profile, { IProfile } from '../component';
 const ChangePasswordForm: React.FC = () => {
   const { modals, user } = useMst();
 
+  const props: IProfile = {
+    displayName: user.display_name || '',
+    customUrl: user.custom_url || '',
+    bio: user.bio || '',
+    twitter: user.twitter || '',
+    instagram: user.instagram || '',
+    img: '',
+    preview: `https://${user.avatar}` || '',
+    isLoading: false,
+  };
   const FormWithFormik = withFormik<any, IProfile>({
     enableReinitialize: true,
-    mapPropsToValues: () => {
-      return {
-        displayName: user.display_name || '',
-        customUrl: user.custom_url || '',
-        bio: user.bio || '',
-        twitter: user.twitter || '',
-        instagram: user.instagram || '',
-        img: '',
-        preview: `https://${user.avatar}` || '',
-        isLoading: false,
-      };
-    },
+    mapPropsToValues: () => props,
     validate: (values) => {
       const errors = validateForm({
         values,
