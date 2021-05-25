@@ -18,7 +18,7 @@ export default observer(() => {
     about: user.bio || '',
     videoLink: '',
     twitter: user.twitter || '',
-    instagram: '',
+    instagram: user.instagram || '',
     website: user.site || '',
     email: '',
     isLoading: false,
