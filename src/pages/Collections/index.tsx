@@ -50,7 +50,7 @@ const Collections: React.FC = observer(() => {
         .then(({ data }) => {
           setSelf(user.id === data.creator.id);
           setCollection((prevCards: any) => {
-            if (prevCards.tokens) {
+            if (prevCards.tokens && prevCards.tokens.length !== data.tokens.length) {
               return {
                 ...prevCards,
                 tokens: [...prevCards.tokens, ...data.tokens],
@@ -61,7 +61,7 @@ const Collections: React.FC = observer(() => {
           });
           setCollectionForSale((prevCards: any) => {
             const saleTokens = data?.tokens.filter((token: any) => token.selling);
-            if (prevCards.tokens) {
+            if (prevCards.tokens && prevCards.tokens.length !== saleTokens.length) {
               return {
                 ...prevCards,
                 tokens: [...prevCards.tokens, ...saleTokens],
