@@ -7,13 +7,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { ReactComponent as MCheck } from '../../../assets/img/icons/m-check.svg';
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 import { Button } from '../../../components/atoms';
-import { Uploader } from '../../../components/organisms';
 import { validateField } from '../../../utils/validate';
 
 export interface IVerifyForm {
   role: 'creator' | 'collector';
   about: string;
-  img: any;
+  videoLink: any;
   twitter: string;
   instagram: string;
   website: string;
@@ -22,6 +21,9 @@ export interface IVerifyForm {
 }
 
 SwiperCore.use([Navigation]);
+
+const { TextArea } = Input;
+
 const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
   setFieldValue,
   values,
@@ -141,13 +143,14 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
               help={!touched.about ? false : errors.about}
             >
               <div className="input__field-create box-white box-shadow">
-                <Input
+                <TextArea
                   id="about"
                   size="large"
                   value={values.about}
                   placeholder="Tell us about yourself"
                   className=" input__create text-bold text-smd text-center"
-                  onChange={handleChange}
+                  onChange={(e) => setFieldValue('about', e.target.value)}
+                  rows={3}
                   onBlur={handleBlur}
                 />
               </div>
@@ -168,28 +171,29 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
           </p>
           <div className="m-verify__container">
             <h2 className="m-verify__header text-bold text text-center">
-              Attach a screenshot of your work in progress on one of your minted items in the editor
-              of your choice (e.g. Photoshop, Illustrator, etc), or other backstage process. This
-              question is required. *<br /> Choose file or drag here Size limit: 10MB
+              Attach a link to a video file that shows the process of your work on one of your
+              minted items in the editor of your choice (e.g. Photoshop, Illustrator, etc), or other
+              backstage process.
             </h2>
 
-            <div className="form-profile__upload">
-              <Form.Item
-                name="img"
-                className="form-profile__item input__field"
-                validateStatus={validateField('img', touched, errors)}
-                help={!touched.img ? false : errors.img}
-              >
-                <Uploader className="m-verify__uploader">
-                  <>
-                    <h4 className="text-black text-bold text-smd">
-                      <span className="text-grad ">Choose file </span>or drag here
-                    </h4>
-                    <p className="uploader__size-limit text-sm">Size limit: 10 mb</p>
-                  </>
-                </Uploader>
-              </Form.Item>
-            </div>
+            <Form.Item
+              className="form-verify__input input__field"
+              initialValue={values.videoLink}
+              validateStatus={validateField('videoLink', touched, errors)}
+              help={!touched.videoLink ? false : errors.videoLink}
+            >
+              <div className="input__field-create box-white box-shadow">
+                <Input
+                  id="videoLink"
+                  size="large"
+                  value={values.videoLink}
+                  placeholder="https://"
+                  className=" input__create text-bold text-smd text-center"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+            </Form.Item>
             <Button
               size="md"
               colorScheme="purple"

@@ -18,7 +18,7 @@ export default observer(() => {
     mapPropsToValues: () => ({
       role: 'creator',
       about: user.bio || '',
-      img: '',
+      videoLink: '',
       twitter: user.twitter || '',
       instagram: '',
       website: user.site || '',
@@ -39,7 +39,7 @@ export default observer(() => {
       formData.append('address', user.address);
       formData.append('role', values.role.toUpperCase());
       formData.append('bio', values.about);
-      formData.append('media', values.img);
+      formData.append('media', values.videoLink);
       formData.append('twitter', values.twitter);
       formData.append('instagram', values.instagram);
       formData.append('website', values.website);

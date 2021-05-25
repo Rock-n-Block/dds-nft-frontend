@@ -30,3 +30,4 @@ export { default as PutOnSaleModal } from './PutOnSaleModal';
 export { default as CheckoutModal } from './CheckoutModal';
 export { default as MultiBuyModal } from './MultiBuyModal';
 export { default as CheckAvailability } from './CheckAvailability';
+export { default as VerifyModal } from './VerifyModal';

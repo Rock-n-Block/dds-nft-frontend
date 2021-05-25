@@ -43,7 +43,6 @@ const Uploader: React.FC<IUploader> = ({
     if (!isValidType) {
       message.error('You can only upload JPG/PNG/WEBP/GIF file!');
     }
-    console.log('file:', file);
     const isLt2M = file.size / 1024 / 1024 <= 30;
     if (!isLt2M) {
       message.error('Image must be smaller than 30MB!');

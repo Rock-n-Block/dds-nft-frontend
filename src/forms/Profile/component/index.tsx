@@ -4,8 +4,7 @@ import { FormikProps } from 'formik';
 import { observer } from 'mobx-react-lite';
 
 import { Button } from '../../../components/atoms';
-import { Uploader } from '../../../components/organisms';
-import VerifyModal from '../../../components/organisms/VerifyModal';
+import { Uploader, VerifyModal } from '../../../components/organisms';
 import { useMst } from '../../../store/store';
 import { validateField } from '../../../utils/validate';
 

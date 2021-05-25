@@ -63,6 +63,11 @@ export const validateForm = ({ values, notRequired }: any) => {
         errCopy.bid = 'Enter bid value';
       }
     },
+    videoLink: (value: string): void => {
+      if (!value) {
+        errCopy.videoLink = 'Enter your link to a video file';
+      }
+    },
     quantity: (value: string): void => {
       if (!value) {
         errCopy.quantity = 'Enter quantity';
