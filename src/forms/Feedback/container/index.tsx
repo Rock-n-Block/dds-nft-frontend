@@ -15,6 +15,7 @@ const FeedBackForm: React.FC = () => {
       return {
         email: '',
         message: '',
+        token: '',
         isLoading: false,
       };
     },
@@ -24,7 +25,9 @@ const FeedBackForm: React.FC = () => {
       return errors;
     },
     handleSubmit: (values, { setFieldValue }) => {
+      console.log('values.token', values.token);
       setFieldValue('isLoading', true);
+
       storeApi
         .support(values.email, values.message)
         .then(() => {
