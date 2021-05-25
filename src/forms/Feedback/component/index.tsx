@@ -17,6 +17,7 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
   handleBlur,
   values,
   handleSubmit,
+  setFieldValue,
   touched,
   errors,
 }) => {
@@ -57,7 +58,7 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
             className="form-feedback__input input input__create text-bold text-smd"
             size="large"
             placeholder="Write us a message"
-            onChange={handleChange}
+            onChange={(e) => setFieldValue('message', e.target.value)}
             onBlur={handleBlur}
             rows={4}
           />
