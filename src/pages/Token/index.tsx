@@ -493,8 +493,16 @@ const Token: React.FC = observer(() => {
                   imgSize="lg"
                   img={tokenData.bids[0].bidderavatar}
                   hideOverflowBottom={false}
+                  hideOverflowTop={false}
                   id={tokenData.bids[0].bidderid}
-                  topText={<p className="text-bold text-sm text-upper text-black">Highest bid</p>}
+                  topText={
+                    <p className="text-bold text-sm text-upper text-black">
+                      Highest bid for{' '}
+                      {`${tokenData.bids[0].quantity} ${
+                        tokenData.bids[0].quantity > 1 ? 'tokens' : 'token'
+                      }`}
+                    </p>
+                  }
                   bottomText={
                     <p className="text-gray text-regular text-sm">
                       BY{' '}
