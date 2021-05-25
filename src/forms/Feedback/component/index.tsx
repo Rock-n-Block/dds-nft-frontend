@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Form, Input } from 'antd';
 import { FormikProps } from 'formik';
 
@@ -24,15 +24,15 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
   errors,
 }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const onSubmit = useCallback(async () => {
+  const onSubmit = () => {
     if (!executeRecaptcha) {
       return;
     }
-    await executeRecaptcha('feedback').then((token: string) => {
+    executeRecaptcha('feedback').then((token: string) => {
       values.token = token;
       handleSubmit();
     });
-  }, [executeRecaptcha, handleSubmit, values]);
+  };
   return (
     <Form name="form-feedback" className="form-feedback" layout="vertical">
       <Form.Item
