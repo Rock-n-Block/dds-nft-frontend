@@ -292,7 +292,7 @@ const Token: React.FC = observer(() => {
     } else {
       owners.push({
         ...data.owners[0],
-        price: metamaskService.calcTransactionAmount(+data.price, 18),
+        price: data.price ? metamaskService.calcTransactionAmount(+data.price, 18) : 0,
       });
     }
     setTokenData({
@@ -693,6 +693,7 @@ const Token: React.FC = observer(() => {
               history={tokenData.history}
               details={mockData.details}
               bids={tokenData.bids}
+              isAuction={!tokenData.price && tokenData.selling}
             />
           </div>
         </div>
