@@ -35,7 +35,7 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
                   ? `${owner.quantity} is selling for ${+new BigNumber(owner.price)
                       .dividedBy(new BigNumber(10).pow(18))
                       .toFixed()}`
-                  : `${owner.quantity} not for sale`}
+                  : `${owner.quantity || ''} not for sale`}
               </span>
             }
             bottomText={
