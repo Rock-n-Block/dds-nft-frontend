@@ -62,14 +62,6 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
           </NavLink> */}
           <NavLink
             exact
-            to="/create"
-            className="header-mobile__nav-item text-xl text-bold text-grad"
-            onClick={() => setIsMenuItemsVisible(false)}
-          >
-            Create
-          </NavLink>
-          <NavLink
-            exact
             to="/feedback"
             className="header-mobile__nav-item text-xl text-bold text-grad"
             onClick={() => setIsMenuItemsVisible(false)}
@@ -90,15 +82,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
               </Button>
             </div>
           ) : (
-            <div className="footer__btns ">
-              <Button
-                colorScheme="gradient"
-                size="md"
-                link="/create"
-                onClick={() => setIsMenuItemsVisible(false)}
-              >
-                Create
-              </Button>
+            <div className="footer__btns">
               <Button
                 colorScheme="purple"
                 size="md"

@@ -16,8 +16,8 @@ const UserPreview: React.FC = observer(() => {
         trigger="click"
         content={<UserPopover />}
         getPopupContainer={() => blockRef.current}
-        autoAdjustOverflow={false}
-        placement="bottomRight"
+        autoAdjustOverflow
+        // placement="bottomRight"
         className="u-preview__container"
       >
         <p className="u-preview__text text-bold text-purple">

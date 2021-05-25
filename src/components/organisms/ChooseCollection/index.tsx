@@ -110,7 +110,6 @@ class ChooseCollection extends React.Component<any, any, any> {
             <img src={ArrowImg} alt="arrow" />
           </div>
           <Swiper
-            spaceBetween={10}
             slidesPerView={2}
             navigation={{
               prevEl: this.prevRef.current!, // Assert non-null
@@ -128,13 +127,8 @@ class ChooseCollection extends React.Component<any, any, any> {
               swiper.navigation.update();
             }}
             breakpoints={{
-              420: {
-                slidesPerView: 2,
-                spaceBetween: 10,
-              },
               605: {
                 slidesPerView: 3,
-                spaceBetween: 20,
               },
             }}
           >

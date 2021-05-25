@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ArrowImg from '../../../assets/img/icons/swiper-arrow.svg';
 import { NFTCard } from '../../molecules';
-import { INFTCard } from '../../molecules/NFTCard';
 
 import './HotBids.scss';
 import { storeApi } from '../../../services/api';
@@ -13,11 +12,7 @@ import HotImg from '../../../assets/img/mock/hot.jpg';
 
 SwiperCore.use([Navigation]);
 
-interface IHotBids {
-  cards: INFTCard[];
-}
-
-const HotBids: React.FC<IHotBids> = () => {
+const HotBids: React.FC = () => {
   const [hotBids, setHotBids] = useState<any>([]);
   const prevRef = React.useRef<HTMLDivElement>(null);
   const nextRef = React.useRef<HTMLDivElement>(null);

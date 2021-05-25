@@ -1,10 +1,24 @@
 @import 'src/styles/mixins/media';
 
 .user {
+  @include b('desktop') {
+    .ant-tabs {
+      .ant-tabs-nav{
+        padding: 0 20px;
+      }
+    }
+  }
+  @include b('tablet') {
+    .ant-tabs {
+      .ant-tabs-nav{
+        padding: 0 15px;
+      }
+    }
+  }
   @include b('mobile') {
     .ant-tabs {
-      .ant-tabs-extra-content {
-        display: none;
+      .ant-tabs-nav{
+        padding: 0 10px;
       }
     }
   }

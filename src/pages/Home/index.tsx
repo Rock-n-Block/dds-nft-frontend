@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 // import PreviewOwnerImg from '../../assets/img/mock/home-preview-owner.jpg';
-import HotImg from '../../assets/img/mock/hot.jpg';
 import ShadowImg from '../../assets/img/shadow.png';
 import { Button, UserMini } from '../../components/atoms';
 import { Explore, HotBids, HotCollections, Search } from '../../components/organisms';
@@ -16,92 +15,7 @@ import './Home.scss';
 const Home: React.FC = observer(() => {
   const { user } = useMst();
   const [cover, setCover] = useState<any>({});
-  const hotBids = [
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-    {
-      img: HotImg,
-      name: 'SuperPunks #21 Gamora',
-      selling: true,
-      price: null,
-      artist: {
-        name: 'DicraKiller',
-      },
-      owner: {
-        name: 'DicraKiller',
-      },
-    },
-  ];
+
   /* const topUsers = [
     {
       img: PreviewOwnerImg,
@@ -175,7 +89,7 @@ const Home: React.FC = observer(() => {
         </div>
       </div>
       <div className="home__hot">
-        <HotBids cards={hotBids} />
+        <HotBids />
       </div>
       {/*
       <div className="home__top">
