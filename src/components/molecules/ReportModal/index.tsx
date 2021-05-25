@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useMst } from '../../../store/store';
@@ -8,11 +8,13 @@ import { Input } from 'antd';
 import './ReportModal.scss';
 import { Button } from '../../atoms';
 import { storeApi } from '../../../services/api';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const { TextArea } = Input;
 
 const ReportModal: React.FC = observer(() => {
   const { modals } = useMst();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const link = window.location;
 
   const [reportMessage, setReportMessage] = useState('');
@@ -25,7 +27,7 @@ const ReportModal: React.FC = observer(() => {
     const { value } = e.target;
     setReportMessage(value);
   };
-  const submitReport = () => {
+  /*  const submitReport = () => {
     console.log(reportMessage);
     setIsLoading(true);
     storeApi
@@ -38,7 +40,26 @@ const ReportModal: React.FC = observer(() => {
         setIsLoading(false);
         console.log(error, 'report not submitted');
       });
-  };
+  }; */
+
+  const submitReport = useCallback(async () => {
+    if (!executeRecaptcha) {
+      return;
+    }
+    setIsLoading(true);
+    await executeRecaptcha('report').then((responseToken: string) => {
+      storeApi
+        .reportPage(link.toString(), reportMessage, responseToken)
+        .then(() => {
+          setIsLoading(false);
+          modals.info.setMsg('Report submitted', 'success');
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.log(error, 'report not submitted');
+        });
+    });
+  }, [executeRecaptcha, link, modals.info, reportMessage]);
   return (
     <Modal
       isVisible={!!modals.report.isOpen}
