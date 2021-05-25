@@ -10,7 +10,7 @@ html,
 body {
   margin: 0;
 
-  height: max-content;
+  min-height: 100%;
 
   font-family: Montserrat, sans-serif;
   font-weight: 400;
@@ -21,9 +21,13 @@ body {
 * {
   box-sizing: border-box;
 }
+body {
+  min-height: 100vh;
+}
 
 #root {
   height: 100%;
+  min-height: 100vh;
 }
 
 .dds {
