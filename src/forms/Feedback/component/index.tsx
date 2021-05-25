@@ -24,13 +24,11 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
   errors,
 }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  // const [token, setToken] = useState('');
   const onSubmit = useCallback(async () => {
     if (!executeRecaptcha) {
       return;
     }
     await executeRecaptcha('feedback').then((responseToken: string) => {
-      // setToken(responseToken);
       values.token = responseToken;
       handleSubmit();
     });

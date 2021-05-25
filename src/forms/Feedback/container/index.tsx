@@ -25,11 +25,10 @@ const FeedBackForm: React.FC = () => {
       return errors;
     },
     handleSubmit: (values, { setFieldValue }) => {
-      console.log('values.token', values.token);
       setFieldValue('isLoading', true);
 
       storeApi
-        .support(values.email, values.message)
+        .support(values.email, values.message, values.token)
         .then(() => {
           modals.info.setMsg('Your request has been successfully submitted', 'success');
         })
