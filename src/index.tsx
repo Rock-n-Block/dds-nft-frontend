@@ -13,13 +13,8 @@ import ScollToTop from './utils/ScollToTop';
 import App from './App';
 
 ReactDOM.render(
-  <GoogleReCaptchaProvider
-    reCaptchaKey={process.env.RECAPTCHA_KEY}
-    useRecaptchaNet
-    language="en"
-    scriptProps={{ async: true, defer: true, appendTo: 'body' }}
-  >
-    <Provider value={rootStore}>
+  <Provider value={rootStore}>
+    <GoogleReCaptchaProvider reCaptchaKey="6Ldece0aAAAAANiInv-skmSBS7TAVge6mso3qJTy" language="en">
       <Router>
         <ScollToTop>
           <Connector>
@@ -27,7 +22,7 @@ ReactDOM.render(
           </Connector>
         </ScollToTop>
       </Router>
-    </Provider>
-  </GoogleReCaptchaProvider>,
+    </GoogleReCaptchaProvider>
+  </Provider>,
   document.getElementById('root'),
 );

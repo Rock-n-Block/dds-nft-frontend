@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form, Input } from 'antd';
 import { FormikProps } from 'formik';
 
 import { Button } from '../../../components/atoms';
 import { validateField } from '../../../utils/validate';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { GoogleReCaptcha, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const { TextArea } = Input;
 
@@ -24,15 +24,23 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
   errors,
 }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const onSubmit = () => {
+  // const [token, setToken] = useState('');
+  const onSubmit = useCallback(async () => {
     if (!executeRecaptcha) {
       return;
     }
-    executeRecaptcha('feedback').then((token: string) => {
-      values.token = token;
+    await executeRecaptcha('feedback').then((responseToken: string) => {
+      // setToken(responseToken);
+      values.token = responseToken;
       handleSubmit();
     });
-  };
+  }, [executeRecaptcha, handleSubmit, values]);
+  const handleReCaptchaVerify = useCallback(
+    (responseToken) => {
+      values.token = responseToken;
+    },
+    [values],
+  );
   return (
     <Form name="form-feedback" className="form-feedback" layout="vertical">
       <Form.Item
@@ -82,6 +90,8 @@ const FeedBack: React.FC<FormikProps<IFeedBack>> = ({
       >
         Send
       </Button>
+
+      <GoogleReCaptcha action="feedback" onVerify={handleReCaptchaVerify} />
     </Form>
   );
 };
