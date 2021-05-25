@@ -497,7 +497,7 @@ const Token: React.FC = observer(() => {
                   id={tokenData.bids[0].bidderid}
                   topText={
                     <p className="text-bold text-sm text-upper text-black">
-                      Highest bid for{' '}
+                      Highest bid,{' '}
                       {`${tokenData.bids[0].quantity} ${
                         tokenData.bids[0].quantity > 1 ? 'tokens' : 'token'
                       }`}
