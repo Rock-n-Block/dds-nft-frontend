@@ -511,7 +511,10 @@ const Token: React.FC = observer(() => {
             ) : (
               <></>
             )}
-            {user.address && isMyToken && tokenData.bids.length ? (
+            {user.address &&
+            isMyToken &&
+            tokenData.bids.length &&
+            tokenData.bids[0].bidderid !== user.id ? (
               <div className="token__bids">
                 <Button
                   colorScheme="gradient"
