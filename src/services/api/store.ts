@@ -80,5 +80,6 @@ export default {
   },
   reportPage: (page: string, reportMessage: string) =>
     axios.post('/store/report/', { page, reportMessage }),
-  support: (email: string, message: string) => axios.post('/store/support/', { email, message }),
+  support: (email: string, message: string, token: string) =>
+    axios.post('/store/support/', { email, message, token }),
 };
