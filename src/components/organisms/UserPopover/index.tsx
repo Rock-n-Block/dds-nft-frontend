@@ -14,7 +14,11 @@ import { ConvertModal } from '../index';
 
 import './UserPopover.scss';
 
-const UserPopover: React.FC = observer(() => {
+interface UserPopoverProps {
+  className?: string;
+}
+
+const UserPopover: React.FC<UserPopoverProps> = observer(({ className }) => {
   const [currentRate, setCurrentRate] = useState<number>(0);
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
@@ -40,7 +44,7 @@ const UserPopover: React.FC = observer(() => {
     });
   }, [user, walletConnector.metamaskService]);
   return (
-    <div className="u-popover">
+    <div className={`u-popover ${className}`}>
       <UserWallet color="black" className="u-popover__copy" address={user.address} />
       <div className="u-popover__swap">
         <div className="u-popover__swap-content">
