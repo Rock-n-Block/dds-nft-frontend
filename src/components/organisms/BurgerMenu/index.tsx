@@ -57,6 +57,22 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
           >
             Explore
           </NavLink>
+          <NavLink
+            exact
+            to={`/user/${user.id}?tab=collectibles`}
+            className="header-mobile__nav-item text-xl text-bold text-grad"
+            onClick={() => setIsMenuItemsVisible(false)}
+          >
+            My items
+          </NavLink>
+          <NavLink
+            exact
+            to="/activity"
+            className="header-mobile__nav-item text-xl text-bold text-grad"
+            onClick={() => setIsMenuItemsVisible(false)}
+          >
+            Activity
+          </NavLink>
           {/* <NavLink exact to="/1" className="header-mobile__nav-item text-xl text-bold text-grad">
             How it works
           </NavLink> */}

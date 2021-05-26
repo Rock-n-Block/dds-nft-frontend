@@ -92,6 +92,12 @@ const UserPopover: React.FC = observer(() => {
         </Button>
       </div>
       <div className="u-popover__nav">
+        <Link
+          to={`/user/${user.id}?tab=collectibles`}
+          className="u-popover__nav-item text-bold text-black"
+        >
+          My items
+        </Link>
         <Link to="/profile" className="u-popover__nav-item text-bold text-black">
           Edit profile
         </Link>
