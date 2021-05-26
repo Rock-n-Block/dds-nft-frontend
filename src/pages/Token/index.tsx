@@ -541,8 +541,7 @@ const Token: React.FC = observer(() => {
             {((tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
               (tokenData.standart === 'ERC1155' &&
                 !tokenData.sellers.find((seller) => seller.id === user.id))) &&
-            isMyToken &&
-            !tokenData.selling ? (
+            isMyToken ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
