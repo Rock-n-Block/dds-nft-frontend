@@ -12,13 +12,13 @@ interface IUser {
   name: string;
   price?: number;
   quantity?: number;
+  auction?: boolean;
 }
 interface TokenOwnersProps {
   owners: Array<IUser>;
-  isAuction: boolean;
 }
 
-const TokenOwners: React.FC<TokenOwnersProps> = ({ owners, isAuction }) => {
+const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
   return (
     <div className="token-owners">
       {owners ? (
@@ -31,13 +31,13 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners, isAuction }) => {
             id={owner.id}
             topText={
               <span className="text text-gray text-sm text-upper text-regular">
-                {owner.price && !isAuction
+                {owner.price && !owner.auction
                   ? `${owner.quantity || ''} is selling for ${+new BigNumber(owner.price)
                       .dividedBy(new BigNumber(10).pow(18))
                       .toFixed()}`
                   : ''}
-                {!owner.price && !isAuction ? `${owner.quantity || ''} not for sale` : ''}
-                {isAuction ? 'Auction' : ''}
+                {!owner.price && !owner.auction ? `${owner.quantity || ''} not for sale` : ''}
+                {owner.auction ? 'Auction' : ''}
               </span>
             }
             bottomText={

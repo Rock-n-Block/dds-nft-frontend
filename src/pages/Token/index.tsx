@@ -63,6 +63,7 @@ interface IToken {
   history: Array<IHistoryItem>;
   sellers: ISeller[];
   minimalBid: number;
+  ownerAuction: IAucOwner[];
 }
 interface IUser {
   id: number;
@@ -76,9 +77,13 @@ export interface ISeller extends IUser {
   quantity: number;
   price: number;
 }
+export interface IAucOwner extends IUser {
+  address: string;
+}
 export interface IOwner extends IUser {
   quantity: number;
   price?: number;
+  auction?: boolean;
 }
 const Token: React.FC = observer(() => {
   const history = useHistory();
@@ -284,16 +289,46 @@ const Token: React.FC = observer(() => {
     if (data.standart === 'ERC1155') {
       owners = data.owners.map((owner: any) => {
         const sellerObj = data.sellers.find((seller: any) => seller.id === owner.id);
+        const aucOwner = data.owner_auction.find((seller: any) => seller.id === owner.id);
+        if (sellerObj) {
+          return {
+            ...owner,
+            price: sellerObj ? sellerObj.price : null,
+          };
+        }
+        if (aucOwner) {
+          return {
+            ...owner,
+            auction: true,
+          };
+        }
         return {
           ...owner,
-          price: sellerObj ? sellerObj.price : null,
+          price: null,
+          auction: false,
         };
       });
     } else {
-      owners.push({
-        ...data.owners[0],
-        price: data.price ? metamaskService.calcTransactionAmount(+data.price, 18) : 0,
-      });
+      const singleOwner = data.owners[0];
+      if (data.price && data.selling) {
+        owners.push({
+          singleOwner,
+          price: metamaskService.calcTransactionAmount(+data.price, 18),
+          auction: false,
+        });
+      } else if (!data.price && data.selling) {
+        owners.push({
+          singleOwner,
+          price: null,
+          auction: true,
+        });
+      } else {
+        owners.push({
+          singleOwner,
+          price: null,
+          auction: false,
+        });
+      }
     }
     setTokenData({
       USDPrice: data.USD_price,
@@ -319,6 +354,7 @@ const Token: React.FC = observer(() => {
       bids: data.bids,
       sellers: data.sellers,
       minimalBid: data.minimal_bid,
+      ownerAuction: data.owner_auction,
     });
   };
   const handleRemoveFromSale = (): void => {
@@ -541,6 +577,7 @@ const Token: React.FC = observer(() => {
             {((tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
               (tokenData.standart === 'ERC1155' &&
                 !tokenData.sellers.find((seller) => seller.id === user.id))) &&
+            !tokenData.ownerAuction.find((seller) => seller.id === user.id) &&
             isMyToken ? (
               <div className="token__btns">
                 <Button
@@ -576,7 +613,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price === null && tokenData.selling && isMyToken ? (
+            {(tokenData.price === null && tokenData.selling && isMyToken) ||
+            (tokenData.standart === 'ERC1155' &&
+              isMyToken &&
+              tokenData.ownerAuction.find((seller) => seller.id === user.id)) ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -704,7 +744,6 @@ const Token: React.FC = observer(() => {
               history={tokenData.history}
               details={mockData.details}
               bids={tokenData.bids}
-              isAuction={!tokenData.price && tokenData.selling}
             />
           </div>
         </div>
