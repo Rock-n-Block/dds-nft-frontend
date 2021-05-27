@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import LogoImg from '../../../assets/img/icons/logo.svg';
 import { ReactComponent as Menu } from '../../../assets/img/icons/menu.svg';
+import { ReactComponent as CloseMenu } from '../../../assets/img/icons/close-menu.svg';
 import { ReactComponent as DiskImg } from '../../../assets/img/icons/social/disk.svg';
 import { ReactComponent as FbImg } from '../../../assets/img/icons/social/fb.svg';
 import { ReactComponent as InstImg } from '../../../assets/img/icons/social/inst.svg';
@@ -13,7 +14,7 @@ import { ReactComponent as YoutubeImg } from '../../../assets/img/icons/social/y
 import { useWalletConnectorContext } from '../../../services/walletConnect';
 import { useMst } from '../../../store/store';
 import { Button } from '../../atoms';
-import { Search, UserPreview } from '../index';
+import { Search, UserPopover, UserPreview } from '../index';
 
 import './BurgerMenu.scss';
 
@@ -25,11 +26,19 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
   const { modals, user } = useMst();
   const walletConnector = useWalletConnectorContext();
   const [isMenuItemsVisible, setIsMenuItemsVisible] = useState(false);
+  const [isUserPopoverVisible, setIsUserPopoverVisible] = useState(false);
 
   const showModal = () => {
     setIsMenuItemsVisible(!isMenuItemsVisible);
   };
-
+  const handleClick = () => {
+    if (!isMenuItemsVisible) {
+      setIsMenuItemsVisible(true);
+      setIsUserPopoverVisible(true);
+    } else {
+      setIsUserPopoverVisible(!isUserPopoverVisible);
+    }
+  };
   const connectWallet = (): void => {
     if (!localStorage.ddsTerms) {
       modals.terms.open();
@@ -42,9 +51,11 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
       <Link to="/">
         <img src={LogoImg} alt="dds" className="header-mobile__logo" />
       </Link>
-      <div className="header-mobile__box">{user.address ? <UserPreview /> : <></>}</div>
+      <div className="header-mobile__box">
+        {user.address ? <UserPreview onClick={handleClick} /> : <></>}
+      </div>
       <Button colorScheme="clear" onClick={showModal} className="header-mobile__menu">
-        <Menu />
+        {isMenuItemsVisible ? <CloseMenu /> : <Menu />}
       </Button>
       <div className={isMenuItemsVisible ? 'header-mobile__menu-items' : 'visually-hidden'}>
         <Search placeholder="Search items" className="header-mobile__search" />
@@ -65,14 +76,6 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
           >
             My items
           </NavLink>
-          <NavLink
-            exact
-            to="/activity"
-            className="header-mobile__nav-item text-xl text-bold text-grad"
-            onClick={() => setIsMenuItemsVisible(false)}
-          >
-            Activity
-          </NavLink>
           {/* <NavLink exact to="/1" className="header-mobile__nav-item text-xl text-bold text-grad">
             How it works
           </NavLink> */}
@@ -85,6 +88,8 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
             Support
           </NavLink>
         </nav>
+        <UserPreview onClick={handleClick} />
+        <UserPopover className={`${isUserPopoverVisible ? 'visually-hidden' : ''}`} />
         <section className="footer">
           {user.address ? (
             <div className="footer__btns flex-center">
