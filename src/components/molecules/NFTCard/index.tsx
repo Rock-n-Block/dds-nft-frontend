@@ -169,7 +169,7 @@ const NFTCard: React.FC<INFTCard> = observer(
               ''
             )}
 
-            {user.address && !isMyToken && !price && selling ? (
+            {user.address && !isMyToken ? (
               <div className="nft-card__auction">
                 {disableLinks ? (
                   <></>
