@@ -10,11 +10,11 @@ import './UserFollowing.scss';
 
 interface UserFollowingProps {
   address: string;
-  follows: Array<any>;
+  // follows: Array<any>;
   followType: 'Following' | 'Follower';
 }
 
-const UserFollow: React.FC<UserFollowingProps> = observer(({ address, follows, followType }) => {
+const UserFollow: React.FC<UserFollowingProps> = observer(({ address, followType }) => {
   const [users, setUsers] = useState<any>([]);
   const loadFollowingUsers = useCallback(
     (page = 1) => {
@@ -56,14 +56,13 @@ const UserFollow: React.FC<UserFollowingProps> = observer(({ address, follows, f
   }
   return (
     <div className="user-following row">
-      {users.map((user: any) => (
+      {users.map((currentUser: any) => (
         <FollowCard
-          tokens={user.tokens}
-          id={user.id}
-          followersCount={user.followers_count}
-          name={user.name}
-          avatar={user.avatar}
-          follows={follows}
+          tokens={currentUser.tokens}
+          id={currentUser.id}
+          followersCount={currentUser.followers_count}
+          name={currentUser.name}
+          avatar={currentUser.avatar}
           key={nextId()}
         />
       ))}

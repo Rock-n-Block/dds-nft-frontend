@@ -228,7 +228,7 @@ const User: React.FC = observer(() => {
         >
           <UserFollow
             address={currentUser?.address ?? ''}
-            follows={currentUser?.follows ?? []}
+            // follows={currentUser?.follows ?? []}
             followType="Following"
           />
         </TabPane>
@@ -242,7 +242,7 @@ const User: React.FC = observer(() => {
         >
           <UserFollow
             address={currentUser?.address ?? ''}
-            follows={currentUser?.follows ?? []}
+            // follows={currentUser?.follows ?? []}
             followType="Follower"
           />
         </TabPane>
