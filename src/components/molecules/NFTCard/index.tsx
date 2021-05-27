@@ -123,9 +123,13 @@ const NFTCard: React.FC<INFTCard> = observer(
               <>
                 <div className="nft-card__auction">
                   <div className="nft-card__auction-text text-purple-l text-bold">Auction</div>
-                  <div className="nft-card__auction-text text-gray text-bold">
-                    {available} of {total_supply}
-                  </div>
+                  {total_supply && total_supply > 1 ? (
+                    <div className="nft-card__auction-text text-gray text-bold">
+                      {available} of {total_supply}
+                    </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
                 <div className="nft-card__auction nft-card__auction-bid">
                   <div className="nft-card__auction-text text-gray text-bold">Highest bid</div>
