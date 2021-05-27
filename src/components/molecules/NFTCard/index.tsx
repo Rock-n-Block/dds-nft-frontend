@@ -165,9 +165,13 @@ const NFTCard: React.FC<INFTCard> = observer(
                     WETH
                   </span>
                 </div>
-                <div className="nft-card__auction-text text-gray text-bold">
-                  {available} of {available}
-                </div>
+                {total_supply && total_supply > 1 ? (
+                  <div className="nft-card__auction-text text-gray text-bold">
+                    {available} of {total_supply}
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             ) : (
               ''
