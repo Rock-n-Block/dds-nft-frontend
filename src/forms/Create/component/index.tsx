@@ -458,6 +458,7 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
             ]}
             price={values.instantSalePrice ? +values.instantSalePriceEth || 0 : null}
             available={isSingle ? 1 : +values.numberOfCopies}
+            total_supply={isSingle ? 1 : +values.numberOfCopies}
             selling={values.putOnSale}
           />
         </div>
