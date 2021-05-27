@@ -30,18 +30,23 @@ const UserPopover: React.FC<UserPopoverProps> = observer(({ className }) => {
     walletConnector.disconnect();
   };
   useEffect(() => {
-    walletConnector.metamaskService.getEthBalance().then((data: any) => {
-      user.setBalance(new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10), 'eth');
-    });
-    walletConnector.metamaskService.getWethBalance().then((data: any) => {
-      ratesApi.getRates().then((response) => {
-        setCurrentRate(response.data.ETH);
+    if (user.address) {
+      walletConnector.metamaskService.getEthBalance().then((data: any) => {
+        user.setBalance(
+          new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
+          'eth',
+        );
       });
-      user.setBalance(
-        new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
-        'weth',
-      );
-    });
+      walletConnector.metamaskService.getWethBalance().then((data: any) => {
+        ratesApi.getRates().then((response) => {
+          setCurrentRate(response.data.ETH);
+        });
+        user.setBalance(
+          new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
+          'weth',
+        );
+      });
+    }
   }, [user, walletConnector.metamaskService]);
   return (
     <div className={`u-popover ${className}`}>
