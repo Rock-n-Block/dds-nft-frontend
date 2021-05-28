@@ -244,6 +244,12 @@ const Token: React.FC = observer(() => {
   };
 
   const handleBid = (): void => {
+    // let avai = 1;
+    // if (tokenData.standart = 'ERC721') {
+    //   avai = 1
+    // } else {
+    //   const me = tokenData.ownerAuction
+    // }
     modals.auction.open({
       token: {
         id: tokenData.id.toString(),
@@ -294,12 +300,14 @@ const Token: React.FC = observer(() => {
           return {
             ...owner,
             price: sellerObj ? sellerObj.price : null,
+            quantity: sellerObj.quantity,
           };
         }
         if (aucOwner) {
           return {
             ...owner,
             auction: true,
+            quantity: aucOwner.quantity,
           };
         }
         return {
@@ -312,19 +320,19 @@ const Token: React.FC = observer(() => {
       const singleOwner = data.owners[0];
       if (data.price && data.selling) {
         owners.push({
-          singleOwner,
+          ...singleOwner,
           price: metamaskService.calcTransactionAmount(+data.price, 18),
           auction: false,
         });
       } else if (!data.price && data.selling) {
         owners.push({
-          singleOwner,
+          ...singleOwner,
           price: null,
           auction: true,
         });
       } else {
         owners.push({
-          singleOwner,
+          ...singleOwner,
           price: null,
           auction: false,
         });
@@ -403,7 +411,7 @@ const Token: React.FC = observer(() => {
     }
   };
 
-  useEffect(() => {
+  const handleGetTokenData = React.useCallback((): void => {
     storeApi
       .getToken(token)
       .then(({ data: tokendata }: any) => {
@@ -415,6 +423,10 @@ const Token: React.FC = observer(() => {
         modals.info.setMsg('Something went wrong', 'error');
       });
   }, [token, history, modals.info]);
+
+  useEffect(() => {
+    handleGetTokenData();
+  }, [handleGetTokenData, token]);
 
   useEffect(() => {
     if (Object.keys(tokenData).length && user.id) {
@@ -574,11 +586,14 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {((tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
-              (tokenData.standart === 'ERC1155' &&
-                !tokenData.sellers.find((seller) => seller.id === user.id))) &&
-            !tokenData.ownerAuction.find((seller) => seller.id === user.id) &&
-            isMyToken ? (
+            {(tokenData.standart === 'ERC721' &&
+              !tokenData.price &&
+              !tokenData.selling &&
+              isMyToken) ||
+            (tokenData.standart === 'ERC1155' &&
+              !tokenData.sellers.find((seller) => seller.id === user.id) &&
+              !tokenData.ownerAuction.find((seller) => seller.id === user.id) &&
+              isMyToken) ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -593,11 +608,13 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price &&
-            ((tokenData.selling && tokenData.standart === 'ERC721') ||
-              (tokenData.standart === 'ERC1155' &&
-                tokenData.sellers.find((seller) => seller.id === user.id))) &&
-            isMyToken ? (
+            {(tokenData.standart === 'ERC721' &&
+              tokenData.price &&
+              tokenData.selling &&
+              isMyToken) ||
+            (tokenData.standart === 'ERC1155' &&
+              tokenData.sellers.find((seller) => seller.id === user.id) &&
+              isMyToken) ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -613,7 +630,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {(tokenData.price === null && tokenData.selling && isMyToken) ||
+            {(tokenData.standart === 'ERC721' &&
+              tokenData.price === null &&
+              tokenData.selling &&
+              isMyToken) ||
             (tokenData.standart === 'ERC1155' &&
               isMyToken &&
               tokenData.ownerAuction.find((seller) => seller.id === user.id)) ? (
@@ -633,18 +653,31 @@ const Token: React.FC = observer(() => {
               ''
             )}
 
-            {(isMyToken &&
-              tokenData.standart === 'ERC1155' &&
-              tokenData.available !== 0 &&
-              ((tokenData.sellers.length === 1 && tokenData.sellers[0].id !== user.id) ||
-                tokenData.sellers.length > 1)) ||
-            (user.address && !isMyToken) ? (
+            {user.address ? (
               <div className="token__btns">
-                <div className="token__btns-container">
-                  <div className="token__btns-wrapper">
+                {(tokenData.standart === 'ERC721' && !isMyToken) ||
+                (tokenData.standart === 'ERC1155' && !isMyToken) ||
+                (tokenData.standart === 'ERC1155' &&
+                  isMyToken &&
+                  (tokenData.selling ? tokenData.available !== 0 : true) &&
+                  (tokenData.selling
+                    ? (tokenData.sellers.length === 1 && tokenData.sellers[0].id !== user.id) ||
+                      tokenData.sellers.length > 1 ||
+                      tokenData.ownerAuction.length > 1 ||
+                      (tokenData.ownerAuction.length === 1 &&
+                        tokenData.ownerAuction[0].id !== user.id) ||
+                      tokenData.owners.length > 1
+                    : true)) ? (
+                  <div className="token__btns-container">
                     {isApproved ? (
                       <>
-                        {tokenData.price && tokenData.selling ? (
+                        {(tokenData.standart === 'ERC721' &&
+                          tokenData.price &&
+                          tokenData.selling) ||
+                        (tokenData.standart === 'ERC1155' &&
+                          tokenData.sellers.length === 1 &&
+                          tokenData.sellers[0].id !== user.id) ||
+                        tokenData.sellers.length > 1 ? (
                           <Button
                             colorScheme="gradient"
                             shadow
@@ -666,6 +699,7 @@ const Token: React.FC = observer(() => {
                         <Button
                           colorScheme="gradient"
                           shadow
+                          loading={isLoading}
                           size="md"
                           className="token__btns-item"
                           onClick={handleBid}
@@ -686,7 +720,10 @@ const Token: React.FC = observer(() => {
                       </Button>
                     )}
                   </div>
-                </div>
+                ) : (
+                  ''
+                )}
+
                 {tokenData.price ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
@@ -748,7 +785,7 @@ const Token: React.FC = observer(() => {
           </div>
         </div>
       </div>
-      {(isMyToken && !tokenData.selling) ||
+      {(tokenData.standart === 'ERC721' && isMyToken && !tokenData.selling) ||
       (tokenData.standart === 'ERC1155' &&
         !tokenData.sellers.find((seller) => seller.id === user.id) &&
         isMyToken) ? (
@@ -784,7 +821,11 @@ const Token: React.FC = observer(() => {
         ''
       )}
       {tokenData.bids && tokenData.bids.length ? (
-        <CheckAvailability isLoading={isLoading} handleEndAuction={handleEndAuction} />
+        <CheckAvailability
+          isLoading={isLoading}
+          handleEndAuction={handleEndAuction}
+          handleGetTokenData={handleGetTokenData}
+        />
       ) : (
         ''
       )}

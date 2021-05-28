@@ -72,6 +72,9 @@ export const validateForm = ({ values, notRequired }: any) => {
       if (!value) {
         errCopy.quantity = 'Enter quantity';
       }
+      if (values.available && +value > +values.available) {
+        errCopy.quantity = 'Quantity not be more than available';
+      }
     },
     about: (value: string): void => {
       if (!value) {
@@ -105,8 +108,8 @@ export const validateForm = ({ values, notRequired }: any) => {
       if (!value) {
         errCopy.tokenRoyalties = '"Royalties" must be a number';
       }
-      if (+value > 99) {
-        errCopy.tokenRoyalties = '"Royalties" must be a less than 99%';
+      if (+value > 90) {
+        errCopy.tokenRoyalties = '"Royalties" must be a less than 90%';
       }
     },
     symbol: (value: string): void => {

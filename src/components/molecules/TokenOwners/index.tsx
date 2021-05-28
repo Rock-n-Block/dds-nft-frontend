@@ -37,7 +37,7 @@ const TokenOwners: React.FC<TokenOwnersProps> = ({ owners }) => {
                       .toFixed()}`
                   : ''}
                 {!owner.price && !owner.auction ? `${owner.quantity || ''} not for sale` : ''}
-                {owner.auction ? 'Auction' : ''}
+                {owner.auction ? `${owner.quantity} in Auction` : ''}
               </span>
             }
             bottomText={
