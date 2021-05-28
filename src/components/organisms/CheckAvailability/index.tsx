@@ -14,14 +14,16 @@ import './CheckAvailability.scss';
 interface ICheckAvailability {
   isLoading: boolean;
   handleEndAuction: () => void;
+  handleGetTokenData: () => void;
 }
 
 const CheckAvailability: React.FC<ICheckAvailability> = observer(
-  ({ isLoading, handleEndAuction }) => {
+  ({ isLoading, handleEndAuction, handleGetTokenData }) => {
     const { modals } = useMst();
 
     const handleClose = (): void => {
       modals.checkAvailability.close();
+      handleGetTokenData();
     };
 
     return (

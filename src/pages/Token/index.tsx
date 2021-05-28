@@ -244,6 +244,12 @@ const Token: React.FC = observer(() => {
   };
 
   const handleBid = (): void => {
+    // let avai = 1;
+    // if (tokenData.standart = 'ERC721') {
+    //   avai = 1
+    // } else {
+    //   const me = tokenData.ownerAuction
+    // }
     modals.auction.open({
       token: {
         id: tokenData.id.toString(),
@@ -294,12 +300,14 @@ const Token: React.FC = observer(() => {
           return {
             ...owner,
             price: sellerObj ? sellerObj.price : null,
+            quantity: sellerObj.quantity,
           };
         }
         if (aucOwner) {
           return {
             ...owner,
             auction: true,
+            quantity: aucOwner.quantity,
           };
         }
         return {
@@ -403,7 +411,7 @@ const Token: React.FC = observer(() => {
     }
   };
 
-  useEffect(() => {
+  const handleGetTokenData = React.useCallback((): void => {
     storeApi
       .getToken(token)
       .then(({ data: tokendata }: any) => {
@@ -415,6 +423,10 @@ const Token: React.FC = observer(() => {
         modals.info.setMsg('Something went wrong', 'error');
       });
   }, [token, history, modals.info]);
+
+  useEffect(() => {
+    handleGetTokenData();
+  }, [handleGetTokenData, token]);
 
   useEffect(() => {
     if (Object.keys(tokenData).length && user.id) {
@@ -644,6 +656,7 @@ const Token: React.FC = observer(() => {
             {user.address ? (
               <div className="token__btns">
                 {(tokenData.standart === 'ERC721' && !isMyToken) ||
+                (tokenData.standart === 'ERC1155' && !isMyToken) ||
                 (tokenData.standart === 'ERC1155' &&
                   isMyToken &&
                   tokenData.available !== 0 &&
@@ -651,8 +664,7 @@ const Token: React.FC = observer(() => {
                     tokenData.sellers.length > 1 ||
                     tokenData.ownerAuction.length > 1 ||
                     (tokenData.ownerAuction.length === 1 &&
-                      tokenData.ownerAuction[0].id !== user.id))) ||
-                (tokenData.standart === 'ERC1155' && !isMyToken) ? (
+                      tokenData.ownerAuction[0].id !== user.id))) ? (
                   <div className="token__btns-container">
                     {isApproved ? (
                       <>
@@ -799,7 +811,11 @@ const Token: React.FC = observer(() => {
         ''
       )}
       {tokenData.bids && tokenData.bids.length ? (
-        <CheckAvailability isLoading={isLoading} handleEndAuction={handleEndAuction} />
+        <CheckAvailability
+          isLoading={isLoading}
+          handleEndAuction={handleEndAuction}
+          handleGetTokenData={handleGetTokenData}
+        />
       ) : (
         ''
       )}
