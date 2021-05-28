@@ -75,7 +75,6 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
               onChange={handleChange}
               onBlur={handleBlur}
               positiveOnly
-              max={values.available}
             />
           </div>
         </Form.Item>
