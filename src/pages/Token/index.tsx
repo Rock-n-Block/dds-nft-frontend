@@ -613,7 +613,7 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {(tokenData.price === null && tokenData.selling && isMyToken) ||
+            {(tokenData.standart === 'ERC721' && tokenData.price === null && tokenData.selling && isMyToken) ||
             (tokenData.standart === 'ERC1155' &&
               isMyToken &&
               tokenData.ownerAuction.find((seller) => seller.id === user.id)) ? (
