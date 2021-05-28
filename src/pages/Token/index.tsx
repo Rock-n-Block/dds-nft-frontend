@@ -312,13 +312,13 @@ const Token: React.FC = observer(() => {
       const singleOwner = data.owners[0];
       if (data.price && data.selling) {
         owners.push({
-          singleOwner,
+          ...singleOwner,
           price: metamaskService.calcTransactionAmount(+data.price, 18),
           auction: false,
         });
       } else if (!data.price && data.selling) {
         owners.push({
-          singleOwner,
+          ...singleOwner,
           price: null,
           auction: true,
         });
@@ -574,7 +574,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {(tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
+            {(tokenData.standart === 'ERC721' &&
+              !tokenData.price &&
+              !tokenData.selling &&
+              isMyToken) ||
             (tokenData.standart === 'ERC1155' &&
               !tokenData.sellers.find((seller) => seller.id === user.id) &&
               !tokenData.ownerAuction.find((seller) => seller.id === user.id) &&
@@ -593,11 +596,13 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {tokenData.price &&
-            ((tokenData.selling && tokenData.standart === 'ERC721') ||
-              (tokenData.standart === 'ERC1155' &&
-                tokenData.sellers.find((seller) => seller.id === user.id))) &&
-            isMyToken ? (
+            {(tokenData.standart === 'ERC721' &&
+              tokenData.price &&
+              tokenData.selling &&
+              isMyToken) ||
+            (tokenData.standart === 'ERC1155' &&
+              tokenData.sellers.find((seller) => seller.id === user.id) &&
+              isMyToken) ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -751,7 +756,7 @@ const Token: React.FC = observer(() => {
           </div>
         </div>
       </div>
-      {(isMyToken && !tokenData.selling) ||
+      {(tokenData.standart === 'ERC721' && isMyToken && !tokenData.selling) ||
       (tokenData.standart === 'ERC1155' &&
         !tokenData.sellers.find((seller) => seller.id === user.id) &&
         isMyToken) ? (
