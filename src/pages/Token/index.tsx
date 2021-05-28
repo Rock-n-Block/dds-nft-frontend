@@ -324,7 +324,7 @@ const Token: React.FC = observer(() => {
         });
       } else {
         owners.push({
-          singleOwner,
+          ...singleOwner,
           price: null,
           auction: false,
         });
@@ -574,11 +574,11 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {((tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
-              (tokenData.standart === 'ERC1155' &&
-                !tokenData.sellers.find((seller) => seller.id === user.id))) &&
-            !tokenData.ownerAuction.find((seller) => seller.id === user.id) &&
-            isMyToken ? (
+            {(tokenData.standart === 'ERC721' && !tokenData.price && !tokenData.selling) ||
+            (tokenData.standart === 'ERC1155' &&
+              !tokenData.sellers.find((seller) => seller.id === user.id) &&
+              !tokenData.ownerAuction.find((seller) => seller.id === user.id) &&
+              isMyToken) ? (
               <div className="token__btns">
                 <Button
                   className="token__btns-item"
@@ -613,7 +613,10 @@ const Token: React.FC = observer(() => {
             ) : (
               ''
             )}
-            {(tokenData.standart === 'ERC721' && tokenData.price === null && tokenData.selling && isMyToken) ||
+            {(tokenData.standart === 'ERC721' &&
+              tokenData.price === null &&
+              tokenData.selling &&
+              isMyToken) ||
             (tokenData.standart === 'ERC1155' &&
               isMyToken &&
               tokenData.ownerAuction.find((seller) => seller.id === user.id)) ? (
