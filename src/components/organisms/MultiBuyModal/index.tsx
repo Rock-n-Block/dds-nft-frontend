@@ -28,9 +28,12 @@ const MultiBuyModal: React.FC<IMultiBuyModal> = observer(({ sellers, token, coll
     modals.multibuy.close();
   };
 
-  const handleBuy = (sellerId: number): void => {
+  const handleBuy = (sellerId: number, quantity: number): void => {
     modals.checkout.open({
-      token,
+      token: {
+        name: token.name,
+        available: quantity,
+      },
       collectionName: collection.name,
       sellerId,
     });
@@ -83,7 +86,11 @@ const MultiBuyModal: React.FC<IMultiBuyModal> = observer(({ sellers, token, coll
                           weth
                         </div>
                       </div>
-                      <Button colorScheme="outline" size="sm" onClick={() => handleBuy(seller.id)}>
+                      <Button
+                        colorScheme="outline"
+                        size="sm"
+                        onClick={() => handleBuy(seller.id, seller.quantity)}
+                      >
                         Buy
                       </Button>
                     </div>
