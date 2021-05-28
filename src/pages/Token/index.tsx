@@ -665,12 +665,19 @@ const Token: React.FC = observer(() => {
                       tokenData.sellers.length > 1 ||
                       tokenData.ownerAuction.length > 1 ||
                       (tokenData.ownerAuction.length === 1 &&
-                        tokenData.ownerAuction[0].id !== user.id)
+                        tokenData.ownerAuction[0].id !== user.id) ||
+                      tokenData.owners.length > 1
                     : true)) ? (
                   <div className="token__btns-container">
                     {isApproved ? (
                       <>
-                        {tokenData.price && tokenData.selling ? (
+                        {(tokenData.standart === 'ERC721' &&
+                          tokenData.price &&
+                          tokenData.selling) ||
+                        (tokenData.standart === 'ERC1155' &&
+                          tokenData.sellers.length === 1 &&
+                          tokenData.sellers[0].id !== user.id) ||
+                        tokenData.sellers.length > 1 ? (
                           <Button
                             colorScheme="gradient"
                             shadow
