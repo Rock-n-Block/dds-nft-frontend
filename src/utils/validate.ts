@@ -72,6 +72,9 @@ export const validateForm = ({ values, notRequired }: any) => {
       if (!value) {
         errCopy.quantity = 'Enter quantity';
       }
+      if(values.available && +value > +values.available) {
+errCopy.quantity = 'Quantity not be more than available'
+      }
     },
     about: (value: string): void => {
       if (!value) {

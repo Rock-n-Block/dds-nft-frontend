@@ -119,7 +119,7 @@ const PlaceBid: React.FC<FormikProps<IPlaceBid>> = ({
         colorScheme="gradient"
         size="md"
         onClick={onSubmit}
-        disabled={+values.bid < values.min}
+        disabled={+values.bid < values.min || +values.quantity > +values.available}
         className="form-auction__submit-btn"
         loading={values.isLoading}
       >
