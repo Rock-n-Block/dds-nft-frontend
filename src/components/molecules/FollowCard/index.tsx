@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
@@ -14,7 +14,6 @@ export interface IFollowCard {
   id: string | number;
   followersCount: number;
   avatar: string;
-  follows: Array<any>;
   tokens?: Array<IToken>;
 }
 interface IToken {
@@ -22,12 +21,10 @@ interface IToken {
   media: string;
 }
 const FollowCard: React.FC<IFollowCard> = observer(
-  ({ tokens, avatar, follows, followersCount, name, id }) => {
+  ({ tokens, avatar, followersCount, name, id }) => {
     const { user } = useMst();
     const self = user.id === id;
-    const [isFollows, setIsFollows] = useState<boolean>(
-      !!follows.find((follower: any) => follower.id === id),
-    );
+    const [isFollows, setIsFollows] = useState<boolean>(false);
 
     const handleUnfollow = () => {
       userApi
@@ -49,6 +46,12 @@ const FollowCard: React.FC<IFollowCard> = observer(
           console.log(err, 'follow user');
         });
     };
+    useEffect(() => {
+      if (user.follows.length) {
+        console.log(user.follows);
+        setIsFollows(!!user.follows.find((follower: any) => follower.id === id));
+      }
+    }, [user, user.address, user.follows, id]);
     return (
       <div className="follow-card ">
         <Link to={`/user/${id}?tab=on-sale`}>

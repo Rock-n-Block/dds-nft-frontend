@@ -12,12 +12,11 @@ import { storeApi } from '../../services/api';
 import './Search.scss';
 import nextId from 'react-id-generator';
 import FollowCard from '../../components/molecules/FollowCard';
-import { useMst } from '../../store/store';
+import { observer } from 'mobx-react-lite';
 
 const { TabPane } = Tabs;
 
-const Search: React.FC = () => {
-  const { user } = useMst();
+const Search: React.FC = observer(() => {
   const params = new URLSearchParams(useLocation().search);
   const searchQuery: string = params.get('to_search') ?? '';
 
@@ -115,7 +114,6 @@ const Search: React.FC = () => {
                     followersCount={currentUser.followers_count}
                     name={currentUser.name}
                     avatar={currentUser.avatar}
-                    follows={user.follows}
                     key={nextId()}
                   />
                 ))
@@ -144,5 +142,5 @@ const Search: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 export default Search;

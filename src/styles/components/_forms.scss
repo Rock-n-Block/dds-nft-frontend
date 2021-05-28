@@ -108,6 +108,9 @@
   &-create {
     display: flex;
 
+    @include b('tablet') {
+      justify-content: center;
+    }
     &__content {
       width: 100%;
       max-width: 600px;
@@ -195,13 +198,13 @@
 
       min-width: 320px;
       height: fit-content;
-      @include b('mobile') {
+      @include b('tablet') {
         display: none;
       }
     }
 
     &__submit-btn {
-      @include b('mobile') {
+      @include b('tablet') {
         margin: 0 auto;
       }
     }

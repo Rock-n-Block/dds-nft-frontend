@@ -88,8 +88,14 @@ const BurgerMenu: React.FC<BurgerMenuProps> = observer(({ className }) => {
             Support
           </NavLink>
         </nav>
-        <UserPreview onClick={handleClick} />
-        <UserPopover className={`${isUserPopoverVisible ? 'visually-hidden' : ''}`} />
+        {user.address ? (
+          <>
+            <UserPreview onClick={handleClick} />
+            <UserPopover className={`${isUserPopoverVisible ? 'visually-hidden' : ''}`} />
+          </>
+        ) : (
+          <></>
+        )}
         <section className="footer">
           {user.address ? (
             <div className="footer__btns flex-center">

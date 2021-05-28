@@ -11,7 +11,7 @@ export interface IActivityCard {
   tokenId: string | number;
   tokenImg: string;
   tokenName: string;
-  method: 'like' | 'follow' | 'listing' | 'buy' | 'sale' | 'transfer' | 'burn' | 'bet' | 'mint';
+  method: 'like' | 'follow' | 'listing' | 'buy' | 'transfer' | 'burn' | 'bet' | 'mint';
   firstUser: IUser;
   secondUser?: IUser | null;
   date: string | Date;
@@ -22,7 +22,6 @@ enum activityType {
   follow = 'Followings',
   listing = 'Listings',
   buy = 'Purchases',
-  sale = 'Sales',
   transfer = 'Transfers',
   burn = 'Burns',
   bet = 'Bids',
@@ -76,10 +75,6 @@ const ActivityCard: React.FC<IActivityCard> = ({
       secondText = <span className="text-gray text text-bold">minted by</span>;
       break;
     case 'buy':
-      firstText = <span className="text-gray text text-bold">purchased by</span>;
-      secondText = <span className="text-gray text text-bold">from</span>;
-      break;
-    case 'sale':
       firstText = <span className="text-gray text text-bold">purchased by</span>;
       secondText = <span className="text-gray text text-bold">from</span>;
       break;

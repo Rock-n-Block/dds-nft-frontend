@@ -23,7 +23,6 @@ const UserActivity: React.FC<UserActivityProps> = ({
   const filters = [
     'Listing',
     'Purchases',
-    'Sales',
     'Transfers',
     'Burns',
     'Bids',

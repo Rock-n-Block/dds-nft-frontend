@@ -65,13 +65,13 @@
         .header-mobile__search {
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
-        .u-preview{
+        .u-preview {
           margin-top: 16px;
           margin-bottom: 16px;
           align-self: center;
         }
-        .u-popover{
-
+        .u-popover {
+          align-items: center;
           -webkit-transition: all 0.5s ease;
           -moz-transition: all 0.5s ease;
           transition: all 0.5s ease;
@@ -128,7 +128,6 @@
       &__social {
         margin-left: auto;
         margin-right: auto;
-
       }
     }
   }
