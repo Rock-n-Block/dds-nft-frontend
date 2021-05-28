@@ -641,15 +641,19 @@ const Token: React.FC = observer(() => {
               ''
             )}
 
-            {(isMyToken &&
-              tokenData.standart === 'ERC1155' &&
-              tokenData.available !== 0 &&
-              ((tokenData.sellers.length === 1 && tokenData.sellers[0].id !== user.id) ||
-                tokenData.sellers.length > 1)) ||
-            (user.address && !isMyToken) ? (
+            {user.address ? (
               <div className="token__btns">
-                <div className="token__btns-container">
-                  <div className="token__btns-wrapper">
+                {(tokenData.standart === 'ERC721' && !isMyToken) ||
+                (tokenData.standart === 'ERC1155' &&
+                  isMyToken &&
+                  tokenData.available !== 0 &&
+                  ((tokenData.sellers.length === 1 && tokenData.sellers[0].id !== user.id) ||
+                    tokenData.sellers.length > 1 ||
+                    tokenData.ownerAuction.length > 1 ||
+                    (tokenData.ownerAuction.length === 1 &&
+                      tokenData.ownerAuction[0].id !== user.id))) ||
+                (tokenData.standart === 'ERC1155' && !isMyToken) ? (
+                  <div className="token__btns-container">
                     {isApproved ? (
                       <>
                         {tokenData.price && tokenData.selling ? (
@@ -694,7 +698,10 @@ const Token: React.FC = observer(() => {
                       </Button>
                     )}
                   </div>
-                </div>
+                ) : (
+                  ''
+                )}
+
                 {tokenData.price ? (
                   <div className="token__btns-container">
                     <div className="token__btns-text text-gray">{`Service fee ${tokenData.serviceFee} %.`}</div>
