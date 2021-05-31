@@ -244,12 +244,14 @@ const Token: React.FC = observer(() => {
   };
 
   const handleBid = (): void => {
-    // let avai = 1;
-    // if (tokenData.standart = 'ERC721') {
-    //   avai = 1
-    // } else {
-    //   const me = tokenData.ownerAuction
-    // }
+    let avai = 1;
+    if (tokenData.standart === 'ERC1155') {
+      if (tokenData.selling) {
+        avai = tokenData.available || 1;
+      } else {
+        avai = tokenData.totalSupply;
+      }
+    }
     modals.auction.open({
       token: {
         id: tokenData.id.toString(),
@@ -259,7 +261,7 @@ const Token: React.FC = observer(() => {
         id: tokenData.creator.id,
         name: tokenData.creator.name || '',
       },
-      available: tokenData.available || 1,
+      available: avai,
       fee: tokenData.serviceFee,
       isRefreshPage: true,
       minimalBid: tokenData.minimalBid || 0,
