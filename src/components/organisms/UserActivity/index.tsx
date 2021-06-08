@@ -20,16 +20,7 @@ const UserActivity: React.FC<UserActivityProps> = ({
   isAllFilterItem = false,
   isMultipleFilterValues = false,
 }) => {
-  const filters = [
-    'Listing',
-    'Purchases',
-    'Transfers',
-    'Burns',
-    'Bids',
-    'Likes',
-    'Followings',
-    'Mint',
-  ];
+  const filters = ['Listing', 'Purchases', 'Bids', 'Likes', 'Followings', 'Mint'];
   const [activeFilters, setActiveFilters] = useState<string[]>(
     isAllFilterItem ? ['all'] : [filters[0]],
   );

@@ -2,9 +2,30 @@
 @import 'src/styles/mixins/media';
 
 .footer {
-  padding: 45px 0;
+  padding: 71px 0 25px;
 
   background: #fafafa;
+  position: relative;
+
+  @include b('tablet') {
+    padding: 40px 0 20px;
+  }
+
+  &__logo {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    @include b('tablet') {
+      top: -16px;
+    }
+    img {
+      width: 64px;
+      @include b('tablet') {
+        width: 32px;
+      }
+    }
+  }
 
   &__sub {
     &-title {
@@ -16,6 +37,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: -25px;
+    right: 35px;
 
     width: 50px;
     height: 50px;
@@ -49,7 +73,10 @@
       height: fit-content;
 
       & + & {
-        margin-left: 20px;
+        margin-left: 60px;
+        @include b('tablet') {
+          margin-left: 20px;
+        }
       }
 
       display: block;
@@ -59,7 +86,6 @@
 
         &:hover {
           color: $purple-hover;
-
         }
       }
     }
@@ -69,7 +95,7 @@
         margin-left: 9.028vw;
       }
     }
-/*
+    /*
     @include b('mobile') {
       margin-top: 40px;
     } */
@@ -77,10 +103,14 @@
 
   &__box {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 
     & + & {
-      margin-top: 40px;
+      margin-top: 45px;
+      @include b('tablet') {
+        margin-top: 20px;
+      }
     }
 
     &-bottom {
@@ -89,18 +119,9 @@
         align-items: center;
       }
     }
-
-    @include b('tablet') {
-      flex-direction: column;
-    }
   }
 
   &__copyright {
-    margin-top: 28px;
-
-    font-size: 16px;
-    line-height: 20px;
-
     color: #000;
 
     opacity: 0.3;
@@ -109,48 +130,20 @@
       line-height: 16px;
     }
   }
-
-  &__social {
+  &__tg {
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
-
-    &-item {
-      height: fit-content;
-
-      & + & {
-        margin-left: 30px;
-      }
-
-      svg {
-        path {
-          transition: 0.3s;
-        }
-
-        @include b('tablet') {
-          width: 22px;
-          height: 22px;
-        }
-      }
-
-      &:hover {
-        svg {
-          path {
-            fill: $purple;
-          }
-        }
-      }
+    justify-content: center;
+    background: $purple;
+    border-radius: 50%;
+    margin-left: 75px;
+    @include b('tablet') {
+      margin-left: 20px;
     }
-  }
-
-  @include b('tablet') {
-    padding: 40px 0 20px;
-
-    &__logo {
-      order: 1;
-
-      img {
-        display: none;
-      }
+    img {
+      width: 12px;
     }
   }
 }
