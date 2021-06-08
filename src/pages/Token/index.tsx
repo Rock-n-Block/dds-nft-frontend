@@ -843,15 +843,11 @@ const Token: React.FC = observer(() => {
       ) : (
         ''
       )}
-      {tokenData.bids && tokenData.bids.length ? (
-        <CheckAvailability
-          isLoading={isLoading}
-          handleEndAuction={handleEndAuction}
-          handleGetTokenData={handleGetTokenData}
-        />
-      ) : (
-        ''
-      )}
+      <CheckAvailability
+        isLoading={isLoading}
+        handleEndAuction={handleEndAuction}
+        handleGetTokenData={handleGetTokenData}
+      />
     </div>
   );
 });
