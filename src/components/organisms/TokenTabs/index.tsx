@@ -3,7 +3,7 @@ import nextId from 'react-id-generator';
 import { Tabs } from 'antd';
 
 import { IBid } from '../../../pages/Token';
-import { TokenBids, TokenDetails, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
+import { TokenBids, TokenHistory, TokenInfo, TokenOwners } from '../../molecules';
 import { IDetail } from '../../molecules/TokenDetails';
 import { IHistoryItem } from '../../molecules/TokenHistory';
 
@@ -28,7 +28,7 @@ interface IUser {
 }
 
 const TokenTabs: React.FC<TokenTabsProps> = React.memo(
-  ({ artist, collection, owners, history, details, bids, royalty }) => {
+  ({ artist, collection, owners, history, bids, royalty }) => {
     return (
       <Tabs className="tabs">
         <TabPane tab="Info" key={nextId()}>
@@ -40,9 +40,9 @@ const TokenTabs: React.FC<TokenTabsProps> = React.memo(
         <TabPane tab="History" key={nextId()}>
           <TokenHistory history={history} />
         </TabPane>
-        <TabPane tab="Details" key={nextId()}>
+        {/* <TabPane tab="Details" key={nextId()}>
           <TokenDetails details={details} />
-        </TabPane>
+        </TabPane> */}
         <TabPane tab="Bids" key={nextId()}>
           <TokenBids bids={bids} />
         </TabPane>

@@ -38,13 +38,17 @@ const Header: React.FC = observer(() => {
                   Explore
                 </NavHashLink>
               </NavLink>
-              <NavLink
-                exact
-                to={`/user/${user.id}?tab=collectibles`}
-                className="header__nav-item text-bold"
-              >
-                My items
-              </NavLink>
+              {user.address ? (
+                <NavLink
+                  exact
+                  to={`/user/${user.id}?tab=collectibles`}
+                  className="header__nav-item text-bold"
+                >
+                  My items
+                </NavLink>
+              ) : (
+                ''
+              )}
               <NavLink
                 exact
                 to={`/user/${user.id}?tab=following`}

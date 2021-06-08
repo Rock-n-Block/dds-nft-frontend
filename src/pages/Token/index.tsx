@@ -690,7 +690,7 @@ const Token: React.FC = observer(() => {
                       (tokenData.ownerAuction.length === 1 &&
                         tokenData.ownerAuction[0].id !== user.id) ||
                       tokenData.owners.length > 1
-                    : true)) ? (
+                    : tokenData.owners.length > 1)) ? (
                   <div className="token__btns-container">
                     {isApproved ? (
                       <>
