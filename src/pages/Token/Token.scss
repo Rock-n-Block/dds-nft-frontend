@@ -19,6 +19,7 @@
   &__title {
     margin: 13px 0 16px;
 
+    word-break: break-all;
     display: flex;
     justify-content: space-between;
   }
@@ -104,6 +105,7 @@
 
   &__info {
     margin-top: 20px;
+    word-break: break-all;
     &-text {
       margin-bottom: 20px;
 
