@@ -173,7 +173,7 @@ const VerifyForm: React.FC<FormikProps<IVerifyForm> & IVerifyForm> = ({
             <h2 className="m-verify__header text-bold text text-center">
               Attach a link to a video file that shows the process of your work on one of your
               minted items in the editor of your choice (e.g. Photoshop, Illustrator, etc), or other
-              backstage process.
+              backstage process.*
             </h2>
 
             <Form.Item

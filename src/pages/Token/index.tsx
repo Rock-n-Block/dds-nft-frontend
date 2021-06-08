@@ -455,9 +455,9 @@ const Token: React.FC = observer(() => {
     if (Object.keys(tokenData).length && user.id) {
       if (tokenData.owners.find((owner: IUser) => owner.id === user.id)) {
         setMyToken(true);
-      } else {
-        setMyToken(false);
       }
+    } else {
+      setMyToken(false);
     }
   }, [tokenData, user.id, user.address, user]);
 
