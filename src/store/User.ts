@@ -61,6 +61,7 @@ export const User = types
     };
     const disconnect = () => {
       self.address = '';
+      self.id = '';
       delete localStorage.dds_token;
       delete localStorage.dds_metamask;
     };
