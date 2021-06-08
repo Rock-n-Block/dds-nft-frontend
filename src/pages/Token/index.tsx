@@ -169,29 +169,6 @@ const Token: React.FC = observer(() => {
     }
   };
 
-  const handleCheckBidAvailability = (): void => {
-    setLoading(true);
-    storeApi
-      .verificateBet(tokenData.id)
-      .then(({ data }: any) => {
-        setLoading(false);
-        modals.checkAvailability.open({
-          isAvailable: true,
-          user: {
-            name: data.user.name || data.user.address,
-            id: data.user.id,
-            avatar: data.user.avatar,
-          },
-          amount: +new BigNumber(data.amount).dividedBy(new BigNumber(10).pow(18)).toFixed(),
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err, 'verificate bet');
-        modals.info.setMsg('Something went wrong', 'error');
-      });
-  };
-
   const handleBuy = async (quantity = 1) => {
     if (+user.balance.weth < +tokenData.price) {
       modals.info.setMsg("You don't have enough weth", 'error');
@@ -425,6 +402,50 @@ const Token: React.FC = observer(() => {
         modals.info.setMsg('Something went wrong', 'error');
       });
   }, [token, history, modals.info]);
+
+  const handleCheckBidAvailability = (): void => {
+    setLoading(true);
+    storeApi
+      .verificateBet(tokenData.id)
+      .then(({ data }: any) => {
+        setLoading(false);
+        let info: any = {};
+
+        if (data.invalid_bet && Object.keys(data.invalid_bet).length) {
+          info = {
+            isAvailable: false,
+            user: {
+              name: data.invalid_bet.user.name || data.user.address,
+              id: data.invalid_bet.user.id,
+              avatar: data.invalid_bet.user.avatar,
+            },
+            amount: +new BigNumber(data.invalid_bet.amount)
+              .dividedBy(new BigNumber(10).pow(18))
+              .toFixed(),
+          };
+          handleGetTokenData();
+        } else {
+          info = {
+            isAvailable: true,
+            user: {
+              name: data.user.name || data.user.address,
+              id: data.user.id,
+              avatar: data.user.avatar,
+            },
+            amount: +new BigNumber(data.amount).dividedBy(new BigNumber(10).pow(18)).toFixed(),
+          };
+        }
+        setTokenData({
+          ...tokenData,
+        });
+        modals.checkAvailability.open(info);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err, 'verificate bet');
+        modals.info.setMsg('Something went wrong', 'error');
+      });
+  };
 
   useEffect(() => {
     handleGetTokenData();
