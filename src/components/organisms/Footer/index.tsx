@@ -58,7 +58,7 @@ const Footer: React.FC = observer(() => {
               Support
             </Link>
           </div>
-          <a href="/" target="_blank" className="footer__tg">
+          <a href="https://t.me/digitaldollarstore" target="_blank" className="footer__tg">
             <img src={TelegramImg} alt="" />
           </a>
         </div>

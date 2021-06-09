@@ -161,7 +161,7 @@ const PageOverview: React.FC<PageOverviewProps> = observer(
             ) : (
               <></>
             )}
-            {parentComponent === 'Collections' ? (
+            {!self && parentComponent === 'Collections' ? (
               <Button size="sm" colorScheme="white" onClick={openReportModal}>
                 Report Collection
               </Button>
