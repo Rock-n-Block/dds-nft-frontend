@@ -1,0 +1,27 @@
+.popover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__social-links {
+    margin-top: 20px;
+
+    display: flex;
+
+    &__social {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &:not(:first-child) {
+        margin-left: 27px;
+      }
+
+      &-name {
+        margin-top: 20px;
+
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@import 'src/styles/mixins/media';
+
+.follow-card {
+  padding: 23px 0;
+
+  display: flex;
+
+  border-bottom: 1px solid rgb(230, 230, 230);
+  a{
+    display: flex;
+  }
+  &__avatar {
+    width: 92px;
+    height: 92px;
+
+    border-radius: 50%;
+    @include b('mobile') {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  &__info {
+    margin-left: 27px;
+
+    &-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-name {
+      margin-top: 5px;
+    }
+
+    &__follow-btn {
+      margin-top: 10px;
+      margin-right: 0;
+      padding: 8px 20px !important;
+
+      @include b('mobile') {
+        margin-top: 0;
+        margin-left: auto;
+      }
+    }
+
+    @include b('mobile') {
+      margin-left: 8px;
+      padding: 20px 10px 15px 0;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      width: 100%;
+    }
+  }
+
+  &__tokens {
+    margin-left: 126px;
+
+    display: flex;
+    overflow: hidden;
+
+    @include b('mobile') {
+      display: none;
+    }
+  }
+
+  &__token-container {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+
+    width: 98px;
+    height: 98px;
+
+    background: #f4f4f4;
+    border-radius: 12px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  &__token {
+    width: 100%;
+  }
+
+  @include b('mobile') {
+    padding: 20px 10px 15px 0;
+
+    align-items: center;
+  }
+}

@@ -4,14 +4,17 @@
 @import './typography';
 @import '~antd/dist/antd.css';
 @import './components/index.scss';
+@import 'mixins/media';
 
 html,
 body {
   margin: 0;
 
-  height: max-content;
+  min-height: 100%;
+  height: fit-content;
 
-  font-family: MR;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
 
   color: #000;
 }
@@ -19,16 +22,23 @@ body {
 * {
   box-sizing: border-box;
 }
-
-#root {
-  height: max-content;
+body {
+  min-height: 100vh;
 }
 
-.emperor {
+#root {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.dds {
   display: flex;
   flex-direction: column;
 
-  height: max-content;
+  height: 100%;
+
+  font-size: 14px;
+  line-height: 17px;
 }
 
 main {
@@ -39,5 +49,21 @@ main {
   margin: 0 auto;
   padding: 0 10px;
 
-  max-width: 1340px;
+  max-width: 1360px;
+  @include b('desktop') {
+    padding: 0 40px;
+  }
+  @include b('tablet') {
+    padding: 0 10px;
+  }
+}
+
+a {
+  &:hover {
+    color: $purple-hover;
+  }
+}
+
+.hidden {
+  display: none !important;
 }

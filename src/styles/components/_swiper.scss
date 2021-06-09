@@ -1,0 +1,66 @@
+@import 'src/styles/mixins/main';
+
+.swiper {
+  &-navigation {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    cursor: pointer;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+
+    background: #fafafa;
+    border-radius: 30px;
+    box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+
+    transform: translateY(-50%);
+
+    &-next {
+      right: -10px;
+    }
+
+    &-prev {
+      left: -10px;
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    @include b('mobile') {
+
+      &-next {
+        right: 0;
+      }
+
+      &-prev {
+        left: 0;
+      }
+    }
+  }
+
+  &-button {
+    &-disabled {
+      display: none;
+    }
+  }
+
+  &-container {
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      .hot-col-card {
+        margin-right: 0;
+      }
+    }
+  }
+}

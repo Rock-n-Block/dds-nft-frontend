@@ -1,0 +1,47 @@
+@import '../../../styles/vars';
+
+.u-preview {
+  margin-left: 8px;
+
+  display: flex;
+  align-items: center;
+
+  max-width: max-content;
+
+  border: 1px solid $purple;
+  border-radius: 16px;
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+  &__text {
+    margin-right: 7px;
+    padding: 9px 0;
+    padding-left: 15px;
+    max-width: 110px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  &__img {
+    margin-right: -4px;
+
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    img {
+      width: 100%;
+    }
+  }
+}

@@ -1,1 +1,13 @@
-export {default as HomePage} from './Home'
+export { default as HomePage } from './Home';
+export { default as ConnectPage } from './Connect';
+export { default as TokenPage } from './Token';
+export { default as CreateChoosePage } from './CreateChoose';
+export { default as CreatePage } from './Create';
+export { default as UserPage } from './User';
+export { default as OverviewPage } from './Overview';
+export { default as ActivityPage } from './Activity';
+export { default as ProfilePage } from './Profile';
+export { default as CollectionsPage } from './Collections';
+export { default as SearchPage } from './Search';
+export { default as NoPageFound } from './NoPageFound';
+export { default as FeedbackPage } from './Feedback';

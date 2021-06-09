@@ -1,0 +1,21 @@
+.user-wallet {
+  margin-top: 10px;
+
+  width: 100%;
+  max-width: 206px;
+
+  &__address {
+    margin-right: 10px;
+
+    display: block;
+    overflow: hidden;
+
+    width: 100%;
+    max-width: 177px;
+
+    font-size: 15px;
+    line-height: 18px;
+
+    text-overflow: ellipsis;
+  }
+}

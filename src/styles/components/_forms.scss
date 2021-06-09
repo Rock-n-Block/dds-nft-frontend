@@ -1,0 +1,426 @@
+@import '../../styles/vars';
+@import 'src/styles/mixins/media';
+
+.form {
+  &__sub {
+    &-wrapper {
+      display: flex;
+      overflow: hidden;
+      justify-content: space-between;
+      align-items: center;
+
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+    }
+
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 50px;
+      height: 50px;
+
+      cursor: pointer;
+
+      background: $purple;
+      border-radius: 50%;
+    }
+
+    &-item {
+      .ant-form-item-explain-error {
+        padding: 0 16px;
+      }
+    }
+
+    &-input {
+      padding: 16px;
+
+      width: max-content;
+
+      font-size: 15px;
+      line-height: 18px;
+
+      border: none;
+    }
+  }
+
+  &-create-coll {
+    min-width: 340px;
+
+    &__item {
+      & + & {
+        margin-top: 35px;
+      }
+
+      &-name {
+        margin-bottom: 30px;
+      }
+
+      &-short {
+        margin-bottom: 60px;
+      }
+    }
+    &__description {
+      margin-top: 10px;
+    }
+    &__upload {
+      margin-bottom: 25px;
+
+      display: flex;
+
+      &-img {
+        margin-right: 15px;
+
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+
+        width: 105px;
+        height: 105px;
+
+        background: #e2e2e2;
+        border-radius: 50%;
+
+        img {
+          min-width: 100%;
+        }
+      }
+      &-item {
+        .input__field {
+          margin-top: 0;
+        }
+      }
+
+      p {
+        margin-bottom: 10px;
+
+        max-width: 220px;
+      }
+    }
+    &__submit-btn {
+      margin: 0 auto;
+    }
+  }
+
+  &-create {
+    display: flex;
+
+    @include b('tablet') {
+      justify-content: center;
+    }
+    &__content {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    &__upload {
+      &-title {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__box {
+      margin-top: 25px;
+    }
+
+    &__switch {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & + & {
+        margin-top: 30px;
+      }
+      &-instant-sale {
+        margin-top: 30px;
+      }
+    }
+
+    &__item {
+      margin-top: 30px;
+
+      &-text {
+        margin-top: 16px;
+
+        display: flex;
+        align-items: center;
+
+        & + & {
+          margin-top: 5px;
+        }
+      }
+
+      &-eth {
+        margin: 0 12px;
+        padding: 8px 12px;
+
+        border-radius: 30px;
+      }
+    }
+
+    &__choose {
+      margin: 0 0 60px 0;
+    }
+
+    &__field {
+      margin-bottom: 40px;
+      margin-top: 40px;
+    }
+
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      .input__field {
+        margin-top: 0;
+        width: 100%;
+      }
+
+      .input__field + .input__field {
+        margin-left: 40px;
+        @include b('mobile') {
+          margin-left: 0;
+        }
+      }
+      @include b('mobile') {
+        flex-direction: column;
+      }
+    }
+
+    &__card {
+      position: sticky;
+      top: 110px;
+
+      margin-left: 5.208vw;
+
+      min-width: 320px;
+      height: fit-content;
+      @include b('tablet') {
+        display: none;
+      }
+    }
+
+    &__submit-btn {
+      @include b('tablet') {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  &-profile {
+    display: flex;
+
+    label {
+      flex-direction: column !important;
+      align-items: flex-start;
+    }
+
+    &__content {
+      margin-right: 130px;
+
+      max-width: 600px;
+    }
+
+    &__item {
+      & + & {
+        margin-top: 40px;
+      }
+    }
+
+    &__verify {
+      margin-top: 40px;
+      margin-bottom: 50px;
+
+      display: flex;
+      align-items: flex-end;
+
+      &-subtitle {
+        margin-top: 5px;
+
+        max-width: 430px;
+      }
+
+      &-box {
+        margin-right: 45px;
+      }
+    }
+
+    &__upload {
+      position: sticky;
+      top: 100px;
+
+      height: fit-content;
+
+      &-img {
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+
+        width: 120px;
+        height: 120px;
+
+        background: linear-gradient(180deg, #de216b 0%, #673bb7 100%), #e2e2e2;
+        border-radius: 50%;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      &-text {
+        margin: 16px 0 30px;
+
+        max-width: 250px;
+      }
+    }
+  }
+
+  &-convert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .ant-row {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .ant-col {
+      label {
+        justify-content: space-between;
+
+        width: 100% !important;
+      }
+    }
+
+    & > .m-convert__swap-img {
+      padding: 10px 7px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .input__field-create {
+      position: relative;
+    }
+
+    &__input {
+      &-error {
+        position: absolute;
+        left: 0;
+        bottom: -25px;
+
+        color: #f00f;
+      }
+    }
+  }
+
+  &-verify {
+    &__input {
+      margin-top: 30px;
+    }
+  }
+
+  &-auction {
+    &__item {
+      margin-top: 20px;
+
+      &:first-child {
+        margin-top: 40px;
+      }
+    }
+
+    &__overview {
+      margin-top: 30px;
+
+      &-item {
+        display: flex;
+        justify-content: space-between;
+
+        &:not(:first-child) {
+          margin-top: 16px;
+        }
+      }
+    }
+
+    &__submit-btn {
+      margin: 40px auto 0;
+    }
+  }
+
+  &-sale-fixed-price {
+    &__item {
+      &:first-child {
+        margin-top: 40px;
+
+        .input__field-create {
+          padding-top: 7.5px;
+          padding-bottom: 7.5px;
+        }
+      }
+    }
+
+    &__fee {
+      margin: 30px 0 31px;
+    }
+
+    &__ammount {
+      margin: 16px 0 30px;
+    }
+
+    &__btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__submit-btn {
+      width: 100%;
+    }
+
+    &__cancel-btn {
+      margin-top: 20px;
+    }
+  }
+
+  &-sale-timed-auction {
+    &__description {
+      margin-top: 30px;
+    }
+
+    &__comment {
+      margin-top: 30px;
+    }
+
+    &__submit-btn {
+      margin: 30px auto 0;
+    }
+  }
+  &-feedback {
+    margin-top: 80px;
+    max-width: 600px;
+    width: 100%;
+
+    &__submit-btn {
+      margin: 30px auto 0;
+    }
+  }
+}
+
+.ant-form-item-control {
+  position: relative;
+
+  .ant-form-item-explain {
+    position: absolute;
+    top: calc(100% + 5px);
+
+    & * {
+      font-weight: 700;
+    }
+  }
+}

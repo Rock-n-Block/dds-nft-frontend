@@ -1,0 +1,24 @@
+@import 'src/styles/mixins/media';
+
+.cover {
+  position: relative;
+
+  height: 20vw;
+
+  background-size: cover;
+
+  &__edit-btn {
+    position: absolute !important;
+    right: 50px;
+    bottom: -17px;
+    z-index: 1;
+
+    @include b('mobile') {
+      right: 20px;
+    }
+  }
+
+  @include b('mobile') {
+    height: 30vw;
+  }
+}

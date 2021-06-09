@@ -1,0 +1,102 @@
+@import '../../../styles/vars';
+@import 'src/styles/mixins/media';
+
+.t-users {
+  &__box {
+    display: flex;
+    align-items: center;
+    @include b('mobile') {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  &__filter {
+    margin: 0 30px;
+
+    display: flex;
+    align-items: center;
+
+    &-item {
+      padding: 11px 17px;
+
+      font-size: 16px;
+      line-height: 20px;
+
+      cursor: pointer;
+
+      background: #fafafa;
+
+      &:first-child {
+        border-radius: 30px 0 0 30px;
+      }
+
+      &:last-child {
+        border-radius: 0 30px 30px 0;
+      }
+
+      span {
+        display: block;
+
+        min-width: 58px;
+
+        text-align: center;
+      }
+
+      &.active {
+        color: #fff;
+        background: $purple-grad;
+
+        span {
+          color: #fff;
+          background: transparent;
+          -webkit-text-fill-color: #fff;
+        }
+      }
+      @include b('mobile') {
+        display: flex;
+        justify-content: center;
+
+        width: 50%;
+      }
+    }
+    @include b('mobile') {
+      margin: 17px 0 17px 0;
+
+      width: 100%;
+
+      &:first-child {
+        max-width: 250px;
+      }
+
+      &:last-child {
+        max-width: 348px;
+      }
+    }
+  }
+
+  &__content {
+    margin-top: 45px;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-row-gap: 25px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    @include b('mobile') {
+      margin-top: 9px;
+
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+
+    &-index {
+      margin-right: 15px;
+    }
+  }
+}

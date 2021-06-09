@@ -1,0 +1,85 @@
+@import '../../../styles/vars';
+@import 'src/styles/mixins/media';
+
+.header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+
+  padding: 17px 0;
+
+  background: #fff;
+  border-bottom: rgb(230, 230, 230) 1px solid;
+
+  &__logo {
+    margin-right: 60px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-mobile__content {
+    display: none;
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav {
+    &-item {
+      color: $gray;
+
+      & + & {
+        margin-left: 30px;
+      }
+
+      &.active {
+        & > a {
+          color: $purple;
+        }
+      }
+    }
+  }
+
+  &__search {
+    margin-right: 12px;
+
+    width: 100%;
+    width: 25.373vw !important;
+    max-width: 340px;
+
+    box-shadow: none !important;
+
+    .input__search {
+      padding: 16px 16px 16px 0 !important;
+
+      font-size: 14px !important;
+      line-height: 17px !important;
+    }
+
+    .search__img {
+      padding: 16px 10px;
+    }
+  }
+
+  &__btn {
+    & + & {
+      margin-left: 8px;
+    }
+  }
+
+  @include b('tablet') {
+    padding: 13px 0;
+  }
+}
+
+@include b('tablet') {
+  .header__content {
+    display: none;
+  }
+}

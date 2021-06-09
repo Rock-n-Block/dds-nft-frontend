@@ -1,0 +1,23 @@
+.activity {
+  &-cards {
+    margin-top: 30px;
+  }
+
+  &-badge {
+    padding: 9px 12px;
+
+    background: #fff;
+
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  &-badges {
+    margin-top: 50px;
+
+    .activity-badge {
+      margin-right: 10px;
+    }
+  }
+}

@@ -1,0 +1,141 @@
+@import 'src/styles/mixins/media';
+
+.page-overview {
+  position: relative;
+
+  padding-bottom: 70px;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 220px;
+
+  &__avatar {
+    &-box {
+      position: absolute !important;
+      top: -84px;
+      left: 45px;
+    }
+    &-check {
+      position: absolute;
+      width: 35px;
+      bottom: 5px;
+      right: 5px;
+    }
+
+    border: #fff 5px solid;
+    border-radius: 50%;
+    @include b('mobile') {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__content {
+    margin-left: 220px;
+
+    &__name {
+      margin-top: 24px;
+      @include b('mobile') {
+        margin-top: 90px;
+
+        text-align: center;
+      }
+    }
+
+    &_container {
+      margin-top: 10px;
+
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+
+      @include b('mobile') {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    &__wallet {
+      margin-top: 0;
+      @include b('mobile') {
+        margin-top: 10px;
+      }
+    }
+
+    &__social-networks {
+      margin-left: 57px;
+
+      display: flex;
+      flex-wrap: wrap;
+
+      @include b('mobile') {
+        margin: 20px 0 0 0;
+      }
+
+      .social-networks {
+        &__network {
+          margin-right: 28px;
+          margin-bottom: 24px;
+
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-right: 9px;
+          }
+
+          @include b('mobile') {
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+
+    &__description {
+      width: 100%;
+      max-width: 530px;
+
+      opacity: 0.5;
+
+      @include b('mobile') {
+        margin: 0 20px;
+
+        max-width: 350px;
+
+        text-align: center;
+      }
+    }
+
+    &__buttons {
+      margin-top: 40px;
+
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+
+      .btn {
+        &:nth-child(2) {
+          span {
+            margin-left: 10px;
+          }
+        }
+      }
+      @include b('mobile') {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @include b('mobile') {
+      margin-left: 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

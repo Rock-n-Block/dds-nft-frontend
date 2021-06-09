@@ -1,4 +1,178 @@
-h1 {
+@import 'src/styles/mixins/media';
+
+.h1 {
   font-size: 50px;
   line-height: 61px;
+
+  @include b('mobile') {
+    max-width: 360px;
+
+    font-size: 40px;
+    line-height: 49px;
+  }
+
+  &-md {
+    font-size: 40px;
+    line-height: 49px;
+    @include b('tablet') {text-align: center;
+    }
+    @include b('mobile') {
+      font-size: 30px;
+      line-height: 37px;
+    }
+  }
+
+  &-xl {
+    font-size: 55px;
+    line-height: 67px;
+    @include b('mobile') {
+      font-size: 25px;
+      line-height: 30px;
+    }
+  }
+
+}
+
+.text {
+  font-size: 14px;
+  line-height: 17px;
+
+  &-mm {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  &-sm {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  &-smd {
+    font-size: 16px;
+    line-height: 20px;
+    @include b('mobile') {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+
+  &-md {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  &-lg {
+    font-size: 22px;
+    line-height: 27px;
+  }
+
+  &-xl {
+    font-size: 25px;
+    line-height: 30px;
+    @include b('mobile') {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+
+  &-xxl {
+    font-size: 40px;
+    line-height: 49px;
+    @include b('mobile') {
+      font-size: 30px;
+      line-height: 37px;
+    }
+  }
+
+  &-regular {
+    font-weight: 500;
+  }
+
+  &-bold {
+    font-weight: 700;
+  }
+
+  &-bolder {
+    font-weight: 800;
+  }
+
+  &-black {
+    color: #000;
+  }
+
+  &-pointer {
+    cursor: pointer;
+  }
+
+  &-purple {
+    color: $purple;
+  }
+
+  &-purple-l {
+    color: $purple-l;
+  }
+
+  &-purple-d {
+    color: $purple-d;
+  }
+
+  &-pink-l {
+    color: $pink-l;
+  }
+
+  &-upper {
+    text-transform: uppercase;
+  }
+
+  &-white {
+    color: #fff;
+  }
+
+  &-center {
+    text-align: center;
+  }
+
+  &-line-through {
+    text-decoration: line-through;
+  }
+
+  &-grad {
+    width: fit-content;
+
+    background: $purple-grad;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    &::selection,
+    ::selection {
+      -webkit-text-fill-color: #fff !important;
+    }
+  }
+
+  &-blue-grad {
+    width: fit-content;
+
+    background: $blue-grad;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    &::selection,
+    ::selection {
+      -webkit-text-fill-color: #fff !important;
+    }
+  }
+
+  &-hover {
+    transition: 0.3s;
+
+    &:hover {
+      color: $purple;
+    }
+  }
+
+  &-gray {
+    color: $gray;
+
+    &-l {
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
 }

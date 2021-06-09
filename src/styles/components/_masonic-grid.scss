@@ -1,0 +1,8 @@
+@import 'src/styles/mixins/media';
+
+
+
+div[role='gridcell'] {
+  display: flex;
+  justify-content: center;
+}

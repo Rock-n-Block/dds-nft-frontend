@@ -1,4 +1,81 @@
 .input,
-input {
-  bottom: none;
+input,
+textarea {
+  resize: none !important;
+
+  background: #fff !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &__field {
+    margin-bottom: 0;
+
+    & + & {
+      margin-top: 20px;
+    }
+
+    &-create {
+      padding: 13px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: #fafafa;
+      border-radius: 30px;
+    }
+  }
+
+  &__search {
+    padding: 20px 20px 20px 0;
+
+    background: transparent !important;
+    border: none;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &__create {
+    background: transparent !important;
+    border: none;
+
+    &:hover {
+      border: none;
+    }
+
+    .ant-input {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 20px;
+
+      background: transparent !important;
+      border: none;
+
+      &:hover {
+        border: none;
+      }
+
+      &-suffix {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 22px;
+
+        opacity: 0.5;
+        mix-blend-mode: normal;
+      }
+    }
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
 }

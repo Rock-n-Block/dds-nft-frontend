@@ -1,0 +1,52 @@
+@import '../../../styles/vars';
+@import 'src/styles/mixins/media';
+
+.filter {
+  padding-right: 70px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include b('tablet') {
+    justify-content: center;
+  }
+  &__box {
+    display: flex;
+    align-items: center;
+    @include b('tablet') {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__item {
+    padding: 9px 12px;
+
+    cursor: pointer;
+
+    background: #fff;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    & + & {
+      margin-left: 10px;
+      @include b('tablet') {
+        margin-left: 0;
+      }
+    }
+
+    &.active {
+      color: #fff;
+      background: $purple;
+    }
+
+    @include b('tablet') {
+      margin: 0 10px 5px 0;
+    }
+  }
+
+  @include b('tablet') {
+    padding-right: 0;
+  }
+}

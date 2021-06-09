@@ -1,0 +1,17 @@
+.ant-popover {
+  &-arrow {
+    display: none;
+  }
+
+  &-inner {
+    padding: 20px 20px 30px;
+
+    background: #fafafa;
+    border-radius: 30px;
+    box-shadow: 0 4px 3px rgba(103, 59, 183, 0.1);
+
+    &-content {
+      padding: 0;
+    }
+  }
+}

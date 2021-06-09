@@ -1,0 +1,149 @@
+@import '../../../styles/vars';
+@import 'src/styles/mixins/media';
+
+.footer {
+  padding: 71px 0 25px;
+
+  background: #fafafa;
+  position: relative;
+
+  @include b('tablet') {
+    padding: 40px 0 20px;
+  }
+
+  &__logo {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    @include b('tablet') {
+      top: -16px;
+    }
+    img {
+      width: 64px;
+      @include b('tablet') {
+        width: 32px;
+      }
+    }
+  }
+
+  &__sub {
+    &-title {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -25px;
+    right: 35px;
+
+    width: 50px;
+    height: 50px;
+
+    cursor: pointer;
+
+    background: $purple;
+    border-radius: 50%;
+
+    img {
+      transform: rotate(-90deg);
+    }
+
+    @include b('tablet') {
+      margin-left: auto;
+    }
+    @include b('mobile') {
+      display: none;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+
+    @include b('tablet') {
+      justify-content: center;
+    }
+
+    &-item {
+      height: fit-content;
+
+      & + & {
+        margin-left: 60px;
+        @include b('tablet') {
+          margin-left: 20px;
+        }
+      }
+
+      display: block;
+
+      span {
+        transition: color 0.3s;
+
+        &:hover {
+          color: $purple-hover;
+        }
+      }
+    }
+
+    &-box {
+      & + & {
+        margin-left: 9.028vw;
+      }
+    }
+    /*
+    @include b('mobile') {
+      margin-top: 40px;
+    } */
+  }
+
+  &__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & + & {
+      margin-top: 45px;
+      @include b('tablet') {
+        margin-top: 20px;
+      }
+    }
+
+    &-bottom {
+      align-items: flex-end;
+      @include b('tablet') {
+        align-items: center;
+      }
+    }
+  }
+
+  &__copyright {
+    color: #000;
+
+    opacity: 0.3;
+    @include b('tablet') {
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+  &__tg {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $purple;
+    border-radius: 50%;
+    margin-left: 75px;
+    @include b('tablet') {
+      margin-left: 20px;
+    }
+    img {
+      width: 12px;
+    }
+  }
+}
