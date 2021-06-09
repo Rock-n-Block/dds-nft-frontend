@@ -19,6 +19,7 @@ class Connector extends React.Component<any, any> {
     this.state = {
       provider: new MetamaskService({
         testnet: 'kovan',
+        isProduction: true,
       }),
     };
 

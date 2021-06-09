@@ -417,7 +417,7 @@ export default {
     ],
   },
   WETH: {
-    ADDRESS: '0xdC2fBC02197dF78643a53a39fD5F322307613127',
+    ADDRESS: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
     ABI: [
       {
         constant: true,
@@ -573,6 +573,6 @@ export default {
     ],
   },
   EXCHANGE: {
-    ADDRESS: '0x19F8B5Df98aFBa8786e0dC3F29EAe7487a3fFb54',
+    ADDRESS: '0x47fa238493bB300BF12930e1F2D41aB81982fcB1',
   },
 };
