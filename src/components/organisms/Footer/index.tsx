@@ -61,8 +61,8 @@ const Footer: React.FC = observer(() => {
           <a
             href="https://t.me/digitaldollarstore"
             target="_blank"
+            rel="noopener noreferrer"
             className="footer__tg"
-            rel="noreferrer"
           >
             <img src={TelegramImg} alt="" />
           </a>
