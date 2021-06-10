@@ -29,50 +29,55 @@ class Connector extends React.Component<any, any> {
 
   componentDidMount() {
     const self = this;
+    if (window.ethereum) {
+      if (localStorage.dds_metamask) {
+        this.connect();
+      }
 
-    if (localStorage.dds_metamask) {
-      this.connect();
+      this.state.provider.chainChangedObs.subscribe({
+        next(err: string) {
+          rootStore.modals.metamask.setErr(err);
+        },
+      });
+
+      this.state.provider.accountChangedObs.subscribe({
+        next() {
+          self.disconnect();
+        },
+      });
     }
-
-    this.state.provider.chainChangedObs.subscribe({
-      next(err: string) {
-        rootStore.modals.metamask.setErr(err);
-      },
-    });
-
-    this.state.provider.accountChangedObs.subscribe({
-      next() {
-        self.disconnect();
-      },
-    });
   }
 
   connect = async () => {
-    try {
-      const { address } = await this.state.provider.connect();
+    if (window.ethereum) {
+      try {
+        const { address } = await this.state.provider.connect();
 
-      if (!localStorage.dds_token) {
-        const metMsg: any = await userApi.getMsg();
+        if (!localStorage.dds_token) {
+          const metMsg: any = await userApi.getMsg();
 
-        const signedMsg = await this.state.provider.signMsg(metMsg.data);
+          const signedMsg = await this.state.provider.signMsg(metMsg.data);
 
-        const login: any = await userApi.login({
-          address,
-          msg: metMsg.data,
-          signedMsg,
-        });
+          const login: any = await userApi.login({
+            address,
+            msg: metMsg.data,
+            signedMsg,
+          });
 
-        localStorage.dds_token = login.data.key;
-        rootStore.user.setAddress(address);
-        localStorage.dds_metamask = true;
-      } else {
-        rootStore.user.setAddress(address);
-        localStorage.dds_metamask = true;
+          localStorage.dds_token = login.data.key;
+          rootStore.user.setAddress(address);
+          localStorage.dds_metamask = true;
+        } else {
+          rootStore.user.setAddress(address);
+          localStorage.dds_metamask = true;
+        }
+        rootStore.user.getMe();
+      } catch (err) {
+        rootStore.modals.metamask.setErr(err.message);
+        this.disconnect();
       }
-      rootStore.user.getMe();
-    } catch (err) {
-      rootStore.modals.metamask.setErr(err.message);
-      this.disconnect();
+    } else {
+      rootStore.modals.metamask.setErr('No Metamask (or other Web3 Provider) installed');
     }
   };
 
