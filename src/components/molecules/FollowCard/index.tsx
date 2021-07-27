@@ -48,7 +48,6 @@ const FollowCard: React.FC<IFollowCard> = observer(
     };
     useEffect(() => {
       if (user.follows.length) {
-        console.log(user.follows);
         setIsFollows(!!user.follows.find((follower: any) => follower.id === id));
       }
     }, [user, user.address, user.follows, id]);

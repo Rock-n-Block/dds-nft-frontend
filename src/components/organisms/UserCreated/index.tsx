@@ -51,7 +51,6 @@ const UserCreated: React.FC<UserCreatedProps> = ({ address }) => {
               length: data.length,
             };
           });
-          console.log('success get created', data);
         })
         .catch((err: any) => {
           console.log(err, 'get created');

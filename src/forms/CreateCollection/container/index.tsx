@@ -57,9 +57,8 @@ export default observer(({ walletConnector, isSingle }: any) => {
 
               storeApi
                 .saveCollection(formData)
-                .then((result) => {
+                .then(() => {
                   modals.createCollection.close();
-                  console.log(result, 'create collection');
                   modals.info.setMsg(
                     'Congrats you created your own NFT collection! It will be added soon.',
                     'success',

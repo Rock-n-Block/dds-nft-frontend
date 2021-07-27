@@ -29,7 +29,6 @@ const Search: React.FC = observer(() => {
   const [searchTab, setSearchTab] = useState<string>('items');
 
   const handleTabChange = (tab: string) => {
-    console.log(searchResults);
     setSearchTab(tab);
   };
   const renderTokenCard = ({ data }: any) => {

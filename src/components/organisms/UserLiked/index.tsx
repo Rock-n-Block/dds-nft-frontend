@@ -51,7 +51,6 @@ const UserLiked: React.FC<UserLikedProps> = ({ address }) => {
               length: data.length,
             };
           });
-          console.log('success get created', data);
         })
         .catch((err: any) => {
           console.log(err, 'get created');

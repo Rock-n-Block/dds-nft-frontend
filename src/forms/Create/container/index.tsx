@@ -110,7 +110,6 @@ export default observer(({ isSingle, walletConnector, ethRate }: any) => {
               storeApi
                 .saveToken(formData)
                 .then(({ data: tokendata }) => {
-                  console.log(tokendata, 'create');
                   setFieldValue('isLoading', false);
                   history.push(`/token/${tokendata.id}`);
                   modals.info.setMsg('Congrats you create your own NFT!', 'success');
