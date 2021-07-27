@@ -67,7 +67,7 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
                 className="form-profile__input input input__create text-bold text-smd"
                 size="large"
                 type="text"
-                placeholder="Dds.store/ Enter your custom URL"
+                placeholder="nft.dds.store/ Enter your custom URL"
                 onChange={handleChange}
                 onBlur={handleBlur}
               />

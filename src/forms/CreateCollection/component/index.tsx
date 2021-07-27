@@ -27,7 +27,6 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
   const onSubmit = () => {
     handleSubmit();
   };
-  console.log('renderes');
   return (
     <Form name="form-create-coll" className="form-create-coll" layout="vertical">
       <div className="form-create-coll__upload">
@@ -118,7 +117,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
             className="form-create-coll__input input input__create text-bold text-smd"
             size="large"
             type="text"
-            placeholder="Dds.store/your_url"
+            placeholder="nft.dds.store/your_url"
             onChange={handleChange}
             onBlur={handleBlur}
           />
