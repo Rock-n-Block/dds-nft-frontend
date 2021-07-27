@@ -27,7 +27,6 @@ const AuctionModal: React.FC = observer(() => {
           new BigNumber(data).dividedBy(new BigNumber(10).pow(18)).toString(10),
           'weth',
         );
-        console.log(user);
       });
     }
   }, [user, user.address, walletConnector.metamaskService]);
