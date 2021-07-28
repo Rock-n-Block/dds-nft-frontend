@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://nft.dds.store/api/v1';
+axios.defaults.baseURL = 'https://devdds2.rocknblock.io/api/v1/';
 
 export default axios;
