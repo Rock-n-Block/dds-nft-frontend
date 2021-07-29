@@ -6,6 +6,8 @@ import { storeApi } from '../../../services/api';
 import { NoItemsFound } from '../../atoms';
 import { NFTCard } from '../../molecules';
 
+import './UserLiked.scss';
+
 interface UserLikedProps {
   address: string;
 }

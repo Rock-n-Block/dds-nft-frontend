@@ -32,7 +32,7 @@ const ChangePasswordForm: React.FC = () => {
       return errors;
     },
 
-    handleSubmit: (values, { setFieldValue }) => {
+    handleSubmit: (values, { setFieldValue, setFieldError }) => {
       setFieldValue('isLoading', true);
       const formData = new FormData();
       formData.append('avatar', values.img);
@@ -48,9 +48,13 @@ const ChangePasswordForm: React.FC = () => {
           user.update(data);
           modals.info.setMsg('Congrats you successfully changed your profile', 'success');
         })
-        .catch((err) => {
+        .catch(({response}) => {
+            if (response.data.custom_url) {
+            setTimeout(() => {
+              setFieldError('customUrl', response.data.custom_url);
+            }, 100);
+          }
           modals.info.setMsg('Something went wrong', 'error');
-          console.log(err);
         })
         .finally(() => {
           setFieldValue('isLoading', false);

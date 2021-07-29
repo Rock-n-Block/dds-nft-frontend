@@ -45,7 +45,7 @@ const PageOverview: React.FC<PageOverviewProps> = observer(
     parentComponent,
     isVerificated,
   }) => {
-    const { modals } = useMst();
+    const { modals, user } = useMst();
     const [follow, setFollow] = useState<boolean>(follows);
 
     const handleUnfollow = () => {
@@ -139,7 +139,7 @@ const PageOverview: React.FC<PageOverviewProps> = observer(
             ) : (
               <></>
             )}
-            {!self && parentComponent === 'User' && !follow ? (
+            {!self && parentComponent === 'User' && !follow && user.address ? (
               <Button onClick={handleFollow}>Follow </Button>
             ) : (
               <></>

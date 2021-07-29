@@ -65,7 +65,7 @@ const NFTCard: React.FC<INFTCard> = observer(
         },
         available,
         fee: service_fee,
-        minimalBid: minimal_bid,
+        minimalBid: minimal_bid || 0,
       });
     };
     const [isLike, setIsLike] = useState<boolean>(false);

@@ -41,7 +41,7 @@ const CreateCollection: React.FC<FormikProps<ICreateCollection>> = ({
             help={!touched.img ? false : errors.img}
           >
             <p className="text-gray text-bold">
-              We recommend an image of at least 400x400. Gift work too.
+              We recommend an image of at least 400x400. Gifs work too.
             </p>
             <Uploader type="button" />
           </Form.Item>
