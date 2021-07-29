@@ -59,6 +59,8 @@ const Profile: React.FC<FormikProps<IProfile>> = observer(
             className="form-profile__item input__field"
             initialValue={values.customUrl}
             label={<span className="input__label text-bold">Custom URL</span>}
+            validateStatus={validateField('customUrl', touched, errors)}
+            help={!touched.customUrl ? false : errors.customUrl}
           >
             <div className="input__field-create box-shadow">
               <Input
