@@ -68,7 +68,7 @@ const ActivityCard: React.FC<IActivityCard> = ({
     );
   switch (method) {
     case 'listing':
-      firstText = <span className="text-gray text text-bold">minted by</span>;
+      firstText = <span className="text-gray text text-bold">listed by</span>;
       break;
     case 'mint':
       firstText = <span className="text-gray text text-bold">minted by</span>;

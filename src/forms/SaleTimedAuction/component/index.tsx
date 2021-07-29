@@ -49,12 +49,6 @@ const SaleTimedAuction: React.FC<FormikProps<ISaleTimedAuction>> = ({
       <p className="form-sale-timed-auction__description text text-bold text-gray-l">
         Bids below this amount won’t be accepted.
       </p>
-      <p className="form-sale-timed-auction__comment text text-bold text-gray-l">
-        Any bid placed in the last 10 minutes extends the auction by 10 minutes{' '}
-      </p>
-      <p className="form-sale-timed-auction__description text text-bold text-pink-l">
-        Learn more how timed auctions work
-      </p>
       <Button
         colorScheme="gradient"
         shadow

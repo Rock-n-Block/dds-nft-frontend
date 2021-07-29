@@ -88,6 +88,11 @@ export default observer(({ walletConnector, isSingle }: any) => {
               setFieldError('symbol', response.data.symbol);
             }, 100);
           }
+          if (response.data.short_url) {
+            setTimeout(() => {
+              setFieldError('shortUrl', response.data.short_url);
+            }, 100);
+          }
           setFieldValue('isLoading', false);
         });
     },
