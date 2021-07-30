@@ -85,6 +85,18 @@ const NFTCard: React.FC<INFTCard> = observer(
           console.log(err, 'handle like');
         });
     };
+    const renderImg = () => {
+      let result;
+      if (img.slice(0, img.indexOf('/')) === 'data:image') result = <img src={img} alt="hot" />;
+      if (img.slice(0, img.indexOf('/')) === 'data:video')
+        result = (
+          <video controls>
+            <source src={img} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+            <track kind="captions" />
+          </video>
+        );
+      return result  
+    };
     useEffect(() => {
       if (user.likes.length && id) {
         setIsLike(user.isLiked(id));
@@ -104,10 +116,12 @@ const NFTCard: React.FC<INFTCard> = observer(
     return (
       <div className="nft-card">
         {disableLinks ? (
-          <div className="nft-card__box-img">{img ? <img src={img} alt="hot" /> : ''}</div>
+          <div className="nft-card__box-img">
+            {img ? renderImg() : ''}
+          </div>
         ) : (
           <Link to={`/token/${id}`} className="nft-card__box-img">
-            {img ? <img src={img} alt="hot" /> : ''}
+            {img ? renderImg() : ''}
           </Link>
         )}
         <div className="nft-card__content">
