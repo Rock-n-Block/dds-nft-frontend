@@ -96,12 +96,23 @@
   &__nav {
     margin-top: 20px;
 
+    @include b('tablet'){
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     &-item {
       display: block;
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       cursor: pointer;
+      
+      @include b('tablet'){
+        span + button{
+          margin-left: 20px;}
+      }
 
       & + & {
         margin-top: 20px;

@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
 import { Button, Like, OwnersMini, UserMini } from '../../atoms';
+import useAutoplay from '../../../services/hooks/useAutoplay';
 
 import './NFTCard.scss';
 
@@ -50,6 +51,7 @@ const NFTCard: React.FC<INFTCard> = observer(
     highest_bid,
     total_supply,
   }) => {
+    const { autoplay } = useAutoplay();
     const { user, modals } = useMst();
     const [isMyToken, setMyToken] = React.useState(false);
 
@@ -87,10 +89,16 @@ const NFTCard: React.FC<INFTCard> = observer(
     };
     const renderImg = () => {
       let result;
-      if (img.slice(0, img.indexOf('/')) === 'data:image') result = <img src={img} alt="hot" />;
-      if (img.slice(0, img.indexOf('/')) === 'data:video')
+      if (
+        img.slice(0, img.indexOf('/')) === 'data:image' ||
+        img.slice(img.lastIndexOf('.'), img.length) !== '.mp4'
+      )
+        result = <img src={img} alt="hot" />;
+      if (img.slice(0, img.indexOf('/')) === 'data:video'||
+        img.slice(img.lastIndexOf('.'), img.length) === '.mp4'
+      )
         result = (
-          <video controls>
+          <video controls autoPlay={autoplay === 'true'}>
             <source src={img} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
             <track kind="captions" />
           </video>

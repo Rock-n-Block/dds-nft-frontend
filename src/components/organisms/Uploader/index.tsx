@@ -5,6 +5,7 @@ import { useFormikContext } from 'formik';
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import { Button } from '../../atoms';
 import { IColorScheme, ISize } from '../../atoms/Button';
+import useAutoplay from '../../../services/hooks/useAutoplay';
 
 const { Dragger } = Upload;
 
@@ -26,6 +27,7 @@ const Uploader: React.FC<IUploader> = ({
   children,
   isVideoAllowed,
 }) => {
+  const { autoplay } = useAutoplay();
   const formik = useFormikContext();
   const [imageUrl, setImageUrl] = React.useState('');
   const [isVideo, setIsVideo] = React.useState(false);
@@ -103,7 +105,7 @@ const Uploader: React.FC<IUploader> = ({
               (imageUrl ? <img src={imageUrl} alt="" className="uploader__img" /> : children)}
             {isVideo &&
               (imageUrl ? (
-                <video className="uploader__img" controls>
+                <video className="uploader__img" controls autoPlay={autoplay === 'true'}>
                   <source src={imageUrl} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                   <track kind="captions" />
                 </video>
