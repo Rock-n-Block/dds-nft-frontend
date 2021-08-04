@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { userApi } from '../../../services/api';
 import { useMst } from '../../../store/store';
 import { Button, Like, OwnersMini, UserMini } from '../../atoms';
+import useAutoplay from '../../../services/hooks/useAutoplay';
 
 import './NFTCard.scss';
 
@@ -50,6 +51,7 @@ const NFTCard: React.FC<INFTCard> = observer(
     highest_bid,
     total_supply,
   }) => {
+    const { autoplay } = useAutoplay();
     const { user, modals } = useMst();
     const [isMyToken, setMyToken] = React.useState(false);
 
@@ -85,6 +87,24 @@ const NFTCard: React.FC<INFTCard> = observer(
           console.log(err, 'handle like');
         });
     };
+    const renderImg = () => {
+      let result;
+      if (
+        img.slice(0, img.indexOf('/')) === 'data:image' ||
+        img.slice(img.lastIndexOf('.'), img.length) !== '.mp4'
+      )
+        result = <img src={img} alt="hot" />;
+      if (img.slice(0, img.indexOf('/')) === 'data:video'||
+        img.slice(img.lastIndexOf('.'), img.length) === '.mp4'
+      )
+        result = (
+          <video controls autoPlay={autoplay}>
+            <source src={img} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+            <track kind="captions" />
+          </video>
+        );
+      return result  
+    };
     useEffect(() => {
       if (user.likes.length && id) {
         setIsLike(user.isLiked(id));
@@ -104,10 +124,12 @@ const NFTCard: React.FC<INFTCard> = observer(
     return (
       <div className="nft-card">
         {disableLinks ? (
-          <div className="nft-card__box-img">{img ? <img src={img} alt="hot" /> : ''}</div>
+          <div className="nft-card__box-img">
+            {img ? renderImg() : ''}
+          </div>
         ) : (
           <Link to={`/token/${id}`} className="nft-card__box-img">
-            {img ? <img src={img} alt="hot" /> : ''}
+            {img ? renderImg() : ''}
           </Link>
         )}
         <div className="nft-card__content">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { Switch } from 'antd';
+import { Switch } from 'antd';
 import BigNumber from 'bignumber.js/bignumber';
 import { observer } from 'mobx-react-lite';
 
@@ -13,10 +13,12 @@ import { Button, UserWallet } from '../../atoms';
 import { ConvertModal } from '../index';
 
 import './UserPopover.scss';
+import useAutoplay from '../../../services/hooks/useAutoplay';
 
 const UserPopover: React.FC = observer(() => {
   const [currentRate, setCurrentRate] = useState<number>(0);
   const { modals, user } = useMst();
+  const { autoplay, toggleAutoplay } = useAutoplay();
   const walletConnector = useWalletConnectorContext();
 
   const handleOpenModal = (): void => {
@@ -106,11 +108,10 @@ const UserPopover: React.FC = observer(() => {
         <Link to="/profile" className="u-popover__nav-item text-bold text-black">
           Edit profile
         </Link>
-        {/*
         <div className="u-popover__nav-item text-bold text-black">
           <span>Autoplay</span>
-          <Switch />
-        </div> */}
+          <Switch checked={autoplay} onChange={toggleAutoplay} />
+        </div>
         <div
           className="u-popover__nav-item text-bold text-black text-hover"
           onClick={handleDisconnect}

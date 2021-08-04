@@ -64,7 +64,7 @@ export const User = types
       self.id = '';
       delete localStorage.dds_token;
       delete localStorage.dds_metamask;
-    };
+     };
     const getMe = flow(function* getMe() {
       try {
         const { data } = yield userApi.getMe();

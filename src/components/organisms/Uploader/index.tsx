@@ -5,6 +5,7 @@ import { useFormikContext } from 'formik';
 import ClearImg from '../../../assets/img/icons/uploader-cross.svg';
 import { Button } from '../../atoms';
 import { IColorScheme, ISize } from '../../atoms/Button';
+import useAutoplay from '../../../services/hooks/useAutoplay';
 
 const { Dragger } = Upload;
 
@@ -13,6 +14,7 @@ interface IUploader extends IColorScheme, ISize {
   handleUpload?: (file: any) => void;
   className?: string;
   isLoading?: boolean;
+  isVideoAllowed?: boolean;
 }
 
 const Uploader: React.FC<IUploader> = ({
@@ -23,9 +25,12 @@ const Uploader: React.FC<IUploader> = ({
   className,
   handleUpload,
   children,
+  isVideoAllowed,
 }) => {
+  const { autoplay } = useAutoplay();
   const formik = useFormikContext();
   const [imageUrl, setImageUrl] = React.useState('');
+  const [isVideo, setIsVideo] = React.useState(false);
   const getBase64 = (img: any, callback: any) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
@@ -39,9 +44,15 @@ const Uploader: React.FC<IUploader> = ({
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'image/webp' ||
-      file.type === 'image/gif';
+      file.type === 'image/gif' ||
+      (isVideoAllowed && file.type === 'video/mp4');
     if (!isValidType) {
-      message.error('You can only upload JPG/PNG/WEBP/GIF file!');
+      message.error(`You can only upload JPG/PNG/WEBP/GIF${isVideoAllowed ? '/MP4' : ''} file!`);
+    }
+    if (file.type === 'video/mp4') {
+      setIsVideo(true);
+    } else {
+      setIsVideo(false);
     }
     const isLt2M = file.size / 1024 / 1024 <= 30;
     if (!isLt2M) {
@@ -54,9 +65,15 @@ const Uploader: React.FC<IUploader> = ({
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
       file.type === 'image/webp' ||
-      file.type === 'image/gif';
+      file.type === 'image/gif' ||
+      (isVideoAllowed && file.type === 'video/mp4');
     if (!isValidType) {
       return;
+    }
+    if (file.type === 'video/mp4') {
+      setIsVideo(true);
+    } else {
+      setIsVideo(false);
     }
     const isLt2M = file.size / 1024 / 1024 < 30;
     if (!isLt2M) {
@@ -84,7 +101,17 @@ const Uploader: React.FC<IUploader> = ({
             multiple={false}
             showUploadList={false}
           >
-            {imageUrl ? <img src={imageUrl} alt="" className="uploader__img" /> : children}
+            {!isVideo &&
+              (imageUrl ? <img src={imageUrl} alt="" className="uploader__img" /> : children)}
+            {isVideo &&
+              (imageUrl ? (
+                <video className="uploader__img" controls autoPlay={autoplay}>
+                  <source src={imageUrl} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+                  <track kind="captions" />
+                </video>
+              ) : (
+                children
+              ))}
           </Dragger>
           {imageUrl ? (
             <div

@@ -77,7 +77,7 @@ class ChooseCollection extends React.Component<any, any, any> {
   changeCollection(id: string) {
     if (this.props.formik.values.collectionId !== id) {
       this.setState({
-        activeCollection: +id,
+        activeCollection: id,
       });
 
       this.props.formik.setFieldValue('collectionId', id);

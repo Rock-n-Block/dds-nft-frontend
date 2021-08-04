@@ -3,6 +3,7 @@ import nextId from 'react-id-generator';
 import { Link } from 'react-router-dom';
 
 import { UserMini } from '../../atoms';
+import useAutoplay from '../../../services/hooks/useAutoplay';
 
 import './HotCollectionCard.scss';
 
@@ -25,6 +26,27 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({
   user,
   notDisplayUser = false,
 }) => {
+  const { autoplay } = useAutoplay();
+  const renderImg = (index: any) => {
+    let result;
+    if (
+      tokens[index].slice(0, tokens[index].indexOf('/')) === 'data:image' ||
+      tokens[index].slice(tokens[index].lastIndexOf('.'), tokens[index].length) !== '.mp4'
+    )
+      result = 
+      <img src={`https://${tokens[index]}`} alt="token" />
+    if (
+      tokens[index].slice(0, tokens[index].indexOf('/')) === 'data:video' ||
+      tokens[index].slice(tokens[index].lastIndexOf('.'), tokens[index].length) === '.mp4'
+    )
+      result = (
+        <video controls autoPlay={autoplay}>
+          <source src={tokens[index]} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+          <track kind="captions" />
+        </video>
+      );
+    return result  
+  };
   return (
     <div className="hot-col-card">
       <Link to={`/collections/${id}`} className="hot-col-card__box">
@@ -32,7 +54,7 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({
           if (tokens[index]) {
             return (
               <div key={nextId()} className="hot-col-card__box-img">
-                <img src={`https://${tokens[index]}`} alt="token" />
+                {renderImg(index)}
               </div>
             );
           }

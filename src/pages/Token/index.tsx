@@ -20,6 +20,7 @@ import { useWalletConnectorContext } from '../../services/walletConnect';
 import web3Config from '../../services/web3/config';
 import { useMst } from '../../store/store';
 import metamaskService from '../../services/web3';
+import useAutoplay from '../../services/hooks/useAutoplay';
 
 import './Token.scss';
 import { Popover } from 'antd';
@@ -111,6 +112,7 @@ const Token: React.FC = observer(() => {
   const [isApproved, setApproved] = React.useState<boolean>(false);
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [isMyToken, setMyToken] = React.useState<boolean>(false);
+  const { autoplay } = useAutoplay();
 
   const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -447,6 +449,29 @@ const Token: React.FC = observer(() => {
       });
   };
 
+  const renderImg = () => {
+    let result;
+    if (tokenData.media) {
+      if (
+        tokenData.media.slice(tokenData.media.lastIndexOf('.'), tokenData.media.length) !== '.mp4'
+      )
+        result = <img src={`https://${tokenData.media}`} alt="" className="token__preview-img" />;
+      if (
+        tokenData.media.slice(tokenData.media.lastIndexOf('.'), tokenData.media.length) === '.mp4'
+      )
+        result = (
+          <video className="token__preview-img" controls autoPlay={autoplay}>
+            <source
+              src={`https://${tokenData.media}`}
+              type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+            />
+            <track kind="captions" />
+          </video>
+        );
+    }
+    return result;
+  };
+
   useEffect(() => {
     handleGetTokenData();
   }, [handleGetTokenData, token]);
@@ -483,9 +508,7 @@ const Token: React.FC = observer(() => {
 
   return (
     <div className="token">
-      <div className="token__preview">
-        <img src={`https://${tokenData.media}`} alt="" className="token__preview-img" />
-      </div>
+      <div className="token__preview">{renderImg()}</div>
       <div className="row">
         <div className="token__content">
           <div className="token__content-left">

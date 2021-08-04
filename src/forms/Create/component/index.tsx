@@ -89,8 +89,8 @@ const CreateForm: React.FC<FormikProps<ICreateForm> & ICreateForm> = observer(
                 validateStatus={validateField('img', touched, errors)}
                 help={!touched.img ? false : errors.img}
               >
-                <Uploader>
-                  <span className="text-gray-l text-smd text-bold">PNG, GIF, WEBP. Max 30mb.</span>
+                <Uploader isVideoAllowed>
+                  <span className="text-gray-l text-smd text-bold">PNG, GIF, WEBP, MP4. Max 30mb.</span>
                 </Uploader>
               </Form.Item>
             </div>
