@@ -105,7 +105,7 @@ const Uploader: React.FC<IUploader> = ({
               (imageUrl ? <img src={imageUrl} alt="" className="uploader__img" /> : children)}
             {isVideo &&
               (imageUrl ? (
-                <video className="uploader__img" controls autoPlay={autoplay === 'true'}>
+                <video className="uploader__img" controls autoPlay={autoplay}>
                   <source src={imageUrl} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                   <track kind="captions" />
                 </video>

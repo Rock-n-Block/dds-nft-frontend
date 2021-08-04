@@ -460,7 +460,7 @@ const Token: React.FC = observer(() => {
         tokenData.media.slice(tokenData.media.lastIndexOf('.'), tokenData.media.length) === '.mp4'
       )
         result = (
-          <video className="token__preview-img" controls autoPlay={autoplay === 'true'}>
+          <video className="token__preview-img" controls autoPlay={autoplay}>
             <source
               src={`https://${tokenData.media}`}
               type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'

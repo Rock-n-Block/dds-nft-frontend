@@ -40,7 +40,7 @@ const HotCollectionCard: React.FC<IHotCollectionCard> = ({
       tokens[index].slice(tokens[index].lastIndexOf('.'), tokens[index].length) === '.mp4'
     )
       result = (
-        <video controls autoPlay={autoplay === 'true'}>
+        <video controls autoPlay={autoplay}>
           <source src={tokens[index]} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
           <track kind="captions" />
         </video>

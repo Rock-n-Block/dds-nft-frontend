@@ -98,7 +98,7 @@ const NFTCard: React.FC<INFTCard> = observer(
         img.slice(img.lastIndexOf('.'), img.length) === '.mp4'
       )
         result = (
-          <video controls autoPlay={autoplay === 'true'}>
+          <video controls autoPlay={autoplay}>
             <source src={img} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
             <track kind="captions" />
           </video>

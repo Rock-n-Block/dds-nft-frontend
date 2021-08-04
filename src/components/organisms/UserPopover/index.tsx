@@ -110,7 +110,7 @@ const UserPopover: React.FC = observer(() => {
         </Link>
         <div className="u-popover__nav-item text-bold text-black">
           <span>Autoplay</span>
-          <Switch checked={autoplay === 'true'} onChange={toggleAutoplay} />
+          <Switch checked={autoplay} onChange={toggleAutoplay} />
         </div>
         <div
           className="u-popover__nav-item text-bold text-black text-hover"
